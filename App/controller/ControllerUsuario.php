@@ -35,25 +35,42 @@ class ControllerUsuario{
            $cpfUsuario = $_POST["cpf"];
            $senhaUsuario = $_POST["senha"]; 
            $this->mdUser = new ModelUsuario(0, $cpfUsuario, "", "", "", "", $senhaUsuario, "");
+           //usuario existe
            if($this->mdUser->buscarUsuario()) {
-            $usuario = ['cpf' => $cpfUsuario, 'senha' => $senhaUsuario, 'computedString' => 'Ola, ' . $this->mdUser->getNomeUsuario()];  
-             if(json_encode($usuario) != '') {
-                //Retorna a representação JSON de um valor
-                echo json_encode($usuario);
-             }else{
-                //echo "Usuario correto, Login efetuado, mas não codificou em json! </br>";
-                $erroStrJson = ['erro' => 'usuario correto, Login efetuado, json não codificado!', 'error' => true];
-                echo json_encode($erroStrJson);
-             }   
+                $usuario = ['cpf' => $cpfUsuario, 'senha' => $senhaUsuario, 'computedString' => 'Ola, ' . $this->mdUser->getNomeUsuario(), 'location' => 'PainelControle.php'];  
+                //pode logar usuario na sessão 
+                if(json_encode($usuario) != '') {
+                    //abre a sessão
+                    if(session_start()){
+                        //caso o objeto do usuario não esteja salvo na seção
+                        if(!isset($_SESSION["usuario_logado"])) {
+                            //passa objeto model para session serializado e depois quando for usar desserializar ele
+                            //add essa informação do usuario na seção atual
+                            //não pode serializar objet pdo
+                            $_SESSION["usuario_logado"] = serialize($this->mdUser);
+                            //Retorna a representação JSON de um valor como um response
+                            //echo serialize($this->mdUser);
+                            echo json_encode($usuario);
+                            exit;
+                        }else if(json_encode($usuario) != ''){
+                            //echo $this->mdUser->getEmailUsuario();
+                            //se o objeto ja tiver salvo
+                            //echo serialize($this->mdUser);
+                            echo json_encode($usuario);
+                        }   
+                    }else if(json_encode($usuario) != '') {
+                        //seção não abriu houve algum erro
+                        echo "Erro ao abrir seção! </br>";
+                    }       
+                }
            }else{
-               $erroStrJson = ['erro' => 'usuario incorreto, se cadastre no sistema!', 'error' => true];
+               //usuario não existe ou dados incorretos
+               $erroStrJson = ['erro' => 'usuario incorreto, preencha os campos corretamente!', 'error' => true];
                echo json_encode($erroStrJson);
-               //echo "Usuario incorreto, erro em algum lugar ou Usuario não esta cadastrado! </br>";
            }
         }else{
             $erroStrJson = ['erro' => 'ControllerUsuario não captou a request!', 'error' => true];
             echo json_encode($erroStrJson);
-            //echo "Não consegui captar requisição! </br>";
         }
     }
 

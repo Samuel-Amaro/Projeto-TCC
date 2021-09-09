@@ -25,3 +25,9 @@ UPDATE usuario SET nome_usuario = 'Adm Sistema' WHERE id_usuario = 1;
 
 -- add uma restrição a coluna nome_contato
 ALTER TABLE usuario ALTER COLUMN nome_usuario SET NOT NULL;
+
+--add uma constraint UNIQUE na coluna cpf, cada registro ser unico
+CREATE UNIQUE INDEX CONCURRENTLY indice_exc_cpf ON usuario(cpf_usuario);
+
+-- add a constraint UNIQUE na coluna cpf
+ALTER TABLE usuario ADD CONSTRAINT unique_cpf UNIQUE USING INDEX indice_exc_cpf;
