@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de cadastro do usuário</title>
+    <link rel="stylesheet" href="../../Public/css/estilo_form_usuario.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <script type="text/javascript" src="../../Public/scripts/jquery-1.2.6.pack.js"></script>
+    <script type="text/javascript" src="../../Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
+</head>
+<body>
+    <main class="content">
+        <div class="flex-container">
+            <header class="conteiner-description">
+                <div class="conteiner-h2">
+                    <h2>Criar conta usuário</h2>
+                </div>
+                <div class="conteiner-p">
+                    <p>Ao cadastrar um novo usuário se atente ao tipo de usuário que estará cadastrando isso poderá dar permissões que você não queira a pessoas não confiáveis.</p>
+                </div>
+            </header>
+            <form action="" method="post" name="form_login" id="form_login" title="Formulario de cadastro de um novo usuario">
+                <div class="container-row-not-flex">
+                    <label for="nome" id="labels">Nome Completo</label>
+                    <input type="text" name="nome" id="nome" title="Informe seu nome completo" required placeholder="Informe seu nome completo">
+                </div>
+                <div class="linha-grupo-label">
+                    <label for="cpf" class="labels-flex-group-1">CPF</label>
+                    <label for="celular" class="labels-flex-group-1">Telefone Pessoal</label>
+                </div>
+                <div class="linha-grupo-inputs">
+                    <input type="text" name="cpf" id="cpf" class="primeiro-input" title="Informe somente os numeros de seu cpf" required placeholder="Informe Seu cpf somente numeros">
+                    <input type="text" name="telefone" id="telefone" class="segundo-input" required title="Informe somente os numeros de seu telefone, incluindo DD" placeholder="Informe seu telefone somente numeros" maxlength="15">
+                </div>
+                <div class="linha-grupo-label">
+                    <label for="email" id="labels-flex">Email Pessoal</label>
+                    <label for="cargo" id="labels-flex">Cargo ou Função</label>
+                </div>
+                <div class="linha-grupo-inputs">
+                    <input type="email" name="email" id="email" class="primeiro-input" title="Informe seu email pessoal por favor" required placeholder="Informe seu email email@dominio.com">
+                    <input type="text" name="cargo" id="cargo" class="segundo-input" title="Informe o cargo ou função que você exerce dentro da instituição" required placeholder="Informe cargo ou função">
+                </div>
+                <div class="linha-grupo-label">
+                    <label for="tipo" id="labels-flex">Tipo usuário</label>
+                    <label for="senha" id="labels-flex">Senha</label>
+                </div>
+                <div class="linha-grupo-inputs">
+                    <select name="tipo" id="tipo" required title="Escolha o tipo de perfil de usuário que satisfará o objetivo do usuário em utilizar o sistema, lembre-se de acordo com o tipo de usuário existem funcionalidades no sistema que certos perfis não poderão utilizar.
+                    " class="primeiro-input">
+                        <option value="adm">Administrador</option>
+                        <option value="comun">Comun</option>
+                    </select>
+                    <input type="password" name="senha" id="senha" required title="Informe uma senha válida entre 6 a 12 caracteres válidos." class="segundo-input" placeholder="Informe uma senha" minlength="6" maxlength="12">
+                </div>
+                <div class="conteiner-buttons">
+                    <a href="#" id="link"> <i class="fas fa-arrow-left"></i> Voltar</a>
+                    <input type="submit" value="Cadastrar" id="button">
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="../../Public/scripts/form-usuario.js"></script>
+</body>
+</html>
