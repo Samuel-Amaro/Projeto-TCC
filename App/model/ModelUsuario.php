@@ -32,6 +32,9 @@ class ModelUsuario{
     public function getDataCadastroUsuario() {
         return $this->data_cadastro_usuario;
     }
+    public function setDataCadastroUsuario($data) {
+        $this->data_cadastro_usuario = $data;
+    }
     public function setIdUsuario(int $id) {
         $this->id_usuario = $id;
     }
@@ -98,7 +101,6 @@ class ModelUsuario{
     /**
      * metodo magico para visualizar propriedades da classe
     */
-    /*
     public function __toString()
     {
         $str = "
@@ -117,6 +119,9 @@ class ModelUsuario{
         ";
         return $str;
     }
+
+    /**
+     * este metodo busca um usuario e aplica as regras de negocio 
     */
     public function buscarUsuario() {
         $this->daoUser = new DaoUsuario($this->db);
@@ -160,25 +165,29 @@ class ModelUsuario{
     */
     public function __serialize(): array
     {
-      $usuario = ['id_usuario' => $this->id_usuario, 'cpf_usuario' => $this->cpf_usuario, 'celular_usuario' => $this->celular_usuario, 'email_usuario' => $this->email_usuario, 'cargo_usuario' => $this->cargo_usuario, 'tipo_usuario' => $this->tipo_usuario, 'senha_usuario' => $this->senha_usuario, 'data_cadastro_usuario' => $this->data_cadastro_usuario, 'nome_usuario' => $this->nome_usuario];
-      return $usuario;     
+      if(is_null($this->email_usuario)) {
+         print_r("Email E null </br>");
+      }else{
+        $usuario = ['id_usuario' => $this->id_usuario, 'cpf_usuario' => $this->cpf_usuario, 'celular_usuario' => $this->celular_usuario, 'email_usuario' => $this->email_usuario, 'cargo_usuario' => $this->cargo_usuario, 'tipo_usuario' => $this->tipo_usuario, 'senha_usuario' => $this->senha_usuario, 'data_cadastro_usuario' => $this->data_cadastro_usuario, 'nome_usuario' => $this->nome_usuario];
+        return $usuario;  
+      }
     }
+
     /*
      - metodo responsavel por inicializar as propriedades no objeto apos ser desserializado
     */
     public function __unserialize(array $data): void
     {
-       $this->id_usuario = $data["id_usuario"];
-       $this->cpf_usuario = $data["cpf_usuario"];
-       $this->celular_usuario = $data["celular_usuario"]; 
-       $this->email_usuario = $data["email_usuario"];
-       $this->cargo_usuario = $data["cargo_usuario"];
-       $this->tipo_usuario = $data["tipo_usuario"];
-       $this->senha_usuario = $data["senha_usuario"];
-       $this->data_cadastro_usuario = $data["data_cadastro_usuario"];
-       $this->nome_usuario = $data["nome_usuario"];
+        $this->id_usuario = $data["id_usuario"];
+        $this->cpf_usuario = $data["cpf_usuario"];
+        $this->celular_usuario = $data["celular_usuario"]; 
+        $this->email_usuario = $data["email_usuario"];
+        $this->cargo_usuario = $data["cargo_usuario"];
+        $this->tipo_usuario = $data["tipo_usuario"];
+        $this->senha_usuario = $data["senha_usuario"];
+        $this->data_cadastro_usuario = $data["data_cadastro_usuario"];
+        $this->nome_usuario = $data["nome_usuario"];
     }
-   
 }
 
 ?>

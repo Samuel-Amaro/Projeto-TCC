@@ -45,18 +45,21 @@ class ControllerUsuario{
                         //caso o objeto do usuario não esteja salvo na seção
                         if(!isset($_SESSION["usuario_logado"])) {
                             //passa objeto model para session serializado e depois quando for usar desserializar ele
-                            //add essa informação do usuario na seção atual
-                            //não pode serializar objet pdo
+                            //hora e data na ao entrar no sistema marcados na session
                             $_SESSION["usuario_logado"] = serialize($this->mdUser);
                             //Retorna a representação JSON de um valor como um response
-                            //echo serialize($this->mdUser);
                             echo json_encode($usuario);
                             exit;
                         }else if(json_encode($usuario) != ''){
-                            //echo $this->mdUser->getEmailUsuario();
-                            //se o objeto ja tiver salvo
-                            //echo serialize($this->mdUser);
-                            echo json_encode($usuario);
+                            //if(session_destroy()) {
+                                //echo $this->mdUser->getEmailUsuario();
+                                //se o objeto ja tiver salvo
+                                //echo serialize($this->mdUser);
+                                echo json_encode($usuario);
+                           // }else{
+                            //    print_r("Seção Não destruida!");
+                           // }
+                            
                         }   
                     }else if(json_encode($usuario) != '') {
                         //seção não abriu houve algum erro

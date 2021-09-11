@@ -10,14 +10,10 @@ if(session_start()) {
         exit;
     }else{
         //se ja existir o dado do usuario logado na session, intanciar um model
+        //desserializar o objeto model setado na seção
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
-        //var_dump($arrayUserDesserializado);
-        //echo $arrayUserDesserializado;
-        //echo $arrayUserDesserializado->getIdUsuario();
-        //echo $arrayUserDesserializado->getNomeUsuario();        
-        //echo $arrayUserDesserializado->getEmailUsuario();
-        //$modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
-        //echo $modelUser->__toString();
+        $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
+        $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
     }
 }
 ?>
@@ -38,7 +34,7 @@ if(session_start()) {
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Central Cestas</a>
+            <a class="navbar-brand ps-3" href="PainelControle.php">Central Cestas</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -67,7 +63,7 @@ if(session_start()) {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="PainelControle.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Registros
                             </a>
@@ -117,7 +113,10 @@ if(session_start()) {
                             </a>
                             <!--Usuarios(Coolaboradores)-->
                             <div class="sb-sidenav-menu-heading">Usuários</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <!--
+                                data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"
+                            -->
+                            <a class="nav-link collapsed" href="FormUsuario.php" target="_self" rel="next">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Cadastrar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -188,7 +187,7 @@ if(session_start()) {
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logado como: <?= $modelUser->getNomeUsuario(); ?></div>
+                        <div class="small">Logado como: <?= $arrayUserDesserializado->getNomeUsuario(); ?></div>
                     </div>
                 </nav>
             </div>

@@ -51,7 +51,7 @@ div.conteiner-p p{
     font-weight: 100;
     color: var(--cor_05);
 }
-form#form_login{
+form#form_usuario{
     margin-top: 15px;
     margin-right: 15px;
     margin-bottom: 25px;

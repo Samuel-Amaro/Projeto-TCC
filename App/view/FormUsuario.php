@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de cadastro do usuário</title>
+    <meta name="description" content="Pagina de cadastro para novos usuarios serem permitidos de usarem o sistema.">
+    <meta name="keywords" content="Cadastro, Central Cestas, Pagina Cadastro, Cadastrar Usuario">
+    <meta name="author" content="Samuel Amaro">
     <link rel="stylesheet" href="../../Public/css/estilo_form_usuario.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <script type="text/javascript" src="../../Public/scripts/jquery-1.2.6.pack.js"></script>
@@ -21,7 +24,7 @@
                     <p>Ao cadastrar um novo usuário se atente ao tipo de usuário que estará cadastrando isso poderá dar permissões que você não queira a pessoas não confiáveis.</p>
                 </div>
             </header>
-            <form action="" method="post" name="form_login" id="form_login" title="Formulario de cadastro de um novo usuario">
+            <form action="" method="POST" name="form_usuario" id="form_usuario" title="Formulario de cadastro de um novo usuario" enctype="multipart/form-data" accept-charset="utf8" autocomplete="on">
                 <div class="container-row-not-flex">
                     <label for="nome" id="labels">Nome Completo</label>
                     <input type="text" name="nome" id="nome" title="Informe seu nome completo" required placeholder="Informe seu nome completo">
@@ -55,15 +58,12 @@
                     <input type="password" name="senha" id="senha" required title="Informe uma senha válida entre 6 a 12 caracteres válidos." class="segundo-input" placeholder="Informe uma senha" minlength="6" maxlength="12">
                 </div>
                 <div class="conteiner-buttons">
-                    <a href="#" id="link"> <i class="fas fa-arrow-left"></i> Voltar</a>
+                    <a href="PainelControle.php" target="_self" rel="next" id="link"> <i class="fas fa-arrow-left"></i> Voltar</a>
                     <input type="submit" value="Cadastrar" id="button">
                 </div>
             </form>
         </div>
     </main>
-    <footer>
-
-    </footer>
     <script src="../../Public/scripts/form-usuario.js"></script>
 </body>
 </html>
