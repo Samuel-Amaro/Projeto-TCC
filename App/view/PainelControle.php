@@ -187,7 +187,7 @@ if(session_start()) {
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logado como: <?= $arrayUserDesserializado->getNomeUsuario(); ?></div>
+                        <div class="small">Logado como: <?= $modelUser->getNomeUsuario(); ?></div>
                     </div>
                 </nav>
             </div>

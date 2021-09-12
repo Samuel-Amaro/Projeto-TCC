@@ -52,14 +52,15 @@ class ControllerUsuario{
                             exit;
                         }else if(json_encode($usuario) != ''){
                             //if(session_destroy()) {
+                                $_SESSION["usuario_logado"] = serialize($this->mdUser);
+                                //echo $this->mdUser->__toString();
                                 //echo $this->mdUser->getEmailUsuario();
                                 //se o objeto ja tiver salvo
                                 //echo serialize($this->mdUser);
                                 echo json_encode($usuario);
                            // }else{
                             //    print_r("Seção Não destruida!");
-                           // }
-                            
+                           // }  
                         }   
                     }else if(json_encode($usuario) != '') {
                         //seção não abriu houve algum erro
@@ -79,13 +80,14 @@ class ControllerUsuario{
 
     public function cadastro($methodHttp) {
         if($methodHttp === "POST") {
-           $cpf = "001.432.123-00";  
-           $tel = "61990123254";
-           $email = "user@uol.com";
-           $cargo = "colaborador";   
-           $tipo_usuario = "comun";
-           $senha = "123";
-           $nome = "Dev Teste";
+           $nomeUsuario = $_POST["nome"];
+           $cpfUsuario = $_POST["cpf"];
+           $telefoneUsuario = $_POST["telefone"];
+           $emailUsuario = $_POST["email"];
+           $cargoUsuario = $_POST["cargo"];
+           $tipoUsuario = $_POST["tipo"];
+           $senhaUsuario = $_POST["senha"];
+           //chamar o model e fazer o cadastro, validar email com filter, e depois mandar o response com o json para o front e depois, implementar um ajax no email, para informar um email valido enquanto estiver digitando no input, issso e opcional, e depois implementar as funcionalidade de cadastrar e alterar usuario somente se o usuario logado for administrador, e usuario não adm não pode cadastrar, alterar ou visualizar usuario cadastrados, implementar uma view para visualizar os cadastros de usuarios;
         }else{
 
         }

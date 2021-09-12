@@ -25,6 +25,7 @@
                 </div>
             </header>
             <form action="" method="POST" name="form_usuario" id="form_usuario" title="Formulario de cadastro de um novo usuario" enctype="multipart/form-data" accept-charset="utf8" autocomplete="on">
+                <input type="hidden" name="operacao" value="cadastro">
                 <div class="container-row-not-flex">
                     <label for="nome" id="labels">Nome Completo</label>
                     <input type="text" name="nome" id="nome" title="Informe seu nome completo" required placeholder="Informe seu nome completo">
@@ -64,6 +65,19 @@
             </form>
         </div>
     </main>
+    <div class="conteiner-modal">
+            <div class="conteiner-header-modal">
+                <h3 class="titulo-modal"></h3>
+            </div>
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p class="msg-content"></p>
+            </div>
+            <div class="conteiner-footer-modal">
+                <a href="#" id="button-1-modal" target="_self" rel="next"></a>
+                <a href="#" target="_self" rel="next" id="button-2-modal"></a>
+            </div>
+    </div>
     <script src="../../Public/scripts/form-usuario.js"></script>
 </body>
 </html>
