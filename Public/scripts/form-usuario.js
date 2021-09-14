@@ -43,16 +43,31 @@ inputSubmitForm.addEventListener("submit", function(event) {
     let senha = document.querySelector('input[type=\"password\"]#senha').value;
     //console.log(nome + " " + tiraMascaraCPF(cpf) + " " + tiraMascaraTel(telefone) + " " + email + " " + cargo + " " + tipo + " " + senha);
     if(makeRequest("../controller/ControllerUsuario.php", nome, cpf, telefone, email, cargo, tipo, senha) === 1) {
-       mostraModal("Formulario enviado com Sucesso!", "Formulario Enviado", "OK", "Sair");
+       event.preventDefault();
     }else{
         //mostra modal com erro
-        event.preventDefault();
+         mostraModal("Formulario não enviado!", "usuario não cadastrado, obtemos um erro no nosso sistema, agurde uns instantes e tente novamente mais tarde!", "OK", "Sair", "error");
+         event.preventDefault();
     }
     
     
 });
 
-function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2) {
+function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
+    if(tipo == "sucesso") {
+        let divsModal = document.querySelectorAll(".alert-success");
+        divsModal.forEach(element => {
+            element.style.backgroundColor = "#d4edda";
+            element.style.color = "#155724";
+        });
+    }else{
+        let divsModal = document.querySelectorAll(".alert-warning");
+        divsModal.forEach(element => {
+            element.style.backgroundColor = "#f8d7da";
+            element.style.color = "#721c24";
+        });
+    }
+
     let titleModal = document.querySelector(".titulo-modal");
     let btn1Modal = document.querySelector("#button-1-modal");
     let btn2Modal = document.querySelector("#button-2-modal");
@@ -87,12 +102,8 @@ function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) {
             if(httpRequest.status === 200) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
-                    if(httpResponse.error === true) {
-                        return 0;
-                    }else{
-                        window.location = httpResponse.location;
-                        return 1;
-                    }
+                    mostraModal(httpResponse.computedString, "Resposta do servidor", "OK", "Sair", "sucesso");
+                    return 1;
                 } catch (error) {
                     console.error(error.message);
                     console.error(error.name);
@@ -113,13 +124,13 @@ function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) {
 function tiraMascaraCPF(cpf) {
     let cpfFormatado = cpf;
     let cpfParte1 = cpf.substr(0,3); //3 DIGITOS
-    console.log("PARTE 1: " + cpfParte1);
+    //console.log("PARTE 1: " + cpfParte1);
     let cpfParte2 = cpf.substr(4, 3); //3 DIGITOS
-    console.log("PARTE 2: " + cpfParte2);
+    //console.log("PARTE 2: " + cpfParte2);
     let cpfParte3 = cpf.substr(8,3); //3 DIGITOS
-    console.log("PARTE 3: " + cpfParte3);
+    //console.log("PARTE 3: " + cpfParte3);
     let cpfParte4 = cpf.substr(12,2); //2 DIGITOS
-    console.log("PARTE 4: " + cpfParte4);
+    //console.log("PARTE 4: " + cpfParte4);
     let cpfSemFormatacao = cpfParte1 + cpfParte2 + cpfParte3 + cpfParte4;
     return cpfSemFormatacao;
 }
@@ -131,3 +142,32 @@ function tiraMascaraTel(telefone) {
     let telParte3 = telefone.substr(11,4); //4 DIGITOS
     return telParte1 + telParte2 + telParte3;
 }
+
+
+//limita caracters do input nome
+var inputNome = document.querySelector("#nome");
+var spanLimit = document.querySelector(".limit-char");
+inputNome.addEventListener("keypress", function(e) {
+    var maxChars = 70;
+    inputLength = inputNome.value.length;
+    if(inputLength >= maxChars) {
+        e.preventDefault();
+        mostraModal("Quantidade de caracteres permitidos são de no maximo 70", "Limite de caracteres permitdos atingido", "Ok", "Sair", "warning");
+    }else{
+        //spanLimit.textContent = "Qtd Caracteres Digitados: " + inputLength;
+    }
+});
+
+//limita quantidade de caractes do campo cargo ou função
+let inputCargo = document.querySelector("#cargo");
+let spanLimitCargo = document.querySelector(".limit-char-cargo");
+inputCargo.addEventListener("keypress", function(e) {
+    var maxChars = 100;
+    inputLength = inputCargo.value.length;
+    if(inputLength >= maxChars) {
+        e.preventDefault();
+        mostraModal("Quantidade de caracteres permitidos são de no maximo 100", "Limite de caracteres permitdos atingido", "Ok", "Sair", "warning");
+    }else{
+        //spanLimitCargo.textContent = "Qtd Caracteres Digitados: " + inputLength;
+    }
+});

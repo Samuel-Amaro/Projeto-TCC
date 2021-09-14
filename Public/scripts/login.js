@@ -31,7 +31,7 @@ $(".form_login").submit(
         }else{
             //realiza login com AJAX
             //retorna true ou algo diferente de false, e porque deu certo
-            if(makeRequest('../controller/ControllerUsuario.php', cpf,  senha) === false) {
+            if(makeRequest('../controller/ControllerUsuario.php', tiraMascaraCPF(cpf), senha) === false) {
                 mostraModal("Falha ao Fazer Login com Ajax!");
                 //não submete o form
                 event.preventDefault();
@@ -86,13 +86,13 @@ function makeRequest(url, cpf, senha) {
 function tiraMascaraCPF(cpf) {
     let cpfFormatado = cpf;
     let cpfParte1 = cpf.substr(0,3);
-    console.log("PARTE 1: " + cpfParte1);
+    //console.log("PARTE 1: " + cpfParte1);
     let cpfParte2 = cpf.substr(4, 3);
-    console.log("PARTE 2: " + cpfParte2);
+    //console.log("PARTE 2: " + cpfParte2);
     let cpfParte3 = cpf.substr(8,3);
-    console.log("PARTE 3: " + cpfParte3);
+    //console.log("PARTE 3: " + cpfParte3);
     let cpfParte4 = cpf.substr(12,2);
-    console.log("PARTE 4: " + cpfParte4);
+    //console.log("PARTE 4: " + cpfParte4);
     let cpfSemFormatacao = cpfParte1 + cpfParte2 + cpfParte3 + cpfParte4;
     return cpfSemFormatacao;
 }

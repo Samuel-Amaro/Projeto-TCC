@@ -30,7 +30,7 @@ class DaoUsuario{
                 $stmt->execute($valores);
                 //executou consulta com sucesso
                 if($stmt) {
-                    echo "Inseriu {$stmt->rowCount()} linhas na tabela usuario! </br>";
+                    //echo "Inseriu {$stmt->rowCount()} linhas na tabela usuario! </br>";
                     $stmt = null;
                     $this->connection = null;
                     return true;
@@ -41,7 +41,7 @@ class DaoUsuario{
             } catch (PDOException $e) {
                 $stmt = null;
                 $this->connection = null;
-                print "Error!: falha ao preparar consulta insert usuario: " . $e->getMessage() . "</br>";
+                echo "Error!: falha ao preparar consulta insert usuario: <pre>" . $e->getMessage() . "</pre> </br>";
                 return null;
                 //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
                 die();
@@ -78,7 +78,7 @@ class DaoUsuario{
                    return false; 
                 }
             } catch (PDOException $e) {
-               print "Error!: falha ao executar consulta select usuario: " . $e->getMessage() . "</br>";
+               echo "Error!: falha ao executar consulta select usuario: <pre>" . $e->getMessage() . "</pre></br>";
                return false;
             }finally{
                 $stmt = null;

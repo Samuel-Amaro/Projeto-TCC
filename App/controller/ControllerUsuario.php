@@ -42,17 +42,20 @@ class ControllerUsuario{
                 if(json_encode($usuario) != '') {
                     //abre a sessão
                     if(session_start()){
+                        $date = new DateTime(null, new DateTimeZone('America/Sao_Paulo'));
                         //caso o objeto do usuario não esteja salvo na seção
                         if(!isset($_SESSION["usuario_logado"])) {
                             //passa objeto model para session serializado e depois quando for usar desserializar ele
                             //hora e data na ao entrar no sistema marcados na session
                             $_SESSION["usuario_logado"] = serialize($this->mdUser);
+                            $_SESSION["data_hora_login"] = $date->format("d/m/Y H:m:i");
                             //Retorna a representação JSON de um valor como um response
                             echo json_encode($usuario);
                             exit;
                         }else if(json_encode($usuario) != ''){
                             //if(session_destroy()) {
                                 $_SESSION["usuario_logado"] = serialize($this->mdUser);
+                                $_SESSION["data_hora_login"] = $date->format("d/m/Y H:m:i");
                                 //echo $this->mdUser->__toString();
                                 //echo $this->mdUser->getEmailUsuario();
                                 //se o objeto ja tiver salvo
@@ -80,16 +83,30 @@ class ControllerUsuario{
 
     public function cadastro($methodHttp) {
         if($methodHttp === "POST") {
-           $nomeUsuario = $_POST["nome"];
-           $cpfUsuario = $_POST["cpf"];
-           $telefoneUsuario = $_POST["telefone"];
-           $emailUsuario = $_POST["email"];
-           $cargoUsuario = $_POST["cargo"];
-           $tipoUsuario = $_POST["tipo"];
-           $senhaUsuario = $_POST["senha"];
-           //chamar o model e fazer o cadastro, validar email com filter, e depois mandar o response com o json para o front e depois, implementar um ajax no email, para informar um email valido enquanto estiver digitando no input, issso e opcional, e depois implementar as funcionalidade de cadastrar e alterar usuario somente se o usuario logado for administrador, e usuario não adm não pode cadastrar, alterar ou visualizar usuario cadastrados, implementar uma view para visualizar os cadastros de usuarios;
+           $this->mdUser = new ModelUsuario(0, $_POST["cpf"], $_POST["telefone"], $_POST["email"], $_POST["cargo"], $_POST["tipo"], $_POST["senha"], $_POST["nome"]);
+           if($this->mdUser->cadastrarUsuario()) {
+               try {
+                   $date = new DateTime(null, new DateTimeZone('America/Sao_Paulo'));
+                   $responseJson = ['computedString' => "Usuário com cpf " . $this->mdUser->getCpfUsuario() . " foi cadastrado com sucesso, no dia e  horário. " . $date->format("d/m/Y H:m:i")];
+                   echo json_encode($responseJson);
+               } catch (Exception $th) {
+                   echo "<pre>{$th->getMessage()}</pre>";
+               }
+           }else{
+                $responseJson = ['computedString' => "Usuário não foi cadastrado no banco de dados houve um erro do sistema!"];
+                echo json_encode($responseJson); 
+           }
         }else{
+            $responseJson = ['computedString' => "Usuário não foi cadastrado! method http não e do tipo POST!"];
+            echo json_encode($responseJson); 
+        }
+    }
 
+    private function validaEmail(string $email) {
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
+            return true;
+        }else{
+            return false;
         }
     }
 

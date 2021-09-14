@@ -28,7 +28,8 @@
                 <input type="hidden" name="operacao" value="cadastro">
                 <div class="container-row-not-flex">
                     <label for="nome" id="labels">Nome Completo</label>
-                    <input type="text" name="nome" id="nome" title="Informe seu nome completo" required placeholder="Informe seu nome completo">
+                    <input type="text" name="nome" id="nome" title="Informe seu nome completo" required placeholder="Informe seu nome completo" maxlength="70">
+                    <span class="limit-char"></span>
                 </div>
                 <div class="linha-grupo-label">
                     <label for="cpf" class="labels-flex-group-1">CPF</label>
@@ -44,7 +45,7 @@
                 </div>
                 <div class="linha-grupo-inputs">
                     <input type="email" name="email" id="email" class="primeiro-input" title="Informe seu email pessoal por favor" required placeholder="Informe seu email email@dominio.com">
-                    <input type="text" name="cargo" id="cargo" class="segundo-input" title="Informe o cargo ou função que você exerce dentro da instituição" required placeholder="Informe cargo ou função">
+                    <input type="text" name="cargo" id="cargo" class="segundo-input" title="Informe o cargo ou função que você exerce dentro da instituição" required placeholder="Informe cargo ou função" maxlength="100">
                 </div>
                 <div class="linha-grupo-label">
                     <label for="tipo" id="labels-flex">Tipo usuário</label>
@@ -66,16 +67,16 @@
         </div>
     </main>
     <div class="conteiner-modal">
-            <div class="conteiner-header-modal">
-                <h3 class="titulo-modal"></h3>
+            <div class="conteiner-header-modal alert-success alert-warning">
+                <h3 class="titulo-modal">Titulo Modal</h3>
             </div>
-            <div class="modal-content">
+            <div class="modal-content alert-success alert-warning">
                 <span class="close">&times;</span>
-                <p class="msg-content"></p>
+                <p class="msg-content">Mensagem do modal</p>
             </div>
-            <div class="conteiner-footer-modal">
-                <a href="#" id="button-1-modal" target="_self" rel="next"></a>
-                <a href="#" target="_self" rel="next" id="button-2-modal"></a>
+            <div class="conteiner-footer-modal alert-success alert-warning">
+                <a href="#" id="button-1-modal" target="_self" rel="next">Entrar</a>
+                <a href="#" target="_self" rel="next" id="button-2-modal">Sair</a>
             </div>
     </div>
     <script src="../../Public/scripts/form-usuario.js"></script>

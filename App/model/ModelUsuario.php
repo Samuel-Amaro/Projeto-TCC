@@ -90,7 +90,7 @@ class ModelUsuario{
     public function cadastrarUsuario() {
         $this->daoUser = new DaoUsuario($this->db);
         $passwordHash = md5($this->senha_usuario);
-        $resultInsert = $this->daoUser->insertUsuario($this->cpf_usuario, $this->celular_usuario, $this->email_usuario, $this->cargo_usuario, $this->tipo_usuario, $this->tipo_usuario, $this->senha_usuario, $passwordHash);
+        $resultInsert = $this->daoUser->insertUsuario($this->cpf_usuario, $this->celular_usuario, $this->email_usuario, $this->cargo_usuario, $this->tipo_usuario, $passwordHash, $this->nome_usuario);
         if($resultInsert) {
             return true;
         }else{
@@ -125,12 +125,11 @@ class ModelUsuario{
     */
     public function buscarUsuario() {
         $this->daoUser = new DaoUsuario($this->db);
-        //$passwordHash = md5($this->senha_usuario);
-        #$cpfSemForm = $this->tirarMascaraCpf($this->cpf_usuario);
-        $resultado = $this->daoUser->selectUsuario($this->cpf_usuario, $this->senha_usuario);
+        $passwordHash = md5($this->senha_usuario);
+        $resultado = $this->daoUser->selectUsuario($this->cpf_usuario, $passwordHash);
         if(is_array($resultado)) {
             foreach($resultado as $item) {
-                if($this->cpf_usuario == $item["cpf_usuario"] && $this->senha_usuario == $item["senha_usuario"]) {
+                if($this->cpf_usuario == $item["cpf_usuario"] && $passwordHash == $item["senha_usuario"]) {
                     $this->id_usuario = $item["id_usuario"];
                     $this->cpf_usuario = $item["cpf_usuario"];
                     $this->celular_usuario = $item["celular_usuario"];
@@ -188,6 +187,8 @@ class ModelUsuario{
         $this->data_cadastro_usuario = $data["data_cadastro_usuario"];
         $this->nome_usuario = $data["nome_usuario"];
     }
+
+
 }
 
 ?>

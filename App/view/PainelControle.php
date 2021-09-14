@@ -131,7 +131,8 @@ if(session_start()) {
                                 Deletar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
+                            <a class="nav-link collapsed" href="Usuarios.php" target="_self" rel="next">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Visualizar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -259,7 +260,7 @@ if(session_start()) {
                             </div>
                         </div>
                         -->
-                        <!-- exemplo de tabela
+                        <!-- exemplo de tabela 
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>

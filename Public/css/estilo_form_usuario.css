@@ -12,6 +12,10 @@
     --cor_03: #ced4da;
     --cor_04: #fff;
     --cor_05: #3D3D3D;
+    --cor_alert_suces: #d4edda;
+    --cor_font_suces: #155724; 
+    --cor_alert_error: #f8d7da;
+    --cor_font_error: #721c24;
 }
 body{
     font-family: 'Noto Sans JP', sans-serif;
@@ -374,9 +378,23 @@ span.close:hover, span.close:focus{
     cursor: pointer;
 }
 
+div.alert-success{
+    background-color: var(--cor_alert_suces);
+    color: var(--cor_font_suces);
+}
 
+div.alert-warning{
+    background-color: var(--cor_alert_error);
+    color: var(--cor_font_error);
+}
 
-
+/**************************SPAN LIMITADOR DE CARACRES
+**********************************************/
+span.limit-char{
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 15px;
+}
 /********************MEDIA QUERY RESPONSIVIDADE************************************************/
 @media screen and (max-width: 700px) {
     div.flex-container{
