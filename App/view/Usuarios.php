@@ -23,7 +23,11 @@ if(session_start()) {
         <meta name="description" content="Pagina de visualização de usuarios"/>
         <meta name="author" content="Samuel Amaro"/>
         <title>Visualizar Usuarios</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <!--ESTILO DO PLUGIN DATA TABLES, SEM DEPENDENCIA DE JQURY-->
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+        <!--estilo tabela da datables-->
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">
+        -->
         <link href="../../Public/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -133,7 +137,25 @@ if(session_start()) {
                             <li class="breadcrumb-item active">Usuários</li>
                         </ol>
                         <div class="card mb-4">
-                            <div class="card-body">Usuários ativos no sistema, caso queira alterar, ou excluir um usuário selecione uma linha da tabela abaixo.</div>
+                            <div class="card-body">Usuários ativos no sistema.</div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <p>Se achar necessario fazer o download da tabela mostrada abaixo, selecione uma das opções abaixo e clique no botão azul!</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="m-2">
+                                    <label for="tipo">Formato Arquivo:</label>
+                                    <select name="tipo" id="tipo-file">
+                                        <option value="sql">SQL</option>
+                                        <option value="json">JSON</option>
+                                        <option value="csv">CSV</option>
+                                        <option value="txt">TXT</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary m-2 baixa-tabela" type="button">Fazer Download Arquivo</button>
+                                <div class="alert alert-danger" role="danger" style="display: none;"></div>
+                            </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -144,37 +166,25 @@ if(session_start()) {
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
                                             <th>CPF</th>
                                             <th>Celular</th>
                                             <th>Email</th>
                                             <th>Cargo</th>
                                             <th>Tipo</th>
-                                            <th>Data Cadastro</th>
                                             <th>Nome</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        <th>Id</th>
                                             <th>CPF</th>
                                             <th>Celular</th>
                                             <th>Email</th>
                                             <th>Cargo</th>
                                             <th>Tipo</th>
-                                            <th>Data Cadastro</th>
                                             <th>Nome</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -199,7 +209,18 @@ if(session_start()) {
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+        <!--
         <script src="../../Public/scripts/datatables-simple-demo.js"></script>
+        -->
+        <!--CDN PLUGIN DATATABLE SEM A DEPENDENCIA DO JQUERY SOMENTE COM VANILA JS -->
+        <!--java script do datables-->
+        <!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
+        -->
+        <!--JQUERY VERSION 3.6.0-->
+        <!--<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+        -->
+        <script src="../../Public/scripts/usuarios.js"></script>
     </body>
 </html>

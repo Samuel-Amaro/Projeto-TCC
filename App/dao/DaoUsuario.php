@@ -87,6 +87,43 @@ class DaoUsuario{
         }
     }
 
+    /**
+     * retorna todos as linhas de resultado na tabela usuario 
+    */
+    public function selectUsuarios() {
+        if(is_null($this->connection)) {
+            return false;
+            die();
+        }else{
+            try {
+                $sql = "SELECT cpf_usuario, celular_usuario, email_usuario, cargo_usuario, tipo_usuario, nome_usuario FROM usuario;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    if(empty($resultado)) {
+                        $stmt = null;
+                        $this->connection = null;
+                        return false;
+                    }else{
+                        $stmt = null;
+                        $this->connection = null;
+                        return $resultado;
+                    }
+                }else{
+                   $stmt = null;
+                   $this->connection = null;
+                   return false; 
+                }
+            } catch (PDOException $e) {
+               echo "Error!: falha ao executar consulta select usuario: <pre>" . $e->getMessage() . "</pre></br>";
+               return false;
+            }finally{
+                $stmt = null;
+                $this->connection = null;
+            }
+        }
+    }
+
 }
 
 ?>

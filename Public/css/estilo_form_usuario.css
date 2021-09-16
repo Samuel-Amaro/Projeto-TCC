@@ -17,6 +17,7 @@
     --cor_alert_error: #f8d7da;
     --cor_font_error: #721c24;
 }
+
 body{
     font-family: 'Noto Sans JP', sans-serif;
     background-color: var(--cor_02);

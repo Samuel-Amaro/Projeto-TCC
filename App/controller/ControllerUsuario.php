@@ -17,13 +17,16 @@ class ControllerUsuario{
 
     public function __construct(string $operacao, string $methodHttp) {
         $this->methodHttp = $methodHttp;
-        $this->operacao = $operacao;
+        $this->operacao = $operacao; 
         switch($this->operacao) {
             case "login": 
                 $this->login($this->methodHttp);
                 break;
             case "cadastro":
                 $this->cadastro($this->methodHttp);
+                break;
+            case "listar":
+                $this->listar($this->methodHttp);
                 break;
             default:
                 break;
@@ -107,6 +110,29 @@ class ControllerUsuario{
             return true;
         }else{
             return false;
+        }
+    }
+
+    public function listar($methodHttp) {
+        if($methodHttp === "POST") {
+            //include("../utils/DataBase.php");
+            require_once("../dao/DaoUsuario.php");
+            $db = new DataBase();
+            $dao = new DaoUsuario($db);
+            $arrayResult = $dao->selectUsuarios();
+            if($arrayResult == false) {
+                $responseJson = ['resultUsuarios' => "Sem resultados a mostrar!"];
+                echo json_encode($responseJson);
+            }else{
+                if(json_encode($arrayResult) != '') {
+                    echo json_encode($arrayResult);
+                }else{
+                    $responseJson = ['resultUsuarios' => "Erro ao buscar usuarios no banco!"];
+                    echo json_encode($responseJson);
+                }
+            }
+        }else{
+            echo "Metodo HTTP não captado! </br>";
         }
     }
 
