@@ -40,7 +40,7 @@ class ControllerUsuario{
            $this->mdUser = new ModelUsuario(0, $cpfUsuario, "", "", "", "", $senhaUsuario, "");
            //usuario existe
            if($this->mdUser->buscarUsuario()) {
-                $usuario = ['cpf' => $cpfUsuario, 'senha' => $senhaUsuario, 'computedString' => 'Ola, ' . $this->mdUser->getNomeUsuario(), 'location' => 'PainelControle.php'];  
+                $usuario = ['cpf' => $cpfUsuario, 'senha' => $senhaUsuario, 'computedString' => 'Ola, ' . $this->mdUser->getNomeUsuario(), 'location' => 'App/view/PainelControle.php'];  
                 //pode logar usuario na sessão 
                 if(json_encode($usuario) != '') {
                     //abre a sessão

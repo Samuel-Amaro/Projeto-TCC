@@ -68,15 +68,15 @@
     </main>
     <div class="conteiner-modal">
             <div class="conteiner-header-modal alert-success alert-warning">
-                <h3 class="titulo-modal">Titulo Modal</h3>
+                <h3 class="titulo-modal"></h3>
             </div>
             <div class="modal-content alert-success alert-warning">
                 <span class="close">&times;</span>
-                <p class="msg-content">Mensagem do modal</p>
+                <p class="msg-content"></p>
             </div>
             <div class="conteiner-footer-modal alert-success alert-warning">
-                <a href="#" id="button-1-modal" target="_self" rel="next">Entrar</a>
-                <a href="#" target="_self" rel="next" id="button-2-modal">Sair</a>
+                <a href="#" id="button-1-modal" target="_self" rel="next"></a>
+                <a href="#" target="_self" rel="next" id="button-2-modal"></a>
             </div>
     </div>
     <script src="../../Public/scripts/form-usuario.js"></script>

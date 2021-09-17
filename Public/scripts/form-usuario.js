@@ -1,8 +1,9 @@
+/*mascara de cpf*/
 $(document).ready(function(){  
     $("#cpf").mask("999.999.999-99");   
 });
 
-/* Máscaras ER */
+/* Máscaras de telefone*/
 function mascara(o,f){
     v_obj=o
     v_fun=f
@@ -29,6 +30,7 @@ window.onload = function(){
 		mascara( this, mtel );
 	}
 }
+
 
 let inputSubmitForm = document.querySelector("#form_usuario");
 

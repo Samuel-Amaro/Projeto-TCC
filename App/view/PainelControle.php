@@ -6,7 +6,7 @@ if(session_start()) {
     //se o objeto do usuario não existe na seção
     if(!isset($_SESSION["usuario_logado"])) {
         //manda um redirecionamento para login
-        header("Location: login.php");
+        header("Location: ../../index.php");
         exit;
     }else{
         //se ja existir o dado do usuario logado na session, intanciar um model
@@ -49,10 +49,10 @@ if(session_start()) {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Definições</a></li>
+                        <li><a class="dropdown-item" href="AlterarUsuario.php" target="_self" rel="next">Conta</a></li>
                         <li><a class="dropdown-item" href="#!">Registro de atividade</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Sair</a></li>
+                        <li><a class="dropdown-item" href="../utils/Logout.php" target="_self" rel="next">Sair</a></li>
                     </ul>
                 </li>
             </ul>
@@ -121,7 +121,8 @@ if(session_start()) {
                                 Cadastrar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
+                            <a class="nav-link collapsed" href="#" target="_self" rel="next">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Alterar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>

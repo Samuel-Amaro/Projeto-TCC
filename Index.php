@@ -8,10 +8,10 @@
     <meta name="keywords" content="Login, Pagina de Login, Central de cestas, beneficio social, autenticação">
     <meta name="author" content="Samuel Amaro">
     <title>Login</title>
-    <link rel="stylesheet" href="../../Public/css/estilo_login.css">
+    <link rel="stylesheet" href="Public/css/estilo_login.css">
     <script src="https://kit.fontawesome.com/4cfa17c069.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../../Public/scripts/jquery-1.2.6.pack.js"></script>
-    <script type="text/javascript" src="../../Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
+    <script type="text/javascript" src="Public/scripts/jquery-1.2.6.pack.js"></script>
+    <script type="text/javascript" src="Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
 </head>
 <body>
 
@@ -46,12 +46,19 @@
             </div>
         </section>
         <div class="conteiner-modal">
-            <div class="modal-content">
+            <div class="conteiner-header-modal alert-success alert-warning">
+                <h3 class="titulo-modal"></h3>
+            </div>
+            <div class="modal-content alert-success alert-warning">
                 <span class="close">&times;</span>
-                <p class="content"></p>
+                <p class="msg-content"></p>
+            </div>
+            <div class="conteiner-footer-modal alert-success alert-warning">
+                <a href="#" id="button-1-modal" target="_self" rel="next"></a>
+                <a href="#" target="_self" rel="next" id="button-2-modal"></a>
             </div>
         </div>
     </main>
-    <script type="text/javascript" src="../../Public/scripts/login.js"></script>
+    <script type="text/javascript" src="Public/scripts/login.js"></script>
 </body>
 </html>

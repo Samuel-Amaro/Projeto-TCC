@@ -16,7 +16,29 @@ input[type="submit"]:hover{
     border-left: 1px;
     border-right: 1px;
     border-style: solid;
-    border-color: #f8f9fa;
+    border-color: #3D3D3D;
+    background-color: white;
+    color: #3D3D3D;
+}
+
+a.btn-voltar{
+    width: 200px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+a.btn-voltar:hover{
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-left: 1px;
+    border-right: 1px;
+    border-style: solid;
+    border-color: #3D3D3D;
+    background-color: white;
+    color: #3D3D3D;
 }
 
 
