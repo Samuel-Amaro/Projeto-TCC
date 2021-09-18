@@ -8,7 +8,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     $ctr = new ControllerUsuario($operacao, "POST");
 }
 
-
 class ControllerUsuario{
 
     private string $operacao;
@@ -27,6 +26,9 @@ class ControllerUsuario{
                 break;
             case "listar":
                 $this->listar($this->methodHttp);
+                break;
+            case "atualizar":
+                $this->atualizar($this->methodHttp);
                 break;
             default:
                 break;
@@ -51,7 +53,7 @@ class ControllerUsuario{
                             //passa objeto model para session serializado e depois quando for usar desserializar ele
                             //hora e data na ao entrar no sistema marcados na session
                             $_SESSION["usuario_logado"] = serialize($this->mdUser);
-                            $_SESSION["data_hora_login"] = $date->format("d/m/Y H:m:i");
+                            $_SESSION["data_hora_login"] = $date->format("d/m/Y H:i:m");
                             //Retorna a representação JSON de um valor como um response
                             echo json_encode($usuario);
                             exit;
@@ -133,6 +135,23 @@ class ControllerUsuario{
             }
         }else{
             echo "Metodo HTTP não captado! </br>";
+        }
+    }
+
+    public function atualizar($methodHttp) {
+        if($methodHttp === "POST") {
+            $this->mdUser = new ModelUsuario($_POST["id"], "", $_POST["telefone"], $_POST["email"], $_POST["cargo"], $_POST["tipo"], $_POST["senha"], $_POST["nome"]);
+            $resultado = $this->mdUser->atualizarUsuario($_POST["hashSenhaAntiga"]);
+            if($resultado) {
+                $responseJson = ['computedString' => "Usuário foi atualizado com sucesso!"];
+                echo json_encode($responseJson);
+            }else if($resultado == false){
+                $responseJson = ['computedString' => "Usuário não foi atualizado. ocorreu um a falha no nosso banco de dados"];
+                echo json_encode($responseJson);
+            }
+        }else{
+            $responseJson = ['computedString' => "Usuário não foi atualizado."];
+            echo json_encode($responseJson);
         }
     }
 

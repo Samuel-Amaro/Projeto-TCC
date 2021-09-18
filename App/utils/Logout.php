@@ -8,9 +8,13 @@ if(session_start()) {
         exit;
     }else{
        if(session_destroy()) {
+            unset($_SESSION["usuario_logado"]);
+            unset($_SESSION["data_hora_login"]);
             header("Location: ../../index.php");
             exit;
        }else{
+            //unset($_SESSION["usuario_logado"]);
+            //unset($_SESSION["data_hora_login"]);
             header("Location: ../../index.php");
             exit;
        }

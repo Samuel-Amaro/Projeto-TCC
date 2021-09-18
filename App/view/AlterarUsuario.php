@@ -20,8 +20,7 @@ if(session_start()) {
             $digitosParte1Formatado = $digitosParte1 . "-"; // ####-
             return $ddFormatado . $digitoFormatado . $digitosParte1Formatado . $digitosParte2;
         }
-        //$modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
-        //$modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
+        $dataCadastroSemForm = date_create($arrayUserDesserializado->getDataCadastroUsuario());
     }
 }
 ?>
@@ -49,23 +48,32 @@ if(session_start()) {
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Sua conta de usuário</h3></div>
                                     <div class="card-body">
-                                        <form action="" enctype="application/x-www-form-urlencoded" method="POST" accept-charset="utf8" autocomplete="on" name="form-usuario">
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <div class="m-2">
+                                                    <p>Seu cadastro no nosso sistema foi realizado <?= date_format($dataCadastroSemForm, "d/m/Y")?>  seu último acesso foi <?= $_SESSION["data_hora_login"]; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <form action="" enctype="application/x-www-form-urlencoded" method="POST" accept-charset="utf8" autocomplete="on" name="form-alterar-usuario" id="form-alterar-usuario" title="Formulário de Atualização de conta de usuário.">
                                             <input type="hidden" name="operacao" value="atualizar">
+                                            <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario(); ?>" id="id_usuario">
+                                            <input type="hidden" name="hash_senha" value="<?= $arrayUserDesserializado->getSenhaUsuario(); ?>" id="hash_senha">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputNome" type="text" placeholder="Entre com seu nome" value="<?= $arrayUserDesserializado->getNomeUsuario(); ?>" maxlength="70" required/>
+                                                <input class="form-control" id="inputNome" type="text" placeholder="Entre com seu nome" value="<?= $arrayUserDesserializado->getNomeUsuario(); ?>" maxlength="70" required title="Preencha este campo com seu nome completo"/>
                                                 <label for="inputNome">Nome Completo</label>
                                                 <div class="alert alert-danger alert-limit-caracteres-nome" role="alert" style="display: none;"></div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputCpf" type="text" placeholder="Entre com seu cpf somente numeros" value="<?= $arrayUserDesserializado->getCpfUsuario(); ?>" readonly/>
+                                                        <input class="form-control" id="inputCpf" type="text" placeholder="Entre com seu cpf somente numeros" value="<?= $arrayUserDesserializado->getCpfUsuario(); ?>" readonly title="Preecha com seu cpf"/>
                                                         <label for="inputCpf">CPF</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputTelefone" type="text" placeholder="Entre Com seu telefone somente numeros" value="<?= aplicaMascaraTelefone($arrayUserDesserializado->getCelularUsuario()); ?>" required maxlength="15" minlength="15"/>
+                                                        <input class="form-control" id="inputTelefone" type="text" placeholder="Entre Com seu telefone somente numeros" value="<?= aplicaMascaraTelefone($arrayUserDesserializado->getCelularUsuario()); ?>" required maxlength="15" minlength="15" title="Preencha com seu telefone, somente numeros."/>
                                                         <label for="inputLastTelefone">Telefone</label>
                                                     </div>
                                                 </div>
@@ -73,13 +81,13 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputEmail" type="email" placeholder="Entre com seu email" value="<?= $arrayUserDesserializado->getEmailUsuario(); ?>" maxlength="100" required/>
+                                                        <input class="form-control" id="inputEmail" type="email" placeholder="Entre com seu email" value="<?= $arrayUserDesserializado->getEmailUsuario(); ?>" maxlength="100" required title="Preencha com seu email"/>
                                                         <label for="inputEmail">Email</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputCargo" type="text" placeholder="Entre Com seu cargo ou função" value="<?= $arrayUserDesserializado->getCargoUsuario(); ?>" maxlength="100" required/>
+                                                        <input class="form-control" id="inputCargo" type="text" placeholder="Entre Com seu cargo ou função" value="<?= $arrayUserDesserializado->getCargoUsuario(); ?>" maxlength="100" required title="Preenha com seu cargo ou função dentro da instituição"/>
                                                         <label for="inputCargo">Cargo ou função</label>
                                                         <div class="alert alert-danger alert-limit-caracteres-cargo" role="alert" style="display: none;">Atingiu</div>
                                                     </div>
@@ -94,7 +102,7 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <select name="tipoUsuario" id="selectTipoUsuario" class="form-control" required>
+                                                        <select name="tipoUsuario" id="selectTipoUsuario" class="form-control" required title="Escolha o tipo de usuario ideal para seu perfil">
                                                             <option value="<?=$arrayUserDesserializado->getTipoUsuario(); ?>"><?=$arrayUserDesserializado->getTipoUsuario(); ?></option>
                                                         </select>
                                                         <label for="selectTipoUsuario">Tipo usuario</label>
@@ -102,7 +110,7 @@ if(session_start()) {
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Entre com sua senha" maxlength="12" minlength="6"/>
+                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Entre com sua senha" maxlength="12" minlength="6" title="Prencha este campo com sua senha de no minimo 6 caracteres e de no maximo 12 caracteres"/>
                                                         <label for="inputPassword">Senha</label>
                                                     </div>
                                                 </div>

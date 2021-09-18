@@ -111,33 +111,46 @@ if(session_start()) {
                                 Visualizar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <!--Usuarios(Coolaboradores)-->
-                            <div class="sb-sidenav-menu-heading">Usuários</div>
                             <!--
                                 data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"
                             -->
+                            <?php
+                            if($modelUser->getTipoUsuario() === "adm") {
+                            ?>
+                            <!--Usuarios(Coolaboradores)-->
+                            <div class="sb-sidenav-menu-heading">Usuários</div>
                             <a class="nav-link collapsed" href="FormUsuario.php" target="_self" rel="next">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Cadastrar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
-                            <a class="nav-link collapsed" href="#" target="_self" rel="next">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Alterar
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Deletar
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
                             <a class="nav-link collapsed" href="Usuarios.php" target="_self" rel="next">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Visualizar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <?php
+                            }else{
+                                //se for usuario do tipo comun, não mostra nada
+                            } 
+                            ?>
+                            
+                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
+                            <!--
+                            <a class="nav-link collapsed" href="#" target="_self" rel="next">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Alterar
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            -->
+                            <!--
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Deletar
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            -->
+                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
                             <!--
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
@@ -753,6 +766,7 @@ if(session_start()) {
                         exemplo de tabela-->
                     </div>
                 </main>
+                <!--
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -765,6 +779,7 @@ if(session_start()) {
                         </div>
                     </div>
                 </footer>
+                -->
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -188,7 +188,28 @@ class ModelUsuario{
         $this->nome_usuario = $data["nome_usuario"];
     }
 
-
+    public function atualizarUsuario(string $hashSenhaAntiga) {
+        $this->daoUser = new DaoUsuario($this->db);
+        if(empty($this->senha_usuario) || $this->senha_usuario == "") {
+            //não mudou senha
+            $this->senha_usuario = $hashSenhaAntiga;
+            if($this->daoUser->updateUsuario($this->id_usuario, $this->celular_usuario, $this->email_usuario, $this->cargo_usuario, $this->tipo_usuario, $this->senha_usuario, $this->nome_usuario)){
+                return true;
+            }else{
+                 return false;
+            }
+        }else{
+            //mudou senha
+            //criptografa
+            $passwordHash = md5($this->senha_usuario);
+            $this->senha_usuario = $passwordHash;
+            if($this->daoUser->updateUsuario($this->id_usuario, $this->celular_usuario, $this->email_usuario, $this->cargo_usuario, $this->tipo_usuario, $this->senha_usuario, $this->nome_usuario)){
+               return true;
+            }else{
+                return false;
+            }
+        }  
+    }
 }
 
 ?>

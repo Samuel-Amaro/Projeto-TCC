@@ -45,14 +45,12 @@ inputSubmitForm.addEventListener("submit", function(event) {
     let senha = document.querySelector('input[type=\"password\"]#senha').value;
     //console.log(nome + " " + tiraMascaraCPF(cpf) + " " + tiraMascaraTel(telefone) + " " + email + " " + cargo + " " + tipo + " " + senha);
     if(makeRequest("../controller/ControllerUsuario.php", nome, cpf, telefone, email, cargo, tipo, senha) === 1) {
-       event.preventDefault();
+       //event.preventDefault();
     }else{
         //mostra modal com erro
          mostraModal("Formulario não enviado!", "usuario não cadastrado, obtemos um erro no nosso sistema, agurde uns instantes e tente novamente mais tarde!", "OK", "Sair", "error");
          event.preventDefault();
-    }
-    
-    
+    }   
 });
 
 function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
@@ -107,6 +105,7 @@ function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) {
                     mostraModal(httpResponse.computedString, "Resposta do servidor", "OK", "Sair", "sucesso");
                     return 1;
                 } catch (error) {
+                    mostraModal("Erro ao atualizar conta de usuário", "Atualização de usuário", "Ok", "Sair", "error");
                     console.error(error.message);
                     console.error(error.name);
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);
@@ -138,7 +137,7 @@ function tiraMascaraCPF(cpf) {
 }
 
 function tiraMascaraTel(telefone) {
-    let telFormatado = cpf;
+    let telFormatado = telefone;
     let telParte1 = telefone.substr(1,2); //DD
     let telParte2 = telefone.substr(5,5); //5 DIGITOS
     let telParte3 = telefone.substr(11,4); //4 DIGITOS

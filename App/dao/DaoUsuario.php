@@ -17,7 +17,7 @@ class DaoUsuario{
     */
     public function insertUsuario(string $cpf, string $celular, string $email, string $cargo, string $tipo, string $senha, string $nome) : ?bool  {
         if(is_null($this->connection)) {
-            print "Conexão com o SGBD não iniciada! </br>";
+            //print "Conexão com o SGBD não iniciada! </br>";
             return false;
             die();
         }else{
@@ -116,6 +116,39 @@ class DaoUsuario{
                 }
             } catch (PDOException $e) {
                echo "Error!: falha ao executar consulta select usuario: <pre>" . $e->getMessage() . "</pre></br>";
+               return false;
+            }finally{
+                $stmt = null;
+                $this->connection = null;
+            }
+        }
+    }
+
+    /**
+     * este metodo atualiza um registro na tabela usuario 
+    */
+    public function updateUsuario(int $id, string $telefone, string $email, string $cargo, string $tipo, string $senha, string $nome) {
+        if(is_null($this->connection)) {
+            return false;
+            die();
+        }else{
+            try {
+                $sql = "UPDATE usuario SET celular_usuario=?, email_usuario=?, cargo_usuario=?, tipo_usuario=?, senha_usuario=?, nome_usuario=?  WHERE id_usuario = ?;";
+                $stmt = $this->connection->prepare($sql);
+                $valores = array($telefone, $email, $cargo, $tipo, $senha, $nome, $id);
+                if($stmt->execute($valores)) {
+                    $stmt = null;
+                    $this->connection = null;
+                    return true;
+                }else{
+                   $stmt = null;
+                   $this->connection = null;
+                   return false; 
+                }
+            } catch (PDOException $e) {
+                $stmt = null;
+                $this->connection = null;
+                echo "Error!: falha ao executar consulta update usuario: <pre>" . $e->getMessage() . "</pre></br>";
                return false;
             }finally{
                 $stmt = null;
