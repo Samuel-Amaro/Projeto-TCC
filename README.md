@@ -1,4 +1,4 @@
-<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/logo-ifg-fsa.jpg" alt="Instituto Federal de Goiás Câmpus Formosa" width="100%">
+![logo istituto federal goias campus formosa](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/logo-ifg-1500-500.jpg)
 
 <h1 align="center">	💻 Projeto TCC</h1>
 
