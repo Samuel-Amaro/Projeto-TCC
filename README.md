@@ -13,3 +13,31 @@
 ![badge](https://img.shields.io/github/languages/top/Samuel-Amaro/Projeto-TCC)
 ![badge](https://img.shields.io/github/languages/code-size/Samuel-Amaro/PROJETO-TCC)
 ![badge](https://img.shields.io/github/repo-size/Samuel-Amaro/Projeto-TCC)
+
+Tabela de conteúdos
+=================
+<!--ts-->
+   * [Sobre](#Sobre)
+   * [Tabela de Conteudo](#tabela-de-conteudo)
+   * [Instalação](#instalacao)
+   * [Como usar](#como-usar)
+      * [Pre Requisitos](#pre-requisitos)
+   * [Tests](#testes)
+   * [Tecnologias](#tecnologias)
+<!--te-->
+
+## Status Projeto
+
+🚧 Projeto de TCC em construção. 🚧
+
+### Features
+
+- [x] Cadastro de usuário
+- [x] Alteração de cadastro de usuário
+- [x] Nivel de acesso de usuario
+- [x] Visualizar usuarios na aplicação 
+- [x] Login  
+- [ ] Cadastro de beneficiarios
+- [ ] Cadastro de beneficios
+- [ ] Registrar entregas
+- [ ] Controlar estoque
