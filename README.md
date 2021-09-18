@@ -41,3 +41,29 @@ Tabela de conteúdos
 - [ ] Cadastro de beneficios
 - [ ] Registrar entregas
 - [ ] Controlar estoque
+
+## Capturas de tela
+
+ * Pagina de autenticação(Login)
+
+ ![Pagina de Login](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/pagina-login.png)
+ 
+ * Pagina Principal(Painel de controle)
+ 
+ ![Painel de controle](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/painel-controle.png)
+ 
+ * Pagina de alteração de conta de usuario
+ 
+ ![Pagina de alterar usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/pagina-alterar.png)
+ 
+ * Pagina de criação de conta de usuario
+
+ ![Pagina de criar conta de usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/criar-conta-usuario.png)
+ 
+ * Pagina de visualização de usuarios no sistema
+
+![Pagina de visualização de usuarios no sistema](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/visualizar-usuarios-parte-1.png)
+
+* Continuação do print(da visualização de usuarios)
+
+![Pagina de visualização de usuarios](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/usuarios-ativos.png)
