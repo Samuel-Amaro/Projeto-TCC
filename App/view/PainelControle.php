@@ -26,9 +26,10 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
-        <title>Dashboard</title>
+        <title>Painel de controle</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="../../Public/css/estilo_painel_controle.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -50,6 +51,7 @@ if(session_start()) {
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="AlterarUsuario.php" target="_self" rel="next">Conta</a></li>
+                        <li><a class="dropdown-item" id="btn-deletar" href="#" target="_self" rel="next">Deletar Conta</a></li>
                         <li><a class="dropdown-item" href="#!">Registro de atividade</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../utils/Logout.php" target="_self" rel="next">Sair</a></li>
@@ -780,8 +782,26 @@ if(session_start()) {
                     </div>
                 </footer>
                 -->
+            </div><!--layoutSidenav_nav-->
+        </div><!--layoutSidenav-->
+
+        <!--modal-->
+        <div class="conteiner-modal">
+            <div class="conteiner-header-modal alert-success alert-warning">
+                <h3 class="titulo-modal"></h3>
             </div>
-        </div>
+            <div class="modal-content alert-success alert-warning">
+                <span class="close">&times;</span>
+                <p class="msg-content"></p>
+            </div>
+            <div class="conteiner-footer-modal alert-success alert-warning">
+                <a href="#" id="button-1-modal" target="_self" rel="next"></a>
+                <a href="#" target="_self" rel="next" id="button-2-modal"></a>
+            </div>
+        </div><!--modal-->
+        <script>
+            sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -789,5 +809,6 @@ if(session_start()) {
         <script src="../../Public/demo/chart-area-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/datatables-simple-demo.js"></script>
+        <script src="../../Public/scripts/deletar-usuario.js"></script>
     </body>
 </html>

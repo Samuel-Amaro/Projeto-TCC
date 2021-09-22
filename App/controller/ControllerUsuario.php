@@ -8,6 +8,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     $ctr = new ControllerUsuario($operacao, "POST");
 }
 
+//34589112300
+
 class ControllerUsuario{
 
     private string $operacao;
@@ -29,6 +31,9 @@ class ControllerUsuario{
                 break;
             case "atualizar":
                 $this->atualizar($this->methodHttp);
+                break;
+            case "deletar":
+                $this->deletar($this->methodHttp);
                 break;
             default:
                 break;
@@ -146,7 +151,7 @@ class ControllerUsuario{
                 $responseJson = ['computedString' => "Usuário foi atualizado com sucesso!"];
                 echo json_encode($responseJson);
             }else if($resultado == false){
-                $responseJson = ['computedString' => "Usuário não foi atualizado. ocorreu um a falha no nosso banco de dados"];
+                $responseJson = ['computedString' => "Usuário não foi atualizado. Ocorreu um a falha no nosso banco de dados"];
                 echo json_encode($responseJson);
             }
         }else{
@@ -155,7 +160,19 @@ class ControllerUsuario{
         }
     }
 
+    public function deletar($methodHttp) {
+        $this->mdUser = new ModelUsuario($_POST["id_usuario_logado"], "", "", "", "", "", "", "");
+        if($this->mdUser->deletarUsuario()) {
+            unset($this->mdUser);
+            $responseJson = ["location" => "../../Index.php"];
+            echo json_encode($responseJson);
+        }else{
+            $responseJson = ["error" => "Usuário não deletado, erro no sistema!"];
+            echo json_encode($responseJson);
+        }
+    }
     
+
 }
 
 ?>

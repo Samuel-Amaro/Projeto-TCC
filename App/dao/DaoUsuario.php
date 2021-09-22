@@ -41,7 +41,7 @@ class DaoUsuario{
             } catch (PDOException $e) {
                 $stmt = null;
                 $this->connection = null;
-                echo "Error!: falha ao preparar consulta insert usuario: <pre>" . $e->getMessage() . "</pre> </br>";
+                echo "Error!: falha ao preparar consulta INSERT usuario: <pre>" . $e->getMessage() . "</pre> </br>";
                 return null;
                 //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
                 die();
@@ -78,7 +78,7 @@ class DaoUsuario{
                    return false; 
                 }
             } catch (PDOException $e) {
-               echo "Error!: falha ao executar consulta select usuario: <pre>" . $e->getMessage() . "</pre></br>";
+               echo "Error!: falha ao executar consulta SELECT usuario: <pre>" . $e->getMessage() . "</pre></br>";
                return false;
             }finally{
                 $stmt = null;
@@ -115,7 +115,7 @@ class DaoUsuario{
                    return false; 
                 }
             } catch (PDOException $e) {
-               echo "Error!: falha ao executar consulta select usuario: <pre>" . $e->getMessage() . "</pre></br>";
+               echo "Error!: falha ao executar consulta SELECT usuario: <pre>" . $e->getMessage() . "</pre></br>";
                return false;
             }finally{
                 $stmt = null;
@@ -148,7 +148,37 @@ class DaoUsuario{
             } catch (PDOException $e) {
                 $stmt = null;
                 $this->connection = null;
-                echo "Error!: falha ao executar consulta update usuario: <pre>" . $e->getMessage() . "</pre></br>";
+                echo "Error!: falha ao executar consulta UPDATE usuario: <pre>" . $e->getMessage() . "</pre></br>";
+               return false;
+            }finally{
+                $stmt = null;
+                $this->connection = null;
+            }
+        }
+    }
+
+    public function deleteUsuario(int $idUser) {
+        if(is_null($this->connection)) {
+            return false;
+            die();
+        }else{
+            try {
+                $sql = "DELETE FROM usuario WHERE id_usuario = ?;";
+                $stmt = $this->connection->prepare($sql);
+                $valores = array($idUser);
+                if($stmt->execute($valores)) {
+                    $stmt = null;
+                    $this->connection = null;
+                    return true;
+                }else{
+                   $stmt = null;
+                   $this->connection = null;
+                   return false; 
+                }
+            } catch (PDOException $e) {
+                $stmt = null;
+                $this->connection = null;
+                echo "Error!: falha ao executar consulta DELETE usuario: <pre>" . $e->getMessage() . "</pre></br>";
                return false;
             }finally{
                 $stmt = null;

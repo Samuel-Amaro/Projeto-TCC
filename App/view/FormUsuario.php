@@ -60,7 +60,7 @@
                     <input type="password" name="senha" id="senha" required title="Informe uma senha válida entre 6 a 12 caracteres válidos." class="segundo-input" placeholder="Informe uma senha" minlength="6" maxlength="12">
                 </div>
                 <div class="conteiner-buttons">
-                    <a href="PainelControle.php" target="_self" rel="next" id="link"> <i class="fas fa-arrow-left"></i> Voltar</a>
+                    <a href="PainelControle.php" target="_self" rel="next" id="link">Voltar</a>
                     <input type="submit" value="Cadastrar" id="button">
                 </div>
             </form>

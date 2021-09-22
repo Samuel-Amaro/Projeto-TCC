@@ -210,6 +210,20 @@ class ModelUsuario{
             }
         }  
     }
+
+    public function deletarUsuario() {
+        $this->daoUser = new DaoUsuario($this->db);
+        if(empty($this->id_usuario)) {
+            return false;
+        }else{
+            if($this->daoUser->deleteUsuario($this->id_usuario)) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+    }
 }
 
 ?>
