@@ -32,11 +32,14 @@ Tabela de conteúdos
 
 ### Features
 
-- [x] Cadastro de usuário
-- [x] Alteração de cadastro de usuário
-- [x] Nivel de acesso de usuario
-- [x] Visualizar usuarios na aplicação 
-- [x] Login  
+##### Features de Usuários
+- [x] Cadastro de usuário.
+- [x] Alteração de cadastro de usuário.
+- [x] Nivel de acesso de usuário.
+- [x] Visualizar usuários cadastrados no sistema. 
+- [x] Login.  
+- [x] Usuário deletar sua propria conta. 
+#### Features de Beneficiarios
 - [ ] Cadastro de beneficiarios
 - [ ] Cadastro de beneficios
 - [ ] Registrar entregas
