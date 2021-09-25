@@ -27,107 +27,137 @@
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Cadastrar Beneficiário</h3></div>
                                 <div class="card-body">
                                     <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
-                                        <div class="form-floating mb-3">
+                                        <div class="mb-3">
+                                                <label for="inputNome" class="mb-1">Nome Completo</label>
                                                 <input class="form-control" id="inputNome" type="text" placeholder="Entre com seu nome completo" required maxlength="70" title="Preencha esta campo com nome do beneficiário completo"/>
-                                                <label for="inputNome">Nome Completo</label>
                                                 <div class="valid-feedback valid-feedback-nome"></div>
                                         </div>
                                         <div class="row mb-3">
                                                 <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
+                                                    <div class="mb-3 mb-md-0">
+                                                        <label for="inputCpf" class="mb-1">CPF</label>
                                                         <input class="form-control is-valid" id="inputCpf" type="text" placeholder="Entre com seu cpf, somente numeros" required maxlength="15" title="Preencha este campo com o numero de cpf do beneficiário, informando somente numeros"/>
-                                                        <label for="inputCpf">CPF</label>
                                                         <div class="valid-feedback">Parece Bom</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-floating">
+                                                    <div class="">
+                                                        <label for="inputFone" class="mb-1">Telefone</label>
                                                         <input class="form-control is-invalid" id="inputFone" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o nome de telefone do beneficiário, informando somente números."/>
-                                                        <label for="inputFone">Telefone</label>
                                                         <div class="invalid-feedback">Parece ruim</div>
                                                     </div>
                                                 </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input class="form-control is-invalid" id="inputCep" type="text" placeholder="Entre com seu bairro" required maxlength="9" size="10"/>
-                                                    <label for="inputCep">Cep</label>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                <div class="">
+                                                    <label for="inputCep" class="mb-1">Cep</label>
+                                                    <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu bairro" required maxlength="9" size="10"/>
+                                                    <div class="invalid-feedback-cep"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
+                                                <label for="btn" class="mb-1">Clique aqui para consultar cep</label>
                                                 <input type="button" value="Consultar Cep" class="btn btn-primary align-middle btn-busca-cep">
                                             </div>
                                         </div>
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control is-invalid" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required/>
-                                            <label for="inputEndereco">Endereço</label>
+                                        <div class="mb-3">
+                                            <label for="inputEndereco" class="mb-1">Endereço</label>
+                                            <input class="form-control" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required/>
+                                            <div class="invalid-feedback">Parece ruim</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="inputComplemento" class="mb-1">Complemento</label>
+                                            <input class="form-control" id="inputComplemento" type="text" placeholder="Entre com um complemento referente ao endereço" required/>
                                             <div class="invalid-feedback">Parece ruim</div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <div class="form-floating  mb-3 mb-md-0">
-                                                    <input class="form-control is-invalid" id="inputCidade" type="text" placeholder="Entre com sua cidade" required/>
-                                                    <label for="inputCidade">Cidade</label>
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="inputCidade" class="mb-1">Cidade</label>
+                                                    <input class="form-control" id="inputCidade" type="text" placeholder="Entre com sua cidade" required/>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <select id="inputEstado" class="form-select is-invalid" required>
-                                                        <option value="df" selected>DF</option>
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="inputEstado" class="mb-1">Estado</label>
+                                                    <select id="inputEstado" class="form-select" required>
+                                                        <option value="ac">AC</option>
+                                                        <option value="al">AL</option>
+                                                        <option value="df">DF</option>
                                                         <option value="go">GO</option>
+                                                        <option value="ap">AP</option>
+                                                        <option value="am">AM</option>
+                                                        <option value="ba">BA</option>
+                                                        <option value="ce">CE</option>
+                                                        <option value="es">ES</option>
+                                                        <option value="ma">MA</option>
+                                                        <option value="mt">MT</option>
+                                                        <option value="ms">MS</option>
+                                                        <option value="mg">MG</option>
+                                                        <option value="pb">PB</option>
+                                                        <option value="pr">PR</option>
+                                                        <option value="pe">PE</option>
+                                                        <option value="pi">PI</option>
+                                                        <option value="rj">RJ</option>
+                                                        <option value="nr">RN</option>
+                                                        <option value="rs">RS</option>
+                                                        <option value="ro">RO</option>
+                                                        <option value="rr">RR</option>
+                                                        <option value="sc">SC</option>
+                                                        <option value="sp">SP</option>
+                                                        <option value="se">SE</option>
+                                                        <option value="to">TO</option>
                                                     </select>
-                                                    <label for="inputEstado">Estado</label>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-floating">
-                                                    <input class="form-control is-invalid" id="inputBairro" type="text" placeholder="Entre com seu bairro" required/>
-                                                    <label for="inputBairro">Bairro</label>
+                                                <div class="">
+                                                    <label for="inputBairro" class="mb-1">Bairro</label>
+                                                    <input class="form-control" id="inputBairro" type="text" placeholder="Entre com seu bairro" required/>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-4">
-                                                <div class="form-floating mb-3 mb-md-0">
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="inputNis" class="mb-1">Numero nis</label>
                                                     <input class="form-control is-invalid" id="inputNis" type="text" placeholder="Entre com seu numero de nis, somente numeros" required maxlength="14" title="Preencha este campo com o número de nis do beneficiário"/>
-                                                    <label for="inputNis">Numero nis</label>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-floating mb-3 mb-md-0">
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="inputQtdPessoasHome" class="mb-1">N.º Pessoas Residencia</label>
                                                     <input class="form-control is-invalid" id="inputQtdPessoasHome" type="number" placeholder="Entre com a quantidade de pessoas que residem na mesma residencia que você" min="1" max="10" required/>
-                                                    <label for="inputQtdPessoasHome">N.º Pessoas Residencia</label>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-floating mb-3 mb-md-0">
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="inputRenda" class="mb-1">Renda por cabeça</label>
                                                     <input class="form-control is-invalid" id="inputRenda" type="text" placeholder="Informe a renda por pessoa" required data-prefix="R$ "  data-affixes-stay="true"/>
-                                                    <label for="inputRenda">Renda por cabeça</label>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-8">
-                                                <div class="form-floating mb-3 mb-md-0">
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="floatingTextarea" class="mb-1">Observações importantes para compor cadastro</label>
                                                     <textarea class="form-control" placeholder="Descreva aqui alguma observação importante, relacionada a este beneficiario" id="floatingTextarea" name="obs"></textarea>
-                                                    <label for="floatingTextarea">Observação</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <div class="form-floating">
+                                                <div class="">
+                                                    <label for="inputTipoCras" class="mb-1">Abrangência crás</label>
                                                     <select name="inputTipoCras" class="form-select is-invalid" required>
                                                         <option value="cras1" selected>Cras 1</option>
                                                         <option value="cras2">Cras 2</option>
                                                     </select>
-                                                    <label for="inputTipoCras">Abrangência crás</label>
                                                     <div class="invalid-feedback">Parece ruim</div>
                                                 </div>
                                             </div>

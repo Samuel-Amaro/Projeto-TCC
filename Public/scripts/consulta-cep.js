@@ -1,5 +1,6 @@
 
 let btnBuscaCep = document.querySelector(".btn-busca-cep");
+let feedbackCep = document.querySelector('.invalid-feedback-cep');
 
 btnBuscaCep.addEventListener("click", function() {
     pesquisaCep();
@@ -7,6 +8,7 @@ btnBuscaCep.addEventListener("click", function() {
 
 function pesquisaCep() {
     let cepValor = document.querySelector("#inputCep").value;
+    let cepElement = document.querySelector("#inputCep");
     //nova variavel "cep" somente com digitos
     let cepDigitos = cepValor.replace(/\D/g, '');
     //verifica se campo cep possui valor informado
@@ -15,35 +17,45 @@ function pesquisaCep() {
         let validaCep = /^[0-9]{8}$/;
         //valida o formato do CEP
         if(validaCep.test(cepDigitos)) {
-           //busca cep com ajax e retorna um json
+           //remove classe de invalido caso tenha tentado antes 
+           cepElement.classList.remove("is-invalid");
+           //add uma class de validação de sucesso no elemento
+           cepElement.classList.add("is-valid");
+           feedbackCep.textContent = "Cep Correto...."; 
+           //busca cep com ajax requisição GET e retorna um json
            let url = "https://viacep.com.br/ws/" + cepDigitos + "/json/";
-           console.log(makeRequest(url));
+           //let objectJsonCep =  makeRequest(url);
+           makeRequest(url);
+           //console.log(objectJsonCep);
         }else{
-            console.log("Erro ao trazer o cep");
+           //retira class de valida
+           cepElement.classList.remove("is-valid"); 
+           //add uma class de invalidação de erro no elemento
+           cepElement.classList.add("is-invalid");
+           feedbackCep.textContent = "Cep incorreto, digite novamente."; 
         }
     }else{
-        console.log("Cep invalido os digitos");
+        //retira class de valida
+        cepElement.classList.remove("is-valid");
+        //add uma class de invalidação de erro no elemento
+        cepElement.classList.add("is-invalid");
+        feedbackCep.textContent = "Informe um cep por favor"; 
+        //console.log("Cep invalido os digitos");
     }
 }
 
 function makeRequest(url) { 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
-    httpRequest.open('GET', url, true);
+    httpRequest.open("GET", url, true);
     //httpRequest.responseType = "json";
     httpRequest.send();
     function alertsContents() {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
-                try {
-                    let httpResponse = httpRequest.responseText;  
-                    return httpResponse;
-                } catch (error) {
-                    console.error(error.message);
-                    console.error(error.name);
-                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
-                    //return null;
-                }
+                let httpResponse = JSON.parse(httpRequest.responseText);  
+                mostraDados(httpResponse.bairro, httpResponse.localidade, httpResponse.logradouro, httpResponse.uf, httpResponse.complemento, httpResponse.erro);
+                console.log(httpResponse);
             }else{
         
             }
@@ -51,4 +63,31 @@ function makeRequest(url) {
     
         }
     }
+}
+
+function mostraDados(bairro, cidade, logradouro, estado, complemento, erro) {
+  if(erro == true){
+    let cepElement = document.querySelector("#inputCep");
+    cepElement.classList.add("is-invalid");
+    feedbackCep.classList.add("Cep informado e invalido!");
+  }else{
+    let inputEndereco = document.querySelector("#inputEndereco");
+    let inputCidade = document.querySelector("#inputCidade");
+    let selectEstado = document.querySelector("#inputEstado");
+    let inputBairro = document.querySelector("#inputBairro");
+    let inputComplemento = document.querySelector("#inputComplemento");
+    inputEndereco.value = logradouro;
+    selectEstado.value = estado; //String.prototype.toLowerCase(estado)
+    inputBairro.value = bairro;
+    inputCidade.value = cidade;
+    inputComplemento.value = complemento;
+    inputEndereco.setAttribute("readonly", "readonly");
+    inputCidade.setAttribute("readonly", "readonly");
+    inputBairro.setAttribute("readonly", "readonly");
+    inputComplemento.setAttribute("readonly", "readonly");
+    inputEndereco.classList.add("is-valid");
+    inputCidade.classList.add("is-valid");
+    inputComplemento.classList.add("is-valid");
+    inputBairro.classList.add("is-valid");
+  }
 }
