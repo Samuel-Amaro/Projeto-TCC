@@ -89,3 +89,5 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
  * [POSTGRESQL](https://www.postgresql.org/about/news/postgresql-134-128-1113-1018-9623-and-14-beta-3-released-2277/)
  * [JQUERY](https://jquery.com/)
  * [SIMPLEDATATABLES](https://github.com/fiduswriter/Simple-DataTables)
+ * [Api VIACEP](https://viacep.com.br/)
+ * [jQuery maskMoney](https://github.com/plentz/jquery-maskmoney)
