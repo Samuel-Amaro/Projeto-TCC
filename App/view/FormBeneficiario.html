@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Cadastro de beneficiario, beneficiario, inscrição para beneficio">
+    <meta name="description" content="Cadastrar usuários que desejam solicitar um benefício">
+    <meta name="author" content="Samuel Amaro">
+    <title>Cadastrar Beneficiário</title>
+    <link href="../../Public/css/styles.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="../../Public/scripts/jquery-1.2.6.pack.js"></script>
+    -->
+    <script type="text/javascript" src="../../Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
+    <script type="text/javascript" src="../../Public/scripts/jquery.maskMoney.min.js"></script>
+</head>
+<body class="bg-primary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Cadastrar Beneficiário</h3></div>
+                                <div class="card-body">
+                                    <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
+                                        <div class="form-floating mb-3">
+                                                <input class="form-control" id="inputNome" type="text" placeholder="Entre com seu nome completo" required maxlength="70" title="Preencha esta campo com nome do beneficiário completo"/>
+                                                <label for="inputNome">Nome Completo</label>
+                                                <div class="valid-feedback valid-feedback-nome"></div>
+                                        </div>
+                                        <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control is-valid" id="inputCpf" type="text" placeholder="Entre com seu cpf, somente numeros" required maxlength="15" title="Preencha este campo com o numero de cpf do beneficiário, informando somente numeros"/>
+                                                        <label for="inputCpf">CPF</label>
+                                                        <div class="valid-feedback">Parece Bom</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <input class="form-control is-invalid" id="inputFone" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o nome de telefone do beneficiário, informando somente números."/>
+                                                        <label for="inputFone">Telefone</label>
+                                                        <div class="invalid-feedback">Parece ruim</div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control is-invalid" id="inputCep" type="text" placeholder="Entre com seu bairro" required maxlength="9" size="10"/>
+                                                    <label for="inputCep">Cep</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="button" value="Consultar Cep" class="btn btn-primary align-middle btn-busca-cep">
+                                            </div>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control is-invalid" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required/>
+                                            <label for="inputEndereco">Endereço</label>
+                                            <div class="invalid-feedback">Parece ruim</div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating  mb-3 mb-md-0">
+                                                    <input class="form-control is-invalid" id="inputCidade" type="text" placeholder="Entre com sua cidade" required/>
+                                                    <label for="inputCidade">Cidade</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <select id="inputEstado" class="form-select is-invalid" required>
+                                                        <option value="df" selected>DF</option>
+                                                        <option value="go">GO</option>
+                                                    </select>
+                                                    <label for="inputEstado">Estado</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input class="form-control is-invalid" id="inputBairro" type="text" placeholder="Entre com seu bairro" required/>
+                                                    <label for="inputBairro">Bairro</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control is-invalid" id="inputNis" type="text" placeholder="Entre com seu numero de nis, somente numeros" required maxlength="14" title="Preencha este campo com o número de nis do beneficiário"/>
+                                                    <label for="inputNis">Numero nis</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control is-invalid" id="inputQtdPessoasHome" type="number" placeholder="Entre com a quantidade de pessoas que residem na mesma residencia que você" min="1" max="10" required/>
+                                                    <label for="inputQtdPessoasHome">N.º Pessoas Residencia</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control is-invalid" id="inputRenda" type="text" placeholder="Informe a renda por pessoa" required data-prefix="R$ "  data-affixes-stay="true"/>
+                                                    <label for="inputRenda">Renda por cabeça</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-8">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <textarea class="form-control" placeholder="Descreva aqui alguma observação importante, relacionada a este beneficiario" id="floatingTextarea" name="obs"></textarea>
+                                                    <label for="floatingTextarea">Observação</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <select name="inputTipoCras" class="form-select is-invalid" required>
+                                                        <option value="cras1" selected>Cras 1</option>
+                                                        <option value="cras2">Cras 2</option>
+                                                    </select>
+                                                    <label for="inputTipoCras">Abrangência crás</label>
+                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 mb-0">
+                                            <div class="d-grid gap-2 col-6 mx-auto">
+                                                <input type="submit" value="Cadastrar" class=" btn-cadastrar-beneficiario btn btn-primary">
+                                                <a class="btn btn-primary btn-block" href="#" target="self" rel="next">Voltar</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!--
+                                <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../Public/scripts/scripts.js"></script>
+    <script src="../../Public/scripts/form-beneficiario.js"></script>
+    <script src="../../Public/scripts/consulta-cep.js"></script>
+</body>
+</html>
