@@ -4,10 +4,14 @@ let inputSubmit = document.querySelector(".form-beneficiario");
 //O submit evento é disparado quando um <form>é enviado.
 //o form so e submetido quando todos campos required estiverem prenchidos
 inputSubmit.addEventListener("submit", function(event) {
-    let inputNomeValue = document.querySelector("#inputNome").value;
-    let inputNomeElement = document.querySelector("#inputNome");
-    let feedbackValidNome = document.querySelector(".valid-feedback-nome");
-    inputNomeElement.classList.add("is-valid");
+    let inputsForms = document.querySelectorAll(".form-control");
+    let inputSelects = document.querySelectorAll(".form-select");
+    inputsForms.forEach(input => {
+        input.classList.add('is-valid');
+    });
+    inputSelects.forEach(select => {
+        select.classList.add("is-valid");
+    });
     event.preventDefault();
 });
 
@@ -33,7 +37,7 @@ function limitaCaracteresInputNome() {
 
 limitaCaracteresInputNome();
 
-/***************Máscaras de telefone***************************/
+/***************Máscaras de telefones***************************/
 function mascara(o,f){
     v_obj=o
     v_fun=f
@@ -54,7 +58,14 @@ window.onload = function(){
     inputTelefone.addEventListener("keyup", function() {
         mascara(this, mtel );
     });    
+    let inputTelefoneOpcional = document.querySelector("#inputFoneOpcional");
+    inputTelefoneOpcional.addEventListener("keyup", function() {
+        mascara(this, mtel );
+    });
 }
+
+	    
+
 
 /************************MASCARA DE CPF****************************/
 $(document).ready(function(){  

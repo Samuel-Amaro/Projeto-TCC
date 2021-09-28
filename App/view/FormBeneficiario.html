@@ -33,18 +33,25 @@
                                                 <div class="valid-feedback valid-feedback-nome"></div>
                                         </div>
                                         <div class="row mb-3">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="inputCpf" class="mb-1">CPF</label>
-                                                        <input class="form-control is-valid" id="inputCpf" type="text" placeholder="Entre com seu cpf, somente numeros" required maxlength="15" title="Preencha este campo com o numero de cpf do beneficiário, informando somente numeros"/>
-                                                        <div class="valid-feedback">Parece Bom</div>
+                                                        <input class="form-control" id="inputCpf" type="text" placeholder="Entre com seu cpf, somente numeros" required maxlength="15" title="Preencha este campo com o numero de cpf do beneficiário, informando somente numeros"/>
+                                                        <div class="valid-feedback"></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="">
                                                         <label for="inputFone" class="mb-1">Telefone</label>
-                                                        <input class="form-control is-invalid" id="inputFone" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o nome de telefone do beneficiário, informando somente números."/>
-                                                        <div class="invalid-feedback">Parece ruim</div>
+                                                        <input class="form-control" id="inputFone" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o numero de telefone do beneficiário, informando somente números."/>
+                                                        <div class="invalid-feedback"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="">
+                                                        <label for="inputFoneOpcional" class="mb-1">Telefone Opcional</label>
+                                                        <input class="form-control" id="inputFoneOpcional" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o numero de telefone do beneficiário, informando somente números."/>
+                                                        <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                         </div>
@@ -52,7 +59,7 @@
                                             <div class="col-md-6">
                                                 <div class="">
                                                     <label for="inputCep" class="mb-1">Cep</label>
-                                                    <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu bairro" required maxlength="9" size="10"/>
+                                                    <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu Cep" required maxlength="9" size="10"/>
                                                     <div class="invalid-feedback-cep"></div>
                                                 </div>
                                             </div>
@@ -61,28 +68,39 @@
                                                 <input type="button" value="Consultar Cep" class="btn btn-primary align-middle btn-busca-cep">
                                             </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="inputEndereco" class="mb-1">Endereço</label>
-                                            <input class="form-control" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required/>
-                                            <div class="invalid-feedback">Parece ruim</div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <label for="inputEmail">Email Opcional</label>
+                                                    <input type="email" class="form-control" id="inputEmailOpcional" placeholder="Entre com o email do beneficiario, se ele possuir" title="informe um email valido como nome@dominio.com">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <label for="inputEndereco" class="mb-1">Endereço - Logradouro</label>
+                                                <input class="form-control" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required/>
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="mb-3">
                                             <label for="inputComplemento" class="mb-1">Complemento</label>
                                             <input class="form-control" id="inputComplemento" type="text" placeholder="Entre com um complemento referente ao endereço" required/>
-                                            <div class="invalid-feedback">Parece ruim</div>
+                                            <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="inputCidade" class="mb-1">Cidade</label>
                                                     <input class="form-control" id="inputCidade" type="text" placeholder="Entre com sua cidade" required/>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-4">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="inputEstado" class="mb-1">Estado</label>
-                                                    <select id="inputEstado" class="form-select" required>
+                                                    <select id="inputEstado" class="form-select" title="Selecione o estado onde o beneficiario reside" required>
                                                         <option value="ac">AC</option>
                                                         <option value="al">AL</option>
                                                         <option value="df">DF</option>
@@ -110,14 +128,14 @@
                                                         <option value="se">SE</option>
                                                         <option value="to">TO</option>
                                                     </select>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="">
                                                     <label for="inputBairro" class="mb-1">Bairro</label>
                                                     <input class="form-control" id="inputBairro" type="text" placeholder="Entre com seu bairro" required/>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,22 +143,22 @@
                                             <div class="col-md-4">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="inputNis" class="mb-1">Numero nis</label>
-                                                    <input class="form-control is-invalid" id="inputNis" type="text" placeholder="Entre com seu numero de nis, somente numeros" required maxlength="14" title="Preencha este campo com o número de nis do beneficiário"/>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <input class="form-control" id="inputNis" type="text" placeholder="Entre com seu numero de nis, somente numeros" required maxlength="14" title="Preencha este campo com o número de nis do beneficiário"/>
+                                                    <div class="invalid-feedback-nis"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="inputQtdPessoasHome" class="mb-1">N.º Pessoas Residencia</label>
-                                                    <input class="form-control is-invalid" id="inputQtdPessoasHome" type="number" placeholder="Entre com a quantidade de pessoas que residem na mesma residencia que você" min="1" max="10" required/>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <input class="form-control" id="inputQtdPessoasHome" type="number" placeholder="Entre com a quantidade de pessoas que residem na mesma residencia que você" min="1" max="10" required/>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="inputRenda" class="mb-1">Renda por cabeça</label>
-                                                    <input class="form-control is-invalid" id="inputRenda" type="text" placeholder="Informe a renda por pessoa" required data-prefix="R$ "  data-affixes-stay="true"/>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por pessoa" required data-prefix="R$ "  data-affixes-stay="true"/>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -149,23 +167,24 @@
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="floatingTextarea" class="mb-1">Observações importantes para compor cadastro</label>
                                                     <textarea class="form-control" placeholder="Descreva aqui alguma observação importante, relacionada a este beneficiario" id="floatingTextarea" name="obs"></textarea>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="">
                                                     <label for="inputTipoCras" class="mb-1">Abrangência crás</label>
-                                                    <select name="inputTipoCras" class="form-select is-invalid" required>
+                                                    <select name="inputTipoCras" class="form-select" required>
                                                         <option value="cras1" selected>Cras 1</option>
                                                         <option value="cras2">Cras 2</option>
                                                     </select>
-                                                    <div class="invalid-feedback">Parece ruim</div>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid gap-2 col-6 mx-auto">
                                                 <input type="submit" value="Cadastrar" class=" btn-cadastrar-beneficiario btn btn-primary">
-                                                <a class="btn btn-primary btn-block" href="#" target="self" rel="next">Voltar</a>
+                                                <a class="btn btn-primary btn-block" href="PainelControle.php" target="self" rel="next">Voltar</a>
                                             </div>
                                         </div>
                                     </form>

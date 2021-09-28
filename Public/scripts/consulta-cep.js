@@ -77,7 +77,7 @@ function mostraDados(bairro, cidade, logradouro, estado, complemento, erro) {
     let inputBairro = document.querySelector("#inputBairro");
     let inputComplemento = document.querySelector("#inputComplemento");
     inputEndereco.value = logradouro;
-    selectEstado.value = estado; //String.prototype.toLowerCase(estado)
+    //selectEstado.value = estado; //String.prototype.toLowerCase(estado)
     inputBairro.value = bairro;
     inputCidade.value = cidade;
     inputComplemento.value = complemento;
@@ -89,5 +89,13 @@ function mostraDados(bairro, cidade, logradouro, estado, complemento, erro) {
     inputCidade.classList.add("is-valid");
     inputComplemento.classList.add("is-valid");
     inputBairro.classList.add("is-valid");
+    //add option estado no select
+    let optionValue = document.createElement("option");
+    optionValue.selected = true;
+    optionValue.textContent = estado;
+    optionValue.value = estado;
+    selectEstado.appendChild(optionValue);
+    selectEstado.setAttribute("disabled", "true");
+    selectEstado.classList.add("is-valid");
   }
 }

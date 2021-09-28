@@ -31,3 +31,4 @@ CREATE UNIQUE INDEX CONCURRENTLY indice_exc_cpf ON usuario(cpf_usuario);
 
 -- add a constraint UNIQUE na coluna cpf
 ALTER TABLE usuario ADD CONSTRAINT unique_cpf UNIQUE USING INDEX indice_exc_cpf;
+
