@@ -27,10 +27,17 @@
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Cadastrar Beneficiário</h3></div>
                                 <div class="card-body">
                                     <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
-                                        <div class="mb-3">
-                                                <label for="inputNome" class="mb-1">Nome Completo</label>
-                                                <input class="form-control" id="inputNome" type="text" placeholder="Entre com seu nome completo" required maxlength="70" title="Preencha esta campo com nome do beneficiário completo"/>
-                                                <div class="valid-feedback valid-feedback-nome"></div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="inputNomePrimeiro" class="mb-1">Primeiro Nome</label>
+                                                <input class="form-control" id="inputNomePrimeiro" type="text" placeholder="Entre com seu primeiro nome" required maxlength="35" title="Preencha esta campo com o primeiro nome do beneficiario"/>
+                                                <div class="valid-feedback valid-feedback-primeiro-nome"></div>
+                                            </div>    
+                                            <div class="col-md-6">
+                                                <label for="inputNomeUltimo" class="mb-1">Ultimo Nome</label>
+                                                <input class="form-control" id="inputNomeUltimo" type="text" placeholder="Entre com seu ultimo nome" required maxlength="35" title="Preencha esta campo com o ultimo nome do beneficiario"/>
+                                                <div class="valid-feedback valid-feedback-ultimo-nome"></div>
+                                            </div>    
                                         </div>
                                         <div class="row mb-3">
                                                 <div class="col-md-4">
@@ -184,7 +191,7 @@
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid gap-2 col-6 mx-auto">
                                                 <input type="submit" value="Cadastrar" class=" btn-cadastrar-beneficiario btn btn-primary">
-                                                <a class="btn btn-primary btn-block" href="PainelControle.php" target="self" rel="next">Voltar</a>
+                                                <a class="btn btn-primary btn-block" href="PainelControle.php" target="_self" rel="next">Voltar</a>
                                             </div>
                                         </div>
                                     </form>

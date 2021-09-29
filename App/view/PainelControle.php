@@ -71,7 +71,8 @@ if(session_start()) {
                             </a>
                             <!--Beneficiarios-->
                             <div class="sb-sidenav-menu-heading">Beneficiários</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <!--data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts"-->
+                            <a class="nav-link collapsed" href="FormBeneficiario.php" target="_self" rel="next">
                                 <div class="sb-nav-link-icon"><i class="fas fa-male"></i></div>
                                 Cadastrar
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>

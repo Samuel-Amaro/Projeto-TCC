@@ -55,7 +55,7 @@ function makeRequest(url) {
             if(httpRequest.status === 200) {
                 let httpResponse = JSON.parse(httpRequest.responseText);  
                 mostraDados(httpResponse.bairro, httpResponse.localidade, httpResponse.logradouro, httpResponse.uf, httpResponse.complemento, httpResponse.erro);
-                console.log(httpResponse);
+                //console.log(httpResponse);
             }else{
         
             }
@@ -69,7 +69,7 @@ function mostraDados(bairro, cidade, logradouro, estado, complemento, erro) {
   if(erro == true){
     let cepElement = document.querySelector("#inputCep");
     cepElement.classList.add("is-invalid");
-    feedbackCep.classList.add("Cep informado e invalido!");
+    feedbackCep.textContent = "Cep informado e invalido!";
   }else{
     let inputEndereco = document.querySelector("#inputEndereco");
     let inputCidade = document.querySelector("#inputCidade");

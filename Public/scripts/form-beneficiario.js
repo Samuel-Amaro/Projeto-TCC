@@ -17,20 +17,36 @@ inputSubmit.addEventListener("submit", function(event) {
 
 
 function limitaCaracteresInputNome() {
-    let inputNome = document.querySelector("#inputNome");
-    let feedbackValidNome = document.querySelector(".valid-feedback-nome");
+    let inputNome = document.querySelector("#inputNomePrimeiro");
+    let feedbackValidNome = document.querySelector(".valid-feedback-primeiro-nome");
     inputNome.addEventListener("keypress", function(e) {
-        var maxChars = 70;
+        var maxChars = 35;
         inputLength = inputNome.value.length;
         if(inputLength >= maxChars) {
             e.preventDefault();
             inputNome.classList.remove('is-valid');
             inputNome.classList.add('is-invalid');
-            feedbackValidNome.textContent = "Quantidade de caracteres permitidos são de no máximo 70.";
+            feedbackValidNome.textContent = "Quantidade de caracteres permitidos são de no máximo 35.";
         }else{
             inputNome.classList.remove('is-invalid');
             inputNome.classList.add('is-valid');
             feedbackValidNome.textContent = "Qtd Caracteres Digitados: " + inputLength;
+        }
+    });
+    let inputNomeUltimo = document.querySelector("#inputNomeUltimo");
+    let feedbackValidUltimoNome = document.querySelector(".valid-feedback-ultimo-nome");
+    inputNomeUltimo.addEventListener("keypress", function(e) {
+        var maxChars = 35;
+        inputLength = inputNomeUltimo.value.length;
+        if(inputLength >= maxChars) {
+            e.preventDefault();
+            inputNomeUltimo.classList.remove('is-valid');
+            inputNomeUltimo.classList.add('is-invalid');
+            feedbackValidUltimoNome.textContent = "Quantidade de caracteres permitidos são de no máximo 35.";
+        }else{
+            inputNomeUltimo.classList.remove('is-invalid');
+            inputNomeUltimo.classList.add('is-valid');
+            feedbackValidUltimoNome.textContent = "Qtd Caracteres Digitados: " + inputLength;
         }
     });
 }
