@@ -10,17 +10,17 @@ class ModelBeneficiario {
     private string $ultimoNome;
     private string $nis;
     private string $celularRequired;
-    private string $celularOpcional;
+    private ?string $celularOpcional;
     private string $endereco;
     private string $bairro;
     private string $cidade;
     private string $uf;
     private int $qtdPessoasResidencia;
     private float $rendaPerCapita;
-    private string $observacao;
+    private ?string $observacao;
     private ?string $email;
-    private string $cep;
-    private string $complemento_ende;
+    private ?string $cep;
+    private ?string $complemento_ende;
     private string $abrangenciaCras;
 
     public function __construct()
@@ -65,9 +65,13 @@ class ModelBeneficiario {
         return $this->celularRequired;
     }
     public function setCelularOpcional(string $celularOpcionalP) {
-        $this->celularOpcional = $celularOpcionalP;
+        if(empty($celularOpcionalP)) {
+            $this->celularOpcional = null;
+        }else{
+            $this->celularOpcional = $celularOpcionalP;
+        }
     }
-    public function getCelularOpcional() : string{
+    public function getCelularOpcional() : ?string{
         return $this->celularOpcional; 
     }
     public function setEndereco(string $enderecoP) {
@@ -107,13 +111,17 @@ class ModelBeneficiario {
         return $this->rendaPerCapita;
     }
     public function setObservacao(string $observaoP) {
-        $this->observacao = $observaoP;
+        if(empty($observaoP)){
+            $this->observacao = null;
+        }else{
+            $this->observacao = $observaoP;
+        }   
     }
-    public function getObservacao() : string{
+    public function getObservacao() : ?string{
         return $this->observacao;
     }
     public function setEmail(string $emailP) {
-        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
+        if(!filter_var($emailP, FILTER_VALIDATE_EMAIL) === false) {
             $this->email = $emailP; 
         }else{
             $this->email = null;
@@ -123,15 +131,23 @@ class ModelBeneficiario {
         return $this->email;    
     }
     public function setCep(string $cepP) {
-        $this->cep = $cepP;
+       if(empty($cepP)) {
+          $this->cep = null;
+       }else{
+            $this->cep = $cepP;
+        }
     }
-    public function getCep() : string{
+    public function getCep() : ?string{
         return $this->cep;
     }
     public function setComplementoEnde(string $complementoP) {
-        $this->complemento_ende = $complementoP;
+        if(empty($complementoP)) {
+            $this->complemento_ende = null;
+        }else{
+            $this->complemento_ende = $complementoP;
+        }
     }
-    public function getComplementoEnde() : string{
+    public function getComplementoEnde() : ?string{
         return $this->complemento_ende;
     }
     public function setAbrangenciaCras(string $abrangeP) {

@@ -9,6 +9,8 @@
     <meta name="author" content="Samuel Amaro">
     <title>Cadastrar Beneficiário</title>
     <link href="../../Public/css/styles.css" rel="stylesheet"/>
+    <!--modal-->
+    <link rel="stylesheet" href="../../Public/css/estilo_form_beneficiario.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!--<script type="text/javascript" src="../../Public/scripts/jquery-1.2.6.pack.js"></script>
@@ -27,12 +29,13 @@
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Cadastrar Beneficiário</h3></div>
                                 <div class="card-body">
                                     <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
-                                        <input type="hidden" name="operacao" value="cadastro">
+                                        <input type="hidden" name="operacao" value="cadastro" id="operacao">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="inputNomePrimeiro" class="mb-1">Primeiro Nome</label>
                                                 <input class="form-control" id="inputNomePrimeiro" type="text" placeholder="Entre com seu primeiro nome" required maxlength="35" title="Preencha esta campo com o primeiro nome do beneficiario" name="primeiroNome"/>
-                                                <div class="valid-feedback valid-feedback-primeiro-nome"></div>
+                                                <div class="valid-feedback mb-01 valid-feedback-primeiro-nome"></div>
+                                                <div class="valid-feedback feedback-verifica-nome"></div>
                                             </div>    
                                             <div class="col-md-6">
                                                 <label for="inputNomeUltimo" class="mb-1">Ultimo Nome</label>
@@ -45,7 +48,7 @@
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="inputCpf" class="mb-1">CPF</label>
                                                         <input class="form-control" id="inputCpf" type="text" placeholder="Entre com seu cpf, somente numeros" required maxlength="15" title="Preencha este campo com o numero de cpf do beneficiário, informando somente numeros" name="cpf"/>
-                                                        <div class="valid-feedback"></div>
+                                                        <div class="valid-feedback valid-feedback-cpf"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -80,7 +83,7 @@
                                             <div class="col-md-12">
                                                 <div>
                                                     <label for="inputEmail">Email Opcional</label>
-                                                    <input type="email" class="form-control email" id="inputEmailOpcional" placeholder="Entre com o email do beneficiario, se ele possuir" title="informe um email valido como nome@dominio.com" name="email">
+                                                    <input type="email" class="form-control" id="inputEmailOpcional" placeholder="Entre com o email do beneficiario, se ele possuir" title="informe um email valido como nome@dominio.com" name="email">
                                                 </div>
                                             </div>
                                         </div>
@@ -165,7 +168,7 @@
                                             <div class="col-md-4">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="inputRenda" class="mb-1">Renda por cabeça</label>
-                                                    <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por pessoa" required data-prefix="R$ "  data-affixes-stay="true" name="rendaPerCapita"/>
+                                                    <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por pessoa" required data-prefix="R$ "  data-affixes-stay="false" data-decimal="." name="rendaPerCapita"/>
                                                     <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -209,6 +212,21 @@
             </main>
         </div>
     </div>
+
+    <div class="conteiner-modal">
+            <div class="conteiner-header-modal alert-success alert-warning">
+                <h3 class="titulo-modal">Titulo Modal</h3>
+            </div>
+            <div class="modal-content alert-success alert-warning">
+                <span class="close">&times;</span>
+                <p class="msg-content">Mensagem do modal</p>
+            </div>
+            <div class="conteiner-footer-modal alert-success alert-warning">
+                <a href="#" id="button-1-modal" target="_self" rel="next">Entrar</a>
+                <a href="#" target="_self" rel="next" id="button-2-modal">Sair</a>
+            </div>
+    </div> <!--modal local-->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../../Public/scripts/scripts.js"></script>
     <script src="../../Public/scripts/form-beneficiario.js"></script>

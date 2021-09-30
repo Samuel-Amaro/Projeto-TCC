@@ -12,8 +12,13 @@ inputSubmit.addEventListener("submit", function(event) {
     inputSelects.forEach(select => {
         select.classList.add("is-valid");
     });
-    console.log(obterDados());
-    event.preventDefault();
+    if(makeRequest("../controller/ControllerBeneficiario.php", obterDados()) == 1) {
+       //faz nada se der certo
+    }else{
+        //deu erro cancela o evento submit
+        mostraModal("Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.", "Cadastro de beneficiário", "Ok", "Sair", "sucesso");
+        event.preventDefault();
+    }
 });
 
 
@@ -81,9 +86,6 @@ window.onload = function(){
     });
 }
 
-	    
-
-
 /************************MASCARA DE CPF****************************/
 $(document).ready(function(){  
     $("#inputCpf").mask("999.999.999-99");   
@@ -101,23 +103,22 @@ $(document).ready(function() {
 
 
 /*********************************FUNÇÃO DE FAZER REQUEST PARA SERVIDOR AJAX **************************/
-function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) { 
+function makeRequest(url, beneficiario = {}) { 
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
-    httpRequest.open('POST', url, true);
+    httpRequest.open("POST", url, true);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('nome=' + encodeURIComponent(nome) +    '&cpf=' + encodeURIComponent(tiraMascaraCPF(cpf)) + '&telefone=' + encodeURIComponent(tiraMascaraTel(telefone))  + '&email=' + encodeURIComponent(email) + '&cargo=' + encodeURIComponent(cargo) + '&tipo=' + encodeURIComponent(tipo)  + '&senha=' + encodeURIComponent(senha)  + '&operacao=cadastro');
+    httpRequest.send('primeiroNome=' + encodeURIComponent(beneficiario.primeiroNome) + '&ultimoNome=' + encodeURIComponent(beneficiario.ultimoNome) + '&cpf=' + encodeURIComponent(beneficiario.cpf) + '&telefoneObrigatorio=' + encodeURIComponent(beneficiario.telefoneObrigatorio) + '&telefoneOpcional=' + encodeURIComponent(beneficiario.telefoneOpcional) + '&cep=' + encodeURIComponent(beneficiario.cep) + '&email=' + encodeURIComponent(beneficiario.email) + '&endereco=' + encodeURIComponent(beneficiario.endereco) + '&complemento=' + encodeURIComponent(beneficiario.complemento) + '&cidade=' + encodeURIComponent(beneficiario.cidade) + '&estado=' + encodeURIComponent(beneficiario.uf) + '&bairro=' + encodeURIComponent(beneficiario.bairro) + '&nis=' + encodeURIComponent(beneficiario.nis) + '&qtdPessoasResidencia=' + encodeURIComponent(beneficiario.quantidadePeopleHome) + '&rendaPerCapita=' + encodeURIComponent(beneficiario.rendaPerCapita) + '&obs=' + encodeURIComponent(beneficiario.observacao) + '&abrangencia=' + encodeURIComponent(beneficiario.abrangencia) + '&operacao=' + encodeURIComponent(beneficiario.operacao));
 
     function alertsContents() {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
-                    mostraModal(httpResponse.computedString, "Resposta do servidor", "OK", "Sair", "sucesso");
+                    mostraModal(httpResponse.computedString, "Cadastro de beneficiário", "OK", "Sair", "sucesso");
                     return 1;
                 } catch (error) {
-                    mostraModal("Erro ao atualizar conta de usuário", "Atualização de usuário", "Ok", "Sair", "error");
                     console.error(error.message);
                     console.error(error.name);
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);
@@ -135,7 +136,6 @@ function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) {
 }
 
 function obterDados() {
-    //tira R$ do renda per capita, vem valor com cifrão
     let beneficiario = {
         "primeiroNome" : document.querySelector("#inputNomePrimeiro").value,
         "ultimoNome" : document.querySelector("#inputNomeUltimo").value,
@@ -143,17 +143,18 @@ function obterDados() {
         "telefoneObrigatorio" :  tiraMascaraTel(document.querySelector("#inputFone").value),
         "telefoneOpcional" : tiraMascaraTel(document.querySelector("#inputFoneOpcional").value),  
         "cep" : document.querySelector("#inputCep").value,
-        "email" : document.querySelector(".email").value,
+        "email" : document.querySelector("#inputEmailOpcional").value,
         "endereco" : document.querySelector("#inputEndereco").value,
         "complemento" : document.querySelector("#inputComplemento").value,
         "cidade" : document.querySelector("#inputCidade").value,
         "uf" : document.querySelector("#inputEstado").value,
         "bairro" : document.querySelector("#inputBairro").value,
-        "nis" : tiraMascaraCPF(document.querySelector("#inputNis").value), 
+        "nis" : tiraMascaraNis(document.querySelector("#inputNis").value), 
         "quantidadePeopleHome" : document.querySelector("#inputQtdPessoasHome").value,
-        "rendaPerCapita" : document.querySelector("#inputRenda").value,
-        "observacao" : document.querySelector(".obs").value,
-        "abrangencia" : document.querySelector("#inputTipoCras").value
+        "rendaPerCapita" : parseFloat((document.querySelector("#inputRenda").value).replace(",", ".")), 
+        "observacao" : document.querySelector("#floatingTextarea").value,
+        "abrangencia" : document.querySelector("#inputTipoCras").value,
+        "operacao" : document.querySelector("#operacao").value
     };
     return beneficiario;
 }
@@ -179,3 +180,62 @@ function tiraMascaraTel(telefone) {
     let telParte3 = telefone.substr(11,4); //4 DIGITOS
     return telParte1 + telParte2 + telParte3;
 }
+
+function tiraMascaraNis(nis) {
+    let nisFormatado = nis;
+    let nisParte1 = nis.substr(0,3); //3 DIGITOS
+    let nisParte2 = nis.substr(4, 3); //3 DIGITOS
+    let nisParte3 = nis.substr(8,3); //3 DIGITOS
+    let nisParte4 = nis.substr(12,2); //2 DIGITOS
+    let nisSemFormatacao = nisParte1 + nisParte2 + nisParte3 + nisParte4;
+    return nisSemFormatacao;
+}
+
+
+function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
+    if(tipo == "sucesso") {
+        let divsModal = document.querySelectorAll(".alert-success");
+        divsModal.forEach(element => {
+            element.style.backgroundColor = "#d4edda";
+            element.style.color = "#155724";
+        });
+    }else{
+        let divsModal = document.querySelectorAll(".alert-warning");
+        divsModal.forEach(element => {
+            element.style.backgroundColor = "#f8d7da";
+            element.style.color = "#721c24";
+        });
+    }
+
+    let titleModal = document.querySelector(".titulo-modal");
+    let btn1Modal = document.querySelector("#button-1-modal");
+    let btn2Modal = document.querySelector("#button-2-modal");
+    let modal = document.querySelector(".conteiner-modal");
+    let span = document.querySelector(".close");
+    modal.style.display = "block";
+    span.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+    window.addEventListener("click", function(event) {
+        if(event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+    let p = document.querySelector(".msg-content");
+    p.textContent = mensagemModal;
+    titleModal.textContent = tituloModal;
+    btn1Modal.textContent = textBtn1;
+    btn2Modal.textContent = textBtn2;
+}
+
+//O change evento é acionado para <input>, <select>e <textarea>os elementos, quando uma alteração ao valor do elemento é cometida pelo usuário. 
+/********************VERIFICA SE O beneficiario QUE VAI SER CADASTRADO JA EXISTE NO SISTEMA***********************/
+
+//regitra o manipulador de evento de mudança no input do primeiro nome
+let inputPrimeiroNome = document.querySelector("input[type=\"text\"]#inputNomePrimeiro");
+let feedbackInputNome = document.querySelector(".feedback-verifica-nome");
+
+inputPrimeiroNome.addEventListener("change", function(event) {
+    feedbackInputNome.textContent = event.target.value; 
+});
+

@@ -60,21 +60,54 @@ class DaoBeneficiario{
                 //executou consulta com sucesso
                 if($stmt) {
                     $stmt = null;
-                    $this->connection = null;
+                    unset($this->connection);
                     return true;
                 }else{
+                    $stmt = null;
+                    unset($this->connection);
                     //falha ao executar consulta
                     return false;
                 }        
             } catch (PDOException $p) {
                 $stmt = null;
-                $this->connection = null;
+                unset($this->connection);
                 echo "Error!: falha ao preparar consulta INSERT beneficiario: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
                 return null;
                 //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
                 die();
+            }      
+        }
+    }
+
+    public function selectBeneficiario(string $cpf) {
+        if(is_null($this->connection)) {
+            return null;
+            die();
+        }else{
+            try {
+                $sql = "SELECT * FROM beneficiario WHERE cpf_beneficiario = ?;";
+                $stmt = $this->connection->prepare($sql);
+                $valores = array($cpf);
+                if($stmt->execute($valores)) {
+                    $resultado = $stmt->fetchAll();
+                    if(empty($resultado)) {
+                        $stmt = null;
+                        unset($this->connection);
+                        return null;
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return $resultado;
+                    }
+                }else{
+                   $stmt = null;
+                   unset($this->connection);
+                   return null; 
+                }
+            } catch (PDOException $e) {
+               echo "Error!: falha ao executar consulta SELECT beneficiario: <pre><code>" . $e->getMessage() . "</code></pre></br>";
+               return null;
             }
-               
         }
     }
 

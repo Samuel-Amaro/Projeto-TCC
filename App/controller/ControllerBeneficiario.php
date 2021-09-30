@@ -1,14 +1,12 @@
 <?php
 
 require_once("../dao/DaoBeneficiario.php");
+require_once("../utils/DataBase.php");
 
 //verifica qual o tipo de metodo e operação a se fazer
-if($_SERVER["REQUEST_METHOD"] === "POST") { //Postagem de recursos no server
+if($_SERVER["REQUEST_METHOD"] == "POST") { //Postagem de recursos no server
     $operacao = $_POST["operacao"];
-    $ctr = new ControllerUsuario($operacao, "POST");
-}else if($_SERVER["REQUEST_METHOD"] === "GET") { //obter recursos do server
-    $operacao = $_GET["operacao"];
-    $ctr = new ControllerUsuario($operacao, "GET");
+    $ctr = new ControllerBeneficiario($operacao, "POST");
 }
 
 class ControllerBeneficiario{
@@ -17,7 +15,7 @@ class ControllerBeneficiario{
     private string $methodHttp;
     private ModelBeneficiario $modelBenef;
     private DaoBeneficiario $daoBenef;
-    private string $responseJson;
+    private array $responseJson;
 
     public function __construct(string $operacao, string $methodHttp)
     {
@@ -35,7 +33,7 @@ class ControllerBeneficiario{
     public function cadastroBeneficiario($methodHttp) {
         if($methodHttp === "POST") {
            $this->modelBenef = new ModelBeneficiario();
-           $this->modelBenef->setId(null);
+           //$this->modelBenef->setId(null);
            $this->modelBenef->setPrimeiroNome($_POST["primeiroNome"]);     
            $this->modelBenef->setUltimoNome($_POST["ultimoNome"]);  
            $this->modelBenef->setCpf($_POST["cpf"]);
@@ -53,8 +51,9 @@ class ControllerBeneficiario{
            $this->modelBenef->setRendaPerCapita($_POST["rendaPerCapita"]);
            $this->modelBenef->setObservacao($_POST["obs"]);
            $this->modelBenef->setAbrangenciaCras($_POST["abrangencia"]);
+           $this->daoBenef = new DaoBeneficiario(new DataBase());
            if($this->daoBenef->insertBeneficiario($this->modelBenef)) {
-              $this->setResponseJson("Beneficiário Foi Cadastrado com Sucesso!");
+              $this->setResponseJson("computedString", "Beneficiário Foi Cadastrado com Sucesso!");
               if(is_null($this->getResponseJson())) {
                  //erro, redireciona para nossa pagina de erro interno
               }else{
@@ -65,6 +64,24 @@ class ControllerBeneficiario{
            }
         }else{
             //erro, redireciona para nossa pagina de erro interno
+        }
+    }
+
+    public function verificaSeBeneficiarioExiste($methodHttp, string $cpf) {
+        if($methodHttp === "POST"){
+            $this->daoBenef = new DaoBeneficiario(new DataBase());
+            $cpf = $_POST["cpf"];
+            //beneficiario ja existe no sistema
+            if(is_null($this->daoBenef->selectBeneficiario($cpf))) {
+                $this->setResponseJson("computedString", "Beneficiário já esta, cadastrado no sistema!");
+                if(is_null($this->getResponseJson())) {
+                    //erro, redireciona para nossa pagina de erro interno
+                }else{
+                    echo $this->getResponseJson();
+                }
+            }else{
+                //beneficiario não existe pode cadastrar
+            }
         }
     }
 
@@ -92,8 +109,9 @@ class ControllerBeneficiario{
     public function getDao() : DaoBeneficiario{
         return $this->daoBenef;
     }
-    public function setResponseJson(string $responseJ) {
-        $this->responseJson = $responseJ;
+    public function setResponseJson(string $chave, string $responseValor) {
+        $res = array($chave => $responseValor);
+        $this->responseJson = $res;
     }
     public function getResponseJson() {
         if(empty($this->responseJson)) {

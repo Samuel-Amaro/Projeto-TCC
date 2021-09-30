@@ -25,7 +25,7 @@ function pesquisaCep() {
            //busca cep com ajax requisição GET e retorna um json
            let url = "https://viacep.com.br/ws/" + cepDigitos + "/json/";
            //let objectJsonCep =  makeRequest(url);
-           makeRequest(url);
+           makeRequestCep(url);
            //console.log(objectJsonCep);
         }else{
            //retira class de valida
@@ -44,7 +44,7 @@ function pesquisaCep() {
     }
 }
 
-function makeRequest(url) { 
+function makeRequestCep(url) { 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("GET", url, true);
@@ -53,8 +53,16 @@ function makeRequest(url) {
     function alertsContents() {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
-                let httpResponse = JSON.parse(httpRequest.responseText);  
-                mostraDados(httpResponse.bairro, httpResponse.localidade, httpResponse.logradouro, httpResponse.uf, httpResponse.complemento, httpResponse.erro);
+                try {
+                    let httpResponse = JSON.parse(httpRequest.responseText);  
+                    mostraDados(httpResponse.bairro, httpResponse.localidade, httpResponse.logradouro, httpResponse.uf, httpResponse.complemento, httpResponse.erro);
+                } catch (error) {
+                    //mostraModal("Erro ao atualizar conta de usuário", "Atualização de usuário", "Ok", "Sair", "error");
+                    //console.error(error.message);
+                    //console.error(error.name);
+                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    //return 0;
+                }
                 //console.log(httpResponse);
             }else{
         

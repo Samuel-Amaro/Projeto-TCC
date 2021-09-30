@@ -51,3 +51,6 @@ CREATE UNIQUE INDEX CONCURRENTLY indice_unico_cpf ON beneficiario(cpf_beneficiar
 
 -- add indice unico junto com contraint UNIQUE coluna cpf
 ALTER TABLE beneficiario ADD CONSTRAINT unique_cpf UNIQUE USING INDEX indice_unico_cpf;
+
+-- add uma restrição a coluna celular_required
+ALTER TABLE beneficiario ALTER COLUMN celular_beneficiario_required SET NOT NULL;
