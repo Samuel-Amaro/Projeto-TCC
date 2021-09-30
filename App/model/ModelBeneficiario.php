@@ -18,13 +18,17 @@ class ModelBeneficiario {
     private int $qtdPessoasResidencia;
     private float $rendaPerCapita;
     private string $observacao;
+    private ?string $email;
+    private string $cep;
+    private string $complemento_ende;
+    private string $abrangenciaCras;
 
     public function __construct()
     {
         
     }
 
-    public function setId(int $idP) {
+    public function setId(?int $idP) {
         $this->id = $idP;
     }
     public function getId() : int {
@@ -107,6 +111,34 @@ class ModelBeneficiario {
     }
     public function getObservacao() : string{
         return $this->observacao;
+    }
+    public function setEmail(string $emailP) {
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
+            $this->email = $emailP; 
+        }else{
+            $this->email = null;
+        }
+    }
+    public function getEmail() : ?string{
+        return $this->email;    
+    }
+    public function setCep(string $cepP) {
+        $this->cep = $cepP;
+    }
+    public function getCep() : string{
+        return $this->cep;
+    }
+    public function setComplementoEnde(string $complementoP) {
+        $this->complemento_ende = $complementoP;
+    }
+    public function getComplementoEnde() : string{
+        return $this->complemento_ende;
+    }
+    public function setAbrangenciaCras(string $abrangeP) {
+        $this->abrangenciaCras = $abrangeP;
+    }
+    public function getAbrangenciaCras() : string{
+        return $this->abrangenciaCras;
     }
 }
 

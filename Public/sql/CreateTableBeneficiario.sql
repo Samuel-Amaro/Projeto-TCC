@@ -27,3 +27,27 @@ CREATE UNIQUE INDEX CONCURRENTLY indice_unique_nis ON beneficiario(nis_beneficia
 
 -- add a constraint UNIQUE na coluna nis
 ALTER TABLE beneficiario ADD CONSTRAINT unique_nis UNIQUE USING INDEX indice_unique_nis;
+
+-- add coluna email
+ALTER TABLE beneficiario ADD COLUMN email VARCHAR(70);
+
+--add coluna cep
+ALTER TABLE beneficiario ADD COLUMN cep VARCHAR(10);
+
+--add coluna complemento
+ALTER TABLE beneficiario ADD COLUMN complemento_ende TEXT;
+
+--add coluna abrangencia
+ALTER TABLE beneficiario ADD COLUMN abrangencia_cras VARCHAR(30);
+
+-- add indice para constraint UNIQUE
+CREATE UNIQUE INDEX CONCURRENTLY indice_unico_email ON beneficiario(email);
+
+-- add constranint UNIQUE email
+ALTER TABLE beneficiario ADD CONSTRAINT unique_email UNIQUE USING INDEX indice_unico_email;
+
+-- add indice para constraint UNIQUE cpf
+CREATE UNIQUE INDEX CONCURRENTLY indice_unico_cpf ON beneficiario(cpf_beneficiario);
+
+-- add indice unico junto com contraint UNIQUE coluna cpf
+ALTER TABLE beneficiario ADD CONSTRAINT unique_cpf UNIQUE USING INDEX indice_unico_cpf;

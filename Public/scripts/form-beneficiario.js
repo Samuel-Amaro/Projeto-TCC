@@ -12,6 +12,7 @@ inputSubmit.addEventListener("submit", function(event) {
     inputSelects.forEach(select => {
         select.classList.add("is-valid");
     });
+    console.log(obterDados());
     event.preventDefault();
 });
 
@@ -97,3 +98,84 @@ $(document).ready(function(){
 $(document).ready(function() {
     $('#inputRenda').maskMoney();
 });
+
+
+/*********************************FUNÇÃO DE FAZER REQUEST PARA SERVIDOR AJAX **************************/
+function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) { 
+
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = alertsContents;
+    httpRequest.open('POST', url, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send('nome=' + encodeURIComponent(nome) +    '&cpf=' + encodeURIComponent(tiraMascaraCPF(cpf)) + '&telefone=' + encodeURIComponent(tiraMascaraTel(telefone))  + '&email=' + encodeURIComponent(email) + '&cargo=' + encodeURIComponent(cargo) + '&tipo=' + encodeURIComponent(tipo)  + '&senha=' + encodeURIComponent(senha)  + '&operacao=cadastro');
+
+    function alertsContents() {
+        if(httpRequest.readyState === 4) {
+            if(httpRequest.status === 200) {
+                try {
+                    let httpResponse = JSON.parse(httpRequest.responseText);  
+                    mostraModal(httpResponse.computedString, "Resposta do servidor", "OK", "Sair", "sucesso");
+                    return 1;
+                } catch (error) {
+                    mostraModal("Erro ao atualizar conta de usuário", "Atualização de usuário", "Ok", "Sair", "error");
+                    console.error(error.message);
+                    console.error(error.name);
+                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    return 0;
+                }
+            }else{
+                //return 0;
+            }
+        }else{
+                //alert("Ajax operação assincrona não concluida! onreadystatechange: " + httpRequest.readyState);
+                //operação assincrona ajax não chegou no estagio de concluida
+                //return 0;
+        }
+    }
+}
+
+function obterDados() {
+    //tira R$ do renda per capita, vem valor com cifrão
+    let beneficiario = {
+        "primeiroNome" : document.querySelector("#inputNomePrimeiro").value,
+        "ultimoNome" : document.querySelector("#inputNomeUltimo").value,
+        "cpf" : tiraMascaraCPF(document.querySelector("#inputCpf").value), 
+        "telefoneObrigatorio" :  tiraMascaraTel(document.querySelector("#inputFone").value),
+        "telefoneOpcional" : tiraMascaraTel(document.querySelector("#inputFoneOpcional").value),  
+        "cep" : document.querySelector("#inputCep").value,
+        "email" : document.querySelector(".email").value,
+        "endereco" : document.querySelector("#inputEndereco").value,
+        "complemento" : document.querySelector("#inputComplemento").value,
+        "cidade" : document.querySelector("#inputCidade").value,
+        "uf" : document.querySelector("#inputEstado").value,
+        "bairro" : document.querySelector("#inputBairro").value,
+        "nis" : tiraMascaraCPF(document.querySelector("#inputNis").value), 
+        "quantidadePeopleHome" : document.querySelector("#inputQtdPessoasHome").value,
+        "rendaPerCapita" : document.querySelector("#inputRenda").value,
+        "observacao" : document.querySelector(".obs").value,
+        "abrangencia" : document.querySelector("#inputTipoCras").value
+    };
+    return beneficiario;
+}
+
+function tiraMascaraCPF(cpf) {
+    let cpfFormatado = cpf;
+    let cpfParte1 = cpf.substr(0,3); //3 DIGITOS
+    //console.log("PARTE 1: " + cpfParte1);
+    let cpfParte2 = cpf.substr(4, 3); //3 DIGITOS
+    //console.log("PARTE 2: " + cpfParte2);
+    let cpfParte3 = cpf.substr(8,3); //3 DIGITOS
+    //console.log("PARTE 3: " + cpfParte3);
+    let cpfParte4 = cpf.substr(12,2); //2 DIGITOS
+    //console.log("PARTE 4: " + cpfParte4);
+    let cpfSemFormatacao = cpfParte1 + cpfParte2 + cpfParte3 + cpfParte4;
+    return cpfSemFormatacao;
+}
+
+function tiraMascaraTel(telefone) {
+    let telFormatado = telefone;
+    let telParte1 = telefone.substr(1,2); //DD
+    let telParte2 = telefone.substr(5,5); //5 DIGITOS
+    let telParte3 = telefone.substr(11,4); //4 DIGITOS
+    return telParte1 + telParte2 + telParte3;
+}
