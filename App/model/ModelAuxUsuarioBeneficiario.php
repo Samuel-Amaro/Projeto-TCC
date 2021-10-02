@@ -6,7 +6,7 @@ class ModelOperacaoUsuarioBeneficiario{
     private int $fkBeneficiario;
     private int $fkUsuario;
     private string $tipoOperacao;
-    private string $dataHoraOperacao;
+    private ?string $dataHoraOperacao;
 
     public function __construct()
     {
@@ -37,10 +37,10 @@ class ModelOperacaoUsuarioBeneficiario{
     public function getTipoOperacao() : string{
         return $this->tipoOperacao;
     }
-    public function setDataHoraOperacao(string $dataHora) {
+    public function setDataHoraOperacao(?string $dataHora) {
         $this->dataHoraOperacao = $dataHora;
     }
-    public function getDataHoraOperacao() : string {
+    public function getDataHoraOperacao() : ?string {
         return $this->dataHoraOperacao;
     }
 }

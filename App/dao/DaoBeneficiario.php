@@ -28,10 +28,15 @@ class DaoBeneficiario{
         return $this->modelBeneficiario;
     }
 
-    public function insertBeneficiario(ModelBeneficiario $newModelBene) : bool {
+    /**
+     * * Esta função executa uma cunsulta insert  na tbl_beneficiario no banco de dados db_social
+     *  
+     * @return string|null retornar o id do ultimo insert executado ou um valor null
+    */
+    public function insertBeneficiario(ModelBeneficiario $newModelBene) {
         $this->modelBeneficiario = $newModelBene;
         if(is_null($this->connection)) {
-            return false;
+            return null;
             die();
         }else{
             try {
@@ -60,13 +65,13 @@ class DaoBeneficiario{
                 //executou consulta com sucesso
                 if($stmt) {
                     $stmt = null;
-                    unset($this->connection);
-                    return true;
+                    //unset($this->connection);
+                    return $this->connection->lastInsertId(); //) ? $this->connection->lastInsertId() : null;
                 }else{
                     $stmt = null;
                     unset($this->connection);
                     //falha ao executar consulta
-                    return false;
+                    return null;
                 }        
             } catch (PDOException $p) {
                 $stmt = null;

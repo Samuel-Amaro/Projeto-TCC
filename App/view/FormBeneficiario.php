@@ -1,3 +1,23 @@
+<?php 
+
+require_once("../model/ModelUsuario.php");
+
+if(session_start()) {
+    //se o objeto do usuario não existe na seção
+    if(!isset($_SESSION["usuario_logado"])) {
+        //manda um redirecionamento para login
+        header("Location: ../../index.php");
+        exit;
+    }else{
+        //se ja existir o dado do usuario logado na session, intanciar um model
+        //desserializar o objeto model setado na seção
+        $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
+        /*$modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
+        $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());*/
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -30,6 +50,7 @@
                                 <div class="card-body">
                                     <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
                                         <input type="hidden" name="operacao" value="cadastro" id="operacao">
+                                        <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label for="inputNomePrimeiro" class="mb-1">Primeiro Nome</label>

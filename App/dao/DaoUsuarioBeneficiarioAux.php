@@ -8,9 +8,9 @@ class DaoUsuarioBeneficiarioAux{
     private PDO $connection;
     private ModelOperacaoUsuarioBeneficiario $modelAux;
 
-    public function __construct()
+    public function __construct(DataBase $con)
     {
-        
+       $this->connection = $con->conexaoSGBD;
     }
 
     public function insertOperacaoUsuarioBeneficiario(ModelOperacaoUsuarioBeneficiario $model) : bool {
@@ -20,24 +20,26 @@ class DaoUsuarioBeneficiarioAux{
             die();
         }else{
             try {
-                $sql = "INSERT INTO tbl_operaca_usuario_beneficiario(fk_beneficiario, fk_usuario, tipo_operacao, data_hora_operacao) VALUES (?, ?, ?, ?);";   
+                $sql = "INSERT INTO tbl_operaca_usuario_beneficiario(fk_beneficiario, fk_usuario, tipo_operacao) VALUES (?, ?, ?);";   
                 $stmt = $this->connection->prepare($sql);
-                $valores = array($this->modelAux->getFkBeneficiario(), $this->modelAux->getFkUsuario(), $this->modelAux->getTipoOperacao(), $this->modelAux->getDataHoraOperacao());
+                $valores = array($this->modelAux->getFkBeneficiario(), $this->modelAux->getFkUsuario(), $this->modelAux->getTipoOperacao());
                 $stmt->execute($valores);
                 //executou consulta com sucesso
                 if($stmt) {
                     $stmt = null;
-                    $this->connection = null;
+                    unset($this->connection);                    
                     return true;
                 }else{
                     //falha ao executar consulta
+                    $stmt = null;
+                    unset($this->connection);
                     return false;
                 }        
             } catch (PDOException $p) {
                 $stmt = null;
-                $this->connection = null;
+                unset($this->connection);
                 echo "Error!: falha ao preparar consulta INSERT tbl_operaca_usuario_beneficiario: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
-                return null;
+                return false;
                 //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
                 die();
             }  

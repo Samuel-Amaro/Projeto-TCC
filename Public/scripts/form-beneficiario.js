@@ -109,7 +109,7 @@ function makeRequest(url, beneficiario = {}) {
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('primeiroNome=' + encodeURIComponent(beneficiario.primeiroNome) + '&ultimoNome=' + encodeURIComponent(beneficiario.ultimoNome) + '&cpf=' + encodeURIComponent(beneficiario.cpf) + '&telefoneObrigatorio=' + encodeURIComponent(beneficiario.telefoneObrigatorio) + '&telefoneOpcional=' + encodeURIComponent(beneficiario.telefoneOpcional) + '&cep=' + encodeURIComponent(beneficiario.cep) + '&email=' + encodeURIComponent(beneficiario.email) + '&endereco=' + encodeURIComponent(beneficiario.endereco) + '&complemento=' + encodeURIComponent(beneficiario.complemento) + '&cidade=' + encodeURIComponent(beneficiario.cidade) + '&estado=' + encodeURIComponent(beneficiario.uf) + '&bairro=' + encodeURIComponent(beneficiario.bairro) + '&nis=' + encodeURIComponent(beneficiario.nis) + '&qtdPessoasResidencia=' + encodeURIComponent(beneficiario.quantidadePeopleHome) + '&rendaPerCapita=' + encodeURIComponent(beneficiario.rendaPerCapita) + '&obs=' + encodeURIComponent(beneficiario.observacao) + '&abrangencia=' + encodeURIComponent(beneficiario.abrangencia) + '&operacao=' + encodeURIComponent(beneficiario.operacao));
+    httpRequest.send('primeiroNome=' + encodeURIComponent(beneficiario.primeiroNome) + '&ultimoNome=' + encodeURIComponent(beneficiario.ultimoNome) + '&cpf=' + encodeURIComponent(beneficiario.cpf) + '&telefoneObrigatorio=' + encodeURIComponent(beneficiario.telefoneObrigatorio) + '&telefoneOpcional=' + encodeURIComponent(beneficiario.telefoneOpcional) + '&cep=' + encodeURIComponent(beneficiario.cep) + '&email=' + encodeURIComponent(beneficiario.email) + '&endereco=' + encodeURIComponent(beneficiario.endereco) + '&complemento=' + encodeURIComponent(beneficiario.complemento) + '&cidade=' + encodeURIComponent(beneficiario.cidade) + '&estado=' + encodeURIComponent(beneficiario.uf) + '&bairro=' + encodeURIComponent(beneficiario.bairro) + '&nis=' + encodeURIComponent(beneficiario.nis) + '&qtdPessoasResidencia=' + encodeURIComponent(beneficiario.quantidadePeopleHome) + '&rendaPerCapita=' + encodeURIComponent(beneficiario.rendaPerCapita) + '&obs=' + encodeURIComponent(beneficiario.observacao) + '&abrangencia=' + encodeURIComponent(beneficiario.abrangencia) + '&operacao=' + encodeURIComponent(beneficiario.operacao) + '&id_usuario=' + encodeURIComponent(beneficiario.id_usuario));
 
     function alertsContents() {
         if(httpRequest.readyState === 4) {
@@ -154,7 +154,8 @@ function obterDados() {
         "rendaPerCapita" : parseFloat((document.querySelector("#inputRenda").value).replace(",", ".")), 
         "observacao" : document.querySelector("#floatingTextarea").value,
         "abrangencia" : document.querySelector("#inputTipoCras").value,
-        "operacao" : document.querySelector("#operacao").value
+        "operacao" : document.querySelector("#operacao").value,
+        "id_usuario" : document.querySelector("input[type=\"hidden\"]#id_usuario").value
     };
     return beneficiario;
 }
@@ -232,10 +233,10 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
 /********************VERIFICA SE O beneficiario QUE VAI SER CADASTRADO JA EXISTE NO SISTEMA***********************/
 
 //regitra o manipulador de evento de mudança no input do primeiro nome
-let inputPrimeiroNome = document.querySelector("input[type=\"text\"]#inputNomePrimeiro");
-let feedbackInputNome = document.querySelector(".feedback-verifica-nome");
+let inputCpf = document.querySelector("input[type=\"text\"]#inputCpf");
+let feedbackInputCpf = document.querySelector(".valid-feedback-cpf");
 
-inputPrimeiroNome.addEventListener("change", function(event) {
-    feedbackInputNome.textContent = event.target.value; 
+inputCpf.addEventListener("change", function(event) {
+    feedbackInputCpf.textContent = event.target.value; 
 });
 
