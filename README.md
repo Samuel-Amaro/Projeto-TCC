@@ -39,8 +39,8 @@ Tabela de conteúdos
 - [x] Visualizar usuários cadastrados no sistema. 
 - [x] Login.  
 - [x] Usuário deletar sua propria conta. 
-#### Features de Beneficiarios
-- [ ] Cadastro de beneficiarios
+#### Features de Beneficiários
+- [x] Cadastro de beneficiários
 - [ ] Cadastro de beneficios
 - [ ] Registrar entregas
 - [ ] Controlar estoque
