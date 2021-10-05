@@ -143,7 +143,7 @@ class ControllerBeneficiario{
                         "uf" => $valor["uf_beneficiario"], 
                         "qtd_pessoas_home" => $valor["qtd_pessoas_resid_beneficiario"], 
                         "renda" => $valor["renda_per_capita_beneficiario"], 
-                        "obs" => ($valor["observacao_beneficiario"] == null) ? "" : $valor["observacao_beneficiario"], 
+                        //"obs" => ($valor["observacao_beneficiario"] == null) ? "" : $valor["observacao_beneficiario"], 
                         "email" => ($valor["email"] == null) ? "" : $valor["email"], 
                         "cep" => ($valor["cep"] == null) ? "" : $valor["cep"], 
                         "complemento_ende" => ($valor["complemento_ende"] == null) ? "" : $valor["complemento_ende"], 
@@ -152,7 +152,7 @@ class ControllerBeneficiario{
                         //var_dump($valor);
                     }
                     echo json_encode($responseResultados);
-                    //print_r(json_encode($responseResultados));
+                    //print_r($responseResultados);
                     //var_dump($responseResultados);
                 }
                 else{

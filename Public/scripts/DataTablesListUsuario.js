@@ -18,16 +18,28 @@ window.addEventListener('DOMContentLoaded', function() {
             "url": "../controller/ControllerBeneficiario.php",
             "data": {operacao: "listar"},
             "type": "POST",
-            "dataSrc": "data",
-            /*function(data) {
-                return JSON.parse(data.data);
-            }*///,
-            columns: [
-                {"data": "ultimo_nome"},
-                {"data": "cpf"}
-            ],
             "contentType": 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
+        },
+        "columns": [
+            {"data" : "id"},
+            {"data" : "cpf"},
+            {"data" : "primeiro_nome"},
+            {"data" : "ultimo_nome"},
+            {"data" : "nis"},
+            {"data" : "celular_required"},
+            {"data" : "celular_opcional"},
+            {"data" : "endereco"},
+            {"data" : "bairro"},
+            {"data" : "cidade"},
+            {"data" : "uf"},
+            {"data" : "qtd_pessoas_home"},
+            {"data" : "renda"},
+            //{"data" : "obs"},
+            {"data" : "email"},
+            {"data" : "cep"},
+            {"data" : "complemento_ende"},
+            {"data" : "abrangencia_cras"}
+        ]
     });    
 });
 
@@ -39,3 +51,18 @@ function(json) { //<font></font>
     return json;//<font></font>
 },
 */
+
+/*function(data) {
+                        var dados = data['data'];
+                        for (let index = 0; index < dados.length; index++) {
+                            return dados[index];
+                        }
+            }*/
+
+            //"dataSrc": "data",
+            // "dataSrc": "data",
+
+            /*"data" : function(json) {
+            let dados = json["data"];
+            return JSON.parse(dados);
+        },*/

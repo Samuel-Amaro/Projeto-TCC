@@ -162,7 +162,7 @@ if(session_start()) {
                                 Usuários Ativos.
                             </div>
                             <div class="card-body">
-                                <table id="dataTablesBeneficiarios" style="width: 100%;">
+                                <table id="dataTablesBeneficiarios" class="row-border cell-border hover">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -178,7 +178,7 @@ if(session_start()) {
                                             <th>UF</th>
                                             <th>Nª Pessoas Residencia</th>
                                             <th>Renda Per Capita</th>
-                                            <th>Observação</th>
+                                            <!--<th>Observação</th>-->
                                             <th>Email</th>
                                             <th>CEP</th>
                                             <th>Complemento</th>
