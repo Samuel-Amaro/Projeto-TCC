@@ -41,6 +41,7 @@ Tabela de conteúdos
 - [x] Usuário deletar sua propria conta. 
 #### Features de Beneficiários
 - [x] Cadastro de beneficiários
+- [x] Visualizar beneficiários cadastrados
 - [ ] Cadastro de beneficios
 - [ ] Registrar entregas
 - [ ] Controlar estoque
@@ -91,3 +92,4 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
  * [SIMPLEDATATABLES](https://github.com/fiduswriter/Simple-DataTables)
  * [Api VIACEP](https://viacep.com.br/)
  * [jQuery maskMoney](https://github.com/plentz/jquery-maskmoney)
+ * [API datatables](https://datatables.net/)
