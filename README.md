@@ -56,19 +56,19 @@ Tabela de conteúdos
  
  ![Painel de controle](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/painel-controle.png)
  
- * Pagina de alteração de conta de usuario
+ * Pagina de alteração de conta de usuário
  
  ![Pagina de alterar usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/pagina-alterar.png)
  
- * Pagina de criação de conta de usuario
+ * Pagina de criação de conta de usuário
 
  ![Pagina de criar conta de usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/criar-conta-usuario.png)
  
- * Pagina de visualização de usuarios no sistema
+ * Pagina de visualização de usuários no sistema
 
 ![Pagina de visualização de usuarios no sistema](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/visualizar-usuarios-parte-1.png)
 
-* Continuação do print(da visualização de usuarios)
+* Continuação do print(da visualização de usuários)
 
 ![Pagina de visualização de usuarios](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/usuarios-ativos.png)
 
