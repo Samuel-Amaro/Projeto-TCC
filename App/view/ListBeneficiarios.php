@@ -21,13 +21,12 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Pagina de visualização de usuarios"/>
         <meta name="author" content="Samuel Amaro"/>
-        <title>Visualizar Usuarios</title>
-        <!--ESTILO DO PLUGIN DATA TABLES, SEM DEPENDENCIA DE JQURY-->
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
-        <!--estilo tabela da datables-->
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">
-        -->
-        <link href="../../Public/css/styles.css" rel="stylesheet" />
+        <title>Listar Beneficiàrios</title>
+        <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+        <!-- ESTILO DA PAGINA BOOSTRAP -->
+        <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- ICONES -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -48,10 +47,11 @@ if(session_start()) {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><a class="dropdown-item" href="AlterarUsuario.php" target="_self" rel="next">Conta</a></li>
+                        <li><a class="dropdown-item" id="btn-deletar" href="#" target="_self" rel="next">Deletar Conta</a></li>
+                        <li><a class="dropdown-item" href="#!">Registro de atividade</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="../utils/Logout.php" target="_self" rel="next">Sair</a></li>
                     </ul>
                 </li>
             </ul>
@@ -130,13 +130,13 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Usuários</h1>
+                        <h1 class="mt-4">Beneficiários</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="PainelControle.php">Painel controle</a></li>
-                            <li class="breadcrumb-item active">Usuários</li>
+                            <li class="breadcrumb-item active">Beneficiários</li>
                         </ol>
                         <div class="card mb-4">
-                            <div class="card-body">Usuários ativos no sistema.</div>
+                            <div class="card-body">Beneficiários que possuem cadastro no nosso sistema.</div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -162,27 +162,29 @@ if(session_start()) {
                                 Usuários Ativos.
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="dataTablesBeneficiarios" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>CPF</th>
+                                            <th>Primeiro Nome</th>
+                                            <th>Ultimo Nome</th>
+                                            <th>Nis</th>
                                             <th>Celular</th>
+                                            <th>Celular</th>
+                                            <th>Endereço</th>
+                                            <th>Bairro</th>
+                                            <th>Cidade</th>
+                                            <th>UF</th>
+                                            <th>Nª Pessoas Residencia</th>
+                                            <th>Renda Per Capita</th>
+                                            <th>Observação</th>
                                             <th>Email</th>
-                                            <th>Cargo</th>
-                                            <th>Tipo</th>
-                                            <th>Nome</th>
+                                            <th>CEP</th>
+                                            <th>Complemento</th>
+                                            <th>Abrangencia Cras</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>CPF</th>
-                                            <th>Celular</th>
-                                            <th>Email</th>
-                                            <th>Cargo</th>
-                                            <th>Tipo</th>
-                                            <th>Nome</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                     </tbody>
                                 </table>
@@ -206,20 +208,15 @@ if(session_start()) {
                 -->
             </div>
         </div>
+        <!-- SCRIPTS BOOSTRAP -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-        <!--
-        <script src="../../Public/scripts/datatables-simple-demo.js"></script>
-        -->
-        <!--CDN PLUGIN DATATABLE SEM A DEPENDENCIA DO JQUERY SOMENTE COM VANILA JS -->
-        <!--java script do datables-->
-        <!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
-        -->
         <!--JQUERY VERSION 3.6.0-->
-        <!--<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
-        -->
-        <script src="../../Public/scripts/usuarios.js"></script>
+        <!-- DATA TABLES-->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+        <!-- SCRIPT QUE MANIPULA O PLUGIN JS -->
+        <script type="text/javascript" charset="utf8" src="../../Public/scripts/DataTablesListUsuario.js"></script>
     </body>
 </html>

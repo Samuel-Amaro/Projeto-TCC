@@ -84,16 +84,15 @@ class DaoBeneficiario{
         }
     }
 
-    public function selectBeneficiario(string $cpf) {
+    public function selectBeneficiarios() {
         if(is_null($this->connection)) {
             return null;
             die();
         }else{
             try {
-                $sql = "SELECT * FROM beneficiario WHERE cpf_beneficiario = ?;";
+                $sql = "SELECT * FROM beneficiario;";
                 $stmt = $this->connection->prepare($sql);
-                $valores = array($cpf);
-                if($stmt->execute($valores)) {
+                if($stmt->execute()) {
                     $resultado = $stmt->fetchAll();
                     if(empty($resultado)) {
                         $stmt = null;

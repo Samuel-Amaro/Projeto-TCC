@@ -29,6 +29,10 @@ class ControllerBeneficiario{
             case "cadastro":
                 $this->cadastroBeneficiario($this->methodHttp);
                 break;
+            
+            case "listar": 
+                $this->listaBeneficiarios($this->methodHttp);
+                break;
             default:
                 break;
         }
@@ -114,20 +118,46 @@ class ControllerBeneficiario{
         }
     }
 
-    public function verificaSeBeneficiarioExiste($methodHttp, string $cpf) {
+    public function listaBeneficiarios($methodHttp) {
         if($methodHttp === "POST"){
             $this->daoBenef = new DaoBeneficiario(new DataBase());
-            $cpf = $_POST["cpf"];
-            //beneficiario ja existe no sistema
-            if(is_null($this->daoBenef->selectBeneficiario($cpf))) {
-                $this->setResponseJson("computedString", "Beneficiário já esta, cadastrado no sistema!");
-                if(is_null($this->getResponseJson())) {
-                    //erro, redireciona para nossa pagina de erro interno
-                }else{
+            if(is_null($beneficiatios =  $this->daoBenef->selectBeneficiarios())) {
+                $this->setResponseJson("computedString", "Erro no nosso sistema, erro interno, erro ao fazer consulta select beneficiarios na camada controller!");
+                echo $this->getResponseJson();
+            }else{
+                $this->setResponseJson("computedString", "Erro no nosso sistema, erro interno, erro ao fazer consulta select beneficiarios na camada controller!");
+                if(json_encode($beneficiatios) != '') {
+                    $responseResultados = array("draw" => 1, "recordsTotal" => count($beneficiatios), "recordsFiltered" => count($beneficiatios), "data" => array()); //[]
+                    
+                    foreach($beneficiatios as $chave => $valor) { 
+                        $valorCorretoTratado = ["id" => $valor["id_beneficiario"], 
+                        "cpf" => $valor["cpf_beneficiario"], 
+                        "primeiro_nome" => $valor["primeiro_nome_beneficiario"], 
+                        "ultimo_nome" => $valor["ultimo_nome_beneficiario"], 
+                        "nis" => $valor["nis_beneficiario"], 
+                        "celular_required" => $valor["celular_beneficiario_required"], 
+                        "celular_opcional" => ($valor["celular_beneficiario_opcional"] == null) ? "" : $valor["celular_beneficiario_opcional"], 
+                        "endereco" => $valor["endereco_beneficiario"], 
+                        "bairro" => $valor["bairro_beneficiario"], 
+                        "cidade" => $valor["cidade_beneficiario"], 
+                        "uf" => $valor["uf_beneficiario"], 
+                        "qtd_pessoas_home" => $valor["qtd_pessoas_resid_beneficiario"], 
+                        "renda" => $valor["renda_per_capita_beneficiario"], 
+                        "obs" => ($valor["observacao_beneficiario"] == null) ? "" : $valor["observacao_beneficiario"], 
+                        "email" => ($valor["email"] == null) ? "" : $valor["email"], 
+                        "cep" => ($valor["cep"] == null) ? "" : $valor["cep"], 
+                        "complemento_ende" => ($valor["complemento_ende"] == null) ? "" : $valor["complemento_ende"], 
+                        "abrangencia_cras" => $valor["abrangencia_cras"]];
+                        array_push($responseResultados["data"], $valorCorretoTratado);
+                        //var_dump($valor);
+                    }
+                    echo json_encode($responseResultados);
+                    //print_r(json_encode($responseResultados));
+                    //var_dump($responseResultados);
+                }
+                else{
                     echo $this->getResponseJson();
                 }
-            }else{
-                //beneficiario não existe pode cadastrar
             }
         }
     }

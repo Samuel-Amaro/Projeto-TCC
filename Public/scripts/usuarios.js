@@ -27,8 +27,8 @@ function makeRequest(url) {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
                 try {
-                    //let httpResponse = JSON.parse(httpRequest.responseText);  
-                    //console.log(httpResponse);
+                    let httpResponse = JSON.parse(httpRequest.responseText);  
+                    console.log(httpResponse);
                     //importa dados do banco de dados para tabela, na view, em formato json
                     dataTable.import({
                         type: "json", 
