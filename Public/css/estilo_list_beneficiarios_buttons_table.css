@@ -1,0 +1,7 @@
+.btn-alterar-linha, .btn-excluir-linha{
+    display: inline-block;
+    margin-bottom: 10px;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+}

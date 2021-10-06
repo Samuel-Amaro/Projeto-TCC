@@ -24,6 +24,11 @@ if(session_start()) {
         <title>Listar Beneficiàrios</title>
         <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+        <!--EXTENSÃO DE BOTOÕES PARA DATATABLES ESTILO DOS BOTÕES-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+        <!-- estiliza botoões de alterar e exluir do datatables -->
+        <link rel="stylesheet" href="../../Public/css/estilo_list_beneficiarios_buttons_table.css">
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.css"/>-->
         <!-- ESTILO DA PAGINA BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <!-- ICONES -->
@@ -138,6 +143,7 @@ if(session_start()) {
                         <div class="card mb-4">
                             <div class="card-body">Beneficiários que possuem cadastro no nosso sistema.</div>
                         </div>
+                        <!--
                         <div class="card mb-4">
                             <div class="card-header">
                                 <p>Se achar necessario fazer o download da tabela mostrada abaixo, selecione uma das opções abaixo e clique no botão azul!</p>
@@ -155,34 +161,35 @@ if(session_start()) {
                                 <button class="btn btn-primary m-2 baixa-tabela" type="button">Fazer Download Arquivo</button>
                                 <div class="alert alert-danger" role="danger" style="display: none;"></div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Usuários Ativos.
+                                Benefiários cadastrados
                             </div>
                             <div class="card-body">
                                 <table id="dataTablesBeneficiarios" class="row-border cell-border hover">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
+                                            <!--<th>Id</th>-->
                                             <th>CPF</th>
                                             <th>Primeiro Nome</th>
                                             <th>Ultimo Nome</th>
                                             <th>Nis</th>
                                             <th>Celular</th>
-                                            <th>Celular</th>
-                                            <th>Endereço</th>
-                                            <th>Bairro</th>
+                                            <!--<th>Celular</th>-->
+                                            <!--<th>Endereço</th>-->
+                                            <!--<th>Bairro</th>-->
                                             <th>Cidade</th>
                                             <th>UF</th>
                                             <th>Nª Pessoas Residencia</th>
                                             <th>Renda Per Capita</th>
                                             <!--<th>Observação</th>-->
-                                            <th>Email</th>
-                                            <th>CEP</th>
-                                            <th>Complemento</th>
-                                            <th>Abrangencia Cras</th>
+                                            <!--<th>Email</th>-->
+                                            <!--<th>CEP</th>-->
+                                            <!--<th>Complemento</th>-->
+                                            <!--<th>Abrangencia Cras</th>-->
+                                            <th>Editar Beneficiário</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -216,6 +223,20 @@ if(session_start()) {
         crossorigin="anonymous"></script>
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+        <!-- EXTENSÃO DE BOTOÕES PARA DATATABLES PLUGIN script-->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+        <!--CONTROLE DE VISIBILIDADE DA COLUNA-->
+        <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js" text="text/javascript" charset="utf8"></script>
+        <!-- Botões de exportação HTML5 -->
+        <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js" text="text/javascript" charset="utf8">
+        </script>
+        <!--Botão de impressão--->
+        <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js" type="text/javascript" charset="utf8"></script>
+        <!-- SCRIPT PDFMAKE -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js" integrity="sha512-Yf733gmgLgGUo+VfWq4r5HAEaxftvuTes86bKvwTpqOY3oH0hHKtX/9FfKYUcpaxeBJxeXvcN4EY3J6fnmc9cA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- SCRIPT JZIP JS BUTTON -->
+        <script src="../../Public/scripts/jszip.js" type="text/javascript" charset="utf8"></script>
+        <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.js"></script>-->
         <!-- SCRIPT QUE MANIPULA O PLUGIN JS -->
         <script type="text/javascript" charset="utf8" src="../../Public/scripts/DataTablesListUsuario.js"></script>
     </body>

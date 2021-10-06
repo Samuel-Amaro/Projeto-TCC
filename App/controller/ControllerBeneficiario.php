@@ -149,11 +149,8 @@ class ControllerBeneficiario{
                         "complemento_ende" => ($valor["complemento_ende"] == null) ? "" : $valor["complemento_ende"], 
                         "abrangencia_cras" => $valor["abrangencia_cras"]];
                         array_push($responseResultados["data"], $valorCorretoTratado);
-                        //var_dump($valor);
                     }
                     echo json_encode($responseResultados);
-                    //print_r($responseResultados);
-                    //var_dump($responseResultados);
                 }
                 else{
                     echo $this->getResponseJson();
