@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', function() {
         "columnDefs": [ {
             "targets": 9,
             "data": null,
-            "defaultContent": "<button class=\"btn btn-primary m-2\">Alterar</button> <button class=\"btn btn-primary m-2\">Excluir</button>"
+            "defaultContent": "<button class=\"btn btn-primary\">A</button> <button class=\"btn btn-primary\">E</button>"
         }]
     });    
 });

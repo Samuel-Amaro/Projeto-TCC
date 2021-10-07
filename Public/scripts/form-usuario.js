@@ -144,6 +144,15 @@ function tiraMascaraTel(telefone) {
     return telParte1 + telParte2 + telParte3;
 }
 
+function avisoLimiteCaracteresNome(str) {
+    let feedback = document.querySelector(".valid-feedback-nome");
+    feedback.textContent = str;
+}
+
+function avisoLimiteCaracteresCargo(str) {
+    let feedback = document.querySelector(".valid-feedback-cargo");
+    feedback.textContent = str;
+}
 
 //limita caracters do input nome
 var inputNome = document.querySelector("#nome");
@@ -153,9 +162,10 @@ inputNome.addEventListener("keypress", function(e) {
     inputLength = inputNome.value.length;
     if(inputLength >= maxChars) {
         e.preventDefault();
-        mostraModal("Quantidade de caracteres permitidos são de no maximo 70", "Limite de caracteres permitdos atingido", "Ok", "Sair", "warning");
+        //mostraModal("Quantidade de caracteres permitidos são de no maximo 70", "Limite de caracteres permitdos atingido", "Ok", "Sair", "warning");
+        avisoLimiteCaracteresNome("Quantidade de caracteres permitidos são de no maximo 70");
     }else{
-        //spanLimit.textContent = "Qtd Caracteres Digitados: " + inputLength;
+        avisoLimiteCaracteresNome("");
     }
 });
 
@@ -168,7 +178,8 @@ inputCargo.addEventListener("keypress", function(e) {
     if(inputLength >= maxChars) {
         e.preventDefault();
         mostraModal("Quantidade de caracteres permitidos são de no maximo 100", "Limite de caracteres permitdos atingido", "Ok", "Sair", "warning");
+        //avisoLimiteCaracteresCargo("Quantidade de caracteres permitidos são de no maximo 100");
     }else{
-        //spanLimitCargo.textContent = "Qtd Caracteres Digitados: " + inputLength;
+        //avisoLimiteCaracteresCargo("");
     }
 });
