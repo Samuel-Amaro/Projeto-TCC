@@ -79,7 +79,6 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 * [Servidor Apache](https://www.apachelounge.com/)
 * [SGBD PostGreSQL](https://www.postgresql.org/download/)
 * [Editor de codigo - Visual Studio Code](https://code.visualstudio.com/)
-* [PHP](https://www.php.net/downloads.php)
 
 ### 🛠 Tecnologias
 
@@ -87,9 +86,10 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
  * [JAVASCRIPT](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
  * [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
  * [HTML5](https://www.w3c.br/pub/Cursos/CursoHTML5/html5-web.pdf)
- * [POSTGRESQL](https://www.postgresql.org/about/news/postgresql-134-128-1113-1018-9623-and-14-beta-3-released-2277/)
- * [JQUERY](https://jquery.com/)
- * [SIMPLEDATATABLES](https://github.com/fiduswriter/Simple-DataTables)
+ * [SGBD POSTGRESQL](https://www.postgresql.org/about/news/postgresql-134-128-1113-1018-9623-and-14-beta-3-released-2277/)
+ * [Biblioteca JS JQUERY](https://jquery.com/)
+ * [Plugin JS SIMPLEDATATABLES](https://github.com/fiduswriter/Simple-DataTables)
  * [Api VIACEP](https://viacep.com.br/)
- * [jQuery maskMoney](https://github.com/plentz/jquery-maskmoney)
- * [API datatables](https://datatables.net/)
+ * [Plugin JS jQuery maskMoney](https://github.com/plentz/jquery-maskmoney)
+ * [Plugin JS datatables](https://datatables.net/)
+ * [Plugin JS sweetalert2](https://github.com/sweetalert2/sweetalert2)
