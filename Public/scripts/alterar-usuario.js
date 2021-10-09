@@ -48,6 +48,16 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
         modal.style.display = "none";
         window.location = "../../index.php";
     });
+    /*
+    btn2Modal.addEventListener("click", function(){
+        modal.style.display = "none";
+        window.location = "../../index.php";
+    });
+    btn1Modal.addEventListener("click", function(){
+        modal.style.display = "none";
+        window.location = "../../index.php";
+    });
+    */
     window.addEventListener("click", function(event) {
         if(event.target == modal) {
             modal.style.display = "none";

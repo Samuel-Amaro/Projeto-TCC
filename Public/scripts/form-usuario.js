@@ -44,7 +44,7 @@ inputSubmitForm.addEventListener("submit", function(event) {
     let tipo = document.querySelector('select#tipo').value;
     let senha = document.querySelector('input[type=\"password\"]#senha').value;
     //console.log(nome + " " + tiraMascaraCPF(cpf) + " " + tiraMascaraTel(telefone) + " " + email + " " + cargo + " " + tipo + " " + senha);
-    if(makeRequest("../controller/ControllerUsuario.php", nome, cpf, telefone, email, cargo, tipo, senha) === 1) {
+    if(makeRequestUsuario("../controller/ControllerUsuario.php", nome, cpf, telefone, email, cargo, tipo, senha) === 1) {
        //event.preventDefault();
     }else{
         //mostra modal com erro
@@ -89,7 +89,7 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     btn2Modal.textContent = textBtn2;
 }
 
-function makeRequest(url, nome, cpf, telefone, email, cargo, tipo, senha) { 
+function makeRequestUsuario(url, nome, cpf, telefone, email, cargo, tipo, senha) { 
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;

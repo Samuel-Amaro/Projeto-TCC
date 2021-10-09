@@ -16,7 +16,14 @@ inputSubmit.addEventListener("submit", function(event) {
        //faz nada se der certo
     }else{
         //deu erro cancela o evento submit
-        mostraModal("Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.", "Cadastro de beneficiário", "Ok", "Sair", "sucesso");
+        //mostraModal("Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.", "Cadastro de beneficiário", "Ok", "Sair", "sucesso");
+        //plugin de alerta bonito
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
+            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+        })
         event.preventDefault();
     }
 });
@@ -116,7 +123,12 @@ function makeRequest(url, beneficiario = {}) {
             if(httpRequest.status === 200) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
-                    mostraModal(httpResponse.computedString, "Cadastro de beneficiário", "OK", "Sair", "sucesso");
+                    //mostraModal(httpResponse.computedString, "Cadastro de beneficiário", "OK", "Sair", "sucesso");
+                    Swal.fire(
+                        'Mais um em nosso sistema',
+                        'Ótimo, você acabou de cadastrar um beneficiário com sucesso!',
+                        'success'
+                    )
                     return 1;
                 } catch (error) {
                     console.error(error.message);
@@ -192,7 +204,7 @@ function tiraMascaraNis(nis) {
     return nisSemFormatacao;
 }
 
-
+/*
 function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     if(tipo == "sucesso") {
         let divsModal = document.querySelectorAll(".alert-success");
@@ -228,6 +240,8 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     btn1Modal.textContent = textBtn1;
     btn2Modal.textContent = textBtn2;
 }
+
+*/
 
 //O change evento é acionado para <input>, <select>e <textarea>os elementos, quando uma alteração ao valor do elemento é cometida pelo usuário. 
 /********************VERIFICA SE O beneficiario QUE VAI SER CADASTRADO JA EXISTE NO SISTEMA***********************/

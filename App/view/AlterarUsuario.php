@@ -37,7 +37,7 @@ if(session_start()) {
         <meta name="author" content=""/>
         <title>Painel de controle</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
-        <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="../../Public/css/estilo_alterar_pagina.css">
         <link rel="stylesheet" href="../../Public/css/estilo_alterar_usuario.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -55,8 +55,8 @@ if(session_start()) {
                 <main>
                 <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-lg-7">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="col-lg-11">
+                                <div class="card border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Sua conta de usuário</h3></div>
                                     <div class="card-body">
                                         <div class="card mb-4">
@@ -159,8 +159,8 @@ if(session_start()) {
                 <p class="msg-content">Mensagem do modal</p>
             </div>
             <div class="conteiner-footer-modal alert-success alert-warning">
-                <a href="#" id="button-1-modal" target="_self" rel="next">Entrar</a>
-                <a href="#" target="_self" rel="next" id="button-2-modal">Sair</a>
+                <a href="../utils/Logout.php" id="button-1-modal" target="_self" rel="next">Entrar</a>
+                <a href="../utils/Logout.php" target="_self" rel="next" id="button-2-modal">Sair</a>
             </div>
         </div>
         <script>

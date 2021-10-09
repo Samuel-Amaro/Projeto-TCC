@@ -5,7 +5,7 @@ let btn2CancelarDeletarModal = document.querySelector("#button-2-modal");
 //45123367800
 //se confimar, deletar por ajax
 btn1DeletarModal.addEventListener("click", function(){
-    makeRequest("../controller/ControllerUsuario.php", sessionStorage.getItem("id_usuario_logado"));
+    makeRequestDeleteUser("../controller/ControllerUsuario.php", sessionStorage.getItem("id_usuario_logado"));
     sessionStorage.removeItem('id_usuario_logado');
 });
 
@@ -57,7 +57,7 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
 }
 
 
-function makeRequest(url, id_usuario) { 
+function makeRequestDeleteUser(url, id_usuario) { 
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
