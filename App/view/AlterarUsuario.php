@@ -168,6 +168,8 @@ if(session_start()) {
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/scripts.js"></script>
+        <!-- plugin de alertas bonitos -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- script de deletar usuario -->
         <script src="../../Public/scripts/deletar-usuario.js"></script>
         <!-- alterar usuario -->  

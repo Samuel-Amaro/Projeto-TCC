@@ -19,10 +19,18 @@ inputSubmitForm.addEventListener("submit", function(event) {
         }else{
             //mostra modal com erro
             //mostraModal("Usuario não atualizado!", "usuario não atualizado, obtemos um erro no nosso sistema, agurde uns instantes e tente novamente mais tarde!", "OK", "Sair", "error");
+             //plugin de alerta bonito
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
+                footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+            });
             event.preventDefault();
         }
 });
 
+/*
 function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     if(tipo == "sucesso") {
         let divsModal = document.querySelectorAll(".alert-success");
@@ -58,6 +66,7 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
         window.location = "../../index.php";
     });
     */
+   /*
     window.addEventListener("click", function(event) {
         if(event.target == modal) {
             modal.style.display = "none";
@@ -68,7 +77,9 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     titleModal.textContent = tituloModal;
     btn1Modal.textContent = textBtn1;
     btn2Modal.textContent = textBtn2;
+    
 }
+*/
 
 /*mascara de cpf*/
 $(document).ready(function(){  
@@ -156,7 +167,13 @@ function makeRequest(url, nome, telefone, email, cargo, tipo, senha, id, hashSen
             if(httpRequest.status === 200) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
-                    mostraModal(httpResponse.computedString, "Atualização de conta de usuário", "OK", "Sair", "sucesso");
+                    //mostraModal(httpResponse.computedString, "Atualização de conta de usuário", "OK", "Sair", "sucesso");
+                    Swal.fire({
+                        'title' : 'Alteração de Usuário',
+                        'text' : httpResponse.computedString,
+                        'icon' : 'success',
+                    });
+                    window.location = "../../Index.php";
                     //console.log(httpRequest.responseText);
                     return 1;
                 } catch (error) {
