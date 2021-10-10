@@ -1,6 +1,5 @@
 
 -- CRIA TABELA DE BENEFICIARIO
-
 CREATE TABLE beneficiarios(
   id_beneficiario SERIAL PRIMARY KEY NOT NULL,
   cpf_beneficiario VARCHAR(11) NOT NULL, --11122233390
@@ -16,8 +15,8 @@ CREATE TABLE beneficiarios(
   qtd_pessoas_resid_beneficiario INT NOT NULL,
   renda_per_capita_beneficiario NUMERIC NOT NULL, 
   observacao_beneficiario TEXT,
-  fk_usuario INT NOT NULL,
-  CONSTRAINT fk_usuario FOREIGN KEY(fk_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+  fk_usuario INT,
+  CONSTRAINT fk_usuario FOREIGN KEY(fk_usuario) REFERENCES usuario(id_usuario) ON DELETE SET NULL,
   email_benef VARCHAR(70),
   cep_benef VARCHAR(10),
   complemento_ende_benef TEXT,
@@ -37,16 +36,16 @@ CREATE UNIQUE INDEX CONCURRENTLY indice_unique_nis_beneficiarios ON beneficiario
 ALTER TABLE beneficiarios ADD CONSTRAINT unique_nis_beneficiarios UNIQUE USING INDEX indice_unique_nis_beneficiarios;
 
 -- add coluna email
-ALTER TABLE beneficiarios ADD COLUMN email_benef VARCHAR(70);
+--ALTER TABLE beneficiarios ADD COLUMN email_benef VARCHAR(70);
 
 --add coluna cep
-ALTER TABLE beneficiarios ADD COLUMN cep_benef VARCHAR(10);
+--ALTER TABLE beneficiarios ADD COLUMN cep_benef VARCHAR(10);
 
 --add coluna complemento
-ALTER TABLE beneficiarios ADD COLUMN complemento_ende_benef TEXT;
+--ALTER TABLE beneficiarios ADD COLUMN complemento_ende_benef TEXT;
 
 --add coluna abrangencia
-ALTER TABLE beneficiarios ADD COLUMN abrangencia_cras_benef VARCHAR(30);
+--ALTER TABLE beneficiarios ADD COLUMN abrangencia_cras_benef VARCHAR(30);
 
 -- add indice para constraint UNIQUE
 CREATE UNIQUE INDEX CONCURRENTLY indice_unico_email_benef ON beneficiarios(email_benef);
@@ -85,13 +84,13 @@ AS
 $$
 BEGIN
     IF TG_OP = 'INSERT' THEN
-        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, NEW::TEXT, '', NEW.fk_usuario, NEW.id_beneficiario); 
+        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, NEW::TEXT, '', NEW.id_beneficiario, NEW.fk_usuario); 
         RETURN NEW;
     ELSIF TG_OP = 'UPDATE' THEN
-        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, NEW::TEXT, OLD::TEXT, NEW.fk_usuario,  NEW.id_beneficiario); 
+        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, NEW::TEXT, OLD::TEXT, NEW.id_beneficiario, NEW.fk_usuario); 
         RETURN NEW;
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, OLD::TEXT, '', NEW.fk_usuario, NEW.id_beneficiario);
+        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, OLD::TEXT, '', NEW.id_beneficiario, NEW.fk_usuario);
         RETURN OLD;
     END IF;
 END;
@@ -102,66 +101,6 @@ FOR EACH ROW EXECUTE PROCEDURE gera_logs_beneficiarios();
 
 
 
-
 --------------------------------------------------------------------------------------
 --- TESTES MANUAIS PARA GERAR LOG MANULAMENTE
 
--- GERA LOG
-INSERT INTO public.beneficiarios( 
-	cpf_beneficiario, 
-	primeiro_nome_beneficiario, 
-	ultimo_nome_beneficiario, 
-	nis_beneficiario, 
-	celular_beneficiario_required, 
-	celular_beneficiario_opcional, 
-	endereco_beneficiario, 
-	bairro_beneficiario, 
-	cidade_beneficiario, 
-	uf_beneficiario, 
-	qtd_pessoas_resid_beneficiario, 
-	renda_per_capita_beneficiario, 
-	observacao_beneficiario,
-	fk_usuario,
-	email_benef, 
-	cep_benef, 
-	complemento_ende_benef, 
-	abrangencia_cras_benef)
-	VALUES (
-		'02233322211', 
-		'Rosa Maria', 
-		'Deus', 
-		'11122266690', 
-		'61990901212', 
-		null, 
-		'Rua olimpio jacinto', 
-		'centro', 
-		'Formosa', 
-		'GO', 
-		2, 
-		3.560, 
-		null, 
-		36,
-		null, 
-		null, 
-		'casa', 
-		'cras 2');
-		
-		
-
-
--- GERA LOG
-
-UPDATE public.beneficiarios
-	SET primeiro_nome_beneficiario='Çalune', ultimo_nome_beneficiario='Oliveira'
-	WHERE id_beneficiario = 2;
-	
-UPDATE public.beneficiarios
-	SET primeiro_nome_beneficiario='Gurcilina Nunes', ultimo_nome_beneficiario='Oliveira', fk_usuario = 36
-	WHERE id_beneficiario = 2;
-	
-UPDATE public.beneficiarios
-	SET primeiro_nome_beneficiario='Nova usuaria', ultimo_nome_beneficiario='teste', fk_usuario = 25
-	WHERE id_beneficiario = 2;
-	
-DELETE FROM public.beneficiarios
-WHERE id_beneficiario = 2;

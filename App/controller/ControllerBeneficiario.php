@@ -2,8 +2,8 @@
 
 require_once("../dao/DaoBeneficiario.php");
 require_once("../utils/DataBase.php");
-require_once("../model/ModelAuxUsuarioBeneficiario.php");
-require_once("../dao/DaoUsuarioBeneficiarioAux.php");
+//require_once("../model/ModelAuxUsuarioBeneficiario.php");
+//require_once("../dao/DaoUsuarioBeneficiarioAux.php");
 
 //verifica qual o tipo de metodo e operação a se fazer
 if($_SERVER["REQUEST_METHOD"] == "POST") { //Postagem de recursos no server
@@ -18,8 +18,6 @@ class ControllerBeneficiario{
     private ModelBeneficiario $modelBenef;
     private DaoBeneficiario $daoBenef;
     private array $responseJson;
-    private ModelOperacaoUsuarioBeneficiario $modelOperacao;
-    private DaoUsuarioBeneficiarioAux $daoOperacao;
 
     public function __construct(string $operacao, string $methodHttp)
     {
@@ -62,47 +60,26 @@ class ControllerBeneficiario{
            $this->modelBenef->setRendaPerCapita($_POST["rendaPerCapita"]);
            $this->modelBenef->setObservacao($_POST["obs"]);
            $this->modelBenef->setAbrangenciaCras($_POST["abrangencia"]);
+           $this->modelBenef->setFkUsuario($_POST["id_usuario"]);
            $this->daoBenef = new DaoBeneficiario(new DataBase());
-           //fazer o insert retorna o id da ultima operação, no caso esse id vai retorna uma string
-           $resultadoCadastro = $this->daoBenef->insertBeneficiario($this->modelBenef);
-           //se resultado do cadastro for null || ou vazio
-           if(is_null($resultadoCadastro) || empty($resultadoCadastro)) {
-                //erro, redireciona para nossa pagina de erro interno
-                $this->setResponseJson("computedString", "Houve um erro no servidor,ao executar o SQL insert da operação de um usuário </br> sobre um beneficiário. o INSERT beneficiario não retornou um ID valido");
+           //insert foi efetuado com sucesso e gera log em log_beneficiarios
+           if($this->daoBenef->insertBeneficiario($this->modelBenef)) {
+                $this->setResponseJson("computedString", "Beneficiário Foi Cadastrado com Sucesso!");
                 //houve erro ao encodificar o json response
                 if(is_null($this->getResponseJson())) {
                     //erro, redireciona para nossa pagina de erro interno
                 }else{
                     //response do server, cospe um json
                     echo $this->getResponseJson();
-                } 
+                }
            }else{
-                //retorna o id da ultimo insert executado com sucesso, para executar a proxima operação SQL na tabela aux, registrando a operação de um usuario no beneficiario
-                $this->modelOperacao = new ModelOperacaoUsuarioBeneficiario();
-                $this->modelOperacao->setFkBeneficiario(intval($resultadoCadastro));
-                $this->modelOperacao->setFkUsuario($_POST["id_usuario"]);
-                $this->modelOperacao->setTipoOperacao("INSERT");
-                $this->modelOperacao->setDataHoraOperacao(null);
-                $this->daoOperacao = new DaoUsuarioBeneficiarioAux(new DataBase());
-                //executando operação de insert do beneficiario executada por um usuario
-                if($this->daoOperacao->insertOperacaoUsuarioBeneficiario($this->modelOperacao)) {
-                    $this->setResponseJson("computedString", "Beneficiário Foi Cadastrado com Sucesso!");
-                    //houve erro ao encodificar o json response
-                    if(is_null($this->getResponseJson())) {
-                        //erro, redireciona para nossa pagina de erro interno
-                    }else{
-                        //response do server, cospe um json
-                        echo $this->getResponseJson();
-                    }
+                $this->setResponseJson("computedString", "Houve um erro no servidor, ao executar o SQL insert da operação de um usuário sobre um beneficiário.");
+                //houve erro ao encodificar o json response
+                if(is_null($this->getResponseJson())) {
+                    //erro, redireciona para nossa pagina de erro interno
                 }else{
-                    $this->setResponseJson("computedString", "Houve um erro no servidor, ao executar o SQL insert da operação de um usuário sobre um beneficiário.");
-                    //houve erro ao encodificar o json response
-                    if(is_null($this->getResponseJson())) {
-                        //erro, redireciona para nossa pagina de erro interno
-                    }else{
-                        //response do server, cospe um json
-                        echo $this->getResponseJson();
-                    }
+                    //response do server, cospe um json
+                    echo $this->getResponseJson();
                 }
            }
         }else{
@@ -144,10 +121,10 @@ class ControllerBeneficiario{
                         "qtd_pessoas_home" => $valor["qtd_pessoas_resid_beneficiario"], 
                         "renda" => $valor["renda_per_capita_beneficiario"], 
                         //"obs" => ($valor["observacao_beneficiario"] == null) ? "" : $valor["observacao_beneficiario"], 
-                        "email" => ($valor["email"] == null) ? "" : $valor["email"], 
-                        "cep" => ($valor["cep"] == null) ? "" : $valor["cep"], 
-                        "complemento_ende" => ($valor["complemento_ende"] == null) ? "" : $valor["complemento_ende"], 
-                        "abrangencia_cras" => $valor["abrangencia_cras"]];
+                        "email" => ($valor["email_benef"] == null) ? "" : $valor["email_benef"], 
+                        "cep" => ($valor["cep_benef"] == null) ? "" : $valor["cep_benef"], 
+                        "complemento_ende" => ($valor["complemento_ende_benef"] == null) ? "" : $valor["complemento_ende_benef"], 
+                        "abrangencia_cras" => $valor["abrangencia_cras_benef"]];
                         array_push($responseResultados["data"], $valorCorretoTratado);
                     }
                     echo json_encode($responseResultados);

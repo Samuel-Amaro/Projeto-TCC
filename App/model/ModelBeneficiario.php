@@ -17,6 +17,7 @@ class ModelBeneficiario {
     private string $uf;
     private int $qtdPessoasResidencia;
     private float $rendaPerCapita;
+    private ?int $fkUsuario;
     private ?string $observacao;
     private ?string $email;
     private ?string $cep;
@@ -155,6 +156,16 @@ class ModelBeneficiario {
     }
     public function getAbrangenciaCras() : string{
         return $this->abrangenciaCras;
+    }
+    public function setFkUsuario(int $fk) {
+        if(empty($fk)) {
+            $this->fkUsuario = null;
+        }else{
+            $this->fkUsuario = $fk;
+        }
+    }
+    public function getFkUsuario() : ?int{
+        return $this->fkUsuario;
     }
 }
 
