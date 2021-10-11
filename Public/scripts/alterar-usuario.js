@@ -168,12 +168,17 @@ function makeRequest(url, nome, telefone, email, cargo, tipo, senha, id, hashSen
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
                     //mostraModal(httpResponse.computedString, "Atualização de conta de usuário", "OK", "Sair", "sucesso");
+                    //so deixar usuario sair do modal se clicar no ok button
                     Swal.fire({
                         'title' : 'Alteração de Usuário',
                         'text' : httpResponse.computedString,
                         'icon' : 'success',
+                    }).then((result) => {
+                        if(result.isConfirmed) {
+                            window.location = "../utils/Logout.php";
+                        }
                     });
-                    window.location = "../../Index.php";
+                    //window.location = "../../Index.php";
                     //console.log(httpRequest.responseText);
                     return 1;
                 } catch (error) {

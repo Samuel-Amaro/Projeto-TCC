@@ -15,6 +15,7 @@
                     Cadastrar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <!--
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-male"></i></div>
                     Alterar
@@ -25,6 +26,7 @@
                     Deletar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                -->
                 <!--  data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts" -->
                 <a class="nav-link collapsed" href="ListBeneficiarios.php" target="_self" rel="next">
                     <div class="sb-nav-link-icon"><i class="fas fa-male"></i></div>
