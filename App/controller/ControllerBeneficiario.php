@@ -136,6 +136,17 @@ class ControllerBeneficiario{
         }
     }
 
+    /**
+     * este metodo e responsavel por atualizar um usuario, retorna uma resposta da atualizaçaõ em json para o front end
+     */
+    public function atualizarBeneficiario($methodHttp) {
+        if($methodHttp === "POST") {
+
+        }else{
+
+        }
+    }
+
     public function setOperacao(string $op) {
         $this->operacao = $op;
     } 

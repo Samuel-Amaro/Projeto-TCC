@@ -128,7 +128,8 @@ if(session_start()) {
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
 
-        <!--modal-->
+        <!--modal excluir-->
+        <!--
         <div class="conteiner-modal">
             <div class="conteiner-header-modal alert-success alert-warning">
                 <h3 class="titulo-modal"></h3>
@@ -141,13 +142,15 @@ if(session_start()) {
                 <a href="#" id="button-1-modal" target="_self" rel="next"></a>
                 <a href="#" target="_self" rel="next" id="button-2-modal"></a>
             </div>
-        </div><!--modal-->
+        </div>--><!--modal excluir-->
         <script>
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
         <!-- scripts boostrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous" type="text/javascript"></script>
         <script src="../../Public/scripts/scripts.js" type="text/javascript"></script>
+        <!-- plugin de alertas bonitos -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- script de deltar conta de usuario logado -->
         <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript"></script>        
         <!--<script src="../../Public/scripts/painel_controle.js"></script>-->

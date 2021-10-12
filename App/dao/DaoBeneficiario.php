@@ -119,6 +119,75 @@ class DaoBeneficiario{
         }
     }
 
+    /**
+     * Este metodo atualiza uma registro de um beneficiario, que foi solicitado por uma usuario;
+     *  
+    */
+    public function updateBeneficiario(ModelBeneficiario $newModelBene) : bool {
+        if(is_null($this->connection)) {
+            return false;
+            die();
+        }else{
+            try{
+               $this->modelBeneficiario = $newModelBene; 
+               $sql = "UPDATE beneficiarios SET 
+               cpf_beneficiario=?,
+               primeiro_nome_beneficiario=?,
+               ultimo_nome_beneficiario=?,
+               nis_beneficiario=?,
+               celular_beneficiario_required=?,
+               celular_beneficiario_opcional=?,
+               endereco_beneficiario=?,
+               bairro_beneficiario=?,
+               cidade_beneficiario=?,
+               uf_beneficiario=?,
+               qtd_pessoas_resid_beneficiario=?,
+               renda_per_capita_beneficiario=?, 
+               observacao_beneficiario=?,
+               fk_usuario=?,
+               email_benef=?,
+               cep_benef=?,
+               complemento_ende_benef=?,
+               abrangencia_cras_benef=? 
+               WHERE id_beneneficiario = ?;";
+               $stmt = $this->connection->prepare($sql);
+               $stmt->bindValue(1, $newModelBene->getCpf(), PDO::PARAM_STR);
+               $stmt->bindValue(2, $newModelBene->getPrimeiroNome(), PDO::PARAM_STR);
+               $stmt->bindValue(3, $newModelBene->getUltimoNome(), PDO::PARAM_STR);
+               $stmt->bindValue(4, $newModelBene->getNis(), PDO::PARAM_STR);
+               $stmt->bindValue(5, $newModelBene->getCelularRequired(), PDO::PARAM_STR);
+               $stmt->bindValue(6, $newModelBene->getCelularOpcional(), PDO::PARAM_STR);
+               $stmt->bindValue(7, $newModelBene->getEndereco(), PDO::PARAM_STR);
+               $stmt->bindValue(8, $newModelBene->getBairro(), PDO::PARAM_STR);
+               $stmt->bindValue(9, $newModelBene->getCidade(), PDO::PARAM_STR);
+               $stmt->bindValue(10, $newModelBene->getUf(), PDO::PARAM_STR);
+               $stmt->bindValue(11, $newModelBene->getQtdPessoasResidencia(), PDO::PARAM_INT);
+               $stmt->bindValue(12, $newModelBene->getRendaPerCapita());
+               $stmt->bindValue(13, $newModelBene->getObservacao(), PDO::PARAM_STR);
+               $stmt->bindValue(14, $newModelBene->getFkUsuario(), PDO::PARAM_INT);
+               $stmt->bindValue(15, $newModelBene->getEmail(), PDO::PARAM_STR);
+               $stmt->bindValue(16, $newModelBene->getCep(), PDO::PARAM_STR);
+               $stmt->bindValue(17, $newModelBene->getComplementoEnde(), PDO::PARAM_STR);
+               $stmt->bindValue(18, $newModelBene->getAbrangenciaCras(), PDO::PARAM_STR);
+               $stmt->bindValue(19, $newModelBene->getId(), PDO::PARAM_INT);
+               if($stmt->execute()) {
+                    $stmt = null;
+                    $this->connection = null;
+                    return true;
+               }else{
+                    $stmt = null;
+                    $this->connection = null;
+                    return false; 
+               }
+            } catch (PDOException $e) {
+               echo "Error!: falha ao executar consulta UPDATE beneficiarios: <pre><code>" . $e->getMessage() . "</code></pre></br>";
+               $stmt = null;
+               $this->connection = null;
+               return false;
+            }
+        }
+    }
+
 
 }
 

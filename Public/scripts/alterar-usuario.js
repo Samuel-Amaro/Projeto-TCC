@@ -19,14 +19,14 @@ inputSubmitForm.addEventListener("submit", function(event) {
         }else{
             //mostra modal com erro
             //mostraModal("Usuario não atualizado!", "usuario não atualizado, obtemos um erro no nosso sistema, agurde uns instantes e tente novamente mais tarde!", "OK", "Sair", "error");
-             //plugin de alerta bonito
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
-                footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
-            });
+            //plugin de alerta bonito
             event.preventDefault();
+            //Swal.fire({
+                //icon: 'error',
+           //     title: 'Oops...',
+           //     text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
+           //     footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+           // });
         }
 });
 
@@ -174,13 +174,14 @@ function makeRequest(url, nome, telefone, email, cargo, tipo, senha, id, hashSen
                         'text' : httpResponse.computedString,
                         'icon' : 'success',
                     }).then((result) => {
+                        //apos cliclar no botão retorna o result
                         if(result.isConfirmed) {
                             window.location = "../utils/Logout.php";
                         }
                     });
                     //window.location = "../../Index.php";
                     //console.log(httpRequest.responseText);
-                    return 1;
+                    //return 1;
                 } catch (error) {
                     console.error(error.message);
                     console.error(error.name);
@@ -190,6 +191,12 @@ function makeRequest(url, nome, telefone, email, cargo, tipo, senha, id, hashSen
                 }
             }else{
                 //return 0;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
+                    footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                });
             }
         }else{
                 //alert("Ajax operação assincrona não concluida! onreadystatechange: " + httpRequest.readyState);

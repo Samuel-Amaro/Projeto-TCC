@@ -1,26 +1,57 @@
 
+//button do dropdow da barra de navegação do topo
 let btnDeletar = document.querySelector("#btn-deletar");
-let btn1DeletarModal = document.querySelector("#button-1-modal");
-let btn2CancelarDeletarModal = document.querySelector("#button-2-modal");
-//45123367800
+
+//btn que chamar a funcionalidade de deletar conta
+//ao clicar no botão do dropdow de deletar conta, chama a modal
+btnDeletar.addEventListener("click", function() {
+    Swal.fire({
+        title: 'Realmente deseja deletar sua conta de usuário?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sim',
+        denyButtonText: 'Não',
+        customClass: {
+          actions: 'my-actions',
+          cancelButton: 'order-1 right-gap',
+          confirmButton: 'order-2',
+          denyButton: 'order-3',
+        }
+    }).then((result) => {
+        //sim deseja deletar
+        if (result.isConfirmed) {
+            makeRequestDeleteUser("../controller/ControllerUsuario.php", sessionStorage.getItem("id_usuario_logado"));
+            sessionStorage.removeItem('id_usuario_logado');
+        } else if (result.isDenied) {
+            //não deseja deletar  
+            Swal.fire('Usuário não sera deletado', '', 'info');
+        }
+    });
+    //mostraModalExcluir('Realmente deseja deletar sua conta de usuário?', 'Deletar conta de usuário', 'Sim', 'Cancelar', 'error');
+});
+
+//botões do modal
+//let btn1DeletarModal = document.querySelector("#button-1-modal");
+//let btn2CancelarDeletarModal = document.querySelector("#button-2-modal");
+
 //se confimar, deletar por ajax
+/*
 btn1DeletarModal.addEventListener("click", function(){
     makeRequestDeleteUser("../controller/ControllerUsuario.php", sessionStorage.getItem("id_usuario_logado"));
     sessionStorage.removeItem('id_usuario_logado');
 });
+*/
 
 //cancelar deletar conta de usuario
+/*
 btn2CancelarDeletarModal.addEventListener("click", function(){
     let modal = document.querySelector(".conteiner-modal");
     modal.style.display = "none";
 });
+*/
 
-//btn que chamar a funcionalidade de deletar conta
-btnDeletar.addEventListener("click", function() {
-    mostraModal('Realmente deseja deletar sua conta de usuário?', 'Deletar conta de usuário', 'Sim', 'Cancelar', 'error');
-});
-
-function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
+/*
+function mostraModalExcluir(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     if(tipo == "sucesso") {
         let divsModal = document.querySelectorAll(".alert-success");
         divsModal.forEach(element => {
@@ -55,7 +86,7 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     btn1Modal.textContent = textBtn1;
     btn2Modal.textContent = textBtn2;
 }
-
+*/
 
 function makeRequestDeleteUser(url, id_usuario) { 
 
@@ -73,11 +104,11 @@ function makeRequestDeleteUser(url, id_usuario) {
                     if(httpResponse.location != "") {
                         window.location = httpResponse.location;
                     }else{
-                        mostraModal(httpResponse.error, "Error ao deletar", "OK", "Sair", "error");
+                        mostraModalExcluir(httpResponse.error, "Error ao deletar", "OK", "Sair", "error");
                     } 
                     //return 1;
                 } catch (error) {
-                    mostraModal("Erro ao deletar usuário", "Apagar conta de usuário", "Ok", "Sair", "error");
+                    mostraModalExcluir("Erro ao deletar usuário", "Apagar conta de usuário", "Ok", "Sair", "error");
                     console.error(error.message);
                     console.error(error.name);
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);

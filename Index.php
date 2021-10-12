@@ -59,6 +59,8 @@
             </div>
         </div>
     </main>
+    <!-- plugin de alertas bonitos -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
     <script type="text/javascript" src="Public/scripts/login.js"></script>
 </body>
 </html>

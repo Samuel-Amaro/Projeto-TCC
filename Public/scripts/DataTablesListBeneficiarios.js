@@ -93,6 +93,8 @@ function carregaDadosModal(object) {
     let inputRenda = document.querySelector("#inputRenda");
     let textAreaObs = document.querySelector("#obs");
     let selectAbrangenciaCras = document.querySelector("#inputTipoCras");
+    let hiddenOperacao = document.querySelector("#operacao");
+
     if(object === undefined || object === null) {
         console.error("Impossivel carregar dados no modal, dados indefinidos object = " + object);
     }else{
@@ -125,6 +127,7 @@ function carregaDadosModal(object) {
         inputNis.value = object.nis;
         inputQtdPessoasHome.value = object.qtd_pessoas_home;
         inputRenda.value = object.renda;
+        hiddenOperacao.value = "alteracao";
         //textAreaObs.textContent = object.obs;
         //selectAbrangenciaCras.value = object.abrangencia_cras;
         let optionIndexAbrangencia = -1;

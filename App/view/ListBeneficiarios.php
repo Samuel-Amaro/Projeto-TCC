@@ -114,7 +114,7 @@ if(session_start()) {
                                     <div class="card border-0 rounded-lg">
                                         <div class="card-body">
                                             <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
-                                                <input type="hidden" name="operacao" value="cadastro" id="operacao">
+                                                <input type="hidden" name="operacao" value="" id="operacao">
                                                 <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
@@ -311,6 +311,8 @@ if(session_start()) {
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <!-- plugin de alertas bonitos -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <script src="../../Public/scripts/scripts.js"></script>
         <!-- script de deletar usuario -->
         <script src="../../Public/scripts/deletar-usuario.js"></script>

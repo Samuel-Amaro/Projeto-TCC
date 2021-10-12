@@ -63,13 +63,25 @@ $(".form_login").submit(
         let cpf = $("#cpf").val();
         let senha = $("#senha").val();
         if(cpf === "" || senha === "") {
-            mostraModal("Preencha os Campos Corretamente", "Campos incorretos", "Ok", "Cancelar", "error");
             event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos incorretos',
+                text: 'Preencha os Campos Corretamente',
+                footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+            });
+            //mostraModal("Preencha os Campos Corretamente", "Campos incorretos", "Ok", "Cancelar", "error");
         }else{
             //realiza login com AJAX
             //retorna true ou algo diferente de false, e porque deu certo
             if(makeRequest('App/controller/ControllerUsuario.php', tiraMascaraCPF(cpf), senha) === false) {
-                mostraModal("Falha ao Fazer Login com Ajax!", "Falha ao realizar Login", "Tentar Novamente", "Cancelar", "error");
+                //mostraModal("Falha ao Fazer Login com Ajax!", "Falha ao realizar Login", "Tentar Novamente", "Cancelar", "error");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Falha ao Fazer Login!',
+                    text: 'Problemas interno em nossa Sistema, agurde uns instantes.',
+                    footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                });
                 //não submete o form
                 event.preventDefault();
             }else{
@@ -96,14 +108,26 @@ function makeRequest(url, cpf, senha) {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
                     //propriedade de erro do json for true, houve erro
                     if(httpResponse.error === true) {
-                        mostraModal(httpResponse.erro, "Erro ao realizar login", "Tentar Novamente", "Cancelar", "error");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro ao realizar login',
+                            text: 'Problemas interno em nossa Sistema, agurde uns instantes.',
+                            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                        });
+                        //mostraModal(httpResponse.erro, "Erro ao realizar login", "Tentar Novamente", "Cancelar", "error");
                     }else{
                         //redireciona o usuario para o painel de controle, caso usuario esteja tudo correto
                         window.location = httpResponse.location;
                     }
                 } catch (error) {
                     //caso o servidor retorne uma string json não valida
-                    mostraModal("Usuario com cpf: " + cpf + " Não possui cadastro no sistema!", "Usuario não existe", "Ok", "Cancelar", "error");
+                    //mostraModal("Usuario com cpf: " + cpf + " Não possui cadastro no sistema!", "Usuario não existe", "Ok", "Cancelar", "error");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Falha ao Fazer Login!',
+                        text: "Usuario com cpf: " + cpf + " Não possui cadastro no sistema!",
+                        footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                    });
                     console.error(error.message);
                     console.error(error.name);
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);

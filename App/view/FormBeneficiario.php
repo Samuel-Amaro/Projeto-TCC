@@ -258,7 +258,8 @@ if(session_start()) {
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
 
-        <!--modal-->
+        <!--modal excluir-->
+        <!--
         <div class="conteiner-modal">
             <div class="conteiner-header-modal alert-success alert-warning">
                 <h3 class="titulo-modal"></h3>
@@ -271,7 +272,7 @@ if(session_start()) {
                 <a href="#" id="button-1-modal" target="_self" rel="next"></a>
                 <a href="#" target="_self" rel="next" id="button-2-modal"></a>
             </div>
-        </div><!--modal-->
+        </div>--><!--modal excluir-->
         <script>
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
