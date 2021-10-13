@@ -113,9 +113,10 @@ if(session_start()) {
                                 <div class="col-lg-11">
                                     <div class="card border-0 rounded-lg">
                                         <div class="card-body">
-                                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
+                                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alteracao-beneficiario" class="form-beneficiario">
                                                 <input type="hidden" name="operacao" value="" id="operacao">
                                                 <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
+                                                <input type="hidden" name="id_beneficiario" id="id_beneficiario" value="">
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
                                                         <label for="inputNomePrimeiro" class="mb-1">Primeiro Nome</label>
@@ -310,15 +311,19 @@ if(session_start()) {
         <script>
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
+        <!--BOOSTRAP --->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <!-- plugin de alertas bonitos -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <script src="../../Public/scripts/scripts.js"></script>
         <!-- script de deletar usuario -->
         <script src="../../Public/scripts/deletar-usuario.js"></script>
-         <!--JQUERY VERSION 3.6.0-->
-         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        <!--JQUERY VERSION 3.6.0-->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
+        <!-- formata cpf e renda -->
+        <script type="text/javascript" src="../../Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
+        <script type="text/javascript" src="../../Public/scripts/jquery.maskMoney.min.js"></script>
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <!-- EXTENSÃO DE BOTOÕES PARA DATATABLES PLUGIN script-->
@@ -334,8 +339,11 @@ if(session_start()) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js" integrity="sha512-Yf733gmgLgGUo+VfWq4r5HAEaxftvuTes86bKvwTpqOY3oH0hHKtX/9FfKYUcpaxeBJxeXvcN4EY3J6fnmc9cA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- SCRIPT JZIP JS BUTTON -->
         <script src="../../Public/scripts/jszip.js" type="text/javascript" charset="utf8"></script>
-        <!--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/b-2.0.1/r-2.2.9/datatables.min.js"></script>-->
-        <!-- SCRIPT QUE MANIPULA O PLUGIN JS -->
+        <!-- SCRIPT QUE MANIPULA O PLUGIN DATATABLES JS -->
         <script type="text/javascript" charset="utf8" src="../../Public/scripts/DataTablesListBeneficiarios.js"></script>        
+        <!--SCRIPT QUE FAZ BUSCA DE CEP NO MODAL -->
+        <script src="../../Public/scripts/consulta-cep.js" type="text/javascript" charset="utf8"></script>
+        <!-- modal alterar beneficiario -->
+        <script src="../../Public/scripts/Modal-Alterar-Beneficiario.js" charset="utf8" type="text/javascript"></script>
     </body>
 </html>

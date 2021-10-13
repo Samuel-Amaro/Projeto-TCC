@@ -1,9 +1,11 @@
-let inputSubmit = document.querySelector(".form-beneficiario");
+/**
+ * Script de mostrar o modal beneficiario e tratar o modal antes de fazer uma request por ajax 
+*/
 
-//registrando um manipulador de evento de clique neste input
-//O submit evento é disparado quando um <form>é enviado.
-//o form so e submetido quando todos campos required estiverem prenchidos
-inputSubmit.addEventListener("submit", function(event) {
+//registra um manipulador de eveventos quando o formulario modal e submetido
+let formAlterar = document.querySelector(".form-beneficiario");
+
+formAlterar.addEventListener("submit", function(event) {
     let inputsForms = document.querySelectorAll(".form-control");
     let inputSelects = document.querySelectorAll(".form-select");
     inputsForms.forEach(input => {
@@ -12,23 +14,13 @@ inputSubmit.addEventListener("submit", function(event) {
     inputSelects.forEach(select => {
         select.classList.add("is-valid");
     });
-    if(makeRequest("../controller/ControllerBeneficiario.php", obterDados()) == 1) {
-       //faz nada se der certo
-    }else{
-        //deu erro cancela o evento submit
-        //mostraModal("Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.", "Cadastro de beneficiário", "Ok", "Sair", "sucesso");
-        //plugin de alerta bonito
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
-            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
-        })
-        event.preventDefault();
-    }
+    //cancela o evento
+    //event.preventDefault();
 });
 
 
+
+/*FORMATAÇÃO DO CAMPO DE NOMES DO MODAL*/
 function limitaCaracteresInputNome() {
     let inputNome = document.querySelector("#inputNomePrimeiro");
     let feedbackValidNome = document.querySelector(".valid-feedback-primeiro-nome");
@@ -67,6 +59,7 @@ function limitaCaracteresInputNome() {
 limitaCaracteresInputNome();
 
 /***************Máscara de telefones***************************/
+
 function mascara(o,f){
     v_obj=o
     v_fun=f
@@ -109,8 +102,38 @@ $(document).ready(function() {
 });
 
 
+/**
+ * esta funçaõ obtem dados do modal
+ * @returns Object 
+ */
+function obterDadosModal() {
+    let beneficiario = {
+        "primeiroNome" : document.querySelector("#inputNomePrimeiro").value,
+        "ultimoNome" : document.querySelector("#inputNomeUltimo").value,
+        "cpf" : tiraMascaraCPF(document.querySelector("#inputCpf").value), 
+        "telefoneObrigatorio" :  tiraMascaraTel(document.querySelector("#inputFone").value),
+        "telefoneOpcional" : tiraMascaraTel(document.querySelector("#inputFoneOpcional").value),  
+        "cep" : document.querySelector("#inputCep").value,
+        "email" : document.querySelector("#inputEmailOpcional").value,
+        "endereco" : document.querySelector("#inputEndereco").value,
+        "complemento" : document.querySelector("#inputComplemento").value,
+        "cidade" : document.querySelector("#inputCidade").value,
+        "uf" : document.querySelector("#inputEstado").value,
+        "bairro" : document.querySelector("#inputBairro").value,
+        "nis" : tiraMascaraNis(document.querySelector("#inputNis").value), 
+        "quantidadePeopleHome" : document.querySelector("#inputQtdPessoasHome").value,
+        "rendaPerCapita" : parseFloat((document.querySelector("#inputRenda").value).replace(",", ".")), 
+        "observacao" : document.querySelector("#floatingTextarea").value,
+        "abrangencia" : document.querySelector("#inputTipoCras").value,
+        "operacao" : document.querySelector("#operacao").value,
+        "id_usuario" : document.querySelector("input[type=\"hidden\"]#id_usuario").value
+    };
+    return beneficiario;
+}
+
+
 /*********************************FUNÇÃO DE FAZER REQUEST PARA SERVIDOR AJAX **************************/
-function makeRequestAlterarBeneficiario(url, beneficiario = {}) { 
+function makeRequest(url, beneficiario = {}) { 
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
@@ -146,111 +169,3 @@ function makeRequestAlterarBeneficiario(url, beneficiario = {}) {
         }
     }
 }
-
-function obterDados() {
-    let beneficiario = {
-        "primeiroNome" : document.querySelector("#inputNomePrimeiro").value,
-        "ultimoNome" : document.querySelector("#inputNomeUltimo").value,
-        "cpf" : tiraMascaraCPF(document.querySelector("#inputCpf").value), 
-        "telefoneObrigatorio" :  tiraMascaraTel(document.querySelector("#inputFone").value),
-        "telefoneOpcional" : tiraMascaraTel(document.querySelector("#inputFoneOpcional").value),  
-        "cep" : document.querySelector("#inputCep").value,
-        "email" : document.querySelector("#inputEmailOpcional").value,
-        "endereco" : document.querySelector("#inputEndereco").value,
-        "complemento" : document.querySelector("#inputComplemento").value,
-        "cidade" : document.querySelector("#inputCidade").value,
-        "uf" : document.querySelector("#inputEstado").value,
-        "bairro" : document.querySelector("#inputBairro").value,
-        "nis" : tiraMascaraNis(document.querySelector("#inputNis").value), 
-        "quantidadePeopleHome" : document.querySelector("#inputQtdPessoasHome").value,
-        "rendaPerCapita" : parseFloat((document.querySelector("#inputRenda").value).replace(",", ".")), 
-        "observacao" : document.querySelector("#floatingTextarea").value,
-        "abrangencia" : document.querySelector("#inputTipoCras").value,
-        "operacao" : document.querySelector("#operacao").value,
-        "id_usuario" : document.querySelector("input[type=\"hidden\"]#id_usuario").value
-    };
-    return beneficiario;
-}
-
-function tiraMascaraCPF(cpf) {
-    let cpfFormatado = cpf;
-    let cpfParte1 = cpf.substr(0,3); //3 DIGITOS
-    //console.log("PARTE 1: " + cpfParte1);
-    let cpfParte2 = cpf.substr(4, 3); //3 DIGITOS
-    //console.log("PARTE 2: " + cpfParte2);
-    let cpfParte3 = cpf.substr(8,3); //3 DIGITOS
-    //console.log("PARTE 3: " + cpfParte3);
-    let cpfParte4 = cpf.substr(12,2); //2 DIGITOS
-    //console.log("PARTE 4: " + cpfParte4);
-    let cpfSemFormatacao = cpfParte1 + cpfParte2 + cpfParte3 + cpfParte4;
-    return cpfSemFormatacao;
-}
-
-function tiraMascaraTel(telefone) {
-    let telFormatado = telefone;
-    let telParte1 = telefone.substr(1,2); //DD
-    let telParte2 = telefone.substr(5,5); //5 DIGITOS
-    let telParte3 = telefone.substr(11,4); //4 DIGITOS
-    return telParte1 + telParte2 + telParte3;
-}
-
-function tiraMascaraNis(nis) {
-    let nisFormatado = nis;
-    let nisParte1 = nis.substr(0,3); //3 DIGITOS
-    let nisParte2 = nis.substr(4, 3); //3 DIGITOS
-    let nisParte3 = nis.substr(8,3); //3 DIGITOS
-    let nisParte4 = nis.substr(12,2); //2 DIGITOS
-    let nisSemFormatacao = nisParte1 + nisParte2 + nisParte3 + nisParte4;
-    return nisSemFormatacao;
-}
-
-/*
-function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
-    if(tipo == "sucesso") {
-        let divsModal = document.querySelectorAll(".alert-success");
-        divsModal.forEach(element => {
-            element.style.backgroundColor = "#d4edda";
-            element.style.color = "#155724";
-        });
-    }else{
-        let divsModal = document.querySelectorAll(".alert-warning");
-        divsModal.forEach(element => {
-            element.style.backgroundColor = "#f8d7da";
-            element.style.color = "#721c24";
-        });
-    }
-
-    let titleModal = document.querySelector(".titulo-modal");
-    let btn1Modal = document.querySelector("#button-1-modal");
-    let btn2Modal = document.querySelector("#button-2-modal");
-    let modal = document.querySelector(".conteiner-modal");
-    let span = document.querySelector(".close");
-    modal.style.display = "block";
-    span.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-    window.addEventListener("click", function(event) {
-        if(event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-    let p = document.querySelector(".msg-content");
-    p.textContent = mensagemModal;
-    titleModal.textContent = tituloModal;
-    btn1Modal.textContent = textBtn1;
-    btn2Modal.textContent = textBtn2;
-}
-
-*/
-
-//O change evento é acionado para <input>, <select>e <textarea>os elementos, quando uma alteração ao valor do elemento é cometida pelo usuário. 
-/********************VERIFICA SE O beneficiario QUE VAI SER CADASTRADO JA EXISTE NO SISTEMA***********************/
-
-//regitra o manipulador de evento de mudança no input do primeiro nome
-let inputCpf = document.querySelector("input[type=\"text\"]#inputCpf");
-let feedbackInputCpf = document.querySelector(".valid-feedback-cpf");
-
-inputCpf.addEventListener("change", function(event) {
-    feedbackInputCpf.textContent = event.target.value; 
-});
-

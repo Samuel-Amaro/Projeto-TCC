@@ -104,7 +104,7 @@ class ControllerBeneficiario{
             }else{
                 $this->setResponseJson("computedString", "Erro no nosso sistema, erro interno, erro ao fazer consulta select beneficiarios na camada controller!");
                 if(json_encode($beneficiatios) != '') {
-                    $responseResultados = array("draw" => 1, "recordsTotal" => count($beneficiatios), "recordsFiltered" => count($beneficiatios), "data" => array()); //[]
+                $responseResultados = array("draw" => 1, "recordsTotal" => count($beneficiatios), "recordsFiltered" => count($beneficiatios), "data" => array()); //[]
                     
                     foreach($beneficiatios as $chave => $valor) { 
                         $valorCorretoTratado = ["id" => $valor["id_beneficiario"], 
@@ -138,10 +138,33 @@ class ControllerBeneficiario{
 
     /**
      * este metodo e responsavel por atualizar um usuario, retorna uma resposta da atualizaçaõ em json para o front end
-     */
+    */
     public function atualizarBeneficiario($methodHttp) {
         if($methodHttp === "POST") {
+            $this->daoBenef = new DaoBeneficiario(new DataBase());
+            $this->modelBenef = new ModelBeneficiario();
+            $this->modelBenef->setPrimeiroNome($_POST["primeiroNome"]);
+            $this->modelBenef->setUltimoNome($_POST["ultimoNome"]);
+            $this->modelBenef->setCpf($_POST["cpf"]);
+            $this->modelBenef->setCelularRequired($_POST["telefoneObrigatorio"]);
+            $this->modelBenef->setCelularOpcional($_POST["telefoneOpcional"]);
+            $this->modelBenef->setCep($_POST["cep"]);
+            $this->modelBenef->setEmail($_POST["email"]);
+            $this->modelBenef->setEndereco($_POST["endereco"]);
+            $this->modelBenef->setComplementoEnde($_POST["complemento"]);
+            $this->modelBenef->setCidade($_POST["cidade"]);
+            $this->modelBenef->setUf($_POST["estado"]);
+            $this->modelBenef->setBairro($_POST["bairro"]);
+            $this->modelBenef->setNis($_POST["nis"]);
+            $this->modelBenef->setQtdPessoasResidencia($_POST["qtdPessoasResidencia"]);
+            $this->modelBenef->setRendaPerCapita($_POST["rendaPerCapita"]);
+            $this->modelBenef->setObservacao($_POST["obs"]);
+            $this->modelBenef->setFkUsuario($_POST["id_usuario"]);
+            if($this->daoBenef->updateBeneficiario($this->modelBenef)) {
 
+            }else{
+
+            }
         }else{
 
         }

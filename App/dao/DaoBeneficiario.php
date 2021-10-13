@@ -131,7 +131,6 @@ class DaoBeneficiario{
             try{
                $this->modelBeneficiario = $newModelBene; 
                $sql = "UPDATE beneficiarios SET 
-               cpf_beneficiario=?,
                primeiro_nome_beneficiario=?,
                ultimo_nome_beneficiario=?,
                nis_beneficiario=?,
@@ -149,27 +148,27 @@ class DaoBeneficiario{
                cep_benef=?,
                complemento_ende_benef=?,
                abrangencia_cras_benef=? 
-               WHERE id_beneneficiario = ?;";
+               WHERE cpf_beneficiario = ?;";
                $stmt = $this->connection->prepare($sql);
-               $stmt->bindValue(1, $newModelBene->getCpf(), PDO::PARAM_STR);
-               $stmt->bindValue(2, $newModelBene->getPrimeiroNome(), PDO::PARAM_STR);
-               $stmt->bindValue(3, $newModelBene->getUltimoNome(), PDO::PARAM_STR);
-               $stmt->bindValue(4, $newModelBene->getNis(), PDO::PARAM_STR);
-               $stmt->bindValue(5, $newModelBene->getCelularRequired(), PDO::PARAM_STR);
-               $stmt->bindValue(6, $newModelBene->getCelularOpcional(), PDO::PARAM_STR);
-               $stmt->bindValue(7, $newModelBene->getEndereco(), PDO::PARAM_STR);
-               $stmt->bindValue(8, $newModelBene->getBairro(), PDO::PARAM_STR);
-               $stmt->bindValue(9, $newModelBene->getCidade(), PDO::PARAM_STR);
-               $stmt->bindValue(10, $newModelBene->getUf(), PDO::PARAM_STR);
-               $stmt->bindValue(11, $newModelBene->getQtdPessoasResidencia(), PDO::PARAM_INT);
-               $stmt->bindValue(12, $newModelBene->getRendaPerCapita());
-               $stmt->bindValue(13, $newModelBene->getObservacao(), PDO::PARAM_STR);
-               $stmt->bindValue(14, $newModelBene->getFkUsuario(), PDO::PARAM_INT);
-               $stmt->bindValue(15, $newModelBene->getEmail(), PDO::PARAM_STR);
-               $stmt->bindValue(16, $newModelBene->getCep(), PDO::PARAM_STR);
-               $stmt->bindValue(17, $newModelBene->getComplementoEnde(), PDO::PARAM_STR);
-               $stmt->bindValue(18, $newModelBene->getAbrangenciaCras(), PDO::PARAM_STR);
-               $stmt->bindValue(19, $newModelBene->getId(), PDO::PARAM_INT);
+               //$stmt->bindValue(1, $newModelBene->getCpf(), PDO::PARAM_STR);
+               $stmt->bindValue(1, $newModelBene->getPrimeiroNome(), PDO::PARAM_STR);
+               $stmt->bindValue(2, $newModelBene->getUltimoNome(), PDO::PARAM_STR);
+               $stmt->bindValue(3, $newModelBene->getNis(), PDO::PARAM_STR);
+               $stmt->bindValue(4, $newModelBene->getCelularRequired(), PDO::PARAM_STR);
+               $stmt->bindValue(5, $newModelBene->getCelularOpcional(), PDO::PARAM_STR);
+               $stmt->bindValue(6, $newModelBene->getEndereco(), PDO::PARAM_STR);
+               $stmt->bindValue(7, $newModelBene->getBairro(), PDO::PARAM_STR);
+               $stmt->bindValue(8, $newModelBene->getCidade(), PDO::PARAM_STR);
+               $stmt->bindValue(9, $newModelBene->getUf(), PDO::PARAM_STR);
+               $stmt->bindValue(10, $newModelBene->getQtdPessoasResidencia(), PDO::PARAM_INT);
+               $stmt->bindValue(11, $newModelBene->getRendaPerCapita());
+               $stmt->bindValue(12, $newModelBene->getObservacao(), PDO::PARAM_STR);
+               $stmt->bindValue(13, $newModelBene->getFkUsuario(), PDO::PARAM_INT);
+               $stmt->bindValue(14, $newModelBene->getEmail(), PDO::PARAM_STR);
+               $stmt->bindValue(15, $newModelBene->getCep(), PDO::PARAM_STR);
+               $stmt->bindValue(16, $newModelBene->getComplementoEnde(), PDO::PARAM_STR);
+               $stmt->bindValue(17, $newModelBene->getAbrangenciaCras(), PDO::PARAM_STR);
+               $stmt->bindValue(18, $newModelBene->getCpf(), PDO::PARAM_INT);
                if($stmt->execute()) {
                     $stmt = null;
                     $this->connection = null;

@@ -29,7 +29,7 @@ window.addEventListener('load', function() {
             "contentType": 'application/x-www-form-urlencoded; charset=UTF-8'
         },
         "columns": [
-           // {"data" : "id"},
+            //{"data" : "id"},
             {"data" : "cpf"},
             {"data" : "primeiro_nome"},
             {"data" : "ultimo_nome"},
@@ -65,7 +65,8 @@ window.addEventListener('load', function() {
 });
 
 /**
- * esta função mostra um modal com o formulario de beneficiario
+ * esta função mostra um modal com o formulario de beneficiario.
+ * mostra um modal do boostrap 5
  */
 function mostraModal() {
     let elementoModal = document.querySelector("#exampleModal");
@@ -73,6 +74,10 @@ function mostraModal() {
     objectBoostrap.show();
 } 
 
+/**
+ * esta função carrega, os dados, numa modal boostrap, popula os campos de um modal
+ * @param {object data} object 
+ */
 function carregaDadosModal(object) {
     let selectValuesEstado = ["ac", "al", "df", "go", "ap", "am", "ba", "ce", "es", "ma", "mt", "ms", "mg", "pb", "pr", "pe", "pi", "rj", "rn", "rs", "ro", "rr", "sc", "sp", "se", "to"];
     let selectValuesAbrangenciaCras = ["cras1", "cras2"];
@@ -94,10 +99,12 @@ function carregaDadosModal(object) {
     let textAreaObs = document.querySelector("#obs");
     let selectAbrangenciaCras = document.querySelector("#inputTipoCras");
     let hiddenOperacao = document.querySelector("#operacao");
+    let hiddenIdBeneficiario = document.querySelector("#id_beneficiario");
 
     if(object === undefined || object === null) {
         console.error("Impossivel carregar dados no modal, dados indefinidos object = " + object);
     }else{
+        hiddenIdBeneficiario.value = object.id;
         inputPrimeiroNome.value = object.primeiro_nome;
         inputUltimoNome.value = object.ultimo_nome;
         inputCpf.value = object.cpf;
