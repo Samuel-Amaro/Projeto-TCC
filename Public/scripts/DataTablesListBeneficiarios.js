@@ -108,8 +108,8 @@ function carregaDadosModal(object) {
         inputPrimeiroNome.value = object.primeiro_nome;
         inputUltimoNome.value = object.ultimo_nome;
         inputCpf.value = object.cpf;
-        inputFoneRequired.value = object.celular_required;
-        inputFoneOpcional.value = object.celular_opcional;
+        inputFoneRequired.value = aplicaMascaraTelefone(object.celular_required);
+        inputFoneOpcional.value = aplicaMascaraTelefone(object.celular_opcional);
         inputCep.value = object.cep;
         inputEmail.value = object.email;
         inputEndereco.value = object.endereco;
@@ -131,7 +131,7 @@ function carregaDadosModal(object) {
           selectEstado.remove(optionIndex);
           selectEstado.add(optionNovoElemento);
         }
-        inputNis.value = object.nis;
+        inputNis.value = aplicaMascaraNumeroNis(object.nis);
         inputQtdPessoasHome.value = object.qtd_pessoas_home;
         inputRenda.value = object.renda;
         hiddenOperacao.value = "alteracao";
@@ -154,8 +154,30 @@ function carregaDadosModal(object) {
     }
 }
 
+/**
+ * esta função aplica uma mascara de formatação no telefone
+ * @param {} telefoneSemFormatacao 
+ */
+function aplicaMascaraTelefone(telefoneSemFormatacao) { 
+    if(telefoneSemFormatacao == "") {
+        return "";     
+    }else{
+        let telefonePuro = telefoneSemFormatacao;
+        let parte1 = "(" + telefonePuro.substr(0, 2) + ") "; //(##) 
+        let parte2 = telefonePuro.substr(2, 5); //#####
+        let parte3 = "-" + telefonePuro.substr(7, 4); //-####
+        //console.log(parte1 + parte2 + parte3);
+        return parte1 + parte2 + parte3;
+    }
+}
 
-
+/**
+ * esta função aplica uma mascara de formatação no campo numero do nis
+ * @param {*} nisSemFormatacao 
+ */
+function aplicaMascaraNumeroNis(nisSemFormatacao) {
+    return nisSemFormatacao.substr(0, 3) + "." + nisSemFormatacao.substr(3, 3) + "." + nisSemFormatacao.substr(6, 3) + "-" + nisSemFormatacao.substr(9, 2);
+}
 
 
 

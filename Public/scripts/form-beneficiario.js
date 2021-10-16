@@ -12,7 +12,7 @@ inputSubmit.addEventListener("submit", function(event) {
     inputSelects.forEach(select => {
         select.classList.add("is-valid");
     });
-    if(makeRequest("../controller/ControllerBeneficiario.php", obterDados()) == 1) {
+    if(makeRequestCadastrar("../controller/ControllerBeneficiario.php", obterDados()) == 1) {
        //faz nada se der certo
     }else{
         //deu erro cancela o evento submit
@@ -23,7 +23,7 @@ inputSubmit.addEventListener("submit", function(event) {
             title: 'Oops...',
             text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
             footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
-        })
+        });
         event.preventDefault();
     }
 });
@@ -110,7 +110,7 @@ $(document).ready(function() {
 
 
 /*********************************FUNÇÃO DE FAZER REQUEST PARA SERVIDOR AJAX **************************/
-function makeRequestAlterarBeneficiario(url, beneficiario = {}) { 
+function makeRequestCadastrar(url, beneficiario = {}) { 
 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
@@ -128,7 +128,7 @@ function makeRequestAlterarBeneficiario(url, beneficiario = {}) {
                         'Mais um em nosso sistema',
                         'Ótimo, você acabou de cadastrar um beneficiário com sucesso!',
                         'success'
-                    )
+                    );
                     return 1;
                 } catch (error) {
                     console.error(error.message);

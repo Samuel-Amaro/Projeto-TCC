@@ -31,6 +31,9 @@ class ControllerBeneficiario{
             case "listar": 
                 $this->listaBeneficiarios($this->methodHttp);
                 break;
+            case "alteracao": 
+                $this->atualizarBeneficiario($this->methodHttp);
+                break;
             default:
                 break;
         }
@@ -161,12 +164,33 @@ class ControllerBeneficiario{
             $this->modelBenef->setObservacao($_POST["obs"]);
             $this->modelBenef->setFkUsuario($_POST["id_usuario"]);
             if($this->daoBenef->updateBeneficiario($this->modelBenef)) {
-
+                $this->setResponseJson("computedString", "Beneficiário foi atualizado com sucesso!");
+                //houve erro ao encodificar o json response
+                if(is_null($this->getResponseJson())) {
+                    //erro, redireciona para nossa pagina de erro interno
+                }else{
+                    //response do server, cospe um json
+                    echo $this->getResponseJson();
+                }
             }else{
-
+                $this->setResponseJson("computedString", "Beneficiário não foi atualizado com sucesso!");
+                //houve erro ao encodificar o json response
+                if(is_null($this->getResponseJson())) {
+                    //erro, redireciona para nossa pagina de erro interno
+                }else{
+                    //response do server, cospe um json
+                    echo $this->getResponseJson();
+                }
             }
         }else{
-
+            $this->setResponseJson("computedString", "Beneficiário não foi atualizado com sucesso!");
+            //houve erro ao encodificar o json response
+            if(is_null($this->getResponseJson())) {
+                //erro, redireciona para nossa pagina de erro interno
+            }else{
+                //response do server, cospe um json
+                echo $this->getResponseJson();
+            }
         }
     }
 

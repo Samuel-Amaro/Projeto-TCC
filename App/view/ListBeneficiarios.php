@@ -17,7 +17,6 @@ if(session_start()) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -102,9 +101,8 @@ if(session_start()) {
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Alteração de beneficiário</h5>
-                    <!--data-dismiss="modal"-->
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -113,7 +111,7 @@ if(session_start()) {
                                 <div class="col-lg-11">
                                     <div class="card border-0 rounded-lg">
                                         <div class="card-body">
-                                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alteracao-beneficiario" class="form-beneficiario">
+                                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alteracao-beneficiario" class="form-alterar-beneficiario">
                                                 <input type="hidden" name="operacao" value="" id="operacao">
                                                 <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                                 <input type="hidden" name="id_beneficiario" id="id_beneficiario" value="">
@@ -142,14 +140,14 @@ if(session_start()) {
                                                             <div class="">
                                                                 <label for="inputFone" class="mb-1">Telefone</label>
                                                                 <input class="form-control" id="inputFone" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o numero de telefone do beneficiário, informando somente números." name="telefoneObrigatorio"/>
-                                                                <div class="invalid-feedback"></div>
+                                                                <div class="invalid-feedback  valid-feedback-telefone-required"></div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="">
                                                                 <label for="inputFoneOpcional" class="mb-1">Telefone Opcional</label>
                                                                 <input class="form-control" id="inputFoneOpcional" type="text" placeholder="Entre com seu telefone, somente numeros" maxlength="15" title="Preencha este campo com o numero de telefone do beneficiário, informando somente números." name="telefoneOpcional"/>
-                                                                <div class="invalid-feedback"></div>
+                                                                <div class="invalid-feedback valid-feedback-telefone-opcional"></div>
                                                             </div>
                                                         </div>
                                                 </div>
@@ -180,20 +178,20 @@ if(session_start()) {
                                                     <div class="col-md-12">
                                                         <label for="inputEndereco" class="mb-1">Endereço - Logradouro</label>
                                                         <input class="form-control" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required name="endereco" title="Informe um endereço"/>
-                                                        <div class="invalid-feedback"></div>
+                                                        <div class="invalid-feedback invalid-feedback-endereco"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="inputComplemento" class="mb-1">Complemento</label>
-                                                    <input class="form-control" id="inputComplemento" type="text" placeholder="Entre com um complemento referente ao endereço" required name="complemento" title="Informe o complemento de endereço do beneficiário" />
-                                                    <div class="invalid-feedback"></div>
+                                                    <input class="form-control" id="inputComplemento" type="text" placeholder="Entre com um complemento referente ao endereço" name="complemento" title="Informe o complemento de endereço do beneficiário" />
+                                                    <div class="invalid-feedback invalid-feedback-complemento"></div>
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="inputCidade" class="mb-1">Cidade</label>
                                                             <input class="form-control" id="inputCidade" type="text" placeholder="Entre com uma cidade" required name="cidade" title="Informe uma cidade onde o beneficiário reside"/>
-                                                            <div class="invalid-feedback"></div>
+                                                            <div class="invalid-feedback invalid-feedback-cidade"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -234,7 +232,7 @@ if(session_start()) {
                                                         <div class="">
                                                             <label for="inputBairro" class="mb-1">Bairro</label>
                                                             <input class="form-control" id="inputBairro" type="text" placeholder="Entre com seu bairro" required name="bairro" title="Informe o bairro do beneficiário"/>
-                                                            <div class="invalid-feedback"></div>
+                                                            <div class="invalid-feedback invalid-feedback-bairro"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -282,10 +280,7 @@ if(session_start()) {
                                                 </div>
                                                 <div class="mt-4 mb-0">
                                                     <div class="d-grid gap-2 col-6 mx-auto">
-                                                        <input type="submit" value="Cadastrar" class=" btn-cadastrar-beneficiario btn btn-primary" title="Clique aqui para cadastrar o beneficiário">
-                                                        <!--
-                                                        <a class="btn btn-primary btn-block" href="PainelControle.php" target="_self" rel="next" title="Clique aqui para voltar ao painel de controle">Voltar</a>
-                                                        -->
+                                                        <input type="submit" value="Salvar Alteração" class=" btn-alterar-beneficiario btn btn-primary" title="Clique aqui para alterar o beneficiário">
                                                     </div>
                                                 </div>
                                             </form>
@@ -302,8 +297,13 @@ if(session_start()) {
                     </div>
                     <div class="modal-footer">
                         <!--data-dismiss="modal"-->
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Clique aqui para fechar a modal de alteração de beneficiario">Fechar</button>
+                        <!--
                         <button type="button" class="btn btn-primary">Salvar Alteração</button>
+                        -->
+                        <!--
+                        <input type="submit" value="Cadastrar" class="btn-alterar-beneficiario btn btn-primary" title="Clique aqui para salvar o beneficiário">
+                        -->
                     </div>
                 </div>
             </div>
