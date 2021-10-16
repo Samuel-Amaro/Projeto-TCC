@@ -120,12 +120,13 @@ if(session_start()) {
                                                         <label for="inputNomePrimeiro" class="mb-1">Primeiro Nome</label>
                                                         <input class="form-control" id="inputNomePrimeiro" type="text" placeholder="Entre com seu primeiro nome" required maxlength="35" title="Preencha esta campo com o primeiro nome do beneficiario" name="primeiroNome"/>
                                                         <div class="valid-feedback mb-01 valid-feedback-primeiro-nome"></div>
-                                                        <div class="valid-feedback feedback-verifica-nome"></div>
+                                                        <div class="feedback-verifica-nome-primeiro"></div>
                                                     </div>    
                                                     <div class="col-md-6">
                                                         <label for="inputNomeUltimo" class="mb-1">Ultimo Nome</label>
                                                         <input class="form-control" id="inputNomeUltimo" type="text" placeholder="Entre com seu ultimo nome" required maxlength="35" title="Preencha esta campo com o ultimo nome do beneficiario" name="ultimoNome"/>
-                                                        <div class="valid-feedback valid-feedback-ultimo-nome"></div>
+                                                        <div class="valid-feedback mb-01 valid-feedback-ultimo-nome"></div>
+                                                        <div class="feedback-verifica-nome-ultimo"></div>
                                                     </div>    
                                                 </div>
                                                 <div class="row mb-3">
@@ -178,20 +179,20 @@ if(session_start()) {
                                                     <div class="col-md-12">
                                                         <label for="inputEndereco" class="mb-1">Endereço - Logradouro</label>
                                                         <input class="form-control" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required name="endereco" title="Informe um endereço"/>
-                                                        <div class="invalid-feedback invalid-feedback-endereco"></div>
+                                                        <div class="invalid-feedback-endereco"></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="inputComplemento" class="mb-1">Complemento</label>
                                                     <input class="form-control" id="inputComplemento" type="text" placeholder="Entre com um complemento referente ao endereço" name="complemento" title="Informe o complemento de endereço do beneficiário" />
-                                                    <div class="invalid-feedback invalid-feedback-complemento"></div>
+                                                    <div class="invalid-feedback-complemento"></div>
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="inputCidade" class="mb-1">Cidade</label>
                                                             <input class="form-control" id="inputCidade" type="text" placeholder="Entre com uma cidade" required name="cidade" title="Informe uma cidade onde o beneficiário reside"/>
-                                                            <div class="invalid-feedback invalid-feedback-cidade"></div>
+                                                            <div class="invalid-feedback-cidade"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -232,7 +233,7 @@ if(session_start()) {
                                                         <div class="">
                                                             <label for="inputBairro" class="mb-1">Bairro</label>
                                                             <input class="form-control" id="inputBairro" type="text" placeholder="Entre com seu bairro" required name="bairro" title="Informe o bairro do beneficiário"/>
-                                                            <div class="invalid-feedback invalid-feedback-bairro"></div>
+                                                            <div class="invalid-feedback-bairro"></div>
                                                         </div>
                                                     </div>
                                                 </div>

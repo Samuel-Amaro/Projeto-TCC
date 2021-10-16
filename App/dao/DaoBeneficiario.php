@@ -171,17 +171,17 @@ class DaoBeneficiario{
                $stmt->bindValue(18, $newModelBene->getCpf(), PDO::PARAM_INT);
                if($stmt->execute()) {
                     $stmt = null;
-                    $this->connection = null;
+                    unset($this->connection);
                     return true;
                }else{
                     $stmt = null;
-                    $this->connection = null;
+                    unset($this->connection);
                     return false; 
                }
             } catch (PDOException $e) {
                echo "Error!: falha ao executar consulta UPDATE beneficiarios: <pre><code>" . $e->getMessage() . "</code></pre></br>";
                $stmt = null;
-               $this->connection = null;
+               unset($this->connection);
                return false;
             }
         }

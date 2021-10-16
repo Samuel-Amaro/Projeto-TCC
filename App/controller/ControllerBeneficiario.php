@@ -27,7 +27,6 @@ class ControllerBeneficiario{
             case "cadastro":
                 $this->cadastroBeneficiario($this->methodHttp);
                 break;
-            
             case "listar": 
                 $this->listaBeneficiarios($this->methodHttp);
                 break;
@@ -163,6 +162,7 @@ class ControllerBeneficiario{
             $this->modelBenef->setRendaPerCapita($_POST["rendaPerCapita"]);
             $this->modelBenef->setObservacao($_POST["obs"]);
             $this->modelBenef->setFkUsuario($_POST["id_usuario"]);
+            $this->modelBenef->setAbrangenciaCras($_POST["abrangencia"]);
             if($this->daoBenef->updateBeneficiario($this->modelBenef)) {
                 $this->setResponseJson("computedString", "Beneficiário foi atualizado com sucesso!");
                 //houve erro ao encodificar o json response

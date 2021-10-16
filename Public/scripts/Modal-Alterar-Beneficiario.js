@@ -14,19 +14,26 @@ formAlterar.addEventListener("submit", function(event) {
     inputSelects.forEach(select => {
         select.classList.add("is-valid");
     });
-    if(makeRequestAlterarBeneficiario("../controller/ControllerBeneficiario.php", obterDadosModal()) === 1) {
-        //faz nada se der certo
-        event.preventDefault(); 
-        verificarCamposVazios();
-    }else{
+    if(verificarCamposVazios() === 0) {
         Swal.fire({
             icon: 'error',
-            title: 'Erro na alteração de beneficiário',
-            text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
+            title: 'Campos Vazios',
+            text: 'Preencha os campos obrigatorios por favor!',
             footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
         });
-        event.preventDefault();
-        verificarCamposVazios();
+        event.preventDefault(); 
+    }else{
+        if(makeRequestAlterarBeneficiario("../controller/ControllerBeneficiario.php", obterDadosModal()) == 1) {
+            //faz nada se der tudo certo
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro na alteração de beneficiário',
+                text: 'Ocorreu um erro interno em nosso sistema, por favor tente novamente mais tarde essa ação.',
+                footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+            });
+            event.preventDefault();
+        }
     }
 });
 
@@ -146,7 +153,6 @@ function obterDadosModal() {
 
 /*********************************FUNÇÃO DE FAZER REQUEST PARA SERVIDOR AJAX **************************/
 function makeRequestAlterarBeneficiario(url, beneficiario = {}) { 
-
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
@@ -172,12 +178,12 @@ function makeRequestAlterarBeneficiario(url, beneficiario = {}) {
                     return 0;
                 }
             }else{
-                return 0;
+                //return 0;
             }
         }else{
                 //alert("Ajax operação assincrona não concluida! onreadystatechange: " + httpRequest.readyState);
                 //operação assincrona ajax não chegou no estagio de concluida
-                return 0;
+                //return 0;
         }
     }
 }
@@ -230,38 +236,58 @@ function tiraMascaraNis(nis) {
 }
 
 function verificarCamposVazios() {
+    let camposVazios = 0;
+    let naoVazios = 0;
+    let elementos = {
+        "primeiroNome" : "#inputNomePrimeiro",
+        "ultimoNome" : "#inputNomeUltimo",
+        "endereco" : "#inputEndereco",
+        //"complemento" : "#inputComplemento",
+        "cidade" : "#inputCidade",
+        "bairro" : "#inputBairro"
+    };
     let camposFeedbacks = {
-        "primeiroNome" : "valid-feedback-primeiro-nome",
-        "ultimoNome" : "valid-feedback-ultimo-nome",
-        "endereco" : "invalid-feedback-endereco",
-        "cidade" : "invalid-feedback-cidade",
-        "bairro" : "invalid-feedback-bairro",
+        "primeiroNome" : ".feedback-verifica-nome-primeiro",
+        "ultimoNome" : ".feedback-verifica-nome-ultimo",
+        "endereco" : ".invalid-feedback-endereco",
+        //"complemento" : ".invalid-feedback-complemento",
+        "cidade" : ".invalid-feedback-cidade",
+        "bairro" : ".invalid-feedback-bairro",
     };
     let beneficiario = {
         "primeiroNome" : document.querySelector("#inputNomePrimeiro").value,
         "ultimoNome" : document.querySelector("#inputNomeUltimo").value,
-        "cpf" : tiraMascaraCPF(document.querySelector("#inputCpf").value), 
-        "telefoneObrigatorio" :  tiraMascaraTel(document.querySelector("#inputFone").value),
-        "telefoneOpcional" : tiraMascaraTel(document.querySelector("#inputFoneOpcional").value),  
-        "cep" : document.querySelector("#inputCep").value,
-        "email" : document.querySelector("#inputEmailOpcional").value,
         "endereco" : document.querySelector("#inputEndereco").value,
-        "complemento" : document.querySelector("#inputComplemento").value,
+        //"complemento" : document.querySelector("#inputComplemento").value,
         "cidade" : document.querySelector("#inputCidade").value,
-        "uf" : document.querySelector("#inputEstado").value,
         "bairro" : document.querySelector("#inputBairro").value,
-        "nis" : tiraMascaraNis(document.querySelector("#inputNis").value), 
-        "quantidadePeopleHome" : document.querySelector("#inputQtdPessoasHome").value,
-        "rendaPerCapita" : parseFloat((document.querySelector("#inputRenda").value).replace(",", ".")), 
-        "observacao" : document.querySelector("#floatingTextarea").value,
-        "abrangencia" : document.querySelector("#inputTipoCras").value,
-        "operacao" : document.querySelector("#operacao").value,
-        "id_usuario" : document.querySelector("input[type=\"hidden\"]#id_usuario").value
     };
     for (const key in beneficiario) {
+        //se algum campo for vazio
+        if(beneficiario[key] === "" || beneficiario[key] === " ") {
+            //add sinalização do boostrap
+            let elemento = document.querySelector(elementos[key]);
+            elemento.classList.remove('is-valid');
+            elemento.classList.add('is-invalid');
+            //add conteudo e aviso
+            let avisoFeedback = document.querySelector(camposFeedbacks[key]);
+            avisoFeedback.textContent = "Campo vazio, preenche por favor!";
+            avisoFeedback.classList.remove("valid-feedback");
+            avisoFeedback.classList.add("invalid-feedback");
+            camposVazios = camposVazios + 1;
+        }else{
+            naoVazios = naoVazios + 1;
+            //console.log("beneficiario -> " + key + " = " + beneficiario[key]);
+            //console.log("camposFeedbaks -> " + key + " = " + camposFeedbacks[key]);
+        }
         //if (Object.hasOwnProperty.call(object, key)) {
         //    const element = object[key];
-        console.log("beneficiario -> " + key + " = " + beneficiario[key]); 
+         
        // }
+    }
+    if(camposVazios > 0) {
+        return 0;
+    }else{
+        return 1;
     }
 }
