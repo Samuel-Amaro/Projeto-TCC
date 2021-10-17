@@ -145,6 +145,7 @@ class ControllerBeneficiario{
         if($methodHttp === "POST") {
             $this->daoBenef = new DaoBeneficiario(new DataBase());
             $this->modelBenef = new ModelBeneficiario();
+            $this->modelBenef->setId($_POST["idBeneficiario"]);
             $this->modelBenef->setPrimeiroNome($_POST["primeiroNome"]);
             $this->modelBenef->setUltimoNome($_POST["ultimoNome"]);
             $this->modelBenef->setCpf($_POST["cpf"]);
@@ -163,34 +164,17 @@ class ControllerBeneficiario{
             $this->modelBenef->setObservacao($_POST["obs"]);
             $this->modelBenef->setFkUsuario($_POST["id_usuario"]);
             $this->modelBenef->setAbrangenciaCras($_POST["abrangencia"]);
-            if($this->daoBenef->updateBeneficiario($this->modelBenef)) {
-                $this->setResponseJson("computedString", "Beneficiário foi atualizado com sucesso!");
-                //houve erro ao encodificar o json response
-                if(is_null($this->getResponseJson())) {
-                    //erro, redireciona para nossa pagina de erro interno
-                }else{
-                    //response do server, cospe um json
-                    echo $this->getResponseJson();
-                }
+            $resultado = $this->daoBenef->updateBeneficiario($this->modelBenef);
+            if($resultado) {
+                $response = array("computedString" => "Beneficiário foi atualizado com sucesso!", "modal" => "sucesso", "resultado" => $resultado);
+                echo json_encode($response);
             }else{
-                $this->setResponseJson("computedString", "Beneficiário não foi atualizado com sucesso!");
-                //houve erro ao encodificar o json response
-                if(is_null($this->getResponseJson())) {
-                    //erro, redireciona para nossa pagina de erro interno
-                }else{
-                    //response do server, cospe um json
-                    echo $this->getResponseJson();
-                }
+                $response = array("computedString" => "Beneficiário não foi atualizado, porque daoBeneficiario update deu erro!", "modal" => "error", "resultado" => $resultado);
+                echo json_encode($response);
             }
         }else{
-            $this->setResponseJson("computedString", "Beneficiário não foi atualizado com sucesso!");
-            //houve erro ao encodificar o json response
-            if(is_null($this->getResponseJson())) {
-                //erro, redireciona para nossa pagina de erro interno
-            }else{
-                //response do server, cospe um json
-                echo $this->getResponseJson();
-            }
+            $response = array("computedString" => "Beneficiário não foi atualizado, method HTTP não e POST!");
+            echo json_encode($response);
         }
     }
 

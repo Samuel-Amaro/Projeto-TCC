@@ -127,6 +127,7 @@ $(document).ready(function() {
  */
 function obterDadosModal() {
     let beneficiario = {
+        "idBeneficiario" : document.querySelector("#id_beneficiario").value,
         "primeiroNome" : document.querySelector("#inputNomePrimeiro").value,
         "ultimoNome" : document.querySelector("#inputNomeUltimo").value,
         "cpf" : tiraMascaraCPF(document.querySelector("#inputCpf").value), 
@@ -157,7 +158,7 @@ function makeRequestAlterarBeneficiario(url, beneficiario = {}) {
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('primeiroNome=' + encodeURIComponent(beneficiario.primeiroNome) + '&ultimoNome=' + encodeURIComponent(beneficiario.ultimoNome) + '&cpf=' + encodeURIComponent(beneficiario.cpf) + '&telefoneObrigatorio=' + encodeURIComponent(beneficiario.telefoneObrigatorio) + '&telefoneOpcional=' + encodeURIComponent(beneficiario.telefoneOpcional) + '&cep=' + encodeURIComponent(beneficiario.cep) + '&email=' + encodeURIComponent(beneficiario.email) + '&endereco=' + encodeURIComponent(beneficiario.endereco) + '&complemento=' + encodeURIComponent(beneficiario.complemento) + '&cidade=' + encodeURIComponent(beneficiario.cidade) + '&estado=' + encodeURIComponent(beneficiario.uf) + '&bairro=' + encodeURIComponent(beneficiario.bairro) + '&nis=' + encodeURIComponent(beneficiario.nis) + '&qtdPessoasResidencia=' + encodeURIComponent(beneficiario.quantidadePeopleHome) + '&rendaPerCapita=' + encodeURIComponent(beneficiario.rendaPerCapita) + '&obs=' + encodeURIComponent(beneficiario.observacao) + '&abrangencia=' + encodeURIComponent(beneficiario.abrangencia) + '&operacao=' + encodeURIComponent(beneficiario.operacao) + '&id_usuario=' + encodeURIComponent(beneficiario.id_usuario));
+    httpRequest.send('idBeneficiario=' + encodeURIComponent(beneficiario.idBeneficiario) + '&primeiroNome=' + encodeURIComponent(beneficiario.primeiroNome) + '&ultimoNome=' + encodeURIComponent(beneficiario.ultimoNome) + '&cpf=' + encodeURIComponent(beneficiario.cpf) + '&telefoneObrigatorio=' + encodeURIComponent(beneficiario.telefoneObrigatorio) + '&telefoneOpcional=' + encodeURIComponent(beneficiario.telefoneOpcional) + '&cep=' + encodeURIComponent(beneficiario.cep) + '&email=' + encodeURIComponent(beneficiario.email) + '&endereco=' + encodeURIComponent(beneficiario.endereco) + '&complemento=' + encodeURIComponent(beneficiario.complemento) + '&cidade=' + encodeURIComponent(beneficiario.cidade) + '&estado=' + encodeURIComponent(beneficiario.uf) + '&bairro=' + encodeURIComponent(beneficiario.bairro) + '&nis=' + encodeURIComponent(beneficiario.nis) + '&qtdPessoasResidencia=' + encodeURIComponent(beneficiario.quantidadePeopleHome) + '&rendaPerCapita=' + encodeURIComponent(beneficiario.rendaPerCapita) + '&obs=' + encodeURIComponent(beneficiario.observacao) + '&abrangencia=' + encodeURIComponent(beneficiario.abrangencia) + '&operacao=' + encodeURIComponent(beneficiario.operacao) + '&id_usuario=' + encodeURIComponent(beneficiario.id_usuario));
 
     function alertsContents() {
         if(httpRequest.readyState === 4) {
@@ -165,11 +166,20 @@ function makeRequestAlterarBeneficiario(url, beneficiario = {}) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
                     //mostraModal(httpResponse.computedString, "Cadastro de beneficiário", "OK", "Sair", "sucesso");
-                    Swal.fire(
-                        'Alteração de beneficiário',
-                         httpResponse.computedString,
-                        'success'
-                    );
+                    if(httpResponse.modal === "sucesso") {
+                        Swal.fire(
+                            'Alteração de beneficiário',
+                             httpResponse.computedString,
+                            'success'
+                        );
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na alteração de beneficiário',
+                            text: httpResponse.computedString,
+                            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                        });
+                    }
                     return 1;
                 } catch (error) {
                     console.error(error.message);

@@ -113,7 +113,7 @@ if(session_start()) {
                                         <div class="card-body">
                                             <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alteracao-beneficiario" class="form-alterar-beneficiario">
                                                 <input type="hidden" name="operacao" value="" id="operacao">
-                                                <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
+                                                <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario(); ?>" id="id_usuario">
                                                 <input type="hidden" name="id_beneficiario" id="id_beneficiario" value="">
                                                 <div class="row mb-3">
                                                     <div class="col-md-6">
