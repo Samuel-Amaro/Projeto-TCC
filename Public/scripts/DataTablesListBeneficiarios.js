@@ -17,6 +17,7 @@ window.addEventListener('load', function() {
         //'Bfrtip'
         "buttons" : ['copy', 'excel', 'pdf', 'print'],
         "scrollX": true,
+        "paging": true,
         "processing": true,
         "serverSide": true,
         "ajax": {
@@ -51,7 +52,7 @@ window.addEventListener('load', function() {
         "columnDefs": [ {
             "targets": 9,
             "data": null,
-            "defaultContent": "<button type=\"button\" class=\"btn btn-primary btn-alterar-benef\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-primary\"><i class=\"fas fa-user-times\"></i></button>"
+            "defaultContent": "<button type=\"button\" class=\"btn btn-primary btn-alterar-benef\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-primary btn-excluir-beneficiario\"><i class=\"fas fa-user-times\"></i></button>"
         }]
     });    
     //ao clicar no btn de alterar retorna os dados da linha clicada
@@ -62,7 +63,54 @@ window.addEventListener('load', function() {
         //console.log(data); //return um object 
         //alert(data.cpf +" seu nome e: "+ data.primeiro_nome + data.ultimo_nome);
     });
+    //ao clicar no btn de excluir, vai mostrar modal de exlcuir
+    $('#dataTablesBeneficiarios tbody').on('click', '.btn-excluir-beneficiario', function(){
+        let data = tabela.row($(this).parents('tr')).data();
+        modalExcluir(data.id);
+        //console.log(data); //return um object 
+        //alert(data.cpf +" seu nome e: "+ data.primeiro_nome + data.ultimo_nome);
+    });
 });
+
+/**
+ * esta função carrega o modal de excluir um beneficiario
+ */
+function modalExcluir(idBeneficiario) {
+    Swal.fire({
+        title: 'Realmente deseja deletar este beneficiário',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Sim',
+        denyButtonText: 'Não',
+        customClass: {
+          actions: 'my-actions',
+          cancelButton: 'order-1 right-gap',
+          confirmButton: 'order-2',
+          denyButton: 'order-3',
+        }
+    }).then((result) => {
+        //sim deseja deletar
+        if (result.isConfirmed) {
+            if(makeRequestDeletarBeneficiario("../controller/ControllerBeneficiario.php", idBeneficiario) === 1) {
+                Swal.fire(
+                    'Exclusão de beneficiário',
+                    'Beneficiário foi excluido com sucesso!',
+                    'success'
+                );    
+            }else{
+                Swal.fire(
+                    'Exclusão de beneficiário',
+                    'Beneficiário não foi excluido!',
+                    'error'
+                );
+            }
+        } else if (result.isDenied) {
+            //não deseja deletar  
+            Swal.fire('Beneficiário não sera deletado', '', 'info');
+        }
+    });
+}
+
 
 /**
  * esta função mostra um modal com o formulario de beneficiario.
@@ -133,7 +181,7 @@ function carregaDadosModal(object) {
         }
         inputNis.value = aplicaMascaraNumeroNis(object.nis);
         inputQtdPessoasHome.value = object.qtd_pessoas_home;
-        inputRenda.value = object.renda;
+        inputRenda.value = tiraCifraoRenda(object.renda);
         hiddenOperacao.value = "alteracao";
         //textAreaObs.textContent = object.obs;
         //selectAbrangenciaCras.value = object.abrangencia_cras;
@@ -152,6 +200,19 @@ function carregaDadosModal(object) {
             selectAbrangenciaCras.add(optionNovoElemento);
         }
     }
+}
+
+
+/**
+ * esta funçaõ tira o cifrao da renda
+ * @param {*} rendaComCifrao 
+ */
+ function tiraCifraoRenda(rendaComCifrao) {
+    let rendaFormatada = rendaComCifrao;
+    let cifrao = rendaFormatada.substr(0, 3); //R$ 
+    let rendaPura = rendaFormatada.substr(3); //renda total
+    console.log(rendaPura);
+    return rendaPura;
 }
 
 /**
@@ -179,28 +240,52 @@ function aplicaMascaraNumeroNis(nisSemFormatacao) {
     return nisSemFormatacao.substr(0, 3) + "." + nisSemFormatacao.substr(3, 3) + "." + nisSemFormatacao.substr(6, 3) + "-" + nisSemFormatacao.substr(9, 2);
 }
 
-
-
-/*
-function(json) { //<font></font>
-    for(var i=0, ien=json.length; i<ien ; i++) { //<font></font>
-      json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>'; //<font></font>
-    }//<font></font>
-    return json;//<font></font>
-},
-*/
-
-/*function(data) {
-                        var dados = data['data'];
-                        for (let index = 0; index < dados.length; index++) {
-                            return dados[index];
-                        }
-            }*/
-
-            //"dataSrc": "data",
-            // "dataSrc": "data",
-
-            /*"data" : function(json) {
-            let dados = json["data"];
-            return JSON.parse(dados);
-        },*/
+/**
+ * esta função faz uma solicitação ao servidor, postando dados, por ajax
+ * @param {*} url 
+ * @param {*} idBeneficiario 
+ */
+function makeRequestDeletarBeneficiario(url, idBeneficiario) { 
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = alertsContents;
+    httpRequest.open("POST", url, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send('idBeneficiario=' + encodeURIComponent(idBeneficiario) + '&operacao=' + encodeURIComponent('deletar'));
+    function alertsContents() {
+        if(httpRequest.readyState === 4) {
+            if(httpRequest.status === 200) {
+                try {
+                    let httpResponse = JSON.parse(httpRequest.responseText);  
+                    /*
+                    if(httpResponse.modal === "sucesso") {
+                        Swal.fire(
+                            'Deletar beneficiário',
+                             httpResponse.computedString,
+                            'success'
+                        );
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na exclusão de beneficiário',
+                            text: httpResponse.computedString,
+                            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                        });
+                    
+                    }*/
+                    return 1;
+                } catch (error) {
+                    console.error(error.message);
+                    console.error(error.name);
+                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    return 0;
+                }
+            }else{
+                //return 0;
+            }
+        }else{
+                //alert("Ajax operação assincrona não concluida! onreadystatechange: " + httpRequest.readyState);
+                //operação assincrona ajax não chegou no estagio de concluida
+                //return 0;
+        }
+    }
+}

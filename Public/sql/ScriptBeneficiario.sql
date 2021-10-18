@@ -23,6 +23,9 @@ CREATE TABLE beneficiarios(
   abrangencia_cras_benef VARCHAR(30)
 );
 
+--alterando tipo de dado da coluna para o tipo money
+ALTER TABLE beneficiarios ALTER COLUMN renda_per_capita_beneficiario TYPE MONEY USING renda_per_capita_beneficiario::MONEY;
+
 --add uma constraint UNIQUE na coluna cpf, cada registro ser unico
 CREATE UNIQUE INDEX CONCURRENTLY indice_exe_beneficiarios ON beneficiarios(cpf_beneficiario);
 
@@ -90,7 +93,7 @@ BEGIN
         INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, NEW::TEXT, OLD::TEXT, NEW.id_beneficiario, NEW.fk_usuario); 
         RETURN NEW;
     ELSIF TG_OP = 'DELETE' THEN
-        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, OLD::TEXT, '', NEW.id_beneficiario, NEW.fk_usuario);
+        INSERT INTO log_beneficiarios(operacao, valores_novos, valores_velhos, id_beneficiario, id_usuario) VALUES(TG_OP, OLD::TEXT, '', OLD.id_beneficiario, OLD.fk_usuario);
         RETURN OLD;
     END IF;
 END;

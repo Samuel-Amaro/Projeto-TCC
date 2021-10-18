@@ -213,7 +213,7 @@ if(session_start()) {
                                                 <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="inputRenda" class="mb-1">Renda por cabeça</label>
-                                                        <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por cabeça relacionada ao beneficiário" required data-prefix="R$ "  data-affixes-stay="false" data-decimal="." name="rendaPerCapita" title="Informe a renda percapita deste beneficiário"/>
+                                                        <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por cabeça relacionada ao beneficiário" required data-prefix="R$ "  data-affixes-stay="false" data-decimal="," data-thousands="." name="rendaPerCapita" title="Informe a renda percapita deste beneficiário"/>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>

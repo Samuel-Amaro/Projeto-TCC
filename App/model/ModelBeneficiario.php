@@ -16,7 +16,7 @@ class ModelBeneficiario {
     private string $cidade;
     private string $uf;
     private int $qtdPessoasResidencia;
-    private float $rendaPerCapita;
+    private string $rendaPerCapita;/*float*/
     private ?int $fkUsuario;
     private ?string $observacao;
     private ?string $email;
@@ -105,10 +105,10 @@ class ModelBeneficiario {
     public function getQtdPessoasResidencia() : int{
         return $this->qtdPessoasResidencia;
     }
-    public function setRendaPerCapita(float $rendaPerCapitaP) {
+    public function setRendaPerCapita(string $rendaPerCapitaP) { /*float*/
         $this->rendaPerCapita = $rendaPerCapitaP;
     }
-    public function getRendaPerCapita() : float{
+    public function getRendaPerCapita() : string{ /*float*/
         return $this->rendaPerCapita;
     }
     public function setObservacao(string $observaoP) {

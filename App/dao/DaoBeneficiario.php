@@ -185,6 +185,44 @@ class DaoBeneficiario{
         }
     }
 
+    /**
+     * este metodo deleta um registro de beneficiario pelo seu id
+     */
+    public function deleteBeneficiario(int $idBeneficiario) : bool {
+        if(is_null($this->connection)) {
+            return false;
+            die();
+        }else{
+            try {
+                $sql = "DELETE FROM beneficiarios
+                WHERE id_beneficiario = ?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, $idBeneficiario, PDO::PARAM_INT);
+                if($stmt->execute()) {
+                    //1 ou mais linhas deletadas
+                    if($stmt->rowCount() > 0) {
+                        $stmt = null;
+                        unset($this->connection);
+                        return true;
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch(PDOException $th) {
+               echo "Error!: falha ao executar consulta DELETE beneficiarios: <pre><code>" . $th->getMessage() . "</code></pre></br>";
+               $stmt = null;
+               unset($this->connection);
+               return false;
+            }  
+        }
+    }
+
 
 }
 

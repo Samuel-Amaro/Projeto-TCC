@@ -33,6 +33,9 @@ class ControllerBeneficiario{
             case "alteracao": 
                 $this->atualizarBeneficiario($this->methodHttp);
                 break;
+            case "deletar":
+                $this->excluirBeneficiario($this->methodHttp);
+                break;
             default:
                 break;
         }
@@ -166,10 +169,29 @@ class ControllerBeneficiario{
             $this->modelBenef->setAbrangenciaCras($_POST["abrangencia"]);
             $resultado = $this->daoBenef->updateBeneficiario($this->modelBenef);
             if($resultado) {
-                $response = array("computedString" => "Beneficiário foi atualizado com sucesso!", "modal" => "sucesso", "resultado" => $resultado);
+                $response = array("computedString" => "Beneficiário foi atualizado com sucesso! Recarregue a página novamente para as informações modificadas!", "modal" => "sucesso", "resultado" => $resultado);
                 echo json_encode($response);
             }else{
                 $response = array("computedString" => "Beneficiário não foi atualizado, porque daoBeneficiario update deu erro!", "modal" => "error", "resultado" => $resultado);
+                echo json_encode($response);
+            }
+        }else{
+            $response = array("computedString" => "Beneficiário não foi atualizado, method HTTP não e POST!");
+            echo json_encode($response);
+        }
+    }
+
+    /**
+     * este metodo exclui um beneficiario
+     */
+    public function excluirBeneficiario($methodHttp) {
+        if($methodHttp === "POST") {
+            $this->daoBenef = new DaoBeneficiario(new DataBase());
+            if($this->daoBenef->deleteBeneficiario($_POST["idBeneficiario"])) {
+                $response = array("computedString" => "Beneficiário deletado com sucesso! Recarregue a página novamente para as informações modificadas!", "modal" => "sucesso");
+                echo json_encode($response);
+            }else{
+                $response = array("computedString" => "Beneficiário não foi deletado, porque daoBeneficiario DELETE deu erro!", "modal" => "error");
                 echo json_encode($response);
             }
         }else{

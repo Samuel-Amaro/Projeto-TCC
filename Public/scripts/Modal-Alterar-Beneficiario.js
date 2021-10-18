@@ -142,7 +142,7 @@ function obterDadosModal() {
         "bairro" : document.querySelector("#inputBairro").value,
         "nis" : tiraMascaraNis(document.querySelector("#inputNis").value), 
         "quantidadePeopleHome" : document.querySelector("#inputQtdPessoasHome").value,
-        "rendaPerCapita" : parseFloat((document.querySelector("#inputRenda").value).replace(",", ".")), 
+        "rendaPerCapita" : /*parseFloat((*/document.querySelector("#inputRenda").value/*).replace(",", "."))*/, 
         "observacao" : document.querySelector("#floatingTextarea").value,
         "abrangencia" : document.querySelector("#inputTipoCras").value,
         "operacao" : document.querySelector("#operacao").value,
@@ -245,6 +245,11 @@ function tiraMascaraNis(nis) {
     return nisSemFormatacao;
 }
 
+
+/**
+ * esta função verifica se a campos obrigatorios vazios
+ * @returns 
+ */
 function verificarCamposVazios() {
     let camposVazios = 0;
     let naoVazios = 0;

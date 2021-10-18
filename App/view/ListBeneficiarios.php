@@ -255,7 +255,7 @@ if(session_start()) {
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="inputRenda" class="mb-1">Renda por cabeça</label>
-                                                            <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por cabeça relacionada ao beneficiário" required data-prefix="R$ "  data-affixes-stay="false" data-decimal="." name="rendaPerCapita" title="Informe a renda percapita deste beneficiário"/>
+                                                            <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por cabeça relacionada ao beneficiário" required data-prefix="R$ "  data-affixes-stay="false" data-decimal="," name="rendaPerCapita" title="Informe a renda percapita deste beneficiário" data-thousands="." />
                                                             <div class="invalid-feedback"></div>
                                                         </div>
                                                     </div>
@@ -272,7 +272,7 @@ if(session_start()) {
                                                         <div class="">
                                                             <label for="inputTipoCras" class="mb-1">Abrangência crás</label>
                                                             <select id="inputTipoCras" class="form-select" required name="abrangencia" title="Selecione o crás que esta na abrangência de bairro">
-                                                                <option value="cras1" selected>Cras 1</option>
+                                                                <option value="cras1">Cras 1</option>
                                                                 <option value="cras2">Cras 2</option>
                                                             </select>
                                                             <div class="invalid-feedback"></div>
@@ -340,6 +340,8 @@ if(session_start()) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js" integrity="sha512-Yf733gmgLgGUo+VfWq4r5HAEaxftvuTes86bKvwTpqOY3oH0hHKtX/9FfKYUcpaxeBJxeXvcN4EY3J6fnmc9cA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- SCRIPT JZIP JS BUTTON -->
         <script src="../../Public/scripts/jszip.js" type="text/javascript" charset="utf8"></script>
+        <!-- modal excluir beneficiario -->
+        <!--<script src="../../Public/scripts/Modal-Excluir-Beneficiario.js" charset="utf8" type="text/javascript"></script>-->
         <!-- SCRIPT QUE MANIPULA O PLUGIN DATATABLES JS -->
         <script type="text/javascript" charset="utf8" src="../../Public/scripts/DataTablesListBeneficiarios.js"></script>        
         <!--SCRIPT QUE FAZ BUSCA DE CEP NO MODAL -->
