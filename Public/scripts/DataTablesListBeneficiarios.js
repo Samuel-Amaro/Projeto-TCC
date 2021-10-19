@@ -77,7 +77,7 @@ window.addEventListener('load', function() {
  */
 function modalExcluir(idBeneficiario) {
     Swal.fire({
-        title: 'Realmente deseja deletar este beneficiário',
+        title: 'Realmente deseja deletar este beneficiário?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Sim',
@@ -91,19 +91,7 @@ function modalExcluir(idBeneficiario) {
     }).then((result) => {
         //sim deseja deletar
         if (result.isConfirmed) {
-            if(makeRequestDeletarBeneficiario("../controller/ControllerBeneficiario.php", idBeneficiario) === 1) {
-                Swal.fire(
-                    'Exclusão de beneficiário',
-                    'Beneficiário foi excluido com sucesso!',
-                    'success'
-                );    
-            }else{
-                Swal.fire(
-                    'Exclusão de beneficiário',
-                    'Beneficiário não foi excluido!',
-                    'error'
-                );
-            }
+            makeRequestDeletarBeneficiario("../controller/ControllerBeneficiario.php", idBeneficiario);
         } else if (result.isDenied) {
             //não deseja deletar  
             Swal.fire('Beneficiário não sera deletado', '', 'info');
@@ -241,7 +229,7 @@ function aplicaMascaraNumeroNis(nisSemFormatacao) {
 }
 
 /**
- * esta função faz uma solicitação ao servidor, postando dados, por ajax
+ * esta função faz uma solicitação por ajax para o back ende excluir um beneficiario
  * @param {*} url 
  * @param {*} idBeneficiario 
  */
@@ -255,29 +243,21 @@ function makeRequestDeletarBeneficiario(url, idBeneficiario) {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
                 try {
-                    let httpResponse = JSON.parse(httpRequest.responseText);  
-                    /*
-                    if(httpResponse.modal === "sucesso") {
-                        Swal.fire(
-                            'Deletar beneficiário',
-                             httpResponse.computedString,
-                            'success'
-                        );
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erro na exclusão de beneficiário',
-                            text: httpResponse.computedString,
-                            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
-                        });
-                    
-                    }*/
-                    return 1;
+                    let httpResponse = JSON.parse(httpRequest.responseText);
+                    Swal.fire(
+                        'Exclusão de beneficiário',
+                        httpResponse.computedString,
+                        'success'
+                    );
                 } catch (error) {
+                    Swal.fire(
+                        'Exclusão de beneficiário',
+                        'Beneficiário não foi excluido, tivemos um erro interno, tente essa ação novamente, mais tarde!',
+                        'error'
+                    );
                     console.error(error.message);
                     console.error(error.name);
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);
-                    return 0;
                 }
             }else{
                 //return 0;
