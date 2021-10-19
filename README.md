@@ -43,6 +43,10 @@ Tabela de conteúdos
 - [x] Cadastro de beneficiários.
 - [x] Visualizar registro de beneficiários cadastrados.
 - [x] Alterar registro de beneficiários.
+- [x] Excluir Registro de beneficiário.
+#### Features de beneficio
+- [ ] Cadastrar Beneficios
+- [ ] Cadastrar Doações
 - [ ] Registrar entregas
 - [ ] Controlar estoque
 
@@ -71,6 +75,14 @@ Tabela de conteúdos
 * Continuação do print(da visualização de usuários)
 
 ![Pagina de visualização de usuarios](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/usuarios-ativos.png)
+
+* Pagina de visualizar beneficiários, editalos e excluilos.
+
+![Pagina de visualizar beneficiario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/GifPaginaVisualizarBeneficiarios.gif)
+
+* Pagina de cadastrar beneficiários.
+
+![Pagina de cadastrar beneficiarios](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/GifPaginaCadastrarBeneficiarios.gif)
 
 ### Pré-requisitos 
 
