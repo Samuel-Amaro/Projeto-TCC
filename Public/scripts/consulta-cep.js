@@ -60,6 +60,12 @@ function makeRequestCep(url) {
                     //mostraModal("Erro ao atualizar conta de usuário", "Atualização de usuário", "Ok", "Sair", "error");
                     //console.error(error.message);
                     //console.error(error.name);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro na busca do CEP',
+                        text: 'Ocorreu um erro ao buscar o cep, por favor preencha o campo corretamente.',
+                        footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                    });
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);
                     //return 0;
                 }

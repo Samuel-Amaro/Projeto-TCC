@@ -16,9 +16,7 @@ if(session_start()) {
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
     }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -28,7 +26,11 @@ if(session_start()) {
         <meta name="description" content="Pagina de cadastro de beneficios e doações"/>
         <meta name="author" content="Samuel Amaro"/>
         <title>Cadastrar Beneficios</title>
+        <!-- BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+        <!-- ICONES -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -57,13 +59,41 @@ if(session_start()) {
                             <div class="card-body">Cadastrar novos Beneficios</div>
                         </div>
                     </div>
-                    <div class="row content-dinamico"></div>
+                    <!-- autocomplete com ajax -->
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-11">
-                                <div class="card border-0 rounded-lg">
+                                <div class="card rounded-lg">
                                     <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4">Cadastrar Beneficios</h3>
+                                        <div class="alert alert-info mb-0" role="alert">Pesquise por um fornecedor ou doador que esteja cadastrado.</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-fornecedor-doador" class="form-forn-doad">
+                                        <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                        <div class="mb-3 mb-md-0">
+                                                            <label for="fornecedorDoador" class="mb-1">Fornecedores/Doadores</label>
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador"/>
+                                                                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                                                            </div>
+                                                            <div class="invalid-feedback"></div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- campos fixos -->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-11">
+                                <div class="card rounded-lg">
+                                    <div class="card-header">
+                                        <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                                     </div>
                                     <div class="card-body">
                                         <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
@@ -86,7 +116,7 @@ if(session_start()) {
                                                     <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome deste beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio"/>
                                                     <div class="valid-feedback"></div>
                                                 </div>    
-                                                <div class="col-md-6">
+                                                <div class="col-md-2">
                                                     <label for="categoriaBeneficio" class="mb-1">Categoria</label>
                                                     <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio">
                                                         <option value="saude">Saude</option>
@@ -95,18 +125,8 @@ if(session_start()) {
                                                         <option value="vestimenta">Vestimenta</option>
                                                     </select>
                                                     <div class="valid-feedback"></div>
-                                                </div>    
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="fornecedorDoador" class="mb-1">Fornecedores/Doadores</label>
-                                                    <div class="input-group">
-                                                        <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador"/>
-                                                        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                                                    </div>
-                                                    <div class="valid-feedback"></div>
-                                                </div>    
-                                                <div class="col-md-6">
+                                                </div>   
+                                                <div class="col-md-4">
                                                     <label for="formaAquisicao" class="mb-1">Forma de Aquisição</label>
                                                     <select id="formaAquisicao" class="form-select" title="Informe como foi adquirido o beneficio" name="formaAquisicao">
                                                         <option value="licitacao">Licitação</option>
@@ -114,9 +134,9 @@ if(session_start()) {
                                                         <option value="compra">Compra</option>
                                                     </select>
                                                     <div class="valid-feedback"></div>
-                                                </div>    
+                                                </div>  
                                             </div>
-                                            <div class="row mb-3">
+                                            <div class="row mb-2">
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="qtdTotal" class="mb-1">Quantidade Total</label>
@@ -157,12 +177,52 @@ if(session_start()) {
                                                         </div>
                                                     </div>
                                             </div>
-                                            <div class="mt-4 mb-0">
-                                                <div class="d-grid gap-2 col-6 mx-auto">
-                                                    <input type="submit" value="Cadastrar" class=" btn-cadastrar-beneficio btn btn-primary" title="Clique aqui para cadastrar o beneficio">
+                                            <div class="mt-3 mb-0">
+                                                <div class="col-lg-12" style="text-align: right;">
+                                                    <button type="submit" class="btn-add-beneficio-lista btn btn-primary" title="Clique aqui para add mais de um beneficio de uma so vez"><i class="fas fa-plus"></i> Add Beneficio</button>
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- beneficios que vão ser cadastrados -->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-11">
+                                <div class="card rounded-lg">
+                                    <div class="card-header">
+                                        <div class="alert alert-dark mb-0" role="alert">Benefícios a serem cadastrados no sistema!</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="dataTablesBeneficio">
+                                            <thead>
+                                                <tr>
+                                                    <th>Descrição</th>
+                                                    <th>Nome</th>
+                                                    <th>Categoria</th>
+                                                    <th>Forma de Aquisição</th>
+                                                    <th>Quantidade Total</th>
+                                                    <th>Unidade de Medida</th>
+                                                    <th>Quantidade por medida</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Descrição</th>
+                                                    <th>Nome</th>
+                                                    <th>Categoria</th>
+                                                    <th>Forma de Aquisição</th>
+                                                    <th>Quantidade Total</th>
+                                                    <th>Unidade de Medida</th>
+                                                    <th>Quantidade por medida</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -179,6 +239,11 @@ if(session_start()) {
         <!-- plugin de alertas bonitos -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- script de deletar usuario -->
-        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>       
+        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>  
+        <!--JQUERY VERSION 3.6.0-->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script> 
+        <!-- DATA TABLES-->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
     </body>
 </html>
