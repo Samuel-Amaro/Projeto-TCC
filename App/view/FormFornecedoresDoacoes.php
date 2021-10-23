@@ -86,6 +86,7 @@ if(session_start()) {
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="tipoIdentificacao" class="mb-1">Escolha a indentificação apropriada</label>
                                                         <select name="tipoIdentificacao" id="tipoIdentificacao" class="form-select" title="Escolha o tipo de idenficação correta.">
+                                                            <option value="SELECIONE">SELECIONE</option>
                                                             <option value="DOADOR">Doador</option>
                                                             <option value="FORNECEDOR">Fornecedor</option>
                                                         </select>
@@ -96,6 +97,7 @@ if(session_start()) {
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="tipoPessoa" class="mb-1">Escolha o tipo de Pessoa</label>
                                                         <select name="tipoPessoa" id="tipoPessoa" class="form-select" title="Escolha o tipo de pessoa correta, para ser associado a identificação escolhida.">
+                                                            <option value="SELECIONE">SELECIONE</option>
                                                             <option value="FISICA">Pessoa Física</option>
                                                             <option value="JURIDICA">Pessoa Jurídica</option>
                                                         </select>
@@ -103,7 +105,7 @@ if(session_start()) {
                                                     </div>
                                                 </div> 
                                             </div>
-                                            <div class="row mb-3">
+                                            <div class="row mb-3 container-cpf" style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="cpf" class="mb-1">CPF</label>
@@ -111,7 +113,7 @@ if(session_start()) {
                                                     </div>   
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
+                                            <div class="row mb-3 container-cnpj"  style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="cnpj" class="mb-1">CNPJ</label>
@@ -165,6 +167,7 @@ if(session_start()) {
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="estado" class="mb-1">Escolha Estado</label>
                                                             <select id="inputEstado" class="form-select" title="Selecione o estado." name="estado">
+                                                                <option value="SELECIONE">SELECIONE</option>
                                                                 <option value="AC">AC</option>
                                                                 <option value="AL">AL</option>
                                                                 <option value="DF">DF</option>

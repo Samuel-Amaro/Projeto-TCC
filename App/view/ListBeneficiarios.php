@@ -47,7 +47,7 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                <div class="container-fluid px-4">
+                    <div class="container-fluid px-4">
                         <h1 class="mt-4">Beneficiários</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="PainelControle.php">Painel controle</a></li>
