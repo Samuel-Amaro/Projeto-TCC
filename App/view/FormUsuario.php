@@ -54,6 +54,9 @@ if(session_start()) {
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">Cadastrar novos usuários no sistema</div>
+                            <div class="card-footer">
+                                <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                            </div>
                         </div>
                     </div>
                     <div class="row content-dinamico">

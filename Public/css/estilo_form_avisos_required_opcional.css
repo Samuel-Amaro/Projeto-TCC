@@ -1,0 +1,11 @@
+label.required::after{
+    content: " *";
+    color: #E60D05;
+    font-size: 20px;
+}
+
+label.opcional::after{
+    content: " (Opcional)";
+    color: #E60D05;
+    font: 18px;
+}

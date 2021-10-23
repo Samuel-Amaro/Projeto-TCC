@@ -20,7 +20,11 @@ if(session_start()) {
         <meta name="description" content="Pagina de cadastro de beneficios e doações"/>
         <meta name="author" content="Samuel Amaro"/>
         <title>Cadastrar Fornecedores/Doações</title>
+        <!-- BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- ESPECIFICAÇÕ DE CAMPOS REQUIRED OPCIONAIS FORM-->
+        <link rel="stylesheet" href="../../Public/css/estilo_form_avisos_required_opcional.css">
+        <!-- ICONES -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
@@ -49,13 +53,19 @@ if(session_start()) {
                             <div class="card-body">Cadastrar Fornecedores ou Doadores</div>
                         </div>
                     </div>
-                    <div class="row content-dinamico"></div>
+                    <div class="container">
+                        <div class="row justify-content-center mb-0">
+                            <div class="col-lg-11">
+                                <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-11">
                                 <div class="card border-0 rounded-lg">
                                     <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4">Cadastrar Fornecedores ou Doadores</h3>
+                                        <h4 class="text-center font-weight-light my-4">Cadastrar Fornecedores ou Doadores</h4>
                                     </div>
                                     <div class="card-body">
                                         <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-fornecedores" class="form-fornecedor">
@@ -65,9 +75,9 @@ if(session_start()) {
                                                 <div class="col-md-12">
                                                     <div>
                                                         <div class="mb-3 mb-md-0">
-                                                            <label for="floatingTextarea" class="mb-1">Nome</label>
-                                                            <input class="form-control nome-fornecedor-doador" placeholder="Informe aqui, o nome do fornecedor ou doador do beneficio." title="Entre com um nome para identificar o fornecedor ou doador do beneficio" id="nome-fornecedor-doador" name="nome-fornecedor-doador" type="text"/>
-                                                            <div class="invalid-feedback"></div>
+                                                            <label for="floatingTextarea" class="mb-1 required">Nome</label>
+                                                            <input class="form-control nome-fornecedor-doador" placeholder="Informe aqui, o nome do fornecedor ou doador do beneficio." title="Entre com um nome para identificar o fornecedor ou doador do beneficio" id="nome-fornecedor-doador" name="nome-fornecedor-doador" type="text" required maxlength="70" minlength="10"/>
+                                                            <div class="feedback-nome"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -75,98 +85,100 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                         <div class="mb-3 mb-md-0">
-                                                            <label for="floatingTextarea" class="mb-1">Descrição</label>
-                                                            <textarea class="form-control descricao-fornecedor-doador" placeholder="Informe aqui uma descrição que ajude a indentificar este fornecedor ou doador." title="Entre com uma descrição que ajude a indentificar e descrever este fornecedor ou doador da melhor forma" id="floatingTextarea" name="descricao-fornecedor-doador"></textarea>
-                                                            <div class="invalid-feedback"></div>
+                                                            <label for="floatingTextarea" class="mb-1 opcional">Descrição</label>
+                                                            <textarea class="form-control descricao-fornecedor-doador" placeholder="Informe aqui uma descrição que ajude a indentificar este fornecedor ou doador." title="Entre com uma descrição que ajude a indentificar e descrever este fornecedor ou doador da melhor forma" id="floatingTextarea" name="descricao-fornecedor-doador" maxlength="300"></textarea>
+                                                            <div class="feedback-descricao"></div>
                                                         </div>
                                                     </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="tipoIdentificacao" class="mb-1">Escolha a indentificação apropriada</label>
-                                                        <select name="tipoIdentificacao" id="tipoIdentificacao" class="form-select" title="Escolha o tipo de idenficação correta.">
+                                                        <label for="tipoIdentificacao" class="mb-1 required">Escolha a indentificação apropriada</label>
+                                                        <select name="tipoIdentificacao" id="tipoIdentificacao" class="form-select required" title="Escolha o tipo de idenficação correta." required>
                                                             <option value="SELECIONE">SELECIONE</option>
                                                             <option value="DOADOR">Doador</option>
                                                             <option value="FORNECEDOR">Fornecedor</option>
                                                         </select>
-                                                        <div class="valid-feedback"></div>
+                                                        <div class="valid-feedback invalid-feedback-descricao"></div>
                                                     </div>
                                                 </div>    
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="tipoPessoa" class="mb-1">Escolha o tipo de Pessoa</label>
-                                                        <select name="tipoPessoa" id="tipoPessoa" class="form-select" title="Escolha o tipo de pessoa correta, para ser associado a identificação escolhida.">
+                                                        <label for="tipoPessoa" class="mb-1 required">Escolha o tipo de Pessoa</label>
+                                                        <select name="tipoPessoa" id="tipoPessoa" class="form-select" title="Escolha o tipo de pessoa correta, para ser associado a identificação escolhida." required>
                                                             <option value="SELECIONE">SELECIONE</option>
                                                             <option value="FISICA">Pessoa Física</option>
                                                             <option value="JURIDICA">Pessoa Jurídica</option>
                                                         </select>
-                                                        <div class="valid-feedback"></div>
+                                                        <div class="valid-feedback invalid-feedback-tipo-pessoa"></div>
                                                     </div>
                                                 </div> 
                                             </div>
                                             <div class="row mb-3 container-cpf" style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="cpf" class="mb-1">CPF</label>
-                                                        <input type="text" class="form-control" title="Informe o cpf da pessoa física." placeholder="Entre com o cpf, somente numeros." id="cpf">
+                                                        <label for="cpf" class="mb-1 required">CPF</label>
+                                                        <input type="text" class="form-control" title="Informe o cpf da pessoa física." placeholder="Entre com o cpf, somente numeros." id="cpf" required minlength="11" maxlength="14">
+                                                        <div class="invalid-feedback invalid-feedback-cpf"></div>
                                                     </div>   
                                                 </div>
                                             </div>
                                             <div class="row mb-3 container-cnpj"  style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="cnpj" class="mb-1">CNPJ</label>
-                                                        <input type="text" class="form-control" title="Informe o cnpj da pessoa jurídica" placeholder="Entre com o cnpj, somente numeros." id="cnpj">
+                                                        <label for="cnpj" class="mb-1 required">CNPJ</label>
+                                                        <input type="text" class="form-control" title="Informe o cnpj da pessoa jurídica" placeholder="Entre com o cnpj, somente numeros." id="cnpj" required minlength="14" maxlength="18">
+                                                        <div class="invalid-feedback invalid-feedback-cnpj"></div>
                                                     </div>   
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="">
-                                                        <label for="inputCep" class="mb-1">Cep</label>
+                                                        <label for="inputCep" class="mb-1 opcional">Cep</label>
                                                         <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu Cep" maxlength="9" size="10" name="cep" title="Informe um CEP valido para ser realizada a busca"/>
-                                                        <div class="invalid-feedback-cep"></div>
+                                                        <div class="invalid-feedback invalid-feedback-cep"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="">
-                                                        <label for="btn" class="mb-1">Clique aqui para consultar cep</label>
+                                                        <label for="btn" class="mb-1 opcional">Clique aqui para consultar cep</label>
                                                         <input type="button" value="Consultar Cep" class="btn btn-primary align-middle btn-busca-cep form-control" title="Clique aqui para buscar o CEP">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
-                                                    <label for="endereco" class="mb-1">Endereco</label>
-                                                    <input class="form-control mb-3" type="text" placeholder="Entre com o logradouro" id="inputEndereco" title="Preencha este campo com o endereço do doador ou do fornecedor" name="endereco"/>
-                                                    <div class="invalid-feedback"></div>
+                                                    <label for="endereco" class="mb-1 required">Endereco</label>
+                                                    <input class="form-control mb-3" type="text" placeholder="Entre com o logradouro" id="inputEndereco" title="Preencha este campo com o endereço do doador ou do fornecedor" name="endereco" required minlength="10" maxlength="70"/>
+                                                    <div class="feedback-endereco"></div>
                                                 </div>  
                                                 <div class="col-md-12">
-                                                    <label for="complemento" class="mb-1">Complemento</label>
-                                                    <input type="text" class="form-control" placeholder="Entre com o complemento do endereço." id="inputComplemento" title="Preencha este campo com o complemento do endereço." name="complemento">
-                                                    <div class="invalid-feedback"></div>
+                                                    <label for="complemento" class="mb-1 required">Complemento</label>
+                                                    <input type="text" class="form-control" placeholder="Entre com o complemento do endereço." id="inputComplemento" title="Preencha este campo com o complemento do endereço." name="complemento" required minlength="3" maxlength="30">
+                                                    <div class="feedback-complemento"></div>
                                                 </div>    
                                             </div>
                                             <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
-                                                            <label for="bairro" class="mb-1">Bairro</label>
-                                                            <input class="form-control" id="inputBairro" type="text" placeholder="Entre com o bairro." title="Preencha este campo com o bairro" name="bairro"/>
-                                                            <div class="valid-feedback"></div>
+                                                            <label for="bairro" class="mb-1 required">Bairro</label>
+                                                            <input class="form-control" id="inputBairro" type="text" placeholder="Entre com o bairro." title="Preencha este campo com o bairro" name="bairro" required minlength="5" maxlength="50"/>
+                                                            <div class="feedback-bairro"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
-                                                            <label for="cidade" class="mb-1">Cidade</label>
-                                                            <input type="text" name="cidade" class="form-control" id="inputCidade" placeholder="Entre com a cidade." title="Informe a cidade." id="inputCidade">
-                                                            <div class="valid-feedback"></div>
+                                                            <label for="cidade" class="mb-1 required">Cidade</label>
+                                                            <input type="text" name="cidade" class="form-control" id="inputCidade" placeholder="Entre com a cidade." title="Informe a cidade." id="inputCidade" required minlength="10" maxlength="150">
+                                                            <div class="feedback-cidade"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
-                                                            <label for="estado" class="mb-1">Escolha Estado</label>
-                                                            <select id="inputEstado" class="form-select" title="Selecione o estado." name="estado">
+                                                            <label for="estado" class="mb-1 required">Escolha Estado</label>
+                                                            <select id="inputEstado" class="form-select" title="Selecione o estado." name="estado" required>
                                                                 <option value="SELECIONE">SELECIONE</option>
                                                                 <option value="AC">AC</option>
                                                                 <option value="AL">AL</option>
@@ -195,19 +207,26 @@ if(session_start()) {
                                                                 <option value="SE">SE</option>
                                                                 <option value="TO">TO</option>
                                                             </select>
-                                                            <div class="valid-feedback"></div>
+                                                            <div class="valid-feedback invalid-feedback-estado"></div>
                                                         </div>
                                                     </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <label for="telefone01" class="mb-1">Telefone 01</label>
-                                                    <input type="text" name="telefone01" class="form-control" id="telefone01" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone principal, informando somente numeros">
+                                                <div class="col-md-4">
+                                                    <label for="telefone01" class="mb-1 required">Telefone Celular</label>
+                                                    <input type="text" name="telefone01" class="form-control" id="telefone01" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone principal, informando somente numeros" required minlength="11" maxlength="13">
+                                                    <div class="invalid-feedback invalid-feedback-celular"></div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="telefone02" class="mb-1">Telefone 02</label>
-                                                    <input type="text" name="telefone02" class="form-control" id="telefone02" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone opcional, informando somente numeros.">
+                                                <div class="col-md-4">
+                                                    <label for="telefone02" class="mb-1 required">Telefone Fixo</label>
+                                                    <input type="text" name="telefone02" class="form-control" id="telefone02" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone opcional, informando somente numeros." required minlength="10" maxlength="12">
+                                                    <div class="invalid-feedback invalid-feedback-fixo"></div>
                                                 </div>   
+                                                <div class="col-md-4">
+                                                    <label for="email" class="mb-1 opcional">Email</label>
+                                                    <input type="email" name="email" class="form-control" id="email" placeholder="Informe um email, para entrar em contato." title="Informe um endereço eletrônico, como um email no formato email@example.com" maxlength="70">       
+                                                    <div class="feedback-email"></div>
+                                                </div>
                                             </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -226,8 +245,13 @@ if(session_start()) {
         <script>
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
+        <!--BOOSTRAP-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/scripts.js"></script>
+        <!-- formata cpf-->
+        <!--<script type="text/javascript" src="../../Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>-->
+        <!--APLICAR MASCARAS DE QUALQUER TIPO-->
+        <script src="../../Public/scripts/mascara/inputMask.js" type="text/javascript" charset="utf8"></script>
         <!-- plugin de alertas bonitos -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- script de deletar usuario -->

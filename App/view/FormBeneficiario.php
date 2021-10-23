@@ -28,7 +28,10 @@ if(session_start()) {
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>Cadastrar Beneficiários</title>
+        <!--BOOSTRAP-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- ESPECIFICAÇÕ DE CAMPOS REQUIRED OPCIONAIS FORM-->
+        <link rel="stylesheet" href="../../Public/css/estilo_form_avisos_required_opcional.css">
         <!--modal-->
         <link rel="stylesheet" href="../../Public/css/estilo_form_beneficiario.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -64,6 +67,13 @@ if(session_start()) {
                     </div>
                     <div class="row content-dinamico"></div>
                     <div class="container">
+                        <div class="row justify-content-center mb-0">
+                            <div class="col-lg-11">
+                                <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-11">
                                 <div class="card border-0 rounded-lg">
@@ -76,13 +86,13 @@ if(session_start()) {
                                             <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
-                                                    <label for="inputNomePrimeiro" class="mb-1">Primeiro Nome</label>
+                                                    <label for="inputNomePrimeiro" class="mb-1 required">Primeiro Nome</label>
                                                     <input class="form-control" id="inputNomePrimeiro" type="text" placeholder="Entre com seu primeiro nome" required maxlength="35" title="Preencha esta campo com o primeiro nome do beneficiario" name="primeiroNome"/>
                                                     <div class="valid-feedback mb-01 valid-feedback-primeiro-nome"></div>
                                                     <div class="valid-feedback feedback-verifica-nome"></div>
                                                 </div>    
                                                 <div class="col-md-6">
-                                                    <label for="inputNomeUltimo" class="mb-1">Ultimo Nome</label>
+                                                    <label for="inputNomeUltimo" class="mb-1 required">Ultimo Nome</label>
                                                     <input class="form-control" id="inputNomeUltimo" type="text" placeholder="Entre com seu ultimo nome" required maxlength="35" title="Preencha esta campo com o ultimo nome do beneficiario" name="ultimoNome"/>
                                                     <div class="valid-feedback valid-feedback-ultimo-nome"></div>
                                                 </div>    
@@ -90,21 +100,21 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
-                                                            <label for="inputCpf" class="mb-1">CPF</label>
+                                                            <label for="inputCpf" class="mb-1 required">CPF</label>
                                                             <input class="form-control" id="inputCpf" type="text" placeholder="Entre com seu cpf, somente numeros" required maxlength="15" title="Preencha este campo com o numero de cpf do beneficiário, informando somente numeros" name="cpf"/>
                                                             <div class="valid-feedback valid-feedback-cpf"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="">
-                                                            <label for="inputFone" class="mb-1">Telefone</label>
+                                                            <label for="inputFone" class="mb-1 required">Telefone</label>
                                                             <input class="form-control" id="inputFone" type="text" placeholder="Entre com seu telefone, somente numeros" required maxlength="15" title="Preencha este campo com o numero de telefone do beneficiário, informando somente números." name="telefoneObrigatorio"/>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="">
-                                                            <label for="inputFoneOpcional" class="mb-1">Telefone Opcional</label>
+                                                            <label for="inputFoneOpcional" class="mb-1 opcional">Telefone</label>
                                                             <input class="form-control" id="inputFoneOpcional" type="text" placeholder="Entre com seu telefone, somente numeros" maxlength="15" title="Preencha este campo com o numero de telefone do beneficiário, informando somente números." name="telefoneOpcional"/>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
@@ -113,14 +123,14 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="">
-                                                        <label for="inputCep" class="mb-1">Cep</label>
+                                                        <label for="inputCep" class="mb-1 opcional">Cep</label>
                                                         <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu Cep" maxlength="9" size="10" name="cep" title="Informe um CEP valido para ser realizada a busca"/>
                                                         <div class="invalid-feedback-cep"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="">
-                                                        <label for="btn" class="mb-1">Clique aqui para consultar cep</label>
+                                                        <label for="btn" class="mb-1 opcional">Clique aqui para consultar cep</label>
                                                         <input type="button" value="Consultar Cep" class="btn btn-primary align-middle btn-busca-cep form-control" title="Clique aqui para buscar o CEP">
                                                     </div>
                                                 </div>
@@ -128,34 +138,34 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                     <div>
-                                                        <label for="inputEmail">Email Opcional</label>
+                                                        <label for="inputEmail" class="opcional">Email</label>
                                                         <input type="email" class="form-control" id="inputEmailOpcional" placeholder="Entre com o email do beneficiario, se ele possuir" title="Informe um endereço eletrônico valido como nome@dominio.com" name="email">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
-                                                    <label for="inputEndereco" class="mb-1">Endereço - Logradouro</label>
+                                                    <label for="inputEndereco" class="mb-1 required">Endereço - Logradouro</label>
                                                     <input class="form-control" id="inputEndereco" type="text" placeholder="Entre com seu endereço" required name="endereco" title="Informe um endereço"/>
                                                     <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="inputComplemento" class="mb-1">Complemento</label>
+                                                <label for="inputComplemento" class="mb-1 required">Complemento</label>
                                                 <input class="form-control" id="inputComplemento" type="text" placeholder="Entre com um complemento referente ao endereço" required name="complemento" title="Informe o complemento de endereço do beneficiário" />
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="inputCidade" class="mb-1">Cidade</label>
+                                                        <label for="inputCidade" class="mb-1 required">Cidade</label>
                                                         <input class="form-control" id="inputCidade" type="text" placeholder="Entre com uma cidade" required name="cidade" title="Informe uma cidade onde o beneficiário reside"/>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="inputEstado" class="mb-1">Estado</label>
+                                                        <label for="inputEstado" class="mb-1 required">Estado</label>
                                                         <select id="inputEstado" class="form-select" title="Selecione o estado onde o beneficiario reside" required name="estado">
                                                             <option value="ac">AC</option>
                                                             <option value="al">AL</option>
@@ -189,7 +199,7 @@ if(session_start()) {
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="">
-                                                        <label for="inputBairro" class="mb-1">Bairro</label>
+                                                        <label for="inputBairro" class="mb-1 required">Bairro</label>
                                                         <input class="form-control" id="inputBairro" type="text" placeholder="Entre com seu bairro" required name="bairro" title="Informe o bairro do beneficiário"/>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
@@ -198,21 +208,21 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="inputNis" class="mb-1">Numero nis</label>
+                                                        <label for="inputNis" class="mb-1 required">Numero nis</label>
                                                         <input class="form-control" id="inputNis" type="text" placeholder="Entre com um número de nis valido, informando somente números." required maxlength="14" title="Preencha este campo com o número de nis do beneficiário" name="nis"/>
                                                         <div class="invalid-feedback-nis"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="inputQtdPessoasHome" class="mb-1">N.º Pessoas Residencia</label>
+                                                        <label for="inputQtdPessoasHome" class="mb-1 required">N.º Pessoas Residencia</label>
                                                         <input class="form-control" id="inputQtdPessoasHome" type="number" placeholder="Entre com a quantidade de pessoas que residem na mesma residencia que o beneficiário" min="1" max="10" required name="qtdPessoasResidencia" title="Informe a quantidade de pessoas que residem na mesma residencia que o beneficiário"/>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="inputRenda" class="mb-1">Renda por cabeça</label>
+                                                        <label for="inputRenda" class="mb-1 required">Renda por cabeça</label>
                                                         <input class="form-control" id="inputRenda" type="text" placeholder="Informe a renda por cabeça relacionada ao beneficiário" required data-prefix="R$ "  data-affixes-stay="false" data-decimal="," data-thousands="." name="rendaPerCapita" title="Informe a renda percapita deste beneficiário"/>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
@@ -221,14 +231,14 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-8">
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="floatingTextarea" class="mb-1">Observações importantes para compor cadastro</label>
+                                                        <label for="floatingTextarea" class="mb-1 opcional">Observações importantes para compor cadastro</label>
                                                         <textarea class="form-control obs" placeholder="Descreva aqui alguma observação importante, relacionada a este beneficiário" title="Informe aqui alguma observação importante relacionada a este beneficiario" id="floatingTextarea" name="obs"></textarea>
                                                         <div class="invalid-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="">
-                                                        <label for="inputTipoCras" class="mb-1">Abrangência crás</label>
+                                                        <label for="inputTipoCras" class="mb-1 required">Abrangência crás</label>
                                                         <select id="inputTipoCras" class="form-select" required name="abrangencia" title="Selecione o crás que esta na abrangência de bairro">
                                                             <option value="cras1" selected>Cras 1</option>
                                                             <option value="cras2">Cras 2</option>

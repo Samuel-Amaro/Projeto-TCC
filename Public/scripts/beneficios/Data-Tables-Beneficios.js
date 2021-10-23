@@ -66,3 +66,12 @@ function limpaCamposForm() {
     document.querySelector("#unidadeMedida").options.item(0).selected = true;
     document.querySelector("#qtdPorMedida").value = '';
 }
+
+/**
+ * Esta função obtem os beneficios que vão ser cadastrados.
+ * 
+ * 
+ */
+function obterBeneficiosACadastrar() {
+    console.log(arrayBeneficios);
+}
