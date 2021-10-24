@@ -7,7 +7,7 @@ CREATE TABLE fornecedores_doadores(
     tipo_pessoa TEXT NOT NULL CHECK(tipo_pessoa = 'FISICA' OR tipo_pessoa = 'JURIDICA'), --'FISICA' OU 'JURIDICA'
     cep VARCHAR(10),
     endereco VARCHAR(70) NOT NULL,
-    complemento VARCHAR(30) NOT NULL,
+    complemento VARCHAR(30),
     bairro VARCHAR(50) NOT NULL,
     cidade VARCHAR(150) NOT NULL,
     uf CHAR(2) NOT NULL,

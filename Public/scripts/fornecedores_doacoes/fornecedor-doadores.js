@@ -34,13 +34,17 @@ window.addEventListener('load', function(event) {
  */
 function mostraCampoTipoPessoa(value) {
     let containerCpf = document.querySelector(".container-cpf");
+    let inputCpf = document.querySelector("#cpf");
     let containerCNPJ = document.querySelector(".container-cnpj");
+    let inputCnpj = document.querySelector("#cnpj");
     if(value === "FISICA") {
       containerCNPJ.style.display = "none"; 
+      inputCnpj.removeAttribute("required");
       containerCpf.style.display = "block"; 
     }else{
       containerCNPJ.style.display = "block"; 
       containerCpf.style.display = "none";
+      inputCpf.removeAttribute("required");
     }
 }
 
@@ -82,12 +86,35 @@ function aplicaMascara(htmlElement, formatoMascara) {
     mascara.mask(element);
 }
 
+let camposArray = [".nome-fornecedor-doador", "#tipoPessoa", "#tipoIdentificacao", "#inputEndereco", "#inputBairro", "#inputCidade", "#inputEstado", "#telefone01", "#telefone02"];
+
 //Submissão do form de cadastrar fornecedor ou doador
 let submitForm = document.querySelector(".form-fornecedor");
 submitForm.addEventListener("submit", function(event){
-    setaEstiloValidacaoCampo(".nome-fornecedor-doador", ".is-valid");
+    //array com campos do formulario invalidos
+    let fieldInvalid = camposInvalidos(camposArray);
+    //sem campos invalidos
+    if(fieldInvalid.length === 0) {
+        //aplica class css do bostratp notificando que campos estão validos
+        camposArray.forEach(element => {
+            setaEstiloValidacaoCampo(element, ".is-valid");
+        });
+        event.preventDefault();
+    }else{
+    //possui campos invalidos    
+        //aplica class css do bostrap notificando que esta invalid
+        fieldInvalid.forEach(element => {
+            setaEstiloValidacaoCampo(element, ".is-invalid");  
+        });
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Alguns campos não foram preenchidos, corretamente, por favor, preencha os novamente, da forma correta!',
+            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+        });
+        event.preventDefault();
+    }
     console.log(obterDadosFormulario());
-    event.preventDefault();
 });
 
 /**
@@ -151,5 +178,83 @@ function obterDadosFormulario() {
     }
 }
 
+/**
+ * * Esta Função valida os campos de uma formulario.
+ * @param {*} arraySelectorsCss 
+ * @returns array - com os campos invalidos
+ */
+function camposInvalidos(arraySelectorsCss) {
+    let camposInvalidos = [];
+    let camposValidos = [];
+    arraySelectorsCss.forEach(element => {
+        if(element === "#tipoPessoa") {
+            let r = campoIdentificacaoValido();
+            if(r) {
+               //cpf ou cnpj valido 
+            }else{
+               //cpf ou cnpj invalido
+               camposInvalidos.push(r);
+            }
+        }else{
+            let elementHtml = document.querySelector(element).value;
+            if(elementHtml === "" || elementHtml === " " || elementHtml === "SELECIONE") {
+                camposInvalidos.push(element); 
+            }else{
+                camposValidos.push(element);
+            }    
+        }
+    });
+    return camposInvalidos;  
+}
 
+/**
+ * Verifica se o campo de identificação de pessoa escolheu um tipo de pessoa, e aplica um tipo de valição visual e com js sobre o campo escolhido como o cpf ou cnpj
+ * @returns 
+ */
+function campoIdentificacaoValido() {
+    let tipoPessoa = document.querySelector("#tipoPessoa").value;
+    if(tipoPessoa === "FISICA") {
+       let cpf = document.querySelector("#cpf").value;
+       let cpfSemFormatacao = tiraMascaraCPF(cpf);
+       console.log(cpfSemFormatacao);
+       if(cpfSemFormatacao.length < 11) {
+          return "#cpf"; 
+       }else{
+          return true;
+       }    
+    }else if(tipoPessoa === "JURIDICA"){
+        let cnpj = document.querySelector("#cnpj").value;
+        if(cnpj === "" || cnpj === " ") {
+           return "#cnpj"; 
+        }else{
+            return true;
+        }
+    }
+}
 
+/**
+ * Esta função tira mascara de cpf
+ * @param {*} cpf 
+ * @returns 
+ */
+function tiraMascaraCPF(cpf) {
+    let cpfFormatado = cpf;
+    let cpfParte1 = cpf.substr(0,3); //3 DIGITOS
+    //console.log("PARTE 1: " + cpfParte1);
+    let cpfParte2 = cpf.substr(4, 3); //3 DIGITOS
+    //console.log("PARTE 2: " + cpfParte2);
+    let cpfParte3 = cpf.substr(8,3); //3 DIGITOS
+    //console.log("PARTE 3: " + cpfParte3);
+    let cpfParte4 = cpf.substr(12,2); //2 DIGITOS
+    //console.log("PARTE 4: " + cpfParte4);
+    let cpfSemFormatacao = cpfParte1 + cpfParte2 + cpfParte3 + cpfParte4;
+    let cpfStr = '';
+    for (let index = 0; index < cpfSemFormatacao.length; index++) {
+        if(cpfSemFormatacao[index] === "_") {
+            //faz nada
+        }else{
+            cpfStr = cpfStr + cpfSemFormatacao[index];
+        }
+    }
+    return cpfStr;
+}
