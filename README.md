@@ -45,10 +45,14 @@ Tabela de conteúdos
 - [x] Alterar registro de beneficiários.
 - [x] Excluir Registro de beneficiário.
 #### Features de beneficio
-- [ ] Cadastrar Beneficios
-- [ ] Cadastrar Doações
-- [ ] Registrar entregas
-- [ ] Controlar estoque
+- [ ] Cadastrar varios beneficios de uma so vez.
+- [ ] Cadastrar Doações.
+- [ ] Registrar entregas.
+- [ ] Controlar estoque.
+- [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
+#### Features de Fornecedores/Doadores
+- [ ] Cadastrar um fornecedor/Doador.
+- [ ] Alterar um fornecedor/Doador. 
 
 ## Capturas de tela
 
@@ -105,3 +109,4 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
  * [Plugin JS jQuery maskMoney](https://github.com/plentz/jquery-maskmoney)
  * [Plugin JS datatables](https://datatables.net/)
  * [Plugin JS sweetalert2](https://github.com/sweetalert2/sweetalert2)
+ * [Plugin JS inputMask](https://github.com/RobinHerbots/Inputmask)
