@@ -76,7 +76,7 @@ if(session_start()) {
                                                     <div>
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="floatingTextarea" class="mb-1 required">Nome</label>
-                                                            <input class="form-control nome-fornecedor-doador" placeholder="Informe aqui, o nome do fornecedor ou doador do beneficio." title="Entre com um nome para identificar o fornecedor ou doador do beneficio" id="nome-fornecedor-doador" name="nome-fornecedor-doador" type="text" required maxlength="70" minlength="10"/>
+                                                            <input class="form-control nome-fornecedor-doador" placeholder="Informe aqui, o nome do fornecedor ou doador do beneficio." title="Entre com um nome para identificar o fornecedor ou doador do beneficio" id="nome-fornecedor-doador" name="nome-fornecedor-doador" type="text" required maxlength="70" minlength="1"/>
                                                             <div class="feedback-nome"></div>
                                                         </div>
                                                     </div>
@@ -86,7 +86,7 @@ if(session_start()) {
                                                 <div class="col-md-12">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="floatingTextarea" class="mb-1 opcional">Descrição</label>
-                                                            <textarea class="form-control descricao-fornecedor-doador" placeholder="Informe aqui uma descrição que ajude a indentificar este fornecedor ou doador." title="Entre com uma descrição que ajude a indentificar e descrever este fornecedor ou doador da melhor forma" id="floatingTextarea" name="descricao-fornecedor-doador" maxlength="300"></textarea>
+                                                            <textarea class="form-control descricao-fornecedor-doador" placeholder="Informe aqui uma descrição que ajude a indentificar este fornecedor ou doador." title="Entre com uma descrição que ajude a indentificar e descrever este fornecedor ou doador da melhor forma" id="descricao" name="descricao-fornecedor-doador" maxlength="300"></textarea>
                                                             <div class="feedback-descricao"></div>
                                                         </div>
                                                     </div>
@@ -115,11 +115,12 @@ if(session_start()) {
                                                     </div>
                                                 </div> 
                                             </div>
+                                            <!-- estão como opcionanais mas não são fazer validação por javascript, são obrigatorios -->
                                             <div class="row mb-3 container-cpf" style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="cpf" class="mb-1 required">CPF</label>
-                                                        <input type="text" class="form-control" title="Informe o cpf da pessoa física." placeholder="Entre com o cpf, somente numeros." id="cpf" required minlength="11" maxlength="14">
+                                                        <input type="text" class="form-control" title="Informe o cpf da pessoa física." placeholder="Entre com o cpf, somente numeros." id="cpf" minlength="14" maxlength="14">
                                                         <div class="invalid-feedback invalid-feedback-cpf"></div>
                                                     </div>   
                                                 </div>
@@ -128,7 +129,7 @@ if(session_start()) {
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="cnpj" class="mb-1 required">CNPJ</label>
-                                                        <input type="text" class="form-control" title="Informe o cnpj da pessoa jurídica" placeholder="Entre com o cnpj, somente numeros." id="cnpj" required minlength="14" maxlength="18">
+                                                        <input type="text" class="form-control" title="Informe o cnpj da pessoa jurídica" placeholder="Entre com o cnpj, somente numeros." id="cnpj" minlength="18" maxlength="18">
                                                         <div class="invalid-feedback invalid-feedback-cnpj"></div>
                                                     </div>   
                                                 </div>
@@ -151,12 +152,12 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                     <label for="endereco" class="mb-1 required">Endereco</label>
-                                                    <input class="form-control mb-3" type="text" placeholder="Entre com o logradouro" id="inputEndereco" title="Preencha este campo com o endereço do doador ou do fornecedor" name="endereco" required minlength="10" maxlength="70"/>
+                                                    <input class="form-control mb-3" type="text" placeholder="Entre com o logradouro" id="inputEndereco" title="Preencha este campo com o endereço do doador ou do fornecedor" name="endereco" required minlength="1" maxlength="70"/>
                                                     <div class="feedback-endereco"></div>
                                                 </div>  
                                                 <div class="col-md-12">
                                                     <label for="complemento" class="mb-1 required">Complemento</label>
-                                                    <input type="text" class="form-control" placeholder="Entre com o complemento do endereço." id="inputComplemento" title="Preencha este campo com o complemento do endereço." name="complemento" required minlength="3" maxlength="30">
+                                                    <input type="text" class="form-control" placeholder="Entre com o complemento do endereço." id="inputComplemento" title="Preencha este campo com o complemento do endereço." name="complemento" required minlength="1" maxlength="30">
                                                     <div class="feedback-complemento"></div>
                                                 </div>    
                                             </div>
@@ -164,14 +165,14 @@ if(session_start()) {
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="bairro" class="mb-1 required">Bairro</label>
-                                                            <input class="form-control" id="inputBairro" type="text" placeholder="Entre com o bairro." title="Preencha este campo com o bairro" name="bairro" required minlength="5" maxlength="50"/>
+                                                            <input class="form-control" id="inputBairro" type="text" placeholder="Entre com o bairro." title="Preencha este campo com o bairro" name="bairro" required minlength="1" maxlength="50"/>
                                                             <div class="feedback-bairro"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="mb-3 mb-md-0">
                                                             <label for="cidade" class="mb-1 required">Cidade</label>
-                                                            <input type="text" name="cidade" class="form-control" id="inputCidade" placeholder="Entre com a cidade." title="Informe a cidade." id="inputCidade" required minlength="10" maxlength="150">
+                                                            <input type="text" name="cidade" class="form-control" id="inputCidade" placeholder="Entre com a cidade." title="Informe a cidade." id="inputCidade" required minlength="1" maxlength="150">
                                                             <div class="feedback-cidade"></div>
                                                         </div>
                                                     </div>
@@ -214,17 +215,17 @@ if(session_start()) {
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <label for="telefone01" class="mb-1 required">Telefone Celular</label>
-                                                    <input type="text" name="telefone01" class="form-control" id="telefone01" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone principal, informando somente numeros" required minlength="11" maxlength="13">
-                                                    <div class="invalid-feedback invalid-feedback-celular"></div>
+                                                    <input type="text" name="telefone01" class="form-control" id="telefone01" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone principal, informando somente numeros" required minlength="13" maxlength="13">
+                                                    <div class="feedback-celular"></div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="telefone02" class="mb-1 required">Telefone Fixo</label>
-                                                    <input type="text" name="telefone02" class="form-control" id="telefone02" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone opcional, informando somente numeros." required minlength="10" maxlength="12">
+                                                    <input type="text" name="telefone02" class="form-control" id="telefone02" placeholder="Entre com o telefone, informando somente numeros." title="Entre com o numero de telefone opcional, informando somente numeros." required minlength="12" maxlength="12">
                                                     <div class="invalid-feedback invalid-feedback-fixo"></div>
                                                 </div>   
                                                 <div class="col-md-4">
                                                     <label for="email" class="mb-1 opcional">Email</label>
-                                                    <input type="email" name="email" class="form-control" id="email" placeholder="Informe um email, para entrar em contato." title="Informe um endereço eletrônico, como um email no formato email@example.com" maxlength="70">       
+                                                    <input type="email" name="email" class="form-control" id="email" placeholder="Informe um email, para entrar em contato." title="Informe um endereço eletrônico, como um email no formato email@example.com" maxlength="70" minlength="1">       
                                                     <div class="feedback-email"></div>
                                                 </div>
                                             </div>

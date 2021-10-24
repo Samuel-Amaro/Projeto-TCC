@@ -22,6 +22,10 @@ window.addEventListener('load', function(event) {
     aplicaMascara("#cnpj", "99.999.999/9999-99");
     //aplica mascara de cpf
     aplicaMascara("#cpf", "999.999.999-99");
+    //aplica mascara de telefone celular
+    aplicaMascara("#telefone01", '99 99999-9999');
+    //aplica mascara de telefone fixo
+    aplicaMascara("#telefone02", '99 9999-9999');
 });
 
 /**
@@ -77,3 +81,75 @@ function aplicaMascara(htmlElement, formatoMascara) {
     let mascara = new Inputmask(formatoMascara);
     mascara.mask(element);
 }
+
+//Submissão do form de cadastrar fornecedor ou doador
+let submitForm = document.querySelector(".form-fornecedor");
+submitForm.addEventListener("submit", function(event){
+    setaEstiloValidacaoCampo(".nome-fornecedor-doador", ".is-valid");
+    console.log(obterDadosFormulario());
+    event.preventDefault();
+});
+
+/**
+ * Esta função seta uma class de validação de css, em um campo do formulario de beneficio
+ * @param {*} htmlElement 
+ * @param {*} classValidacao 
+ */
+function setaEstiloValidacaoCampo(htmlElement, classValidacao) {
+    let elemento = document.querySelector(htmlElement);
+    if(classValidacao == ".is-invalid"){
+       elemento.classList.remove("is-valid");
+       elemento.classList.add("is-invalid");
+    }else{
+        elemento.classList.remove("is-invalid");
+        elemento.classList.add("is-valid");
+    }
+}
+
+/**
+ * Esta função retorna os dados que são submetidos em um formulario
+ * @returns object
+ */
+function obterDadosFormulario() {
+    let p = document.querySelector("#tipoPessoa").value;
+    if(p === "FISICA") {
+        let dados = {
+            "nome" : document.querySelector(".nome-fornecedor-doador").value,
+            //"descricao" : document.querySelector("#descricao").value,
+            "tipoPessoa" : document.querySelector("#tipoPessoa").value,
+            "identificacao" :  document.querySelector("#tipoIdentificacao").value,
+            "cpf" : document.querySelector("#cpf").value,
+            "cep" : document.querySelector("#inputCep").value,
+            "endereco" : document.querySelector("#inputEndereco").value,
+            "complemento" : document.querySelector("#inputComplemento").value,
+            "bairro" : document.querySelector("#inputBairro").value,
+            "cidade" : document.querySelector("#inputCidade").value,
+            "estado" : document.querySelector("#inputEstado").value,
+            "telefoneCelular" : document.querySelector("#telefone01").value,
+            "telefoneFixo" : document.querySelector("#telefone02").value,
+            "email" : document.querySelector("#email").value
+       };
+       return dados;
+    }else{
+        let dados = {
+            "nome" : document.querySelector(".nome-fornecedor-doador").value,
+            "descricao" : document.querySelector("#descricao").value,
+            "tipoPessoa" : document.querySelector("#tipoPessoa").value,
+            "identificacao" :  document.querySelector("#tipoIdentificacao").value,
+            "cnpj" : document.querySelector("#cnpj").value,
+            "cep" : document.querySelector("#inputCep").value,
+            "endereco" : document.querySelector("#inputEndereco").value,
+            "complemento" : document.querySelector("#inputComplemento").value,
+            "bairro" : document.querySelector("#inputBairro").value,
+            "cidade" : document.querySelector("#inputCidade").value,
+            "estado" : document.querySelector("#inputEstado").value,
+            "telefoneCelular" : document.querySelector("#telefone01").value,
+            "telefoneFixo" : document.querySelector("#telefone02").value,
+            "email" : document.querySelector("#email").value
+       };
+       return dados;
+    }
+}
+
+
+
