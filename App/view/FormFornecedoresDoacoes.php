@@ -116,20 +116,20 @@ if(session_start()) {
                                                 </div> 
                                             </div>
                                             <!-- estão como opcionanais mas não são fazer validação por javascript, são obrigatorios -->
-                                            <div class="row mb-3 container-cpf">
+                                            <div class="row mb-3 container-cpf" style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="cpf" class="mb-1 required">CPF</label>
-                                                        <input type="text" class="form-control" title="Informe o cpf da pessoa física." placeholder="Entre com o cpf, somente numeros." id="cpf" minlength="14" maxlength="14" required>
+                                                        <input type="text" class="form-control" title="Informe o cpf da pessoa física." placeholder="Entre com o cpf, somente numeros." id="cpf" minlength="14" maxlength="14">
                                                         <div class="invalid-feedback invalid-feedback-cpf"></div>
                                                     </div>   
                                                 </div>
                                             </div>
-                                            <div class="row mb-3 container-cnpj">
+                                            <div class="row mb-3 container-cnpj" style="display: none;">
                                                 <div class="col-md-6">
                                                     <div class="mb-3 mb-md-0">
                                                         <label for="cnpj" class="mb-1 required">CNPJ</label>
-                                                        <input type="text" class="form-control" title="Informe o cnpj da pessoa jurídica" placeholder="Entre com o cnpj, somente numeros." id="cnpj" minlength="18" maxlength="18" required>
+                                                        <input type="text" class="form-control" title="Informe o cnpj da pessoa jurídica" placeholder="Entre com o cnpj, somente numeros." id="cnpj" minlength="18" maxlength="18">
                                                         <div class="invalid-feedback invalid-feedback-cnpj"></div>
                                                     </div>   
                                                 </div>

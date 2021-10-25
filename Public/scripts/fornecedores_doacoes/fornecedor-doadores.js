@@ -38,13 +38,20 @@ function mostraCampoTipoPessoa(value) {
     let containerCNPJ = document.querySelector(".container-cnpj");
     let inputCnpj = document.querySelector("#cnpj");
     if(value === "FISICA") {
-      containerCNPJ.style.display = "none"; 
-      inputCnpj.removeAttribute("required");
-      containerCpf.style.display = "block"; 
+      containerCNPJ.style.display = "none"; //oculta
+      inputCnpj.removeAttribute("required"); //retira
+      inputCpf.setAttribute("required", "required"); //aplica
+      containerCpf.style.display = "block";  //mostra
+    }else if(value === "JURIDICA"){
+      containerCNPJ.style.display = "block"; //mostra
+      containerCpf.style.display = "none"; //oculta
+      inputCpf.removeAttribute("required"); //retira
+      inputCnpj.setAttribute("required", "required"); //aplica
     }else{
-      containerCNPJ.style.display = "block"; 
-      containerCpf.style.display = "none";
-      inputCpf.removeAttribute("required");
+        containerCpf.style.display = "none";
+        containerCNPJ.style.display = "none";
+        inputCnpj.removeAttribute("required"); //retira
+        inputCpf.removeAttribute("required"); //retira
     }
 }
 
@@ -86,6 +93,8 @@ function aplicaMascara(htmlElement, formatoMascara) {
     mascara.mask(element);
 }
 
+//campos fixos do formulario a serem verificados
+//campos de texto e de select
 let camposArray = [".nome-fornecedor-doador", "#tipoPessoa", "#tipoIdentificacao", "#inputEndereco", "#inputBairro", "#inputCidade", "#inputEstado", "#telefone01", "#telefone02"];
 
 //Submissão do form de cadastrar fornecedor ou doador
@@ -99,10 +108,13 @@ submitForm.addEventListener("submit", function(event){
         camposArray.forEach(element => {
             setaEstiloValidacaoCampo(element, ".is-valid");
         });
+        console.log(obterDadosFormulario());
+        //limpara os campos do formulario apos passar 5 segundos
+        let resultado = setTimeout(limpaCamposFormulario, 5000);
         event.preventDefault();
     }else{
-    //possui campos invalidos    
-        //aplica class css do bostrap notificando que esta invalid
+        //possui campos invalidos    
+        //aplica class css do bostrap notificando que esta invalidos
         fieldInvalid.forEach(element => {
             setaEstiloValidacaoCampo(element, ".is-invalid");  
         });
@@ -114,7 +126,6 @@ submitForm.addEventListener("submit", function(event){
         });
         event.preventDefault();
     }
-    console.log(obterDadosFormulario());
 });
 
 /**
@@ -127,9 +138,12 @@ function setaEstiloValidacaoCampo(htmlElement, classValidacao) {
     if(classValidacao == ".is-invalid"){
        elemento.classList.remove("is-valid");
        elemento.classList.add("is-invalid");
-    }else{
+    }else if(classValidacao == ".is-invalid"){
         elemento.classList.remove("is-invalid");
         elemento.classList.add("is-valid");
+    }else if(classValidacao == "remover"){
+        elemento.classList.remove("is-valid");
+        elemento.classList.remove("is-invalid");
     }
 }
 
@@ -145,15 +159,15 @@ function obterDadosFormulario() {
             //"descricao" : document.querySelector("#descricao").value,
             "tipoPessoa" : document.querySelector("#tipoPessoa").value,
             "identificacao" :  document.querySelector("#tipoIdentificacao").value,
-            "cpf" : document.querySelector("#cpf").value,
+            "cpf" : tiraMascaraCPF(document.querySelector("#cpf").value),
             "cep" : document.querySelector("#inputCep").value,
             "endereco" : document.querySelector("#inputEndereco").value,
             "complemento" : document.querySelector("#inputComplemento").value,
             "bairro" : document.querySelector("#inputBairro").value,
             "cidade" : document.querySelector("#inputCidade").value,
             "estado" : document.querySelector("#inputEstado").value,
-            "telefoneCelular" : document.querySelector("#telefone01").value,
-            "telefoneFixo" : document.querySelector("#telefone02").value,
+            "telefoneCelular" : tiraMascaraTel(document.querySelector("#telefone01").value, "celular"),
+            "telefoneFixo" : tiraMascaraTel(document.querySelector("#telefone02").value, "fixo"),
             "email" : document.querySelector("#email").value
        };
        return dados;
@@ -163,15 +177,15 @@ function obterDadosFormulario() {
             "descricao" : document.querySelector("#descricao").value,
             "tipoPessoa" : document.querySelector("#tipoPessoa").value,
             "identificacao" :  document.querySelector("#tipoIdentificacao").value,
-            "cnpj" : document.querySelector("#cnpj").value,
+            "cnpj" : tiraMascaraCNPJ(document.querySelector("#cnpj").value),
             "cep" : document.querySelector("#inputCep").value,
             "endereco" : document.querySelector("#inputEndereco").value,
             "complemento" : document.querySelector("#inputComplemento").value,
             "bairro" : document.querySelector("#inputBairro").value,
             "cidade" : document.querySelector("#inputCidade").value,
             "estado" : document.querySelector("#inputEstado").value,
-            "telefoneCelular" : document.querySelector("#telefone01").value,
-            "telefoneFixo" : document.querySelector("#telefone02").value,
+            "telefoneCelular" : tiraMascaraTel(document.querySelector("#telefone01").value, "celular"),
+            "telefoneFixo" : tiraMascaraTel(document.querySelector("#telefone02").value, "fixo"),
             "email" : document.querySelector("#email").value
        };
        return dados;
@@ -187,13 +201,36 @@ function camposInvalidos(arraySelectorsCss) {
     let camposInvalidos = [];
     let camposValidos = [];
     arraySelectorsCss.forEach(element => {
-        if(element === "#tipoPessoa") {
+        //campo com mascara, de cpf ou cnpj
+        if(element == "#tipoPessoa") {
             let r = campoIdentificacaoValido();
-            if(r) {
-               //cpf ou cnpj valido 
+            if(r === "cpfValido") {
+               //cpf valido, inseri no array dos campos para aplicar classe css
+               camposArray.push("#cpf");
+            }else if(r === "cnpjValido") {
+               //cnpj valido, inseri no array dos campos para aplicar classe css
+               camposArray.push("#cnpj");
             }else{
                //cpf ou cnpj invalido
                camposInvalidos.push(r);
+            }
+        }else if(element == "#telefone01") {
+            //campo com mascara de telefone celular
+            let telefoneCelular = document.querySelector("#telefone01").value;
+            let telefoneCelularPuro = tiraMascaraTel(telefoneCelular, "celular");
+            if(telefoneCelularPuro.length < 11) {
+               camposInvalidos.push("#telefone01"); 
+            }else{
+                //camposArray.push("#telefone01");
+            }
+        }else if(element == "#telefone02") {
+            //campo com mascara de telefone celular
+            let telefoneFixo = document.querySelector("#telefone02").value;
+            let telefoneFixoPuro = tiraMascaraTel(telefoneFixo, "fixo");
+            if(telefoneFixoPuro.length < 10) {
+               camposInvalidos.push("#telefone02"); 
+            }else{
+                //camposArray.push("#telefone02");
             }
         }else{
             let elementHtml = document.querySelector(element).value;
@@ -213,22 +250,25 @@ function camposInvalidos(arraySelectorsCss) {
  */
 function campoIdentificacaoValido() {
     let tipoPessoa = document.querySelector("#tipoPessoa").value;
-    if(tipoPessoa === "FISICA") {
+    if(tipoPessoa == "FISICA") {
        let cpf = document.querySelector("#cpf").value;
        let cpfSemFormatacao = tiraMascaraCPF(cpf);
-       console.log(cpfSemFormatacao);
        if(cpfSemFormatacao.length < 11) {
+          console.log(cpfSemFormatacao);
           return "#cpf"; 
        }else{
-          return true;
+          return "cpfValido";
        }    
     }else if(tipoPessoa === "JURIDICA"){
         let cnpj = document.querySelector("#cnpj").value;
-        if(cnpj === "" || cnpj === " ") {
+        let cnpjSemFormatacao = tiraMascaraCNPJ(cnpj);
+        if(cnpjSemFormatacao.length < 14) {
            return "#cnpj"; 
         }else{
-            return true;
+            return "cnpjValido";
         }
+    }else{
+        return "#tipoPessoa";
     }
 }
 
@@ -240,15 +280,12 @@ function campoIdentificacaoValido() {
 function tiraMascaraCPF(cpf) {
     let cpfFormatado = cpf;
     let cpfParte1 = cpf.substr(0,3); //3 DIGITOS
-    //console.log("PARTE 1: " + cpfParte1);
     let cpfParte2 = cpf.substr(4, 3); //3 DIGITOS
-    //console.log("PARTE 2: " + cpfParte2);
     let cpfParte3 = cpf.substr(8,3); //3 DIGITOS
-    //console.log("PARTE 3: " + cpfParte3);
     let cpfParte4 = cpf.substr(12,2); //2 DIGITOS
-    //console.log("PARTE 4: " + cpfParte4);
     let cpfSemFormatacao = cpfParte1 + cpfParte2 + cpfParte3 + cpfParte4;
     let cpfStr = '';
+    //apos tira a mascara verificar se o cpf, esta completo, com toda numeração
     for (let index = 0; index < cpfSemFormatacao.length; index++) {
         if(cpfSemFormatacao[index] === "_") {
             //faz nada
@@ -257,4 +294,116 @@ function tiraMascaraCPF(cpf) {
         }
     }
     return cpfStr;
+}
+
+/**
+ * Esta Função tira a mascara de cnpj de um cnpj formatado
+ * @param {*} cnpj 
+ * @returns 
+ */
+function tiraMascaraCNPJ(cnpj) {
+    let cnpjFormatado = cnpj;
+    let parte1 = cnpjFormatado.substr(0,2); //XX
+    let parte2 = cnpjFormatado.substr(3, 3);//XXX
+    let parte3 = cnpjFormatado.substr(7, 3); //XXX
+    let parte4 = cnpjFormatado.substr(11, 4);//XXXX
+    let parte5 = cnpjFormatado.substr(16, 2); //XX
+    let cnpjSemFormatacao =  parte1 + parte2 + parte3 + parte4 + parte5;
+    //verificar se o cnpj esta com a numeração completa
+    let cnpjPuro = '';
+    for (let index = 0; index < cnpjSemFormatacao.length; index++) {
+        if(cnpjSemFormatacao[index] === "_") {
+            //faz nada, caracteres invalidos estão compondo o cnpj
+        }else{
+            cnpjPuro = cnpjPuro + cnpjSemFormatacao[index];
+        }
+    }
+    return cnpjPuro;
+}
+
+/**
+ * Esta função tira a mascara de telefones, tanto telefone celular quanto fixo, so informa o tipo
+ * @param {*} telefone 
+ * @param {*} tipo 
+ * @returns 
+ */
+function tiraMascaraTel(telefone, tipo) {
+    if(tipo === "celular") {
+        let telFormatado = telefone;
+        let telParte1 = telefone.substr(0,2); //DD
+        let telParte2 = telefone.substr(3,5); //99999
+        let telParte3 = telefone.substr(9,4); //9999
+        //verificar se o telefone sem formatação contém a quantidade de numeros correta
+        let telSemFormatacao = telParte1 + telParte2 + telParte3;
+        let telefonePuro = '';
+        for (let index = 0; index < telSemFormatacao.length; index++) {
+            if(telSemFormatacao[index] === "_") {
+               //telefone sem formatação contem caracteres da mascara invalido 
+            }else{
+               //numeros corretos
+               telefonePuro = telefonePuro + telSemFormatacao[index]; 
+            }    
+        }
+        return telefonePuro;
+    }else{
+        let telFixoFormatado = telefone;
+        let telParte1 = telFixoFormatado.substr(0, 2); //DD
+        let telParte2 = telFixoFormatado.substr(3, 4); //9999
+        let telParte3 = telFixoFormatado.substr(8, 4); //9999 
+        let telFixoSemFormatacao = telParte1 + telParte2 + telParte3;
+        //verificar se o telefone sem formatação contém a quantidade de numeros correta
+        let telFixoPuro = '';
+        for (let index = 0; index < telFixoSemFormatacao.length; index++) {
+            if(telFixoSemFormatacao[index] === "_") {
+               //telefone sem formatação contem caracteres da mascara invalido 
+            }else{
+               //numeros corretos
+               telFixoPuro = telFixoPuro + telFixoSemFormatacao[index]; 
+            }    
+        }
+        return telFixoPuro;
+    }
+}
+
+/**
+ * Esta função limpa os campos do formulario
+ */
+function limpaCamposFormulario() {
+    let nome = document.querySelector(".nome-fornecedor-doador");
+    let descricao = document.querySelector("#descricao");
+    let identificacao = document.querySelector("#tipoIdentificacao");
+    let tipoPessoa = document.querySelector("#tipoPessoa");
+    let cep = document.querySelector("#inputCep");
+    let endereco = document.querySelector("#inputEndereco");
+    let complemento = document.querySelector("#inputComplemento");
+    let bairro =  document.querySelector("#inputBairro");
+    let cidade  = document.querySelector("#inputCidade");
+    let estado = document.querySelector("#inputEstado");
+    let telefoneCelular = document.querySelector("#telefone01");
+    let telefoneFixo = document.querySelector("#telefone02");
+    let email = document.querySelector("#email");
+    nome.value = '';
+    descricao.value = '';
+    identificacao.options.item(0).selected = true;
+    tipoPessoa.options.item(0).selected = true;
+    cep.value = '';
+    endereco.value = '';
+    complemento.value = '';
+    bairro.value = '';
+    cidade.value = '';
+    estado.options.item(0).selected = true;
+    telefoneCelular.value = '';
+    telefoneFixo.value = '';
+    email.value = '';
+    //faz os atributos de endereço serem editaveis
+    endereco.removeAttribute("readonly");
+    complemento.removeAttribute("readonly");
+    bairro.removeAttribute("readonly");
+    cidade.removeAttribute("readonly");
+    estado.setAttribute("disabled", false);
+    //tira class css dos elementos
+    let arraySelector = [".nome-fornecedor-doador", "#descricao", "#tipoIdentificacao", "#tipoPessoa", "#inputCep", "#inputEndereco", "#inputComplemento", "#inputBairro", "#inputCidade", "#inputEstado" ,"#telefone01", "#telefone02", "#email"];
+    arraySelector.forEach(element => {
+        setaEstiloValidacaoCampo(element, "remover");
+    });
 }
