@@ -224,8 +224,8 @@ if(session_start()) {
                                                     <div class="invalid-feedback invalid-feedback-fixo"></div>
                                                 </div>   
                                                 <div class="col-md-4">
-                                                    <label for="email" class="mb-1 opcional">Email</label>
-                                                    <input type="email" name="email" class="form-control" id="email" placeholder="Informe um email, para entrar em contato." title="Informe um endereço eletrônico, como um email no formato email@example.com" maxlength="70" minlength="1">       
+                                                    <label for="email" class="mb-1 required">Email</label>
+                                                    <input type="email" name="email" class="form-control" id="email" placeholder="Informe um email, para entrar em contato." title="Informe um endereço eletrônico, como um email no formato email@example.com" maxlength="70" minlength="1" required>       
                                                     <div class="feedback-email"></div>
                                                 </div>
                                             </div>

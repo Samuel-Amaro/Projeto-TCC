@@ -108,6 +108,7 @@ submitForm.addEventListener("submit", function(event){
         camposArray.forEach(element => {
             setaEstiloValidacaoCampo(element, ".is-valid");
         });
+        //obtem dados do formulario submetido
         console.log(obterDadosFormulario());
         //limpara os campos do formulario apos passar 5 segundos
         let resultado = setTimeout(limpaCamposFormulario, 5000);
@@ -382,6 +383,23 @@ function limpaCamposFormulario() {
     let telefoneCelular = document.querySelector("#telefone01");
     let telefoneFixo = document.querySelector("#telefone02");
     let email = document.querySelector("#email");
+    let cpf = '';
+    let cnpj = '';
+    let arraySelectorFeedbacks = [".feedback-nome", ".feedback-descricao", ".feedback-endereco", ".feedback-complemento", ".feedback-bairro", ".feedback-cidade", ".feedback-email"];
+    arraySelectorFeedbacks.forEach(element => {
+        let ele = document.querySelector(element);
+        ele.textContent = '';
+    });
+    let arraySelector = [".nome-fornecedor-doador", "#descricao", "#tipoIdentificacao", "#tipoPessoa", "#inputCep", "#inputEndereco", "#inputComplemento", "#inputBairro", "#inputCidade", "#inputEstado" ,"#telefone01", "#telefone02", "#email"];
+    if(tipoPessoa.value === "FISICA") {
+       cpf = document.querySelector("#cpf");
+       arraySelector.push("#cpf");
+       cpf.value = '';         
+    }else{
+       cnpj = document.querySelector("#cnpj");
+       arraySelector.push("#cnpj");
+       cnpj.value = '';
+    }
     nome.value = '';
     descricao.value = '';
     identificacao.options.item(0).selected = true;
@@ -400,9 +418,8 @@ function limpaCamposFormulario() {
     complemento.removeAttribute("readonly");
     bairro.removeAttribute("readonly");
     cidade.removeAttribute("readonly");
-    estado.setAttribute("disabled", false);
+    estado.removeAttribute("disabled");
     //tira class css dos elementos
-    let arraySelector = [".nome-fornecedor-doador", "#descricao", "#tipoIdentificacao", "#tipoPessoa", "#inputCep", "#inputEndereco", "#inputComplemento", "#inputBairro", "#inputCidade", "#inputEstado" ,"#telefone01", "#telefone02", "#email"];
     arraySelector.forEach(element => {
         setaEstiloValidacaoCampo(element, "remover");
     });
