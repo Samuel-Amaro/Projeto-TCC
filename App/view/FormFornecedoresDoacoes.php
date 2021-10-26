@@ -69,7 +69,7 @@ if(session_start()) {
                                     </div>
                                     <div class="card-body">
                                         <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-fornecedores" class="form-fornecedor">
-                                            <input type="hidden" name="operacao" value="cadastro" id="operacao">
+                                            <input type="hidden" name="operacao" value="cadastrar" id="operacao">
                                             <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                             <div class="row mb-3">
                                                 <div class="col-md-12">

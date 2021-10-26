@@ -8,6 +8,11 @@ class DaoFornecedoresDoadores{
     private PDO $connection;
     private ModelFornecedorDoador $modelFornecedorDoador;
 
+    public function __construct(DataBase $con)
+    {
+        $this->connection = $con->conexaoSGBD;
+    }
+
     public function setConnection(DataBase $con) {
         $this->connection = $con;
     }
@@ -35,6 +40,7 @@ class DaoFornecedoresDoadores{
                 bairro, cidade, uf, telefone_celular, telefone_fixo, cpf, cnpj, email) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
                 $stmt = $this->connection->prepare($sql);
                 $valores = array($this->modelFornecedorDoador->getNome(), $this->modelFornecedorDoador->getDescricao(), $this->modelFornecedorDoador->getIdentificacao(), $this->modelFornecedorDoador->getTipoPessoa(), $this->modelFornecedorDoador->getCep(), $this->modelFornecedorDoador->getEndereco(), $this->modelFornecedorDoador->getComplemento(), $this->modelFornecedorDoador->getBairro(), $this->modelFornecedorDoador->getCidade(), $this->modelFornecedorDoador->getUf(), $this->modelFornecedorDoador->getTelefoneCelular(), $this->modelFornecedorDoador->getTelefoneFixo(), $this->modelFornecedorDoador->getCpf(), $this->modelFornecedorDoador->getCnpj(), $this->modelFornecedorDoador->getEmail());
+                $stmt->execute($valores);
                 //executou consulta com sucesso
                 if($stmt) {
                     $stmt = null;

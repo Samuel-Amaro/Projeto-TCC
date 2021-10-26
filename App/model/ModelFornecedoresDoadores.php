@@ -100,7 +100,7 @@ class ModelFornecedorDoador{
         $this->telefoneFixo = $telefoneFix;
     }
     public function getTelefoneFixo() : string {
-        return $this->telefoneFix;
+        return $this->telefoneFixo;
     }
     public function setDataHora(string $dataH) {
         $this->dataHora = $dataH;

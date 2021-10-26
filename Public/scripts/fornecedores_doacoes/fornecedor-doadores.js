@@ -109,10 +109,15 @@ submitForm.addEventListener("submit", function(event){
             setaEstiloValidacaoCampo(element, ".is-valid");
         });
         //obtem dados do formulario submetido
+        if(makeRequestFornecedorDoador("../controller/ControllerFornecedoresDoadores.php", obterDadosFormulario())) {
+            //deu certo faz nada.
+        }else{
+            //deu erro
+            event.preventDefault();
+        }
         console.log(obterDadosFormulario());
         //limpara os campos do formulario apos passar 5 segundos
         let resultado = setTimeout(limpaCamposFormulario, 5000);
-        event.preventDefault();
     }else{
         //possui campos invalidos    
         //aplica class css do bostrap notificando que esta invalidos
@@ -169,7 +174,8 @@ function obterDadosFormulario() {
             "estado" : document.querySelector("#inputEstado").value,
             "telefoneCelular" : tiraMascaraTel(document.querySelector("#telefone01").value, "celular"),
             "telefoneFixo" : tiraMascaraTel(document.querySelector("#telefone02").value, "fixo"),
-            "email" : document.querySelector("#email").value
+            "email" : document.querySelector("#email").value,
+            "operacao" : document.querySelector("#operacao").value
        };
        return dados;
     }else{
@@ -187,7 +193,8 @@ function obterDadosFormulario() {
             "estado" : document.querySelector("#inputEstado").value,
             "telefoneCelular" : tiraMascaraTel(document.querySelector("#telefone01").value, "celular"),
             "telefoneFixo" : tiraMascaraTel(document.querySelector("#telefone02").value, "fixo"),
-            "email" : document.querySelector("#email").value
+            "email" : document.querySelector("#email").value,
+            "operacao" : document.querySelector("#operacao").value
        };
        return dados;
     }
@@ -423,4 +430,49 @@ function limpaCamposFormulario() {
     arraySelector.forEach(element => {
         setaEstiloValidacaoCampo(element, "remover");
     });
+}
+
+/**
+ * * Esta função faz a solicitação para postar dados no servidor
+ * @param {*} url 
+ * @param {*} fornecedorDoador 
+ */
+function makeRequestFornecedorDoador(url, fornecedorDoador = {}) { 
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = alertsContents;
+    httpRequest.open("POST", url, true);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    if(fornecedorDoador.tipoPessoa === "FISICA") {
+        //puxa cpf
+        httpRequest.send('nome=' + encodeURIComponent(fornecedorDoador.nome) + '&descricao=' + encodeURIComponent(fornecedorDoador.descricao) + '&tipoPessoa=' + encodeURIComponent(fornecedorDoador.tipoPessoa) + '&identificacao=' + encodeURIComponent(fornecedorDoador.identificacao) + '&cpf=' + encodeURIComponent(fornecedorDoador.cpf) + '&cep=' + encodeURIComponent(fornecedorDoador.cep) + '&endereco=' + encodeURIComponent(fornecedorDoador.endereco) + '&complemento=' + encodeURIComponent(fornecedorDoador.complemento) + '&bairro=' + encodeURIComponent(fornecedorDoador.bairro) + '&cidade=' + encodeURIComponent(fornecedorDoador.cidade) + '&estado=' + encodeURIComponent(fornecedorDoador.estado) + '&telefoneCelular=' + encodeURIComponent(fornecedorDoador.telefoneCelular) + '&telefoneFixo=' + encodeURIComponent(fornecedorDoador.telefoneFixo) + '&email=' + encodeURIComponent(fornecedorDoador.email) + '&operacao=' + encodeURIComponent(fornecedorDoador.operacao));
+    }else{
+        //puxa cnpj
+        httpRequest.send('nome=' + encodeURIComponent(fornecedorDoador.nome) + '&descricao=' + encodeURIComponent(fornecedorDoador.descricao) + '&tipoPessoa=' + encodeURIComponent(fornecedorDoador.tipoPessoa) + '&identificacao=' + encodeURIComponent(fornecedorDoador.identificacao) + '&cnpj=' + encodeURIComponent(fornecedorDoador.cnpj) + '&cep=' + encodeURIComponent(fornecedorDoador.cep) + '&endereco=' + encodeURIComponent(fornecedorDoador.endereco) + '&complemento=' + encodeURIComponent(fornecedorDoador.complemento) + '&bairro=' + encodeURIComponent(fornecedorDoador.bairro) + '&cidade=' + encodeURIComponent(fornecedorDoador.cidade) + '&estado=' + encodeURIComponent(fornecedorDoador.estado) + '&telefoneCelular=' + encodeURIComponent(fornecedorDoador.telefoneCelular) + '&telefoneFixo=' + encodeURIComponent(fornecedorDoador.telefoneFixo) + '&email=' + encodeURIComponent(fornecedorDoador.email) + '&operacao=' + encodeURIComponent(fornecedorDoador.operacao));
+    }
+    function alertsContents() {
+        if(httpRequest.readyState === 4) {
+            if(httpRequest.status === 200) {
+                try {
+                    let httpResponse = JSON.parse(httpRequest.responseText);  
+                    Swal.fire(
+                        'Obaa...',
+                        httpResponse.response,
+                        'success'
+                    );
+                    return 1;
+                } catch (error) {
+                    console.error(error.message);
+                    console.error(error.name);
+                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    return 0;
+                }
+            }else{
+                //return 0;
+            }
+        }else{
+                //alert("Ajax operação assincrona não concluida! onreadystatechange: " + httpRequest.readyState);
+                //operação assincrona ajax não chegou no estagio de concluida
+                //return 0;
+        }
+    }
 }

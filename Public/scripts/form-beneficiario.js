@@ -110,8 +110,8 @@ $(document).ready(function() {
 
 
 /*********************************FUNÇÃO DE FAZER REQUEST PARA SERVIDOR AJAX **************************/
-function makeRequestCadastrar(url, beneficiario = {}) { 
 
+function makeRequestCadastrar(url, beneficiario = {}) { 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
