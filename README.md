@@ -51,7 +51,7 @@ Tabela de conteúdos
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
 #### Features de Fornecedores/Doadores
-- [ ] Cadastrar um fornecedor/Doador.
+- [x] Cadastrar um fornecedor/Doador.
 - [ ] Alterar um fornecedor/Doador. 
 
 ## Capturas de tela
