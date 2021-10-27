@@ -14,6 +14,7 @@
 window.addEventListener('load', function() {
     let tabela = new DataTable('#dataTablesBeneficiarios', {
         "dom": 'B<"clear">lfrtip', 
+        "responsive": true,
         //'Bfrtip'
         "buttons" : ['copy', 'excel', 'pdf', 'print'],
         "scrollX": true,

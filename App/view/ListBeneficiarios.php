@@ -23,8 +23,8 @@ if(session_start()) {
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content=""/>
-        <meta name="author" content=""/>
+        <meta name="description" content="Pagina de listagem de beneficiarios"/>
+        <meta name="author" content="Samuel Amaro"/>
         <title>Painel de controle</title>
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
@@ -33,6 +33,9 @@ if(session_start()) {
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
         <!-- estiliza botoões de alterar e exluir do datatables -->
         <link rel="stylesheet" href="../../Public/css/estilo_list_beneficiarios_buttons_table.css">
+        <!-- RESPONSIVO DO DATATABLES-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"> 
+        <!--ICONES-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -62,7 +65,7 @@ if(session_start()) {
                                 Benefiários cadastrados
                             </div>
                             <div class="card-body">
-                                <table id="dataTablesBeneficiarios" class="row-border cell-border hover">
+                                <table id="dataTablesBeneficiarios" class="row-border cell-border hover" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <!--<th>Id</th>-->
@@ -94,6 +97,10 @@ if(session_start()) {
 
                     </div>
                 </main>
+                <?php
+                 # rodape
+                 include("Rodape.php");
+                ?>
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  data-bs-backdrop="static">
@@ -342,6 +349,8 @@ if(session_start()) {
         <script src="../../Public/scripts/jszip.js" type="text/javascript" charset="utf8"></script>
         <!-- modal excluir beneficiario -->
         <!--<script src="../../Public/scripts/Modal-Excluir-Beneficiario.js" charset="utf8" type="text/javascript"></script>-->
+        <!-- RESPONSIVO DATA TABLES -->
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
         <!-- SCRIPT QUE MANIPULA O PLUGIN DATATABLES JS -->
         <script type="text/javascript" charset="utf8" src="../../Public/scripts/DataTablesListBeneficiarios.js"></script>        
         <!--SCRIPT QUE FAZ BUSCA DE CEP NO MODAL -->
