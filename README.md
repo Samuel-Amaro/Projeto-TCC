@@ -52,6 +52,7 @@ Tabela de conteúdos
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
 #### Features de Fornecedores/Doadores
 - [x] Cadastrar um fornecedor/Doador.
+- [x] Listar fornecedores e doadores.
 - [ ] Alterar um fornecedor/Doador. 
 
 ## Capturas de tela
