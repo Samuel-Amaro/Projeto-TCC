@@ -217,6 +217,9 @@ if(session_start()) {
                         </div>
                     </div><!-- tabela beneficios novos a serem cadastrados-->
                 </main>
+                <?php
+                  include("Rodape.php");
+                ?>
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
         <script>

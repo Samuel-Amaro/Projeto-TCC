@@ -110,6 +110,9 @@ if(session_start()) {
                         </div>
                     </div>
                 </main>
+                <?php
+                    include("Rodape.php");
+                ?>
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
 

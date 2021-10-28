@@ -48,9 +48,9 @@
                     Cadastrar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <a class="nav-link collapsed" href="#" target="_self" rel="next">
+                <a class="nav-link collapsed" href="ListFornecedoresDoadores.php" target="_self" rel="next">
                     <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
-                    Listar
+                    Visualizar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <!--

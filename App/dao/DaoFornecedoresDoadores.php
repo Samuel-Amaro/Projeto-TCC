@@ -64,6 +64,48 @@ class DaoFornecedoresDoadores{
         }
     }
 
+    /**
+     * * Esta função faz uma busca de todos dos registros na tabela
+     */
+    public function selectFornecedoresDoadores() {
+        if(is_null($this->connection)) {
+            return false;
+            die();
+        }else{
+            try {
+                $listaFornecedoresDoadores = array();
+                $sql = "SELECT * FROM fornecedores_doadores ORDER BY nome ASC;";
+                $stmt = $this->connection->prepare($sql);
+                //consulta executada 
+                if($stmt->execute()) {
+                   //varias linhas de registro de resultado sql
+                   if($stmt->rowCount() > 0) {
+                      $resultadoSelect = $stmt->fetchAll();
+                      $stmt = null;
+                      unset($this->connection);
+                      return $resultadoSelect; 
+                   }else{
+                      //nenhuma linha de registro sql de resultado do select
+                      $stmt = null;
+                      unset($this->connection);
+                      return false;      
+                   } 
+                }else{
+                      //consulta não foi executada
+                      $stmt = null;
+                      unset($this->connection);
+                      return false;  
+                }
+            } catch (PDOException $p) {
+                echo "Error!: falha ao preparar consulta SELECT fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+                die("Error!: falha ao preparar consulta SELECT fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>");
+            }
+        }
+    }
+
 }
 
 ?>

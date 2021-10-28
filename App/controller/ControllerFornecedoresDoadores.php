@@ -26,7 +26,7 @@ class ControllerFornecedoresDoadores{
                 $this->cadastrarFornecedorDodador($this->methodHttp);
                 break;
             case "listar": 
-                //$this->listaBeneficiarios($this->methodHttp);
+                $this->listarFornecedoresDoadores($this->methodHttp);
                 break;
             case "alteracao": 
                 //$this->atualizarBeneficiario($this->methodHttp);
@@ -73,6 +73,31 @@ class ControllerFornecedoresDoadores{
                 $this->setResponseJson("response", "Ops.. temos um problema interno em nosso servidor, tenta ação novamente.");
                 echo $this->getResponseJson();
             }
+        }else{
+            $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
+            echo $this->getResponseJson();
+        }
+    }
+
+    /**
+     * * Esta função busca todos fornecedores e doadores cadastrados
+     */
+    public function listarFornecedoresDoadores(string $methodHttp) {
+        if($methodHttp === "POST") {
+           $this->daoForneDoador = new DaoFornecedoresDoadores(new DataBase()); 
+           $listaResultadoFornecedoresDoadores = $this->daoForneDoador->selectFornecedoresDoadores();
+           if(is_array($listaResultadoFornecedoresDoadores)) {
+              //verificar a forma como arrumar esses dados e formatados em json para o front end
+              $lista = array();
+              foreach($listaResultadoFornecedoresDoadores as $chave => $valor) {
+                 array_push($lista, $valor);
+              } 
+              $response = array("data" => $lista);
+              echo json_encode($response);
+           }else{
+              $this->setResponseJson("response", "Sem Fornecedores e Doadores Cadastrados");
+              echo $this->getResponseJson();
+           }
         }else{
             $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
             echo $this->getResponseJson();
