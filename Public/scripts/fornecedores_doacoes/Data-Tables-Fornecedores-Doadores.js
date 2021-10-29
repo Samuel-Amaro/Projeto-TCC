@@ -30,6 +30,11 @@ let tabela = new DataTable('#dataTablesFornecedoresDoadores',{
         {data: 'cpf'},
         {data: 'cnpj'},
         {data: 'cep'},
-    ]
+    ],
+    "columnDefs": [ {
+        "targets": 7,
+        "data": null,
+        "defaultContent": "<button type=\"button\" class=\"btn btn-primary btn-alterar-forn-doad\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-primary btn-excluir-forn-doad\"><i class=\"fas fa-user-times\"></i></button>"
+    }]
 });
 
