@@ -162,7 +162,7 @@ function obterDadosFormulario() {
     if(p === "FISICA") {
         let dados = {
             "nome" : document.querySelector(".nome-fornecedor-doador").value,
-            //"descricao" : document.querySelector("#descricao").value,
+            "descricao" : document.querySelector("#descricao").value,
             "tipoPessoa" : document.querySelector("#tipoPessoa").value,
             "identificacao" :  document.querySelector("#tipoIdentificacao").value,
             "cpf" : tiraMascaraCPF(document.querySelector("#cpf").value),
