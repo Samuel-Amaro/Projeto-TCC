@@ -53,7 +53,7 @@ Tabela de conteúdos
 #### Features de Fornecedores/Doadores
 - [x] Cadastrar um fornecedor/Doador.
 - [x] Listar fornecedores e doadores.
-- [ ] Alterar um fornecedor/Doador. 
+- [x] Alterar um fornecedor/Doador. 
 
 ## Capturas de tela
 
