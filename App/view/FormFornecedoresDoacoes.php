@@ -261,8 +261,10 @@ if(session_start()) {
         <!-- script de deletar usuario -->
         <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>  
         <!-- script de consultar cep -->
-        <script src="../../Public/scripts/consulta-cep.js" type="text/javascript" charset="utf8"></script>    
+        <script src="../../Public/scripts/consulta-cep.js" type="text/javascript" charset="utf8"></script>
+        <!-- formulario, validação -->
+        <script src="../../Public/scripts/fornecedores_doacoes/Formularios-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>    
         <!-- script de fornecedores e doadores da view -->
-        <script src="../../Public/scripts/fornecedores_doacoes/fornecedor-doadores.js" type="text/javascript" charset="utf8"></script> 
+        <script src="../../Public/scripts/fornecedores_doacoes/fornecedor-doadores-cadastrar.js" type="text/javascript" charset="utf8"></script> 
     </body>
 </html>

@@ -1,3 +1,4 @@
+let tabela = '';
 //ao carregar a pagina
 window.addEventListener('load', function(event) {
     //cabeçalho http, especificando o tipo de conteudo
@@ -13,7 +14,7 @@ window.addEventListener('load', function(event) {
         body: form //corpo da requisição
     };
     //inicializa tabela datables com ajax, sem usar jquery, somente com API nativas
-    let tabela = new DataTable('#dataTablesFornecedoresDoadores',{
+    tabela = new DataTable('#dataTablesFornecedoresDoadores',{
         "responsive": true,
         "scrollX": true,
         "language": {
@@ -40,21 +41,9 @@ window.addEventListener('load', function(event) {
     //ao clicar no btn de alterar retorna os dados da linha clicada
     $('#dataTablesFornecedoresDoadores tbody').on('click', '.btn-alterar-forn-doad', function(){
         let data = tabela.row($(this).parents('tr')).data();
+        //console.log(data.nome);
         mostraModalAlterarFornecedorDoador();
-        //alert(data.nome); 
+        carregaDadosModalFornecedorDoador(data);
     });
 });
 
-/**
- * * Esta Função Mostra o modal
- * @param {*} fornecedorOuDoador 
- */
-function mostraModalAlterarFornecedorDoador() {
-    let elementoModal = document.querySelector("#modalFornecedorDoador");
-    let objectBoostrap = new bootstrap.Modal(elementoModal);
-    objectBoostrap.show();
-}
-
-function carregaDadosModalFornecedorDoador() {
-    
-}

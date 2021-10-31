@@ -26,8 +26,8 @@ if(session_start()) {
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
         <!-- RESPONSIVO DO DATATABLES-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
-        <!--EXTENSÃO DE BOTÕES PARA DATATABLES ESTILO DOS BOTÕES-->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+        <!-- ESPECIFICAÇÕ DE CAMPOS REQUIRED OPCIONAIS FORM-->
+        <link rel="stylesheet" href="../../Public/css/estilo_form_avisos_required_opcional.css">
         <!-- ICONES -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -100,11 +100,13 @@ if(session_start()) {
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <h4 class="text-center font-weight-light my-4">Alteração dos dados</h4>
+                                    <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-fornecedores" class="form-fornecedor">
-                                        <input type="hidden" name="operacao" value="cadastrar" id="operacao">
+                                    <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alterar-fornecedores-doadores" class="form-fornecedor-doador-alterar" title="Se achar necessário altere as informações contidas neste formulário, de acordo com sua necessidade.">
+                                        <input type="hidden" name="operacao" value="alterar" id="operacao">
                                         <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
+                                        <input type="hidden" name="id_fornecedor_doador" value="" id="id_forn_doado">
                                         <div class="row mb-3">
                                             <div class="col-md-12">
                                                 <div>
@@ -265,7 +267,7 @@ if(session_start()) {
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid gap-2 col-6 mx-auto">
-                                                <input type="submit" value="Cadastrar" class=" btn-cadastrar-fornecedor-doacoes btn btn-primary" title="Clique aqui para cadastrar o fornecedor ou doador do beneficio.">
+                                                <input type="submit" value="Salvar Alteração" class=" btn-cadastrar-fornecedor-doacoes btn btn-primary" title="Clique aqui para alterar o fornecedor ou doador">
                                             </div>
                                         </div>
                                     </form>
@@ -302,11 +304,19 @@ if(session_start()) {
         <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <!-- script de consultar cep -->
+        <script src="../../Public/scripts/consulta-cep.js" type="text/javascript" charset="utf8"></script> 
+        <!--APLICAR MASCARAS DE QUALQUER TIPO-->
+        <script src="../../Public/scripts/mascara/inputMask.js" type="text/javascript" charset="utf8"></script>
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
         <!-- RESPONSIVO DATA TABLES -->
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script> 
+        <!--validação form, e aplicar mascaras-->
+        <script src="../../Public/scripts/fornecedores_doacoes/Formularios-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>
+        <!--MODAL ALTERAR-->
+        <script src="../../Public/scripts/fornecedores_doacoes/fornecedores-doadores-alterar.js" type="text/javascript" charset="utf8"></script>
         <!-- DATATABLES FORNECEDORES DOADORES -->
-        <script src="../../Public//scripts/fornecedores_doacoes/Data-Tables-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>     
+        <script src="../../Public/scripts/fornecedores_doacoes/Data-Tables-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>     
     </body>
 </html>

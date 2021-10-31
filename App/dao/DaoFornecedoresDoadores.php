@@ -106,6 +106,60 @@ class DaoFornecedoresDoadores{
         }
     }
 
+    /**
+     * * Esta função e responsavel por fazer a atualização de um registro no banco de dados
+     */
+    public function updateFornecedorDoador(ModelFornecedorDoador $newModel) : bool {
+        $this->modelFornecedorDoador = $newModel;
+        if(is_null($this->connection)) {
+            return false;
+            die("Conexão para alterar fornecedor e doador são invalidas");
+        }else{
+            try {
+                $sql = "UPDATE fornecedores_doadores
+                SET nome=?, 
+                descricao=?, 
+                identificacao=?, 
+                tipo_pessoa=?, 
+                cep=?, 
+                endereco=?, 
+                complemento=?, 
+                bairro=?, 
+                cidade=?, 
+                uf=?, 
+                telefone_celular=?, 
+                telefone_fixo=?,  
+                cpf=?, 
+                cnpj=?, 
+                email=?
+                WHERE id = ?";
+                $stmt = $this->connection->prepare($sql);
+                $valores = array($this->modelFornecedorDoador->getNome(), $this->modelFornecedorDoador->getDescricao(), $this->modelFornecedorDoador->getIdentificacao(), $this->modelFornecedorDoador->getTipoPessoa(), $this->modelFornecedorDoador->getCep(), $this->modelFornecedorDoador->getEndereco(), $this->modelFornecedorDoador->getComplemento(), $this->modelFornecedorDoador->getBairro(), $this->modelFornecedorDoador->getCidade(), $this->modelFornecedorDoador->getUf(), $this->modelFornecedorDoador->getTelefoneCelular(), $this->modelFornecedorDoador->getTelefoneFixo(), $this->modelFornecedorDoador->getCpf(), $this->modelFornecedorDoador->getCnpj(), $this->modelFornecedorDoador->getEmail(), $this->modelFornecedorDoador->getId());
+                if($stmt->execute($valores)) {
+                    if($stmt->rowCount() > 0) {
+                        $stmt = null;
+                        unset($this->connection);
+                        return true;
+                     }else{
+                         $stmt = null;
+                         unset($this->connection);
+                         return false;
+                     }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                echo "Error!: falha ao preparar consulta UPDATE fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+                die("Error!: falha ao preparar consulta UPDATE fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>");
+            }
+        }
+    }
+
 }
 
 ?>

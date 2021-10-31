@@ -28,8 +28,8 @@ class ControllerFornecedoresDoadores{
             case "listar": 
                 $this->listarFornecedoresDoadores($this->methodHttp);
                 break;
-            case "alteracao": 
-                //$this->atualizarBeneficiario($this->methodHttp);
+            case "alterar": 
+                $this->alterarFornecedorDoador($this->methodHttp);
                 break;
             case "deletar":
                // $this->excluirBeneficiario($this->methodHttp);
@@ -98,6 +98,42 @@ class ControllerFornecedoresDoadores{
               $this->setResponseJson("response", "Sem Fornecedores e Doadores Cadastrados");
               echo $this->getResponseJson();
            }
+        }else{
+            $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
+            echo $this->getResponseJson();
+        }
+    }
+
+    /**
+     * * Esta funçaõ e reposanvel por tratar a requisção para alteração de registro de um fornecedor e doador
+     */
+    public function alterarFornecedorDoador(string $methodHttp) {
+        if($methodHttp == "POST") {
+            $this->modelFornDoador = new ModelFornecedorDoador();
+            $this->modelFornDoador->setId($_POST["id"]); //id
+            $this->modelFornDoador->setNome($_POST["nome"]); //nome
+            $this->modelFornDoador->setDescricao(empty($_POST["descricao"]) ? null : $_POST["descricao"]); //descrição
+            $this->modelFornDoador->setTipoPessoa($_POST["tipoPessoa"]); //Tipo Pessoa
+            $this->modelFornDoador->setIdentificacao($_POST["identificacao"]); //Identificação
+            $this->modelFornDoador->setCpf(empty($_POST["cpf"]) ? null : $_POST["cpf"]); //cpf
+            $this->modelFornDoador->setCnpj(empty($_POST["cnpj"]) ? null : $_POST["cnpj"]); //cnpj
+            $this->modelFornDoador->setCep(empty($_POST["cep"]) ? null : $_POST["cep"]); //cep
+            $this->modelFornDoador->setEndereco($_POST["endereco"]); //endereço
+            $this->modelFornDoador->setComplemento(empty($_POST["complemento"]) ? null : $_POST["complemento"]); //complemento
+            $this->modelFornDoador->setBairro($_POST["bairro"]); //bairro
+            $this->modelFornDoador->setCidade($_POST["cidade"]); //cidade
+            $this->modelFornDoador->setUf($_POST["estado"]); //estado
+            $this->modelFornDoador->setTelefoneCelular($_POST["telefoneCelular"]); //telefone celular
+            $this->modelFornDoador->setTelefoneFixo($_POST["telefoneFixo"]); //telefone fixo
+            $this->modelFornDoador->setEmail(empty($_POST["email"]) ? null : $_POST["email"]); //email
+            $this->daoForneDoador = new DaoFornecedoresDoadores(new DataBase());
+            if($this->daoForneDoador->updateFornecedorDoador($this->modelFornDoador)) {
+                $this->setResponseJson("response", "Alteração realizada com sucesso.");
+                echo $this->getResponseJson();
+            }else{
+                $this->setResponseJson("response", "Alteração não realizada. tivemos um problema interno em nosso servidor, por favor tente mais tarde essa ação.");
+                echo $this->getResponseJson();
+            }
         }else{
             $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
             echo $this->getResponseJson();
