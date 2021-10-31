@@ -1,6 +1,6 @@
-let tabela = '';
+//let tabela = '';
 //ao carregar a pagina
-window.addEventListener('load', function(event) {
+//window.addEventListener('load', function(event) {
     //cabeçalho http, especificando o tipo de conteudo
     let cabecalho = new Headers();
     cabecalho.append('contentType', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -14,7 +14,7 @@ window.addEventListener('load', function(event) {
         body: form //corpo da requisição
     };
     //inicializa tabela datables com ajax, sem usar jquery, somente com API nativas
-    tabela = new DataTable('#dataTablesFornecedoresDoadores',{
+    let tabela = new DataTable('#dataTablesFornecedoresDoadores',{
         "responsive": true,
         "scrollX": true,
         "language": {
@@ -45,5 +45,10 @@ window.addEventListener('load', function(event) {
         mostraModalAlterarFornecedorDoador();
         carregaDadosModalFornecedorDoador(data);
     });
-});
+    $('#dataTablesFornecedoresDoadores tbody').on('click', '.btn-excluir-forn-doad', function(){
+        let data = tabela.row($(this).parents('tr')).data();
+        //console.log(data);
+        mostraModalExcluirFornecedoresDoadores(data.id);
+    });
+//});
 

@@ -160,6 +160,43 @@ class DaoFornecedoresDoadores{
         }
     }
 
+    /**
+     * * ESTA FUNÇÃO DELETA UM REGISTRO DO BANCO DE DADOS TENDO INFORMADO SEU ID
+     */
+    public function deleteFornecedorDoador(int $id) {
+        if(is_null($this->connection)) {
+            return false;
+            die("Conexão para DELETAR fornecedor e doador são invalidas");
+        }else{
+            try {
+                $sql = "DELETE FROM fornecedores_doadores WHERE id = ?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, $id, PDO::PARAM_INT);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $stmt = null;
+                        unset($this->connection);
+                        return true;
+                    }else{
+                            $stmt = null;
+                            unset($this->connection);
+                            return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }   
+            } catch (PDOException $p) {
+                echo "Error!: falha ao preparar consulta DELETE fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+                die("Error!: falha ao preparar consulta DELETE fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>");
+            }
+        }
+    }
+
 }
 
 ?>

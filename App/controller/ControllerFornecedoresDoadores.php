@@ -32,7 +32,7 @@ class ControllerFornecedoresDoadores{
                 $this->alterarFornecedorDoador($this->methodHttp);
                 break;
             case "deletar":
-               // $this->excluirBeneficiario($this->methodHttp);
+                $this->excluirFornecedorDoador($this->methodHttp);
                 break;
             default:
                 break;
@@ -138,6 +138,26 @@ class ControllerFornecedoresDoadores{
             $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
             echo $this->getResponseJson();
         }
+    }
+
+    /**
+     * * ESTA FUNÇÃO CONTROLA O PEDIDO DA REQUISIÇÃO PARA EXCLUIR UM FORNECEDOR OU DOADOR, CONTROLA AÇÃO E ENVIA PARA A CAMADA CORRETA
+     */
+    public function excluirFornecedorDoador(string $methodHttp) {
+       if($methodHttp === "POST") {
+           $id = $_POST["id"]; 
+           $this->daoForneDoador = new DaoFornecedoresDoadores(new DataBase());
+           if($this->daoForneDoador->deleteFornecedorDoador($id)) {
+                $this->setResponseJson("response", "Exclusão realizada com sucesso.");
+                echo $this->getResponseJson();
+           }else{
+                $this->setResponseJson("response", "Exclusão não realizada. tivemos um problema interno em nosso servidor, por favor tente mais tarde essa ação.");
+                echo $this->getResponseJson();
+           }
+       }else{
+            $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
+            echo $this->getResponseJson();
+       } 
     }
 
     public function setOperacao(string $op) {

@@ -120,12 +120,12 @@ if(session_start()) {
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-12">
-                                                    <div class="mb-3 mb-md-0">
-                                                        <label for="floatingTextarea" class="mb-1 opcional">Descrição</label>
-                                                        <textarea class="form-control descricao-fornecedor-doador" placeholder="Informe aqui uma descrição que ajude a indentificar este fornecedor ou doador." title="Entre com uma descrição que ajude a indentificar e descrever este fornecedor ou doador da melhor forma" id="descricao" name="descricao-fornecedor-doador" maxlength="300"></textarea>
-                                                        <div class="feedback-descricao"></div>
-                                                    </div>
+                                                <div class="mb-3 mb-md-0">
+                                                    <label for="floatingTextarea" class="mb-1 opcional">Descrição</label>
+                                                    <textarea class="form-control descricao-fornecedor-doador" placeholder="Informe aqui uma descrição que ajude a indentificar este fornecedor ou doador." title="Entre com uma descrição que ajude a indentificar e descrever este fornecedor ou doador da melhor forma" id="descricao" name="descricao-fornecedor-doador" maxlength="300"></textarea>
+                                                    <div class="feedback-descricao"></div>
                                                 </div>
+                                            </div>
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
@@ -316,6 +316,8 @@ if(session_start()) {
         <script src="../../Public/scripts/fornecedores_doacoes/Formularios-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>
         <!--MODAL ALTERAR-->
         <script src="../../Public/scripts/fornecedores_doacoes/fornecedores-doadores-alterar.js" type="text/javascript" charset="utf8"></script>
+        <!-- MOSTRA MODAL ALTERAR FORNECEDOR DOADOR -->
+        <script src="../../Public/scripts/fornecedores_doacoes/fornecedores-doadores-delete.js" type="text/javascript" charset="utf8"></script>
         <!-- DATATABLES FORNECEDORES DOADORES -->
         <script src="../../Public/scripts/fornecedores_doacoes/Data-Tables-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>     
     </body>
