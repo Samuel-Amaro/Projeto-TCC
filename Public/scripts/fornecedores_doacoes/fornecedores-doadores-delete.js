@@ -18,10 +18,7 @@ function mostraModalExcluirFornecedoresDoadores(idFornecedorDoador) {
         //sim deseja deletar
         if (result.isConfirmed) {
             if(makeRequestDeletarFornecedorDoador("../controller/ControllerFornecedoresDoadores.php", idFornecedorDoador)) {
-                //deletou com sucesso faz nada
-                tabela.ajax.reload(); //recarrega tabela
-                location.reload(); //recarrega pagina
-                tabela.draw();
+            
             }else{
                 /*Swal.fire({
                     icon: 'error',
@@ -54,11 +51,15 @@ function mostraModalExcluirFornecedoresDoadores(idFornecedorDoador) {
             if(httpRequest.status === 200) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
-                    Swal.fire(
+                    /*Swal.fire(
                         'Obaa...',
                         httpResponse.response,
                         'success'
-                    );
+                    );*/
+                    //console.log(tabela);
+                    tabela.ajax.reload(); //recarrega tabela
+                    location.reload(); //recarrega pagina
+                    tabela.draw(); //redesenha tabela
                     return 1;
                 } catch (error) {
                     Swal.fire({
