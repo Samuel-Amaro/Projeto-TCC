@@ -54,6 +54,7 @@ Tabela de conteúdos
 - [x] Cadastrar um fornecedor/Doador.
 - [x] Listar fornecedores e doadores.
 - [x] Alterar um fornecedor/Doador. 
+- [x] Excluir um fornecedor/doador. 
 
 ## Capturas de tela
 
