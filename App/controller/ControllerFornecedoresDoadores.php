@@ -34,6 +34,9 @@ class ControllerFornecedoresDoadores{
             case "deletar":
                 $this->excluirFornecedorDoador($this->methodHttp);
                 break;
+            case "busca":
+                $this->buscarFornecedorDoador($this->methodHttp);
+                break;
             default:
                 break;
         }
@@ -158,6 +161,43 @@ class ControllerFornecedoresDoadores{
             $this->setResponseJson("response", "Ops.. request method HTTP não e do tipo POST");
             echo $this->getResponseJson();
        } 
+    }
+
+    /**
+     * * ESTA FUNÇÃO CONTROLA A REQUISIÇÃO DE BUSCA PARA REGISTROS DE FORNECEDORES E DOADORES, CONTROLA A FUNÇÃO E A REQUISIÇÃO PARA RETORNAR OS DADOS SOLICITADOS
+     * 
+     */
+    public function buscarFornecedorDoador(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $cpfOuCnpj = $_POST["termo"];
+            $this->daoForneDoador = new DaoFornecedoresDoadores(new DataBase());
+            $resultado = $this->daoForneDoador->search($cpfOuCnpj);
+            if(is_array($resultado)) {
+                $lista = array();
+                foreach($resultado as $chave => $valor) {
+                    //element 0 (um registro) $chave
+                    foreach($valor as $chave => $valorResu) {
+                        //valor e um array com uma linha de registro    
+                        if($chave == "cpf") {
+                            $elementoArrayCpf = array(/*"label" => "cpf",*/"value" => $valorResu);
+                            array_push($lista, $elementoArrayCpf);
+                        }else if($chave == "cnpj"){
+                            $elementoArrayCnpj = array(/*"label" => "cnpj",*/ "value" => $valorResu);
+                            array_push($lista, $elementoArrayCnpj);
+                        } 
+                    }        
+                } 
+                //$response = array("data" => $lista);
+                //echo json_encode(array($lista));
+                echo json_encode($lista);
+            }else{
+                $this->setResponseJson("response", "Nenhum fornecedor/doador foi encontrado com o cpf ou cnpj informado. verifique por favor e tente novamente.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Method de solicitação HTTP não e do tipo post.");
+            echo $this->getResponseJson();
+        }
     }
 
     public function setOperacao(string $op) {

@@ -197,6 +197,46 @@ class DaoFornecedoresDoadores{
         }
     }
 
+    /**
+     * * ESTA FUNÇÃO BUSCA UM REGISTRO NA TABELA QUE TENHA UM CPF OU CNPJ CORRESPONDENTE
+     */
+    public function search(string $cpfOuCnpj) {
+       if(is_null($this->connection)) {
+          return false;
+          die("Conexão para BUSCAR fornecedor e doador são invalidas");
+       }else{
+            try {
+                $sql = "SELECT cpf, cnpj FROM fornecedores_doadores WHERE cpf LIKE ? OR cnpj LIKE ?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, $cpfOuCnpj . "%", PDO::PARAM_STR);
+                $stmt->bindValue(2, $cpfOuCnpj . "%", PDO::PARAM_STR);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $resultadoSelect = $stmt->fetchAll();
+                        $stmt = null;
+                        unset($this->connection);
+                        return is_array($resultadoSelect) ? $resultadoSelect : false; 
+                    }else{
+                        //nenhuma linha de registro sql de resultado do select
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;      
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            }catch(PDOException $p) {
+                echo "Error!: falha ao preparar consulta BUSCAR fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+                die("Error!: falha ao preparar consulta BUSCAR fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>");
+            }
+       }
+    }
+
 }
 
 ?>

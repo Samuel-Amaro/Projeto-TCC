@@ -28,6 +28,8 @@ if(session_start()) {
         <title>Cadastrar Beneficios</title>
         <!-- BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- JQUERY UI STYLE -->
+        <link rel="stylesheet" href="../../Public/scripts/jquery-ui/jquery-ui.css">
         <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
         <!-- RESPONSIVO DO DATATABLES-->
@@ -65,17 +67,17 @@ if(session_start()) {
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <div class="alert alert-info mb-0" role="alert">Pesquise por um fornecedor ou doador que esteja cadastrado.</div>
+                                <div class="alert alert-info mb-0" role="alert">Pesquise por um fornecedor ou doador cadastrado. Informando o CPF(caso de pessoa física) ou CNPJ(caso de pessoa jurídica, como empresas, comércios, etc.)</div>
                             </div>
                             <div class="card-body">
-                                <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-fornecedor-doador" class="form-forn-doad">
+                                <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="mb-3 mb-md-0">
                                                 <label for="fornecedorDoador" class="mb-1">Fornecedores/Doadores</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador"/>
-                                                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                                                    <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador"/>
+                                                    <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
                                                 </div>
                                                 <div class="invalid-feedback"></div>
                                             </div>
@@ -238,6 +240,10 @@ if(session_start()) {
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
         <!-- RESPONSIVO DATA TABLES -->
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
+        <!-- script do autocomplete jquery ui -->
+        <script src="../../Public/scripts/jquery-ui/jquery-ui.js" type="text/javascript" charset="utf8"></script>
+        <!-- script que faz o autocomplete de fornecedores/doadores -->
+        <script src="../../Public/scripts/beneficios/AutoComplete-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>
         <!-- script que manipula o plugin dataTables -->
         <script src="../../Public/scripts/beneficios/Data-Tables-Beneficios.js" type="text/javascript" charset="utf8"></script>
     </body>
