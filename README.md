@@ -45,6 +45,7 @@ Tabela de conteúdos
 - [x] Alterar registro de beneficiários.
 - [x] Excluir Registro de beneficiário.
 #### Features de beneficio
+- [x] Preenchimento automático de fornecedores e doadores por CPF ou CNPJ.
 - [ ] Cadastrar varios beneficios de uma so vez.
 - [ ] Cadastrar Doações.
 - [ ] Registrar entregas.
