@@ -1,8 +1,8 @@
 //ao clicar no submit do form de autocomplete
-let submit = document.querySelector(".form-forn-doad-autocomplete");
-submit.addEventListener("submit", function(event) {
-    alert("Você clicou no autocomplete!");
-});
+//let submit = document.querySelector(".form-forn-doad-autocomplete");
+//submit.addEventListener("submit", function(event) {
+//    alert("Você clicou no autocomplete!");
+//});
 
 //Um request objeto, com uma única term propriedade, que se refere ao valor atualmente na entrada de texto.
 //Um responseretorno de chamada, que espera um único argumento: os dados a serem sugeridos ao usuário.

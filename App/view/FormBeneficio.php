@@ -236,6 +236,8 @@ if(session_start()) {
         <!--JQUERY VERSION 3.6.0-->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script> 
+        <!--APLICAR MASCARAS DE QUALQUER TIPO-->
+        <script src="../../Public/scripts/mascara/inputMask.js" type="text/javascript" charset="utf8"></script>
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
         <!-- RESPONSIVO DATA TABLES -->
