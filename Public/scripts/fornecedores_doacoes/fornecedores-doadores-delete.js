@@ -5,7 +5,7 @@ function mostraModalExcluirFornecedoresDoadores(idFornecedorDoador) {
     Swal.fire({
         title: 'Realmente deseja deletar este fornecedor doador?',
         showDenyButton: true,
-        showCancelButton: true,
+        showCancelButton: false,
         confirmButtonText: 'Sim',
         denyButtonText: 'Não',
         customClass: {
@@ -29,7 +29,7 @@ function mostraModalExcluirFornecedoresDoadores(idFornecedorDoador) {
             }
         }else if(result.isDenied) {
             //não deseja deletar  
-            Swal.fire('Fornecedor ou doador não sera deletado.', '', 'info');
+            //Swal.fire('Fornecedor ou doador não sera deletado.', '', 'info');
         }
     });
 }

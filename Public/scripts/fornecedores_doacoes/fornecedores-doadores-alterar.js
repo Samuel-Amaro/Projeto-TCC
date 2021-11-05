@@ -19,7 +19,7 @@ submit.addEventListener("submit", function(event) {
                 text: 'Alguns campos não foram preenchidos, corretamente, por favor, preencha os novamente, da forma correta!',
                 footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
             });
-            limpaCamposModalAlterar();
+            //limpaCamposModalAlterar();
             event.preventDefault();
         }
     }else{
@@ -246,6 +246,7 @@ function makeRequestAlterarFornecedorDoador(url, fornecedorDoador = {}) {
                         httpResponse.response,
                         'success'
                     );
+                    tabela.ajax.reload();
                     return 1;
                 } catch (error) {
                     console.error(error.message);

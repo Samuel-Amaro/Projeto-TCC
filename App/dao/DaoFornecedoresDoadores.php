@@ -206,7 +206,7 @@ class DaoFornecedoresDoadores{
           die("Conexão para BUSCAR fornecedor e doador são invalidas");
        }else{
             try {
-                $sql = "SELECT cpf, cnpj FROM fornecedores_doadores WHERE cpf LIKE ? OR cnpj LIKE ?;";
+                $sql = "SELECT nome, cpf, cnpj FROM fornecedores_doadores WHERE cpf LIKE ? OR cnpj LIKE ?;";
                 $stmt = $this->connection->prepare($sql);
                 $stmt->bindValue(1, $cpfOuCnpj . "%", PDO::PARAM_STR);
                 $stmt->bindValue(2, $cpfOuCnpj . "%", PDO::PARAM_STR);

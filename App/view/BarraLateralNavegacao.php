@@ -41,6 +41,16 @@
                     Cadastrar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <a class="nav-link collapsed" href="#" target="_self" rel="next">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
+                    Unidades medidas benefícios
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <a class="nav-link collapsed" href="CategoriaBeneficios.php" target="_self" rel="next">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
+                    Categoria benefícios
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
                 <!--Fornecedores-->
                 <div class="sb-sidenav-menu-heading">Fornecedores/Doações</div>
                 <a class="nav-link collapsed" href="FormFornecedoresDoacoes.php" target="_self" rel="next">

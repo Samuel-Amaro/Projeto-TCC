@@ -17,7 +17,9 @@ let tabelaBeneficios = new DataTable('#dataTablesBeneficio', {
         {data: 'formaAquisicao'},
         {data: 'quantidadeTotal'},
         {data: 'unidadeMedida'},
-        {data: 'quantidadePorMedida'}
+        {data: 'quantidadePorMedida'},
+        {data: 'quantidadeMinima'},
+        {data : 'quantidadeMaxima'}
     ]
 });
 
@@ -49,7 +51,9 @@ function obterDadosBeneficio() {
         "formaAquisicao" : document.querySelector("#formaAquisicao").value,
         "quantidadeTotal" : document.querySelector("#qtdTotal").value,
         "unidadeMedida" : document.querySelector("#unidadeMedida").value,
-        "quantidadePorMedida" : document.querySelector("#qtdPorMedida").value
+        "quantidadePorMedida" : document.querySelector("#qtdPorMedida").value,
+        "quantidadeMinima" : document.querySelector("#qtdMinima").value,
+        "quantidadeMaxima" : document.querySelector("#qtdMaxima").value
     };
     return beneficio;
 }
@@ -62,9 +66,11 @@ function limpaCamposForm() {
     document.querySelector("#nomeBeneficio").value = '';
     document.querySelector("#categoriaBeneficio").options.item(0).selected = true;
     document.querySelector("#formaAquisicao").options.item(0).selected = true;
-    document.querySelector("#qtdTotal").value = '';
+    document.querySelector("#qtdTotal").value = 1;
     document.querySelector("#unidadeMedida").options.item(0).selected = true;
-    document.querySelector("#qtdPorMedida").value = '';
+    document.querySelector("#qtdPorMedida").value = 1;
+    document.querySelector("#qtdMinima").value = 1;
+    document.querySelector("#qtdMaxima").value = 1;
 }
 
 /**

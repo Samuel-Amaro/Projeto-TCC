@@ -71,17 +71,25 @@ if(session_start()) {
                             </div>
                             <div class="card-body">
                                 <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
-                                    <div class="row mb-3">
+                                    <div class="row">
                                         <div class="col-md-12">
-                                            <div class="mb-3 mb-md-0">
+                                            <div class="mb-md-0">
                                                 <label for="fornecedorDoador" class="mb-1">Fornecedores/Doadores</label>
-                                                <div class="input-group">
+                                                <div class="input-group mb-1">
                                                     <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador"/>
                                                     <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
                                                 </div>
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
+                                        <!--
+                                        <div class="col-md-6">
+                                            <div class="mb-1 mb-md-0">
+                                                <label for="nomeFornecedorDoador" class="mb-1">Nome Fornecedor/Doador</label>
+                                                <input type="text" class="form-control" title="Nome do fornecedor ou doador escolhido conforme o campo do preenchimento automático." name="nomeFornecedorDoador" id="nomeFornDoad" readonly>    
+                                            </div>
+                                        </div>
+                                        -->
                                     </div>
                                 </form>
                             </div>
@@ -138,14 +146,14 @@ if(session_start()) {
                                         </div>  
                                     </div>
                                     <div class="row mb-2">
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="qtdTotal" class="mb-1">Quantidade Total</label>
-                                                    <input class="form-control" id="qtdTotal" type="text" placeholder="Entre com a quantidade total." title="Preencha este campo com o quantidade total do beneficio" name="qtdTotal"/>
+                                                    <input class="form-control" id="qtdTotal" type="number" title="Preencha este campo com o quantidade total do beneficio" name="qtdTotal" minlength="0" min="0"/>
                                                     <div class="valid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="unidadeMedida" class="mb-1">Unidade Medida</label>
                                                     <select name="unidadeMedida" id="unidadeMedida" class="form-select" placeholder="Escolha a unidade de medida para ser associada ao beneficio." title="Escolha a melhor unidade de medida que seja adequanda para quantificar e contalizar o beneficio.">
@@ -171,12 +179,22 @@ if(session_start()) {
                                                     <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="qtdPorMedida" class="mb-1">Quantidade por medida</label>
-                                                    <input name="qtdPorMedida" id="qtdPorMedida" class="form-control" placeholder="Informe a quantidade por medida" title="Informe a quantidade do beneficio de acordo com a medida escolhida." type="text">
+                                                    <input name="qtdPorMedida" id="qtdPorMedida" class="form-control" placeholder="Informe a quantidade por medida" title="Informe a quantidade do beneficio de acordo com a medida escolhida." type="number" minlength="0" min="0">
                                                     <div class="invalid-feedback"></div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="qtdMaxima" class="mb-1">Quantidade máxima</label>
+                                                <input type="number" name="qtdMaxima" id="qtdMaxima" class="form-control" title="Informe a quantidade maxima do beneficio" min="0" minlength="0">
+                                                <div class="invalid-feedback"></div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="qtdMinima" class="mb-1">Quantidade mínima</label> 
+                                                <input type="number" name="qtdMinima" id="qtdMinima" class="form-control" title="Informe a quantidade minima do beneficio" min="0" minlength="0"> 
+                                                <div class="invalid-feedback"></div>          
                                             </div>
                                     </div>
                                     <div class="mt-3 mb-0">
@@ -205,6 +223,8 @@ if(session_start()) {
                                             <th>Quantidade Total</th>
                                             <th>Unidade de Medida</th>
                                             <th>Quantidade por medida</th>
+                                            <th>Quantidade mínima</th>
+                                            <th>Quantidade máxima</th>
                                         </tr>
                                     </thead>
                                     <tbody>

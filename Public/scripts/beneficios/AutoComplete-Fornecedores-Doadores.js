@@ -23,7 +23,8 @@ $("#autoCompleteFornecedorDoador").autocomplete({
         }).done(function(json) {
             try {
                 //console.log(json);
-                //console.log(JSON.parse(json));    
+                //let f =  JSON.stringify(json);
+                //console.log(f.value);    
                 response(json);
             } catch (error) {
                 console.error(error.message);

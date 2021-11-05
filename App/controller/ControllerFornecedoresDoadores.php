@@ -176,15 +176,35 @@ class ControllerFornecedoresDoadores{
                 $lista = array();
                 foreach($resultado as $chave => $valor) {
                     //element 0 (um registro) $chave
-                    foreach($valor as $chave => $valorResu) {
+                    /*foreach($valor as $chave => $valorResu) {
                         //valor e um array com uma linha de registro    
                         if($chave == "cpf") {
-                            $elementoArrayCpf = array(/*"label" => "cpf",*/"value" => $valorResu);
-                            array_push($lista, $elementoArrayCpf);
+                            //se cpf for null não seta na lista
+                            if(is_null($valorResu)) {
+                              //faz nada
+                            }else{
+                                $elementoArrayCpf = array("value" => $valorResu);
+                                array_push($lista, $elementoArrayCpf);
+                            }
                         }else if($chave == "cnpj"){
-                            $elementoArrayCnpj = array(/*"label" => "cnpj",*/ "value" => $valorResu);
-                            array_push($lista, $elementoArrayCnpj);
+                            if(is_null($valorResu)) {
+                                //faz nada
+                            }else{
+                                $elementoArrayCnpj = array("value" => $valorResu);
+                                array_push($lista, $elementoArrayCnpj);
+                            }
+                        }else if($chave == "nome"){
+                            //nome
+                            $elemento = array("value" => $valorResu);
+                            array_push($lista, $elemento);
                         } 
+                    }*/
+                    if(is_null($valor["cpf"])) {
+                        $elementoArrayCnpj = array("value" => $valor["cnpj"] . "-" . $valor["nome"]);
+                        array_push($lista, $elementoArrayCnpj);
+                    }else if(is_null($valor["cnpj"])){
+                        $elementoArrayCpf = array("value" => $valor["cpf"] . "-" . $valor["nome"]);
+                        array_push($lista, $elementoArrayCpf);    
                     }        
                 } 
                 //$response = array("data" => $lista);
