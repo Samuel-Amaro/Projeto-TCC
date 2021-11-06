@@ -49,9 +49,12 @@ window.addEventListener("load", function(event) {
     }
 }
 
+/**
+ * * ESTA FUNÇÃO VERIFICA SE OS CAMPOS DO FORMULARIO ESTÃO PREECHIDOS OU NÃO
+ * */
 function validaCampos() {
-    let nome = document.querySelector("#nomeCategoria").val;
-    let descricao = document.querySelector("#descricaoCategoria").val;
+    let nome = document.querySelector("#nomeCategoria").value;
+    let descricao = document.querySelector("#descricaoCategoria").value;
     if(nome === '' || descricao === '') {
         return false;
     }else{
@@ -59,4 +62,31 @@ function validaCampos() {
         setaEstiloValidacaoCampo("#descricaoCategoria", "is-valid");
         return true;
     }   
+}
+
+/**
+ * * Esta função obtem os dados do formulario de categorias
+ * @returns object
+ */
+function obterDadosFormCategoria() {
+    let nome = document.querySelector("#nomeCategoria").value;
+    let descricao = document.querySelector("#descricaoCategoria").value;
+    let categoria = {nome : nome, descricao : descricao};
+    return categoria;
+}
+
+/**
+ * * ESTA FUNÇÃO LIMPA CAMPOS DO FORMULARIO
+ */
+function limpaCamposFormCategoria() {
+    let nome = document.querySelector("#nomeCategoria");
+    let descricao = document.querySelector("#descricaoCategoria");
+    let feedbackNome = document.querySelector(".feedback-nome-categoria");
+    let feedbackDescricao = document.querySelector(".feedback-descricao");
+    feedbackNome.textContent = '';
+    feedbackDescricao.textContent = '';
+    nome.value = '';
+    descricao.value = '';
+    setaEstiloValidacaoCampo("#descricaoCategoria", "remover");
+    setaEstiloValidacaoCampo("#descricaoCategoria", "remover");
 }

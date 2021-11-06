@@ -1,6 +1,7 @@
 <?php
 
 require_once("../model/ModelUsuario.php");
+require_once("../dao/DaoCategoriaBeneficios.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -14,6 +15,7 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
+        $categorias = new DaoCategoriaBeneficios(new DataBase());
     }
 }
 ?>
@@ -125,12 +127,28 @@ if(session_start()) {
                                         <div class="col-md-2">
                                             <label for="categoriaBeneficio" class="mb-1">Categoria</label>
                                             <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio">
+                                            <?php
+                                            $cat = $categorias->selectAll();
+                                            if(is_array($cat)) {
+                                                foreach($cat as $chave => $valor) {
+                                                    ?>
+                                                    <option value="<?= $valor["id_categoria"];?>"><?= $valor["nome"];?></option>
+                                                    <?php    
+                                                }
+                                            }else{
+                                                ?>
+                                                <option value="nenhuma categoria disponivel"><?= $cat;?></option>
+                                                <?php
+                                            }
+                                            ?>
+                                                <!--
                                                 <option value="selecione" selected>Selecione</option>
                                                 <option value="saude">Saúde</option>
                                                 <option value="higiene">Higiene</option>
                                                 <option value="alimenticia">Alimentício</option>
                                                 <option value="vestimenta">Vestimenta</option>
                                                 <option value="recreativo">Recreativo</option>
+                                                -->
                                             </select>
                                             <div class="valid-feedback"></div>
                                         </div>   

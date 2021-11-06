@@ -66,12 +66,11 @@ if(session_start()) {
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-categoria" class="form-categoria">
-                                    <input type="hidden" name="operacao" value="cadastro" id="operacao">
                                     <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="nomeCategoria" class="mb-1 required">Nome Categoria</label>
-                                            <input class="form-control" id="nomeCategoria" type="text" placeholder="Entre com o nome da categoria" required maxlength="100" title="Preencha esta campo com o nome da categoria" name="nomeCategoria"/>
+                                            <input class="form-control" id="nomeCategoria" type="text" placeholder="Entre com o nome da categoria" required maxlength="100" title="Preencha esta campo com o nome da categoria" name="nomeCategoria" minlength="3"/>
                                             <div class="feedback-nome-categoria"></div>
                                         </div>    
                                         <div class="col-md-8">
@@ -108,5 +107,9 @@ if(session_start()) {
         <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>   
         <!-- script para o formulario de cadastrar categoria-->
         <script src="../../Public/scripts/categorias_beneficios/Formulario.js" charset="utf8" type="text/javascript"></script>    
+        <!-- script que que tem a função ajax-->
+        <script src="../../Public/scripts/categorias_beneficios/Ajax.js" charset="utf8" type="text/javascript"></script>
+        <!-- operacoes ajax, tipo cadastrar alterar, excluir, lista -->
+        <script src="../../Public/scripts/categorias_beneficios/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>
