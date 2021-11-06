@@ -1,14 +1,20 @@
 /**
  * * Esta função faz a solicitação para postar dados no servidor
  * @param {*} url 
- * @param {*} fornecedorDoador 
+ * @param {*} categoria
 */
 function makeRequestCategoria(url, categoria, operacao) { 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('nome=' + encodeURIComponent(categoria.nome) + '&descricao=' + encodeURIComponent(categoria.descricao) + '&operacao=' + encodeURIComponent(operacao));
+    if(operacao == "atualizar") {
+        httpRequest.send('nome=' + encodeURIComponent(categoria.nome) + '&descricao=' + encodeURIComponent(categoria.descricao) + '&operacao=' + encodeURIComponent(operacao) + '&id=' + encodeURIComponent(categoria.id));  
+    }else if(operacao == "excluir"){
+        httpRequest.send('operacao=' + encodeURIComponent(operacao) + '&id=' + encodeURIComponent(categoria));
+    }else{
+        httpRequest.send('nome=' + encodeURIComponent(categoria.nome) + '&descricao=' + encodeURIComponent(categoria.descricao) + '&operacao=' + encodeURIComponent(operacao));
+    }
     function alertsContents() {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
@@ -20,6 +26,7 @@ function makeRequestCategoria(url, categoria, operacao) {
                         'success'
                     );
                     limpaCamposFormCategoria();
+                    tabela.ajax.reload();
                     return 1;
                 } catch (error) {
                     console.error(error.message);

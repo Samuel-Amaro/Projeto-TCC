@@ -25,13 +25,13 @@ class ControllerCategoriaBeneficios{
                 $this->cadastrarCategoria($this->methodHttp);
                 break;
             case "listar": 
-                //$this->listarFornecedoresDoadores($this->methodHttp);
+                $this->listarCategorias($this->methodHttp);
                 break;
-            case "alterar": 
-                //$this->alterarFornecedorDoador($this->methodHttp);
+            case "atualizar": 
+                $this->atualizarCategoria($this->methodHttp);
                 break;
-            case "deletar":
-                //$this->excluirFornecedorDoador($this->methodHttp);
+            case "excluir":
+                $this->excluirCategoria($this->methodHttp);
                 break;
             case "busca":
                 //$this->buscarFornecedorDoador($this->methodHttp);
@@ -56,6 +56,63 @@ class ControllerCategoriaBeneficios{
             }
         }else{
             $this->setResponseJson("response", "Obtemos um erro interno. por favor tente novamente.");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function listarCategorias(string $methodHttp) {
+       if($methodHttp === "POST") {
+          $this->daoCategoria = new DaoCategoriaBeneficios(new DataBase());
+          $resultado = $this->daoCategoria->select();
+          if(is_array($resultado)) {
+             $lista = array();
+             foreach($resultado as $chave => $valor) {
+                array_push($lista, $valor);
+             } 
+             $response = array("data" => $lista);
+             echo json_encode($response);    
+          }else{
+              $this->setResponseJson("response", "Sem categorias de beneficios Cadastradas.");
+              echo $this->getResponseJson();
+          }
+       }else{
+            $this->setResponseJson("response", "Opss... tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde!");
+            echo $this->getResponseJson();
+       } 
+    } 
+
+    public function atualizarCategoria(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->modelCategoria = new ModelCategoriaBeneficios();
+            $this->modelCategoria->setNome($_POST["nome"]);
+            $this->modelCategoria->setDescricao($_POST["descricao"]);
+            $this->modelCategoria->setId(intval($_POST["id"]));
+            $this->daoCategoria = new DaoCategoriaBeneficios(new DataBase());
+            if($this->daoCategoria->update($this->modelCategoria)) {
+                $this->setResponseJson("response", "Atualização da categoria foi efetuada com sucesso.");
+                echo $this->getResponseJson();
+            }else{
+                $this->setResponseJson("response", "Opss... tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde! categoria não atualizada.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Opss... tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde! categoria não atualizada.");
+            echo $this->getResponseJson(); 
+        }
+    }
+
+    public function excluirCategoria(string $methodHttp) {
+        if($methodHttp === "POST") {
+           $this->daoCategoria = new DaoCategoriaBeneficios(new DataBase());
+           if($this->daoCategoria->delete($_POST["id"])) {
+                $this->setResponseJson("response", "Categoria foi excluida com sucesso.");
+                echo $this->getResponseJson();
+           }else{
+                $this->setResponseJson("response", "Opss... tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde! categoria não deletada.");
+                echo $this->getResponseJson();
+           } 
+        }else{
+            $this->setResponseJson("response", "Opss... tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde! categoria não deletada.");
             echo $this->getResponseJson();
         }
     }

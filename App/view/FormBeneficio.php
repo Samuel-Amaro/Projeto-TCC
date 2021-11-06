@@ -127,20 +127,21 @@ if(session_start()) {
                                         <div class="col-md-2">
                                             <label for="categoriaBeneficio" class="mb-1">Categoria</label>
                                             <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio">
-                                            <?php
-                                            $cat = $categorias->selectAll();
-                                            if(is_array($cat)) {
-                                                foreach($cat as $chave => $valor) {
-                                                    ?>
-                                                    <option value="<?= $valor["id_categoria"];?>"><?= $valor["nome"];?></option>
-                                                    <?php    
-                                                }
-                                            }else{
-                                                ?>
-                                                <option value="nenhuma categoria disponivel"><?= $cat;?></option>
+                                                <option value="selecione" selected>Selecione</option>
                                                 <?php
-                                            }
-                                            ?>
+                                                $cat = $categorias->selectAll();
+                                                if(is_array($cat)) {
+                                                    foreach($cat as $chave => $valor) {
+                                                        ?>
+                                                        <option value="<?= $valor["id_categoria"];?>"><?= $valor["nome"];?></option>
+                                                        <?php    
+                                                    }
+                                                }else{
+                                                    ?>
+                                                    <option value="nenhuma categoria disponivel"><?= $cat;?></option>
+                                                    <?php
+                                                }
+                                                ?>
                                                 <!--
                                                 <option value="selecione" selected>Selecione</option>
                                                 <option value="saude">Saúde</option>
