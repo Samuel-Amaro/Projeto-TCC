@@ -48,6 +48,9 @@ Tabela de conteúdos
 - [x] Preenchimento automático de fornecedores e doadores por CPF ou CNPJ.
 - [x] Cadastrar categorias.
 - [x] Listagem de categorias de forma dinamica.  
+- [x] Cadastrar categorias.
+- [x] Excluir categorias.
+- [x] Alterar Categorias. 
 - [ ] Cadastrar varios beneficios de uma so vez.
 - [ ] Cadastrar Doações.
 - [ ] Registrar entregas.
