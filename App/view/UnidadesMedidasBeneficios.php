@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once("../model/ModelUsuario.php");
 
@@ -23,9 +23,9 @@ if(session_start()) {
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content="Pagina de categorias de beneficios"/>
+        <meta name="description" content="Pagina de uniddes de medidas de beneficios"/>
         <meta name="author" content="Samuel Amaro"/>
-        <title>Categorias de Beneficios</title>
+        <title>Unidades medidas de benefícios</title>
         <!--BOOSTRAP-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -56,10 +56,11 @@ if(session_start()) {
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
                             </li>
-                            <li class="breadcrumb-item active">Categoria de benefícios</li>
+                            <li class="breadcrumb-item active">Benefícios</li>
+                            <li class="breadcrumb-item active">Unidades de medidas</li>
                         </ol>
                         <div class="card mb-1">
-                            <div class="card-body">Adicionar, modificar, ou excluir novas categorias de benefícios</div>
+                            <div class="card-body">Adicionar, modificar, ou excluir novas unidades de medidas de benefícios</div>
                         </div>
                         <div class="card border-0 mb-0">
                             <div class="card-body">
@@ -68,26 +69,26 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Cadastrar categoria de benefícios</h3>
+                                <h3 class="text-center font-weight-light my-4">Cadastrar unidades de medidas</h3>
                             </div>
                             <div class="card-body">
-                                <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-categoria" class="form-categoria">
+                                <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-unidades-medidas" class="form-unidades-medidas">
                                     <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                     <div class="row mb-3">
                                         <div class="col-md-4">
-                                            <label for="nomeCategoria" class="mb-1 required">Nome Categoria</label>
-                                            <input class="form-control" id="nomeCategoria" type="text" placeholder="Entre com o nome da categoria" required maxlength="100" title="Preencha esta campo com o nome da categoria" name="nomeCategoria" minlength="3"/>
-                                            <div class="feedback-nome-categoria"></div>
+                                            <label for="siglaUnidade" class="mb-1 required">Sigla</label>
+                                            <input class="form-control" id="siglaUnidade" type="text" placeholder="Entre com o a sigla da unidade de medida" required maxlength="2" title="Preencha esta campo a sigla da unidade de medida" name="siglaUnidade" minlength="2"/>
+                                            <div class="feedback-silga-unidade"></div>
                                         </div>    
                                         <div class="col-md-8">
-                                            <label for="descricaoCategoria" class="mb-1 required">Descrição Categoria</label>
-                                            <input class="form-control" id="descricaoCategoria" type="text" placeholder="Entre com uma descrição para a categoria" required maxlength="300" title="Preencha esta campo com uma descrição." name="descricaoCategoria"/>
-                                            <div class="feedback-descricao"></div>
+                                            <label for="descricaoUnidade" class="mb-1 required">Descrição</label>
+                                            <input class="form-control" id="descricaoUnidade" type="text" placeholder="Entre com uma descrição para a unidade de medida" required maxlength="50" minlength="3" title="Preencha esta campo com uma descrição, para a unidade de medida." name="descricaoUnidade"/>
+                                            <div class="feedback-descricao-unidade"></div>
                                         </div>    
                                     </div>
                                     <div class="mt-4 mb-0">
-                                        <div class="d-grid gap-2 col-6 mx-auto">
-                                            <input type="submit" value="Cadastrar" class=" btn-cadastrar-categoria btn btn-primary" title="Clique aqui para cadastrar a categoria">
+                                        <div class="d-grid gap-2 col-2 mx-auto">
+                                            <input type="submit" value="Cadastrar" class="btn-cadastrar-unidade-medida btn btn-primary" title="Clique aqui para cadastrar a unidade de medida">
                                         </div>
                                     </div>
                                 </form>
@@ -95,13 +96,14 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Categoria de Beneficios cadastrados</h3>
+                                <h3 class="text-center font-weight-light my-4">Unidades de medidas cadastradas</h3>
                             </div>
                             <div class="card-body">
-                                <table id="dataTablesCategoria" class="row-border cell-border hover compact" style="width: 100%;">
+                                <table id="dataTablesUnidadeMedida" class="row-border cell-border hover compact" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>Nome</th>
+                                            <th>Sigla</th>
+                                            <th>Descrição</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -122,7 +124,7 @@ if(session_start()) {
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Alteração categoria benefício</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Alteração unidade de medida</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -182,19 +184,15 @@ if(session_start()) {
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- script de deletar usuario -->
         <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>   
-        <!-- modais de alterar-->
-        <script src="../../Public/scripts/categorias_beneficios/Modais.js" charset="utf8" type="text/javascript"></script>
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
         <!-- RESPONSIVO DATA TABLES -->
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
-        <!-- DATA TABLES CATEGORIA -->
-        <script src="../../Public/scripts/categorias_beneficios/Data-Tables-Categoria.js" type="text/javascript" charset="utf8"></script>
-        <!-- script para o formulario de cadastrar categoria-->
-        <script src="../../Public/scripts/categorias_beneficios/Formulario.js" charset="utf8" type="text/javascript"></script>    
-        <!-- script que que tem a função ajax-->
-        <script src="../../Public/scripts/categorias_beneficios/Ajax.js" charset="utf8" type="text/javascript"></script>
-        <!-- operacoes ajax, tipo cadastrar alterar, excluir, lista -->
-        <script src="../../Public/scripts/categorias_beneficios/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>    
+        <!-- VALIDAÇÕES E EVENTOS DO FORMULARIO-->
+        <script src="../../Public/scripts/unidades_medidas/Formulario.js" type="text/javascript" charset="utf8"></script>
+        <!--AJAX-->
+        <script src="../../Public/scripts/unidades_medidas/Ajax.js" type="text/javascript" charset="utf8"></script>
+        <!-- operações ajax, alterar, deletar, exluir-->
+        <script src="../../Public/scripts/unidades_medidas/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>
