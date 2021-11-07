@@ -50,6 +50,7 @@ Tabela de conteúdos
 - [x] Listagem de categorias de forma dinamica.  
 - [x] Cadastrar categorias.
 - [x] Excluir categorias.
+- [x] Cadastrar unidades de medidas. 
 - [x] Alterar Categorias. 
 - [ ] Cadastrar varios beneficios de uma so vez.
 - [ ] Cadastrar Doações.
