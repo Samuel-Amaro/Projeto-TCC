@@ -51,6 +51,9 @@ Tabela de conteúdos
 - [x] Cadastrar categorias.
 - [x] Excluir categorias.
 - [x] Cadastrar unidades de medidas. 
+- [x] Alterar unidades de medidas.
+- [x] Excluir unidades de medidas.
+- [x] Listagem de unidades de medidas de forma dinamica.   
 - [x] Alterar Categorias. 
 - [ ] Cadastrar varios beneficios de uma so vez.
 - [ ] Cadastrar Doações.
