@@ -2,6 +2,7 @@
 
 require_once("../model/ModelUsuario.php");
 require_once("../dao/DaoCategoriaBeneficios.php");
+require_once("../dao/DaoUnidadesMedidas.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -16,6 +17,7 @@ if(session_start()) {
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
         $categorias = new DaoCategoriaBeneficios(new DataBase());
+        $unidadesMedidas =  new DaoUnidadesMedidas(new DataBase());
     }
 }
 ?>
@@ -142,14 +144,6 @@ if(session_start()) {
                                                     <?php
                                                 }
                                                 ?>
-                                                <!--
-                                                <option value="selecione" selected>Selecione</option>
-                                                <option value="saude">Saúde</option>
-                                                <option value="higiene">Higiene</option>
-                                                <option value="alimenticia">Alimentício</option>
-                                                <option value="vestimenta">Vestimenta</option>
-                                                <option value="recreativo">Recreativo</option>
-                                                -->
                                             </select>
                                             <div class="valid-feedback"></div>
                                         </div>   
@@ -176,24 +170,21 @@ if(session_start()) {
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="unidadeMedida" class="mb-1">Unidade Medida</label>
                                                     <select name="unidadeMedida" id="unidadeMedida" class="form-select" placeholder="Escolha a unidade de medida para ser associada ao beneficio." title="Escolha a melhor unidade de medida que seja adequanda para quantificar e contalizar o beneficio.">
-                                                        <option value="selecione" selected>Selecione</option>
-                                                        <option value="M²">Área - Metro(m²)</option>
-                                                        <option value="CM²">Área - Centímetro(cm²)</option>
-                                                        <option value="M">Comprimento - Metro(m)</option>
-                                                        <option value="CM">Comprimento - Centímetro(cm)</option>
-                                                        <option value="KG">Peso - Quilograma(kg)</option>
-                                                        <option value="G">Peso - Grama(g)</option>
-                                                        <option value="SC60">Peso - Saca 60kg(SC60)</option>
-                                                        <option value="MG">Peso - Miligrama(mg)</option>
-                                                        <option value="UN">Embalagem - Unidade(UN)</option>
-                                                        <option value="CT">Embalagem - Cartela(CT)</option>
-                                                        <option value="CX">Embalagem - Caixa(CX)</option>
-                                                        <option value="DZ">Embalagem - Dúzia(DZ)</option>
-                                                        <option value="PA">Embalagem - Par(PA)</option>
-                                                        <option value="PÇ">Embalagem - Peça(PÇ)</option>
-                                                        <option value="PT">Embalagem - Pacote(PT)</option>
-                                                        <option value="RL">Embalagem - Rolo(RL)</option>
-                                                        <option value="L">Volume - Litro(L)</option>
+                                                        <option value="SELECIONE" selected>Selecione</option>
+                                                        <?php 
+                                                           $uni = $unidadesMedidas->select();
+                                                           if(is_array($uni)) {
+                                                              foreach($uni as $chave => $valor) {
+                                                        ?>
+                                                                <option value="<?= $valor["id_unidade"];?>"><?= $valor["descricao"]?>-<?= $valor["sigla"];?></option> 
+                                                        <?php
+                                                              }  
+                                                           }else{
+                                                        ?>
+                                                            <option value="Nenhuma Unidade disponivel">Nenhuma unidade Cadastrada</option>
+                                                        <?php 
+                                                           }  
+                                                        ?>
                                                     </select>
                                                     <div class="invalid-feedback"></div>
                                                 </div>

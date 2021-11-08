@@ -23,7 +23,7 @@ function makeRequestUnidadesMedidas(url, unidadeMedida, operacao) {
                         'success'
                     );
                     limpaCamposForm();
-                    //tabela.ajax.reload();
+                    tabela.ajax.reload();
                     return 1;
                 } catch (error) {
                     console.error(error.message);

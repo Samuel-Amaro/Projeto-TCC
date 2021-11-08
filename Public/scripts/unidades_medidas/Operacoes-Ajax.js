@@ -20,9 +20,33 @@ submitFormCadastrar.addEventListener("submit", function(event) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Alguns campos não foram preenchidos corretamente, por favor, preencha os novamente, da forma correta!',
-            footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+            text: 'Alguns campos não foram preenchidos corretamente, por favor, preencha os novamente, da forma correta!'
         });    
         limpaCamposForm();
+    }
+});
+
+/*SUBMETER FORM ALTERAR*/
+let submitModalAlterar = document.querySelector(".formulario-alterar-um");
+submitModalAlterar.addEventListener("submit", function(event) {
+    if(validaCamposModal()) {
+        if(makeRequestUnidadesMedidas("../controller/ControllerUnidadeMedida.php", obterDadosModalAlterar(), "atualizar") === 1) {
+            //se der certo faz nada
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Obtemos um erro ao tentar alterar uma unidade de medida, erro interno em nosso servidor, tente novamente mais tarde essa ação.'
+            });
+            event.preventDefault(); 
+        }
+        //console.log(obterDadosModalAlterar());
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Alguns campos não foram preenchidos corretamente, por favor, preencha os novamente, da forma correta!'
+        }); 
+       event.preventDefault();
     }
 });

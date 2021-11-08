@@ -77,7 +77,7 @@ if(session_start()) {
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="siglaUnidade" class="mb-1 required">Sigla</label>
-                                            <input class="form-control" id="siglaUnidade" type="text" placeholder="Entre com o a sigla da unidade de medida" required maxlength="2" title="Preencha esta campo a sigla da unidade de medida" name="siglaUnidade" minlength="2"/>
+                                            <input class="form-control" id="siglaUnidade" type="text" placeholder="Entre com o a sigla da unidade de medida" required maxlength="2" title="Preencha esta campo a sigla da unidade de medida" name="siglaUnidade" minlength="1"/>
                                             <div class="feedback-silga-unidade"></div>
                                         </div>    
                                         <div class="col-md-8">
@@ -120,7 +120,7 @@ if(session_start()) {
                 ?>
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
-        <div class="modal fade" id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal fade" id="modalUnidadeMedida" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -137,29 +137,29 @@ if(session_start()) {
                                     <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alterar-categoria" class="form-alterar-categoria" title="Se achar necessário altere as informações contidas neste formulário, de acordo com sua necessidade.">
-                                        <input type="hidden" name="idCategoria" id="idCategoria" value=""/>
+                                    <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-alterar-um" class="formulario-alterar-um" title="Se achar necessário altere as informações contidas neste formulário, de acordo com sua necessidade.">
+                                        <input type="hidden" name="idUm" id="idUm" value=""/>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div>
                                                     <div class="mb-3 mb-md-0">
-                                                        <label for="mdNomeCategoria" class="mb-1">Nome categoria</label>
-                                                        <input class="form-control mdNomeCategoria" placeholder="Informe aqui, o nome da categoria do beneficio." title="Entre com um nome para identificar a categoria do beneficio" id="nomeCategoria" name="nomeCategoria" type="text" required maxlength="100" minlength="3"/>
-                                                        <div class="feedback-nome"></div>
+                                                        <label for="mdNomeCategoria" class="mb-1 required">Sigla</label>
+                                                        <input class="form-control mdSilga" placeholder="Informe aqui, o nome da sigla da unidade de medida." title="Entre com a sigla da unidade de medida" id="mdSigla" name="mdSigla" type="text" required maxlength="2" minlength="1"/>
+                                                        <div class="feedback-modal-sigla"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3 mb-md-0">
-                                                    <label for="mdDescricaoCategoria" class="mb-1">Descrição categoria</label>
-                                                    <input type="text" class="form-control mdDescricaoCategoria" placeholder="Informe aqui uma descrição para a categoria do beneficio." title="Entre com uma descrição que ajude a indentificar e descrever esta categoria da melhor forma" id="descricao" name="descricaoCategoria" maxlength="300"/>
-                                                    <div class="feedback-descricao"></div>
+                                                    <label for="mdDescricaoUnidadeMedida" class="mb-1 required">Descrição</label>
+                                                    <input type="text" class="form-control mdDescricaoUnidadeMedida" placeholder="Informe aqui uma descrição para a unidade de medida" title="Entre com uma descrição para descrever a sigla informada" id="descricao" name="mdDescricaoUnidadeMedida" maxlength="50"/>
+                                                    <div class="feedback-modal-descricao"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mt-4 mb-0">
-                                            <div class="d-grid gap-2 col-6 mx-auto">
-                                                <input type="submit" value="Salvar Alteração" class="btn-alterar-categoria btn btn-primary" title="Clique aqui para alterar a categoria">
+                                            <div class="d-grid gap-2 col-4 mx-auto">
+                                                <input type="submit" value="Salvar Alteração" class="btn-alterar-unidade-medida btn btn-primary" title="Clique aqui para alterar a unidade de medida">
                                             </div>
                                         </div>
                                     </form>
@@ -190,6 +190,10 @@ if(session_start()) {
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
         <!-- VALIDAÇÕES E EVENTOS DO FORMULARIO-->
         <script src="../../Public/scripts/unidades_medidas/Formulario.js" type="text/javascript" charset="utf8"></script>
+        <!-- MODAIS DE ALTERAR E EXCLUIR -->
+        <script src="../../Public/scripts/unidades_medidas/Modais.js" type="text/javascript" charset="utf8"></script>
+        <!-- DATA TABLES UNIDADES DE MEDIDAS -->
+        <script src="../../Public/scripts/unidades_medidas/Data-Tables-Unidades-Medidas.js" type="text/javascript" charset="utf8"></script>
         <!--AJAX-->
         <script src="../../Public/scripts/unidades_medidas/Ajax.js" type="text/javascript" charset="utf8"></script>
         <!-- operações ajax, alterar, deletar, exluir-->

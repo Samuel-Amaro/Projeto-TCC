@@ -25,18 +25,20 @@ class ControllerUnidadeMedida{
                 $this->cadastrar($methodHttp);
                 break;
             case "listar": 
-                //$this->listarCategorias($this->methodHttp);
+                $this->listar($this->methodHttp);
                 break;
             case "atualizar": 
-                //$this->atualizarCategoria($this->methodHttp);
+                $this->atualizar($methodHttp);
                 break;
             case "excluir":
-                //$this->excluirCategoria($this->methodHttp);
+                $this->excluir($this->methodHttp);
                 break;
             case "busca":
                 //$this->buscarFornecedorDoador($this->methodHttp);
                 break;
             default:
+                $this->setResponseJson("response", "Operação solicitada para o servidor não esta implementada!");
+                echo $this->getResponseJson();                
                 break;
         }
     }
@@ -57,6 +59,63 @@ class ControllerUnidadeMedida{
         }else{
             $this->setResponseJson("response", "Unidade de medida não foi cadastrada! obtemos um erro interno. por favor tente novamente.");
             echo $this->getResponseJson();    
+        }
+    }
+
+    public function listar(string $methodHttp) {
+        if($methodHttp === "POST") {
+           $this->daoUnidade = new DaoUnidadesMedidas(new DataBase());
+           $resultado = $this->daoUnidade->select();
+           if(is_array($resultado)) {
+              $lista = array();
+              foreach($resultado as $chave => $valor) {
+                array_push($lista, $valor);
+              } 
+              $response = array("data" => $lista);
+              echo json_encode($response);
+           }else{
+              $this->setResponseJson("response", "Sem unidades de medidas cadastradas");
+              echo $this->getResponseJson();  
+           } 
+        }else{
+            $this->setResponseJson("response", "Opss... tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde!");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function atualizar(string $methodHttp) {
+        if($methodHttp === "POST") {
+           $this->modelUnidade = new ModelUnidadesMedidas();
+           $this->modelUnidade->setId($_POST["id"]);
+           $this->modelUnidade->setSigla($_POST["sigla"]);
+           $this->modelUnidade->setDescricao($_POST["descricao"]);
+           $this->daoUnidade = new DaoUnidadesMedidas(new DataBase());
+           if($this->daoUnidade->update($this->modelUnidade)) {
+                $this->setResponseJson("response", "Unidade de medida foi atualizada");
+                echo $this->getResponseJson();    
+           }else{
+                $this->setResponseJson("response", "Opss... Unidade de medida não foi atualizada, por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+                echo $this->getResponseJson();
+           } 
+        }else{
+            $this->setResponseJson("response", "Opss... Unidade de medida não foi atualizada, por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function excluir(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->daoUnidade = new DaoUnidadesMedidas(new DataBase());
+            if($this->daoUnidade->delete($_POST["id"])) {
+                $this->setResponseJson("response", "Unidade de medida foi deletada");
+                echo $this->getResponseJson();   
+            }else{
+                $this->setResponseJson("response", "Opss... Unidade de medida não foi deletada, por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Opss... Unidade de medida não foi deletada, por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
         }
     }
 
