@@ -23,7 +23,7 @@ let tabelaBeneficios = new DataTable('#dataTablesBeneficio', {
     ]
 });
 
-let submitForm = document.querySelector(".form-beneficiario");
+let submitForm = document.querySelector(".form-beneficio");
 
 
 submitForm.addEventListener("submit", function(event) {
@@ -66,11 +66,11 @@ function limpaCamposForm() {
     document.querySelector("#nomeBeneficio").value = '';
     document.querySelector("#categoriaBeneficio").options.item(0).selected = true;
     document.querySelector("#formaAquisicao").options.item(0).selected = true;
-    document.querySelector("#qtdTotal").value = 1;
+    document.querySelector("#qtdTotal").value = '';
     document.querySelector("#unidadeMedida").options.item(0).selected = true;
-    document.querySelector("#qtdPorMedida").value = 1;
-    document.querySelector("#qtdMinima").value = 1;
-    document.querySelector("#qtdMaxima").value = 1;
+    document.querySelector("#qtdPorMedida").value = '';
+    document.querySelector("#qtdMinima").value = '';
+    document.querySelector("#qtdMaxima").value = '';
 }
 
 /**

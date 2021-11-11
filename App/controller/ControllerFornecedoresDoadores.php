@@ -200,10 +200,12 @@ class ControllerFornecedoresDoadores{
                         } 
                     }*/
                     if(is_null($valor["cpf"])) {
-                        $elementoArrayCnpj = array("value" => $valor["cnpj"] . "-" . $valor["nome"]);
+                        //$elementoArrayCnpj = array("value" => $valor["cnpj"] . "-" . $valor["nome"]);
+                        $elementoArrayCnpj = array("value" => array($valor["id"], $valor["cnpj"], $valor["nome"]));
                         array_push($lista, $elementoArrayCnpj);
                     }else if(is_null($valor["cnpj"])){
-                        $elementoArrayCpf = array("value" => $valor["cpf"] . "-" . $valor["nome"]);
+                        //$elementoArrayCpf = array("value" => $valor["cpf"] . "-" . $valor["nome"]);
+                        $elementoArrayCpf = array("value" => array($valor["id"], $valor["cpf"], $valor["nome"]));
                         array_push($lista, $elementoArrayCpf);    
                     }        
                 } 

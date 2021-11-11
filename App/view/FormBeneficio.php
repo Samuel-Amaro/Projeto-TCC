@@ -32,6 +32,8 @@ if(session_start()) {
         <title>Cadastrar Beneficios</title>
         <!-- BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- ESTILO FORM VALIDAÇÃO -->
+        <link rel="stylesheet" href="../../Public/css/estilo_form_avisos_required_opcional.css">
         <!-- JQUERY UI STYLE -->
         <link rel="stylesheet" href="../../Public/scripts/jquery-ui/jquery-ui.css">
         <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
@@ -71,14 +73,21 @@ if(session_start()) {
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <div class="alert alert-info mb-0" role="alert">Pesquise por um fornecedor ou doador cadastrado. Informando o CPF(caso de pessoa física) ou CNPJ(caso de pessoa jurídica, como empresas, comércios, etc.)</div>
+                                <div class="alert alert-info mb-0" role="alert">Pesquise por um fornecedor ou doador cadastrado. Informando o CPF(caso de pessoa física) ou CNPJ(caso de pessoa jurídica, como empresas, comércios, etc.), ao escolher clique no opção que deseja, e vera o nome do fornecedor ou doador escolhido</div>
                             </div>
                             <div class="card-body">
                                 <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
+                                    <input type="hidden" name="idFornDoador" id="idFornDoador" value="">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                    <div class="col-md-6">
+                                           <div class="mb-md-0">
+                                                <label for="nomeFornecedorDoador" class="mb-1">Nome Fornecedor/Doador</label>
+                                                <input type="text" title="Aqui vai o nome do fornecedor ou doador escolhido de acordo com o campo do autocomplete" name="nomeFornDoado" id="nomeFornDoador" class="form-control" readonly>
+                                           </div> 
+                                    </div>    
+                                    <div class="col-md-6">
                                             <div class="mb-md-0">
-                                                <label for="fornecedorDoador" class="mb-1">Fornecedores/Doadores</label>
+                                                <label for="fornecedorDoador" class="mb-1 required">Nª CPF/CNPJ de Fornecedores/Doadores</label>
                                                 <div class="input-group mb-1">
                                                     <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador"/>
                                                     <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
@@ -86,14 +95,6 @@ if(session_start()) {
                                                 <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
-                                        <!--
-                                        <div class="col-md-6">
-                                            <div class="mb-1 mb-md-0">
-                                                <label for="nomeFornecedorDoador" class="mb-1">Nome Fornecedor/Doador</label>
-                                                <input type="text" class="form-control" title="Nome do fornecedor ou doador escolhido conforme o campo do preenchimento automático." name="nomeFornecedorDoador" id="nomeFornDoad" readonly>    
-                                            </div>
-                                        </div>
-                                        -->
                                     </div>
                                 </form>
                             </div>
@@ -103,33 +104,33 @@ if(session_start()) {
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                    <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                                    <div class="alert alert-warning mb-1" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                                    <div class="alert alert-info mb-0" role="alert">Se desejar cadastrar mais de um benefício em uma ação só, preencha o formulário abaixo e clique em adicionar beneficio, logo em seguida repita a tarefa novamente, e quando estiver terminado de adicionar os benefícios a serem cadastrados, clique em cadastrar logo abaixo da tabela onde esta os benefícios.</div>
                             </div>
                             <div class="card-body">
-                                <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
-                                    <input type="hidden" name="operacao" value="cadastro" id="operacao">
+                                <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-beneficio" class="form-beneficio">
                                     <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div>
                                                 <div class="mb-3 mb-md-0">
-                                                    <label for="floatingTextarea" class="mb-1">Descrição Beneficio</label>
-                                                    <textarea class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="floatingTextarea" name="descricao-beneficio"></textarea>
-                                                    <div class="invalid-feedback"></div>
+                                                    <label for="descricao-beneficio" class="mb-1 required">Descrição Beneficio</label>
+                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="70" minlength="3"/>
+                                                    <div class="feedback-descricao"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <label for="nomeBeneficio" class="mb-1">Nome</label>
-                                            <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome deste beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio"/>
-                                            <div class="valid-feedback"></div>
+                                            <label for="nomeBeneficio" class="mb-1 required">Nome</label>
+                                            <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio" maxlength="70" minlength="3"/>
+                                            <div class="feedback-nome"></div>
                                         </div>    
                                         <div class="col-md-2">
-                                            <label for="categoriaBeneficio" class="mb-1">Categoria</label>
+                                            <label for="categoriaBeneficio" class="mb-1 required">Categoria</label>
                                             <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio">
-                                                <option value="selecione" selected>Selecione</option>
+                                                <option value="SELECIONE" selected>Selecione</option>
                                                 <?php
                                                 $cat = $categorias->selectAll();
                                                 if(is_array($cat)) {
@@ -145,30 +146,30 @@ if(session_start()) {
                                                 }
                                                 ?>
                                             </select>
-                                            <div class="valid-feedback"></div>
+                                            <div class="feedback-categoria"></div>
                                         </div>   
                                         <div class="col-md-4">
-                                            <label for="formaAquisicao" class="mb-1">Forma de Aquisição</label>
+                                            <label for="formaAquisicao" class="mb-1 required">Forma de Aquisição</label>
                                             <select id="formaAquisicao" class="form-select" title="Informe como foi adquirido o beneficio" name="formaAquisicao">
-                                                <option value="selecione" selected>Selecione</option>
+                                                <option value="SELECIONE" selected>Selecione</option>
                                                 <option value="licitacao">Licitação</option>
                                                 <option value="doacao">Doação</option>
                                                 <option value="compra">Compra</option>
                                             </select>
-                                            <div class="valid-feedback"></div>
+                                            <div class="feedback-aquisicao"></div>
                                         </div>  
                                     </div>
                                     <div class="row mb-2">
                                             <div class="col-md-2">
                                                 <div class="mb-3 mb-md-0">
-                                                    <label for="qtdTotal" class="mb-1">Quantidade Total</label>
+                                                    <label for="qtdTotal" class="mb-1 required">Quantidade Total</label>
                                                     <input class="form-control" id="qtdTotal" type="number" title="Preencha este campo com o quantidade total do beneficio" name="qtdTotal" minlength="0" min="0"/>
-                                                    <div class="valid-feedback"></div>
+                                                    <div class="feedback-qtd-total"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3 mb-md-0">
-                                                    <label for="unidadeMedida" class="mb-1">Unidade Medida</label>
+                                                    <label for="unidadeMedida" class="mb-1 required">Unidade Medida</label>
                                                     <select name="unidadeMedida" id="unidadeMedida" class="form-select" placeholder="Escolha a unidade de medida para ser associada ao beneficio." title="Escolha a melhor unidade de medida que seja adequanda para quantificar e contalizar o beneficio.">
                                                         <option value="SELECIONE" selected>Selecione</option>
                                                         <?php 
@@ -186,42 +187,42 @@ if(session_start()) {
                                                            }  
                                                         ?>
                                                     </select>
-                                                    <div class="invalid-feedback"></div>
+                                                    <div class="feedback-unidade-medida"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3 mb-md-0">
-                                                    <label for="qtdPorMedida" class="mb-1">Quantidade por medida</label>
+                                                    <label for="qtdPorMedida" class="mb-1 required">Quantidade por medida</label>
                                                     <input name="qtdPorMedida" id="qtdPorMedida" class="form-control" placeholder="Informe a quantidade por medida" title="Informe a quantidade do beneficio de acordo com a medida escolhida." type="number" minlength="0" min="0">
-                                                    <div class="invalid-feedback"></div>
+                                                    <div class="feedback-qtd-por-medida"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <label for="qtdMaxima" class="mb-1">Quantidade máxima</label>
-                                                <input type="number" name="qtdMaxima" id="qtdMaxima" class="form-control" title="Informe a quantidade maxima do beneficio" min="0" minlength="0">
-                                                <div class="invalid-feedback"></div>
+                                                <label for="qtdMaxima" class="mb-1 required">Quantidade máxima</label>
+                                                <input type="number" name="qtdMaxima" id="qtdMaxima" class="form-control" title="Informe a quantidade maxima do beneficio que pode ser armazenada no estoque" min="0" minlength="0">
+                                                <div class="feedback-qtd-max"></div>
                                             </div>
                                             <div class="col-md-2">
-                                                <label for="qtdMinima" class="mb-1">Quantidade mínima</label> 
-                                                <input type="number" name="qtdMinima" id="qtdMinima" class="form-control" title="Informe a quantidade minima do beneficio" min="0" minlength="0"> 
-                                                <div class="invalid-feedback"></div>          
+                                                <label for="qtdMinima" class="mb-1 required">Quantidade mínima</label> 
+                                                <input type="number" name="qtdMinima" id="qtdMinima" class="form-control" title="Informe a quantidade minima do beneficio que pode haver no estoque" min="0" minlength="0"> 
+                                                <div class="feedback-qtd-min"></div>          
                                             </div>
                                     </div>
                                     <div class="mt-3 mb-0">
                                         <div class="col-lg-12" style="text-align: right;">
-                                            <button type="submit" class="btn-add-beneficio-lista btn btn-primary" title="Clique aqui para add mais de um beneficio de uma so vez"><i class="fas fa-plus"></i> Add Beneficio</button>
+                                            <button type="submit" class="btn-add-beneficio-lista btn btn-primary" title="Clique aqui para adicionar o benefício a lista abaixo para ser cadastrado"><i class="fas fa-plus"></i> Adicionar benefício</button>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                                </form><!--form-->
+                            </div><!--card body-->
+                        </div><!--card-->
+                    </div><!--container-fluid px-4-->
                     <!-- beneficios que vão ser cadastrados -->
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <div class="alert alert-dark mb-0" role="alert">Benefícios a serem cadastrados no sistema!</div>
-                            </div>
+                            </div><!-- card header-->
                             <div class="card-body">
                                 <table id="dataTablesBeneficio" class="row-border cell-border hover" style="width: 100%;">
                                     <thead>
@@ -240,14 +241,14 @@ if(session_start()) {
                                     <tbody>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div><!--card body-->
                             <div class="card-footer">
                                 <div class="col-lg-12" style="text-align: right;">
                                     <button type="submit" class="btn-cadastrar-beneficio btn btn-primary" title="Clique aqui para cadastrar os beneficios, add a tabela acima."><i class="fas fa-plus"></i> Cadastrar</button>
                                 </div>
-                            </div>
-                        </div>
-                    </div><!-- tabela beneficios novos a serem cadastrados-->
+                            </div> <!-- card footer-->
+                        </div><!-- card -->
+                    </div><!--container-fluid-->
                 </main>
                 <?php
                   include("Rodape.php");
@@ -278,5 +279,7 @@ if(session_start()) {
         <script src="../../Public/scripts/beneficios/AutoComplete-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>
         <!-- script que manipula o plugin dataTables -->
         <script src="../../Public/scripts/beneficios/Data-Tables-Beneficios.js" type="text/javascript" charset="utf8"></script>
+        <!-- script do formulario de beneficios, que manipula e valida campos -->
+        <script src="../../Public/scripts/beneficios/Formulario-Beneficios.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>
