@@ -25,12 +25,14 @@ let tabelaBeneficios = new DataTable('#dataTablesBeneficio', {
 
 let submitForm = document.querySelector(".form-beneficio");
 
-
+//quando formulario e submetido
 submitForm.addEventListener("submit", function(event) {
     try {
+        //add os dados de um beneficio como uma linha da tabela e redesenha
         tabelaBeneficios.row.add(obterDadosBeneficio()).draw();
+        //add os dados de um beneficio a um array, cada item do array e um object
         arrayBeneficios.push(obterDadosBeneficio());
-        //console.log(arrayBeneficios);
+        console.log(obterDadosFornecedorDoador());
         limpaCamposForm();
         event.preventDefault();    
     } catch (error) {
@@ -75,9 +77,12 @@ function limpaCamposForm() {
 
 /**
  * Esta função obtem os beneficios que vão ser cadastrados.
- * 
- * 
  */
 function obterBeneficiosACadastrar() {
     console.log(arrayBeneficios);
 }
+
+let btcCadastrarBeneficios = document.querySelector(".btn-cadastrar-beneficio");
+btcCadastrarBeneficios.addEventListener("click", function(envet) {
+    obterBeneficiosACadastrar();
+});

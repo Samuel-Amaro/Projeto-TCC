@@ -79,20 +79,21 @@ if(session_start()) {
                                 <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
                                     <input type="hidden" name="idFornDoador" id="idFornDoador" value="">
                                     <div class="row">
-                                    <div class="col-md-6">
+                                        <div class="col-md-6">
                                            <div class="mb-md-0">
                                                 <label for="nomeFornecedorDoador" class="mb-1">Nome Fornecedor/Doador</label>
-                                                <input type="text" title="Aqui vai o nome do fornecedor ou doador escolhido de acordo com o campo do autocomplete" name="nomeFornDoado" id="nomeFornDoador" class="form-control" readonly>
+                                                <input type="text" title="Aqui vai o nome do fornecedor ou doador escolhido de acordo com o campo do autocomplete" name="nomeFornDoado" id="nomeFornDoador" class="form-control" readonly/>
                                            </div> 
-                                    </div>    
-                                    <div class="col-md-6">
+                                        </div>    
+                                        <div class="col-md-6">
                                             <div class="mb-md-0">
                                                 <label for="fornecedorDoador" class="mb-1 required">Nª CPF/CNPJ de Fornecedores/Doadores</label>
-                                                <div class="input-group mb-1">
-                                                    <input class="form-control" type="search" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador"/>
-                                                    <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
-                                                </div>
-                                                <div class="invalid-feedback"></div>
+                                                <!--<div class="input-group mb-1">-->
+                                                    <!-- type="search" -->
+                                                <input class="form-control" type="number" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador" maxlength="14" min="1" required />
+                                                    <!--<button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></butt>-->
+                                                <!--</div>-->
+                                                <div class="feedback-autocomplete"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +116,7 @@ if(session_start()) {
                                             <div>
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="descricao-beneficio" class="mb-1 required">Descrição Beneficio</label>
-                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="70" minlength="3"/>
+                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="70" minlength="3" required/>
                                                     <div class="feedback-descricao"></div>
                                                 </div>
                                             </div>
@@ -124,12 +125,12 @@ if(session_start()) {
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="nomeBeneficio" class="mb-1 required">Nome</label>
-                                            <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio" maxlength="70" minlength="3"/>
+                                            <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio" maxlength="70" minlength="3" required/>
                                             <div class="feedback-nome"></div>
                                         </div>    
                                         <div class="col-md-2">
                                             <label for="categoriaBeneficio" class="mb-1 required">Categoria</label>
-                                            <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio">
+                                            <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio" required>
                                                 <option value="SELECIONE" selected>Selecione</option>
                                                 <?php
                                                 $cat = $categorias->selectAll();
@@ -150,7 +151,7 @@ if(session_start()) {
                                         </div>   
                                         <div class="col-md-4">
                                             <label for="formaAquisicao" class="mb-1 required">Forma de Aquisição</label>
-                                            <select id="formaAquisicao" class="form-select" title="Informe como foi adquirido o beneficio" name="formaAquisicao">
+                                            <select id="formaAquisicao" class="form-select" title="Informe como foi adquirido o beneficio" name="formaAquisicao" required>
                                                 <option value="SELECIONE" selected>Selecione</option>
                                                 <option value="licitacao">Licitação</option>
                                                 <option value="doacao">Doação</option>
@@ -163,14 +164,14 @@ if(session_start()) {
                                             <div class="col-md-2">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="qtdTotal" class="mb-1 required">Quantidade Total</label>
-                                                    <input class="form-control" id="qtdTotal" type="number" title="Preencha este campo com o quantidade total do beneficio" name="qtdTotal" minlength="0" min="0"/>
+                                                    <input class="form-control" id="qtdTotal" type="number" title="Preencha este campo com o quantidade total do beneficio" name="qtdTotal" minlength="0" min="0" required/>
                                                     <div class="feedback-qtd-total"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="unidadeMedida" class="mb-1 required">Unidade Medida</label>
-                                                    <select name="unidadeMedida" id="unidadeMedida" class="form-select" placeholder="Escolha a unidade de medida para ser associada ao beneficio." title="Escolha a melhor unidade de medida que seja adequanda para quantificar e contalizar o beneficio.">
+                                                    <select name="unidadeMedida" id="unidadeMedida" class="form-select" title="Escolha a melhor unidade de medida que seja adequanda para quantificar e contalizar o beneficio." required>
                                                         <option value="SELECIONE" selected>Selecione</option>
                                                         <?php 
                                                            $uni = $unidadesMedidas->select();
@@ -193,18 +194,18 @@ if(session_start()) {
                                             <div class="col-md-3">
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="qtdPorMedida" class="mb-1 required">Quantidade por medida</label>
-                                                    <input name="qtdPorMedida" id="qtdPorMedida" class="form-control" placeholder="Informe a quantidade por medida" title="Informe a quantidade do beneficio de acordo com a medida escolhida." type="number" minlength="0" min="0">
+                                                    <input name="qtdPorMedida" id="qtdPorMedida" class="form-control"  title="Informe a quantidade do beneficio de acordo com a medida escolhida." type="number" minlength="0" min="0" required>
                                                     <div class="feedback-qtd-por-medida"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="qtdMaxima" class="mb-1 required">Quantidade máxima</label>
-                                                <input type="number" name="qtdMaxima" id="qtdMaxima" class="form-control" title="Informe a quantidade maxima do beneficio que pode ser armazenada no estoque" min="0" minlength="0">
+                                                <input type="number" name="qtdMaxima" id="qtdMaxima" class="form-control" title="Informe a quantidade maxima do beneficio que pode ser armazenada no estoque" min="0" minlength="0" required>
                                                 <div class="feedback-qtd-max"></div>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="qtdMinima" class="mb-1 required">Quantidade mínima</label> 
-                                                <input type="number" name="qtdMinima" id="qtdMinima" class="form-control" title="Informe a quantidade minima do beneficio que pode haver no estoque" min="0" minlength="0"> 
+                                                <input type="number" name="qtdMinima" id="qtdMinima" class="form-control" title="Informe a quantidade minima do beneficio que pode haver no estoque" min="0" minlength="0" required> 
                                                 <div class="feedback-qtd-min"></div>          
                                             </div>
                                     </div>
@@ -277,9 +278,9 @@ if(session_start()) {
         <script src="../../Public/scripts/jquery-ui/jquery-ui.js" type="text/javascript" charset="utf8"></script>
         <!-- script que faz o autocomplete de fornecedores/doadores -->
         <script src="../../Public/scripts/beneficios/AutoComplete-Fornecedores-Doadores.js" type="text/javascript" charset="utf8"></script>
-        <!-- script que manipula o plugin dataTables -->
-        <script src="../../Public/scripts/beneficios/Data-Tables-Beneficios.js" type="text/javascript" charset="utf8"></script>
         <!-- script do formulario de beneficios, que manipula e valida campos -->
         <script src="../../Public/scripts/beneficios/Formulario-Beneficios.js" type="text/javascript" charset="utf8"></script>
+        <!-- script que manipula o plugin dataTables -->
+        <script src="../../Public/scripts/beneficios/Data-Tables-Beneficios.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>

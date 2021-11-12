@@ -68,16 +68,24 @@ function limitaCaracteresCampo(htmlElementCampo, htmlElementFeedback, qtdMaximaC
         let maximoCaracteres = qtdMaximaCaracteres;
         let tamanhoInput = input.value.length;
         if(tamanhoInput >= maximoCaracteres) {
-            e.preventDefault();
-            //input.classList.remove('is-valid');
-            //input.classList.add('is-invalid');
+            //e.preventDefault();
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
             feedback.classList.remove(".valid-feedback");
             feedback.classList.add(".invalid-feedback");
             feedback.textContent = "Quantidade de caracteres permitidos são de no máximo " + qtdMaximaCaracteres;
+        }else if(tamanhoInput === 0) {
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
+            feedback.classList.remove(".valid-feedback");
+            feedback.classList.add(".invalid-feedback");
+            feedback.textContent = "Preecha este campo por favor!";
         }else{
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
             feedback.classList.remove(".invalid-feedback");
             feedback.classList.add(".valid-feedback");
-            feedback.textContent = "Qtd Caracteres Digitados: " + tamanhoInput;
+            feedback.textContent = "Quantidade de caracteres digitados foram " + tamanhoInput;
         }
     });
 }

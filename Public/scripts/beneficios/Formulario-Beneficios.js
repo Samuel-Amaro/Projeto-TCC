@@ -5,6 +5,7 @@ window.addEventListener("load", function(event) {
     limitaCaracteresCampo("#nomeBeneficio", ".feedback-nome", 70);
 });
 
+
 /**
  * Esta função aplica um evento e um manipulador de evento para contar a quantidade de caracteres digitdas em um input, mostrando o feedback de quantos foram digitados
  * @param {*} htmlElementCampo 
@@ -18,18 +19,24 @@ window.addEventListener("load", function(event) {
         let maximoCaracteres = qtdMaximaCaracteres;
         let tamanhoInput = input.value.length;
         if(tamanhoInput >= maximoCaracteres) {
-            e.preventDefault();
-            input.classList.remove('is-valid');
-            input.classList.add('is-invalid');
+            //e.preventDefault();
+            //input.classList.remove('is-valid');
+            //input.classList.add('is-invalid');
             feedback.classList.remove("valid-feedback");
             feedback.classList.add("invalid-feedback");
             feedback.textContent = "Quantidade de caracteres permitidos são de no máximo " + qtdMaximaCaracteres;
+        }else if(tamanhoInput === 0) {
+            //input.classList.remove('is-valid');
+            //input.classList.add('is-invalid');
+            feedback.classList.remove("valid-feedback");
+            feedback.classList.add("invalid-feedback");
+            feedback.textContent = "Preecha este campo por favor!";
         }else{
-            input.classList.remove('is-invalid');
-            input.classList.add('is-valid');
+            //input.classList.remove('is-invalid');
+            //input.classList.add('is-valid');
             feedback.classList.remove("invalid-feedback");
             feedback.classList.add("valid-feedback");
-            feedback.textContent = "Qtd Caracteres Digitados: " + tamanhoInput;
+            feedback.textContent = "Quantidade de caracteres digitados foram " + tamanhoInput;
         }
     });
 }
@@ -50,5 +57,31 @@ window.addEventListener("load", function(event) {
     }else if(classValidacao == "remover"){
         elemento.classList.remove("is-valid");
         elemento.classList.remove("is-invalid");
+    }
+}
+
+/**
+ * * Esta função obtem os dados informados no autocomplete
+ * @returns object
+ */
+function obterDadosFornecedorDoador() {
+    let campoId = document.querySelector("#idFornDoador").value;
+    let campoNome = document.querySelector("#nomeFornDoador").value;
+    let campoCnpjOuCpf = document.querySelector("#autoCompleteFornecedorDoador");  
+    let valorCnpjOuCpf = document.querySelector("#autoCompleteFornecedorDoador").value;
+    let feedbackAutocomplete = document.querySelector(".feedback-autocomplete");  
+    //se o campo cpf ou cnpj estiver vazio
+    if((valorCnpjOuCpf.length === 0 || !valorCnpjOuCpf.trim()) || valorCnpjOuCpf === '') {
+        feedbackAutocomplete.classList.remove("valid-feedback");
+        feedbackAutocomplete.classList.add("invalid-feedback");
+        campoCnpjOuCpf.classList.remove("is-valid");
+        campoCnpjOuCpf.classList.add("is-invalid");
+        return false;
+    }else{
+        //feedbackAutocomplete.classList.remove("invalid-feedback");
+        //feedbackAutocomplete.classList.add("valid-feedback");
+        //campoCnpjOuCpf.classList.remove("is-invalid");
+        //campoCnpjOuCpf.classList.add("is-valid");
+        return {id : campoId, nome : campoNome, cnpjOuCpf: valorCnpjOuCpf};
     }
 }
