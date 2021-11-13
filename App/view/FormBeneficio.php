@@ -90,7 +90,7 @@ if(session_start()) {
                                                 <label for="fornecedorDoador" class="mb-1 required">Nª CPF/CNPJ de Fornecedores/Doadores</label>
                                                 <!--<div class="input-group mb-1">-->
                                                     <!-- type="search" -->
-                                                <input class="form-control" type="number" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador" maxlength="14" min="1" required />
+                                                <input class="form-control" type="number" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador" maxlength="14" min="1" required/>
                                                     <!--<button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></butt>-->
                                                 <!--</div>-->
                                                 <div class="feedback-autocomplete"></div>
@@ -106,7 +106,11 @@ if(session_start()) {
                         <div class="card mb-4">
                             <div class="card-header">
                                     <div class="alert alert-warning mb-1" role="alert">Campos com * são de preenchimento obrigatório!</div>
-                                    <div class="alert alert-info mb-0" role="alert">Se desejar cadastrar mais de um benefício em uma ação só, preencha o formulário abaixo e clique em adicionar beneficio, logo em seguida repita a tarefa novamente, e quando estiver terminado de adicionar os benefícios a serem cadastrados, clique em cadastrar logo abaixo da tabela onde esta os benefícios.</div>
+                                    <div class="alert alert-info mb-0" role="alert">
+                                        <p>* Se desejar cadastrar mais de um benefício em uma ação só, preencha o formulário abaixo e clique em adicionar beneficio, logo em seguida repita a tarefa novamente, e quando estiver terminado de adicionar os benefícios a serem cadastrados, clique em cadastrar logo abaixo da tabela onde esta os benefícios.</p>
+                                        <p>* Beneficios que possuem nomes diferentes possui controle de estoque diferentes.</p>
+                                        <p>* Beneficios com mesmo nome, pertencem ao mesmo controle de estoque.</p>
+                                    </div>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-beneficio" class="form-beneficio">
@@ -225,7 +229,7 @@ if(session_start()) {
                                 <div class="alert alert-dark mb-0" role="alert">Benefícios a serem cadastrados no sistema!</div>
                             </div><!-- card header-->
                             <div class="card-body">
-                                <table id="dataTablesBeneficio" class="row-border cell-border hover" style="width: 100%;">
+                                <table id="dataTablesBeneficio" class="row-border cell-border hover" >
                                     <thead>
                                         <tr>
                                             <th>Descrição</th>
@@ -237,6 +241,8 @@ if(session_start()) {
                                             <th>Quantidade por medida</th>
                                             <th>Quantidade mínima</th>
                                             <th>Quantidade máxima</th>
+                                            <th>Nome Fornecedor/Doador</th>
+                                            <th>CNPJ ou CPF fornecedor/doador</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -282,5 +288,7 @@ if(session_start()) {
         <script src="../../Public/scripts/beneficios/Formulario-Beneficios.js" type="text/javascript" charset="utf8"></script>
         <!-- script que manipula o plugin dataTables -->
         <script src="../../Public/scripts/beneficios/Data-Tables-Beneficios.js" type="text/javascript" charset="utf8"></script>
+        <!-- script que faz o tratamento de dados antes de cadastrar por ajax -->
+        <script src="../../Public/scripts/beneficios/Ajax-Cadastrar.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>
