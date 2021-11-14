@@ -105,7 +105,7 @@ if(session_start()) {
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                    <div class="alert alert-warning mb-1" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                                    <div class="alert alert-warning mb-1">Campos com * são de preenchimento obrigatório!</div>
                                     <div class="alert alert-info mb-0" role="alert">
                                         <p>* Se desejar cadastrar mais de um benefício em uma ação só, preencha o formulário abaixo e clique em adicionar beneficio, logo em seguida repita a tarefa novamente, e quando estiver terminado de adicionar os benefícios a serem cadastrados, clique em cadastrar logo abaixo da tabela onde esta os benefícios.</p>
                                         <p>* Beneficios que possuem nomes diferentes possui controle de estoque diferentes.</p>
@@ -288,7 +288,11 @@ if(session_start()) {
         <script src="../../Public/scripts/beneficios/Formulario-Beneficios.js" type="text/javascript" charset="utf8"></script>
         <!-- script que manipula o plugin dataTables -->
         <script src="../../Public/scripts/beneficios/Data-Tables-Beneficios.js" type="text/javascript" charset="utf8"></script>
+        <!-- script que contem funções de ajax -->
+        <script src="../../Public/scripts/beneficios/Ajax.js" type="text/javascript" charset="utf8"></script>
         <!-- script que faz o tratamento de dados antes de cadastrar por ajax -->
-        <script src="../../Public/scripts/beneficios/Ajax-Cadastrar.js" type="text/javascript" charset="utf8"></script>
+        <script src="../../Public/scripts/beneficios/Form-Beneficio-Submit.js" type="text/javascript" charset="utf8"></script>
+        <!-- script que faz a manipulação do ajax para cadastrar-->
+        <script src="../../Public/scripts/beneficios/Cadastrar-Beneficio.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>

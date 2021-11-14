@@ -1,5 +1,4 @@
-//cadastrar beneficio
-
+//quando o formulario e submetido para cadastrar beneficio, os dados são inseridos na tabela do datatables
 let submitForm = document.querySelector(".form-beneficio");
 let seletoresCssCamposForm = ["#descricao-beneficio", "#nomeBeneficio", "#categoriaBeneficio", "#formaAquisicao", "#qtdTotal", "#unidadeMedida", "#qtdPorMedida", "#qtdMaxima", "#qtdMinima"];
 //quando formulario de beneficio submetido
@@ -14,25 +13,12 @@ submitForm.addEventListener("submit", function(event) {
                 limpaCamposForm();
                 event.preventDefault(); 
             }else{
-                let dados = getDadosBeneficioCompleto(obterDadosBeneficio(), obterDadosFornecedorDoador());
+                let dadosBeneficios = getDadosBeneficioCompleto(obterDadosBeneficio(), obterDadosFornecedorDoador());
                 //add os dados de um beneficio como uma linha da tabela e redesenha
-                tabelaBeneficios.row.add(dados).draw();
+                tabelaBeneficios.row.add(dadosBeneficios).draw();
                 //add os dados de um beneficio a um array, cada item do array e um object
-                arrayBeneficios.push(dados);
-                //mostra dados do beneficio
-                //console.log("BENEFICIO");
-                //console.info(obterDadosBeneficio());
-                //mostra dados do forncedor doador
-                //console.log("FORNECEDOR DOADOR");
-                //console.info(obterDadosFornecedorDoador());
-                //mostra dados completo
-                //console.log("DADOS COMPLETO");
-                //console.info(dados);
-                //mostra array de beneficios
-                //console.log("ARRAY BENEFICIOS");
-                //console.info(arrayBeneficios);
+                arrayBeneficios.push(dadosBeneficios);
                 //limpa form
-                console.log(obterDadosDataTables());
                 limpaCamposForm();
                 event.preventDefault();
             }
