@@ -28,7 +28,7 @@ class DaoBeneficio{
     /**
      * * Esta função inseri um registro na tabela beneficio no banco de dados
      */
-    public function insertBeneficio(ModelBeneficio $model) : bool{
+    public function insertBeneficio(ModelBeneficio $model) {
         $this->modelBeneficio = $model;
         if(is_null($this->connection)) {
             return false;
@@ -43,8 +43,8 @@ class DaoBeneficio{
                        unset($this->connection);
                        //Retorna o ID da última linha inserida ou valor de sequência
                        //id do registro que acabou de ser inserido na tabela
-                       $idUltimoRegistroInserido = is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : "-1";
-                       return true; 
+                       //$idUltimoRegistroInserido = is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : "-1";
+                       return is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : "-1";
                     }else{
                         $stmt = null;
                        unset($this->connection);

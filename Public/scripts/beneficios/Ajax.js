@@ -6,13 +6,19 @@
  * @param {*} categoria 
  * @param {*} operacao 
  */
-function makeRequestBeneficio(url, beneficio, operacao) { 
+function makeRequestBeneficio(url, beneficios, operacao) { 
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
-    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    if(operacao === "inserir" || operacao === "INSERIR") {
-        httpRequest.send('descricao=' + encodeURIComponent(beneficio.descricao) + '&nome=' + encodeURIComponent(beneficio.nome) + '&categoriaId=' + encodeURIComponent(beneficio.categoriaId) + '&cnpjOuCpfFornecedorDoador=' + encodeURIComponent(beneficio.cnpjOuCpfFornecedorDoador) + '&formaAquisica' + encodeURIComponent(beneficio.formaAquisicao) + '&idFornecedorOuDoador=' + encodeURIComponent(beneficio.idFornecedorDoador) + '&nomeFornecedorOuDoador=' + encodeURIComponent(beneficio.nomeFornecedorOuDoador) + '&qtdMaxima=' + encodeURIComponent(beneficio.qtdMaxima) + '&qtdMedida=' + encodeURIComponent(beneficio.qtdMedida) + '&qtdMinima=' + encodeURIComponent(beneficio.qtdMinima) + '&qtdTotal=' + encodeURIComponent(beneficio.qtdTotal) + '&unidadeMedidaId=' + encodeURIComponent(beneficio.unidadeMedidaId) + '&operacao=' + encodeURIComponent(operacao));
+    if(operacao === "cadastrar" || operacao === "CADASTRAR") {
+        try {
+            //httpRequest.setRequestHeader('Content-Type', 'application/json');
+            httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            httpRequest.send("data=" + encodeURIComponent(beneficios) + "&operacao=" + encodeURIComponent(operacao));   
+        } catch (error) {
+            console.error(error.name);
+            console.error(error.message);
+        }
     }
     function alertsContents() {
         if(httpRequest.readyState === 4) {
@@ -35,3 +41,6 @@ function makeRequestBeneficio(url, beneficio, operacao) {
         }
     }
 }
+
+
+/*'descricao=' + encodeURIComponent(beneficio.descricao) + '&nome=' + encodeURIComponent(beneficio.nome) + '&categoriaId=' + encodeURIComponent(beneficio.categoriaId) + '&cnpjOuCpfFornecedorDoador=' + encodeURIComponent(beneficio.cnpjOuCpfFornecedorDoador) + '&formaAquisicao' + encodeURIComponent(beneficio.formaAquisicao) + '&idFornecedorOuDoador=' + encodeURIComponent(beneficio.idFornecedorDoador) + '&nomeFornecedorOuDoador=' + encodeURIComponent(beneficio.nomeFornecedorOuDoador) + '&qtdMaxima=' + encodeURIComponent(beneficio.qtdMaxima) + '&qtdMedida=' + encodeURIComponent(beneficio.qtdMedida) + '&qtdMinima=' + encodeURIComponent(beneficio.qtdMinima) + '&qtdTotal=' + encodeURIComponent(beneficio.qtdTotal) + '&unidadeMedidaId=' + encodeURIComponent(beneficio.unidadeMedidaId) + '&operacao=' + encodeURIComponent(operacao)*/

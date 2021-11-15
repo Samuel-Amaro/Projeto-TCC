@@ -116,7 +116,7 @@ class ControllerCategoriaBeneficios{
             echo $this->getResponseJson();
         }
     }
-
+    
     public function setOperacao(string $op) {
         $this->operacao = $op;
     } 
