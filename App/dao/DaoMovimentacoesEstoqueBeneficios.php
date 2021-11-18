@@ -61,6 +61,11 @@ class DaoMovimentacoesEstoqueBeneficios{
             }  
         } 
     }
+
+    public function selectAll() {
+        $sql = "SELECT ES.quantidade_mov, ES.tipo_mov, BE.nome, BE.quantidade_minima, BE.quantidade_maxima FROM movimentacoes_estoque_beneficios AS ES INNER JOIN beneficio AS BE
+        ON ES.id_beneficio = BE.id_beneficio;";
+    }
 }
 
 ?>

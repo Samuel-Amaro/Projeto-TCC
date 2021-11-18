@@ -33,3 +33,7 @@ let tabelaBeneficios = new DataTable('#dataTablesBeneficio', {
 function obterDadosDataTables() {
     return tabelaBeneficios.data().toArray();
 }
+
+function limpaDataTables() {
+    tabelaBeneficios.clear().draw();    
+}

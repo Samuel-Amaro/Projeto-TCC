@@ -36,19 +36,18 @@ class DaoBeneficio{
             try {
                 $sql = "INSERT INTO beneficio(descricao, nome, id_categoria, id_fornecedor_doador, forma_aquisicao, quantidade_minima, quantidade_maxima) VALUES (?, ?, ?, ?, ?, ?, ?);";
                 $stmt = $this->connection->prepare($sql);
-                $valores = array($model->getDescricao(), $model->getNome(), $model->getDescricao(), $model->getFkCategoria(), $model->getFkFornecedorDoador(), $model->getFormaAquisicao(), $model->getQtdMinima(), $model->getQtdMaxima());
+                $valores = array($model->getDescricao(), $model->getNome(), $model->getFkCategoria(), $model->getFkFornecedorDoador(), $model->getFormaAquisicao(), $model->getQtdMinima(), $model->getQtdMaxima());
                 if($stmt->execute($valores)) {
                     if($stmt->rowCount() > 0) {
-                       $stmt = null;
-                       unset($this->connection);
+                       //$stmt = null;
+                       //unset($this->connection);
                        //Retorna o ID da última linha inserida ou valor de sequência
                        //id do registro que acabou de ser inserido na tabela
-                       //$idUltimoRegistroInserido = is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : "-1";
                        return is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : "-1";
                     }else{
                         $stmt = null;
-                       unset($this->connection);
-                       return false;
+                        unset($this->connection);
+                        return false;
                     }
                 }
             } catch (PDOException $p) {

@@ -30,6 +30,7 @@ function makeRequestBeneficio(url, beneficios, operacao) {
                         httpResponse.response,
                         'success'
                     );
+                    limpaDataTables();
                     return 1;
                 } catch (error) {
                     console.error(error.message);

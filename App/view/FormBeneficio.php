@@ -20,6 +20,7 @@ if(session_start()) {
         $unidadesMedidas =  new DaoUnidadesMedidas(new DataBase());
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -129,7 +130,7 @@ if(session_start()) {
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="nomeBeneficio" class="mb-1 required">Nome</label>
-                                            <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio" maxlength="70" minlength="3" required/>
+                                            <input class="form-control" id="nomeBeneficio autocompleteNomeBeneficio" type="text" placeholder="Entre com o nome beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio" maxlength="70" minlength="3" required/>
                                             <div class="feedback-nome"></div>
                                         </div>    
                                         <div class="col-md-2">

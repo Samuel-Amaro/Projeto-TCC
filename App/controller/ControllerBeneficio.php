@@ -35,49 +35,65 @@ class ControllerBeneficio{
     }
 
     public function cadastrarBeneficio(string $methodHttp) {
-        $dados = json_decode($_POST["data"]);
-        foreach($dados as $chave => $valor) {
-            if(is_object($valor)) {
-               echo $valor->nome; 
-            }else{
-               echo "Não e object"; 
+        $response = '';
+        if($methodHttp === "POST") {
+            $beneficios = array();
+            $dados = json_decode($_POST["data"]);
+            foreach($dados as $chave => $valor) {
+                if(is_object($valor)) {
+                $beneficio = new ModelBeneficio();
+                $beneficio->setNome($valor->nome); //nome
+                $beneficio->setDescricao($valor->descricao); //descricao
+                $beneficio->setFormaAquisicao($valor->formaAquisicao); //forma aquisição
+                $beneficio->setQtdMaxima($valor->qtdMaxima); //qtd maxima
+                $beneficio->setQtdMinima($valor->qtdMinima); //qtd minima
+                $beneficio->setFkCategoria($valor->categoriaId); //categoria id
+                $beneficio->setFkFornecedorDoador($valor->idFornecedorOuDoador); //id fornecedor/Doador
+                $movEstoqueBeneficio = new ModelMovimentacoesEstoqueBeneficios();
+                $movEstoqueBeneficio->setQtdMovimentada($valor->qtdTotal); //qtd total
+                $movEstoqueBeneficio->setTipoMovimentacao(1); //1 == entrada estoque
+                $movEstoqueBeneficio->setFkUnidadeMedida($valor->unidadeMedidaId); //id da unidade de medida
+                $movEstoqueBeneficio->setQtdPorMedida($valor->qtdMedida); //qtd por medida
+                $arrayBeneficio = array($beneficio, $movEstoqueBeneficio);
+                array_push($beneficios, $arrayBeneficio); 
+                }
             }
-        }
-        var_dump($dados);
-        /*if($methodHttp === "POST") {
-          $this->modelBeneficio = new ModelBeneficio();
-          $this->modelBeneficio->setDescricao($_POST["descricao"]);
-          $this->modelBeneficio->setNome($_POST["nome"]);
-          $this->modelBeneficio->setFkCategoria($_POST["categoriaId"]);
-          $this->modelBeneficio->setFkFornecedorDoador($_POST["idFornecedorOuDoador"]);
-          $this->modelBeneficio->setFormaAquisicao($_POST["formaAquisicao"]);
-          $this->modelBeneficio->setQtdMaxima($_POST["qtdMaxima"]);
-          $this->modelBeneficio->setQtdMinima($_POST["qtdMinima"]);
-          $this->daoBeneficio = new DaoBeneficio(new DataBase());
-          $resultadoInsertBeneficio = $this->daoBeneficio->insertBeneficio($this->modelBeneficio);
-          if(is_string($resultadoInsertBeneficio)) {
-            $this->modelEstoque = new ModelMovimentacoesEstoqueBeneficios();
-            $this->modelEstoque->setFkBeneficio(intval($resultadoInsertBeneficio));
-            $this->modelEstoque->setQtdMovimentada($_POST["qtdTotal"]);
-            $this->modelEstoque->setFkUnidadeMedida($_POST["unidadeMedidaId"]);
-            $this->modelEstoque->setQtdPorMedida($_POST["qtdMedida"]);
-            $this->modelEstoque->setTipoMovimentacao(1); //ENTRADA ESTOQUE
-            $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
-            if($this->daoEstoque->insert($this->modelEstoque)) {
-                $this->setResponseJson("response", "Beneficio cadastrado com sucesso. Movimentação do estoque como uma entrada para o beneficio foi registrada.");
-                echo $this->getResponseJson(); 
-            }else{
-                $this->setResponseJson("response", "FALHA ao inserir a movimentação de estoque, do beneficio, movimentação não foi registrada, tivemos um problema interno em nosso servidor, por favor, tente novamente esta tarefa mais tarde.");
-                echo $this->getResponseJson(); 
+            $this->daoBeneficio = new DaoBeneficio(new DataBase());
+            foreach($beneficios as $chave => $valor) {
+                    $resultadoInsertBeneficio = $this->daoBeneficio->insertBeneficio($valor[0]);
+                    if(is_string($resultadoInsertBeneficio)) {
+                        $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+                        $valor[1]->setFkBeneficio(intval($resultadoInsertBeneficio));
+                        $resultadoInsertEstoque = $this->daoEstoque->insert($valor[1]);
+                        if($resultadoInsertEstoque) {
+                            /*$descricaoCortada = $valor[0]->getDescricao();
+                            $descricaoCortada = substr($descricaoCortada, 0, 10);
+                            $response = $response . "Beneficio com nome: {$valor[0]->getNome()} e com descrição: $descricaoCortada... foi cadastrado com sucesso. ";
+                            */
+                        }else{
+                            $descricaoCortada = $valor[0]->getDescricao();
+                            $descricaoCortada = substr($descricaoCortada, 0, 10);
+                            $response = $response . "Beneficio com nome: {$valor[0]->getNome()} e com descrição: $descricaoCortada... foi cadastrado com sucesso. Porem sua movimentação de estoque não foi efetuada. houve um erro. ";
+                        }
+                    }else{
+                        $descricaoCortada = $valor[0]->getDescricao();
+                        $descricaoCortada = substr($descricaoCortada, 0, 10);
+                        $response = $response . "Beneficio com nome: {$valor[0]->getNome()} e com descrição: $descricaoCortada... não foi cadastrado houve um erro interno no servidor.";
+                    }
             }
-          }else{
-            $this->setResponseJson("response", "FALHA ao inserir o beneficio, beneficio não foi cadastrado, tivemos um problema interno em nosso servidor, por favor, tente novamente esta tarefa mais tarde.");
-            echo $this->getResponseJson();
-          }
+            //nenhuma mensagem de erro gerada
+            if(empty($response)) {
+               $this->setResponseJson("response", "Beneficios foi cadastrados com sucesso.");
+               echo $this->getResponseJson(); 
+            }else{
+                //mensagens de erro geradas
+                $this->setResponseJson("response", $response);
+                echo $this->getResponseJson();
+            }
         }else{
-            $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo POST");
+            $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo post, tente esta ação mais tarde por favor!");
             echo $this->getResponseJson();
-        }*/ 
+        }
     }
     
     public function setOperacao(string $op) {
@@ -105,7 +121,11 @@ class ControllerBeneficio{
         return $this->daoBeneficio;
     }
     public function setResponseJson(string $chave, string $responseValor) {
-        $res = array($chave => $responseValor);
+        if($chave === "response") {
+            $res = array($chave => $responseValor = $responseValor); 
+        }else{
+            $res = array($chave => $responseValor);
+        }
         $this->responseJson = $res;
     }
     public function getResponseJson() {
