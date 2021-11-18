@@ -55,8 +55,8 @@ Tabela de conteúdos
 - [x] Excluir unidades de medidas.
 - [x] Listagem de unidades de medidas de forma dinamica.   
 - [x] Alterar Categorias. 
-- [ ] Cadastrar varios beneficios de uma so vez.
-- [ ] Cadastrar Doações.
+- [x] Cadastrar varios beneficios de uma so vez.
+- [x] Cadastrar Doações.
 - [ ] Registrar entregas.
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
