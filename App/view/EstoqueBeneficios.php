@@ -33,6 +33,10 @@ if(session_start()) {
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- icones -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+        <!-- RESPONSIVO DO DATATABLES-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
     </head>
     <body class="sb-nav-fixed">
         <!--MENU NAVEGAÇÃO DO TOPO-->
@@ -46,7 +50,7 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 mb-0">
                         <h1 class="mt-4">Benefícios</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
@@ -63,26 +67,30 @@ if(session_start()) {
                         </div>
                     </div> 
                     <div class="container-fluid px-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Benefícios em estoque
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Benefícios em estoque
+                            </div>
+                            <div class="card-body">
+                                        <table id="dataTablesEstoque" class="row-border cell-border hover" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th>Qtd Movimentada</th>
+                                                    <th>Qtd Maxima</th>
+                                                    <th>Qtd Minima</th>
+                                                    <th>Tipo Movimentação</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div><!--card body-->
+                            </div>            
                         </div>
-                        <div class="card-body">
-                                    <table id="dataTablesEstoque" class="row-border cell-border hover" >
-                                        <thead>
-                                            <tr>
-                                                <th>Nome</th>
-                                                <th>Qtd Movimentada</th>
-                                                <th>Qtd Maxima</th>
-                                                <th>Qtd Minima</th>
-                                                <th>Tipo Movimentação</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div><!--card body-->
-                        </div>
+                        
                 </main>
                 <?php
                     #rodape
@@ -105,6 +113,8 @@ if(session_start()) {
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
         <!-- RESPONSIVO DATA TABLES -->
-        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>       
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>  
+        <!-- data tables estoque -->
+        <script src="../../Public/scripts/estoque_beneficios/DataTablesEstoque.js" type="text/javascript" charset="utf8"></script>     
     </body>
 </html>
