@@ -10,21 +10,21 @@ const minhaInicializacao = {
     body: form //corpo da requisição
 };
 //inicializa tabela datables com ajax, sem usar jquery, somente com API nativas
-let tabela = new DataTable('#dataTablesEstoque',{
+let tabela = new DataTable('#dataTablesListBeneficios',{
     "responsive": true,
     "scrollX": true,
     "language": {
         "emptyTable": "Não ha beneficios cadastrados no momento"
     },
     "ajax": function(dados, callback) {
-        fetch('../controller/ControllerMovimentacoesEstoque.php', minhaInicializacao).then(response => response.json()).then(data =>  callback(data));
+        fetch('../controller/ControllerBeneficio.php', minhaInicializacao).then(response => response.json()).then(data =>  callback(data));
     },//arrumar colunas que serão puxadas
     "columns": [
-        {data: 'nome'},
-        {data: 'quantidade_mov'},
-        {data: 'quantidade_maxima'},
-        {data: 'quantidade_minima'},
-        {data: 'tipo_mov'}
+        {data: 'nome_beneficio'},
+        {data: 'forma_aquisicao_beneficio'},
+        {data: 'quantidade_maxima_beneficio'},
+        {data: 'quantidade_minima_beneficio'},
+        {data: 'nome_categoria_beneficio'}
     ], 
     "columnDefs": [ {
         "targets": 5,
@@ -33,8 +33,8 @@ let tabela = new DataTable('#dataTablesEstoque',{
     }]
 });
 //ao clicar no btn de info retorna os dados da linha clicada
-$('#dataTablesEstoque tbody').on('click', '.btn-info-modal', function(){
+$('#dataTablesListBeneficios tbody').on('click', '.btn-info-modal', function(){
     let data = tabela.row($(this).parents('tr')).data();
     mostraModalInformation();
-    carregaDadosModalInfo(data);
+    //carregaDadosModalInfo(data);
 });

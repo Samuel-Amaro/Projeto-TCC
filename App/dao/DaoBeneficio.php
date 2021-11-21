@@ -70,6 +70,45 @@ class DaoBeneficio{
         }
     }
 
+    public function selectAll() {
+        if(is_null($this->connection)) {
+           return false;
+        }else{
+            try {
+                $sql = "SELECT B.id_beneficio, B.nome AS nome_beneficio, B.forma_aquisicao AS forma_aquisicao_beneficio, B.data_hora AS data_hora_beneficio, B.quantidade_minima AS quantidade_minima_beneficio, B.quantidade_maxima AS quantidade_maxima_beneficio, B.descricao AS descricao_beneficio, CB.id_categoria, CB.nome AS nome_categoria_beneficio, FD.id AS id_fornecedor_doador, FD.nome AS nome_fornecedor_doador, FD.cpf AS cpf_fornecedor_doador, FD.cnpj AS cnpj_fornecedor_doador, FD.identificacao AS identificacao_fornecedor_doador FROM beneficio AS B INNER JOIN categoria_beneficios AS CB ON B.id_categoria = CB.id_categoria INNER JOIN fornecedores_doadores AS FD ON B.id_fornecedor_doador = FD.id;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetchAll();
+                    if($stmt->rowCount() > 0) {
+                        //se o resultado e um array, e esse array não estiver vazio
+                        if(is_array($resultado) && !empty($resultado)) {
+                            $stmt = null;
+                            unset($this->connection);         
+                            return $resultado;
+                        }else{
+                            $stmt = null;
+                            unset($this->connection);
+                            return false;
+                        } 
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                echo "Error!: falha ao preparar consulta SELECT beneficio: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                return false;
+            }
+        }
+    }
+
 
 }
 ?>

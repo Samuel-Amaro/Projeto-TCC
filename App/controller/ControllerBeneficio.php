@@ -29,6 +29,9 @@ class ControllerBeneficio{
             case "cadastrar":
                 $this->cadastrarBeneficio($methodHttp);
                 break;
+            case "listar":
+                $this->listar($methodHttp);
+                break;
             default:
                 break;
         }    
@@ -93,6 +96,28 @@ class ControllerBeneficio{
         }else{
             $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo post, tente esta ação mais tarde por favor!");
             echo $this->getResponseJson();
+        }
+    }
+
+    public function listar(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $beneficios = array();
+            $this->daoBeneficio = new DaoBeneficio(new DataBase());
+            $resul = $this->daoBeneficio->selectAll();  
+            if(is_array($resul)) {
+                $lista = array();
+                foreach($resul as $chave => $valor) {
+                    array_push($lista, $valor);   
+                }
+                $response = array("data" => $lista);
+                echo json_encode($response);
+            }else{
+                $this->setResponseJson("response", "Houve um erro ao buscar os beneficios cadastrados. erro interno no servidor.");
+                echo $this->getResponseJson();
+            }         
+        }else{
+            $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo post, tente esta ação mais tarde por favor!");
+            echo $this->getResponseJson();  
         }
     }
     

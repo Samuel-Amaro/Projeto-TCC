@@ -35,8 +35,13 @@ class ControllerMovimentacoesEstoque{
             $resul = $this->daoEstoque->selectAll();
             if(is_array($resul)) {
                $lista = array();
-               foreach($resul as $chave => $valor) {
-                    array_push($lista, $valor);  
+               foreach($resul as $chave => $valor) {  
+                    if($valor["tipo_mov"] === 1) {
+                       $valor["tipo_mov"] = "ENTRADA";
+                    }else{
+                        $valor["tipo_mov"] = "SAIDA";
+                    }
+                    array_push($lista, $valor);
                }
                $response = array("data" => $lista);
                echo json_encode($response);      

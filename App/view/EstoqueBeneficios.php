@@ -1,6 +1,7 @@
 <?php 
 
 require_once("../model/ModelUsuario.php");
+require_once("../dao/DaoMovimentacoesEstoqueBeneficios.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -14,10 +15,10 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
+        $daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -26,7 +27,7 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
-        <title>Estoque de Beneficios</title>
+        <title>Estoque de Benefícios</title>
         <!--BOOSTRAP-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <!-- JQUERY -->
@@ -59,40 +60,132 @@ if(session_start()) {
                             <li class="breadcrumb-item">Benefícios</li>
                             <li class="breadcrumb-item active">Movimentações</li>
                         </ol>
-                        <div class="card mb-2">
-                            <div class="card-body">Benefícios em estoque</div>
-                        </div>
-                        <div class="card mb-2">
-                            <div class="alert-info card-body">Aqui você poderá adicionar novas movimentações no estoque de cada benefício, podendo movimentar entradas como saídas.</div>
-                        </div>
                     </div> 
-                    <div class="container-fluid px-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Benefícios em estoque
+                    <div class="row m-lg-2">
+                        <h4>Estatística estoque de benefícios</h4>
+                    </div>
+                    <div class="row m-lg-2">
+                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="align-self-center col-3">
+                                                <i class="fas fa-boxes fs-1"></i>
+                                            </div>
+                                            <div class="col-9 text-end">
+                                                <h3>
+                                                    <?php
+                                                        $resul1 = $daoEstoque->selectTotalBeneficios(1);
+                                                        if(is_array($resul1)) {
+                                                            $valor1 = $resul1[0];
+                                                    ?>
+                                                            <span class="text-dark"><?=$valor1["qtd_total_entrada"];?></span>        
+                                                    <?php
+                                                        }else{
+                                                    ?>
+                                                            <span class="text-dark">0</span>
+                                                    <?php   
+                                                        }
+                                                    ?>
+                                                    <span class="text-dark"></span>
+                                                </h3>
+                                                <span>Total de Entradas</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                        <table id="dataTablesEstoque" class="row-border cell-border hover" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nome</th>
-                                                    <th>Qtd Movimentada</th>
-                                                    <th>Qtd Maxima</th>
-                                                    <th>Qtd Minima</th>
-                                                    <th>Tipo Movimentação</th>
-                                                    <th>Ações</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div><!--card body-->
-                            </div>            
                         </div>
-                        
+                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="align-self-center col-3">
+                                                <i class="fas fa-boxes fs-1"></i>
+                                            </div>
+                                            <div class="col-9 text-end">
+                                                <h3>
+                                                    <?php
+                                                        $resul = $daoEstoque->selectTotalBeneficios(0);
+                                                        if(is_array($resul)) {
+                                                            $valor = $resul[0];
+                                                    ?>
+                                                            <span class="text-dark"><?=$valor["qtd_total_saida"];?></span>        
+                                                    <?php
+                                                        }else{
+                                                    ?>
+                                                            <span class="text-dark">0</span>
+                                                    <?php   
+                                                        }
+                                                    ?>
+                                                </h3>
+                                                <span>Total de Saídas</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="align-self-center col-3">
+                                                <i class="fas fa-boxes fs-1"></i>
+                                            </div>
+                                            <div class="col-9 text-end">
+                                                <h3>
+                                                    <?php
+                                                        $resul2 = $daoEstoque->selectTotalBeneficios(2);
+                                                        if(is_array($resul2)) {
+                                                            $valor2 = $resul2[0];
+                                                    ?>
+                                                            <span class="text-dark"><?=$valor2["saldo_atual"];?></span>        
+                                                    <?php
+                                                        }else{
+                                                    ?>
+                                                            <span class="text-dark">0</span>
+                                                    <?php   
+                                                        }
+                                                    ?>
+                                                </h3>
+                                                <span>Saldo em estoque</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-lg-2">
+                        <h4>Benefícios que possui movimentações</h4>
+                    </div>
+                    <div class="row mt-2 m-lg-3 p-1">
+                        <div class="tabela bg-light rounded-1 p-3" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                            <table id="dataTablesEstoque" class="row-border cell-border hover" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Qtd Movimentada</th>
+                                        <th>Qtd Maxima</th>
+                                        <th>Qtd Minima</th>
+                                        <th>Tipo Movimentação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>            
+                    </div>
+                    <div class="container-fluid px-4"></div>
                 </main>
                 <?php
+                    #modal info estoque
+                    include("ModalInfoEstoque.php");
                     #rodape
                     include("Rodape.php");    
                 ?>
@@ -113,7 +206,9 @@ if(session_start()) {
         <!-- DATA TABLES-->
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
         <!-- RESPONSIVO DATA TABLES -->
-        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>  
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
+        <!-- modais -->
+        <script src="../../Public/scripts/estoque_beneficios/Modais.js" type="text/javascript" charset="utf8"></script>  
         <!-- data tables estoque -->
         <script src="../../Public/scripts/estoque_beneficios/DataTablesEstoque.js" type="text/javascript" charset="utf8"></script>     
     </body>
