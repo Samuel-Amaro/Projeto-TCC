@@ -1,6 +1,7 @@
 <?php 
 
 require_once("../model/ModelUsuario.php");
+require_once("../dao/DaoBeneficio.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -14,6 +15,7 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
+        $daoBeneficio = new DaoBeneficio(new DataBase());
     }
 }
 ?>
@@ -72,8 +74,21 @@ if(session_start()) {
                                                 <i class="fas fa-boxes fs-1"></i>
                                             </div>
                                             <div class="col-9 text-end">
-                                                <h3>      
-                                                    <span class="text-dark">0</span>
+                                                <h3>
+                                                <?php
+                                                # lista a quantidade de beneficios
+                                                    $resul = $daoBeneficio->selectCountBeneficios();
+                                                    if(is_array($resul)) {
+                                                        $valor = $resul[0];
+                                                ?>
+                                                        <span class="text-dark"><?= $valor["qtd_beneficios_cadastrados"]; ?></span>       
+                                                <?php
+                                                    }else{
+                                                ?>
+                                                        <span class="text-dark">0</span>
+                                                <?php
+                                                    }
+                                                ?>  
                                                 </h3>
                                                 <span>Quantidade de benefícios</span>
                                             </div>
@@ -83,6 +98,45 @@ if(session_start()) {
                             </div>
                         </div>
                     </div>
+                    <?php 
+                    # lista a quantidade de beneficios por categoria    
+                    $daoBeneficio = new DaoBeneficio(new DataBase());
+                    $result2 = $daoBeneficio->selectCountBeneficiosCategoria();
+                    if(is_array($result2)) {
+                    ?>
+                    <div class="row m-lg-2">
+                        <h4>Benefícios por categoria</h4>
+                    </div>    
+                    <div class="row m-lg-2">
+                    <?php
+                        foreach($result2 as $chave => $valorArray) {
+                    ?>
+                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="align-self-center col-3">
+                                                <i class="fas fa-boxes fs-1"></i>
+                                            </div>
+                                            <div class="col-9 text-end">
+                                                <h3>
+                                                    <span class="text-dark"><?=$valorArray["qtd_beneficio_categoria"];?></span>         
+                                                </h3>
+                                                <span><?=$valorArray["nome"];?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    <?php
+                        }
+                    ?>
+                    </div>                  
+                    <?php
+                    }
+                    ?>
                     <div class="row m-lg-2">
                         <h4>Benefícios cadastrados no sistema</h4>
                     </div>

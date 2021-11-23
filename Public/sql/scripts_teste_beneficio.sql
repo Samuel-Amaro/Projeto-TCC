@@ -1,26 +1,23 @@
 SELECT 
+	B.id_beneficio,
 	B.nome AS nome_beneficio,
 	B.forma_aquisicao AS forma_aquisicao_beneficio,
 	B.data_hora AS data_hora_beneficio,
 	B.quantidade_minima AS quantidade_minima_beneficio,
 	B.quantidade_maxima AS quantidade_maxima_beneficio,
 	B.descricao AS descricao_beneficio,
+	CB.id_categoria,
 	CB.nome AS nome_categoria_beneficio,
+	FD.id AS id_fornecedor_doador,
 	FD.nome AS nome_fornecedor_doador,
 	FD.cpf AS cpf_fornecedor_doador,
 	FD.cnpj AS cnpj_fornecedor_doador,
-	FD.identificacao AS identificacao_fornecedor_doador,
-	MV.id_estoque AS id_estoque_beneficio,
-	MV.tipo_mov AS tipo_movimentacao_estoque_beneficio,
-	MV.quantidade_mov AS qtd_movimentada_beneficio,
-	MV.data_hora_ultima_mov
+	FD.identificacao AS identificacao_fornecedor_doador
 FROM beneficio AS B
 INNER JOIN categoria_beneficios AS CB 
 ON B.id_categoria = CB.id_categoria 
 INNER JOIN fornecedores_doadores AS FD
-ON B.id_fornecedor_doador = FD.id
-INNER JOIN 
-
+ON B.id_fornecedor_doador = FD.id;
 
 
 
@@ -84,5 +81,15 @@ SELECT (SELECT
 		FROM movimentacoes_estoque_beneficios as MV
 		WHERE tipo_mov = 0 AND id_beneficio = 1) as saldo
 		
+-- quantidade de beneficios
+		
+SELECT COUNT(nome) FROM beneficio;
+
+
+-- seleciona a quantidade de fornecedores e doadores
+SELECT identificacao, COUNT(nome) as qtd FROM fornecedores_doadores GROUP BY identificacao;
+
+-- seleciona a quantidade de beneficiarios cadastrados
+SELECT COUNT(nis_beneficiario) as qtd FROM beneficiarios;
 
 

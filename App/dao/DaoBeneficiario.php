@@ -223,7 +223,43 @@ class DaoBeneficiario{
         }
     }
 
-
+    public function selectCountBeneficiarios() {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $sql = "SELECT COUNT(nis_beneficiario) as qtd FROM beneficiarios;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetchAll();
+                    if($stmt->rowCount() > 0) {
+                       if(is_array($resultado) && !empty($resultado)) {
+                            $stmt = null;
+                            unset($this->connection);         
+                            return $resultado;
+                       }else{
+                            $stmt = null;
+                            unset($this->connection);         
+                            return false;     
+                       }     
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);         
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);         
+                    return false;
+                }
+            } catch (PDOException $p) {
+                echo "Error!: falha ao executar consulta SELECT COUNT beneficiarios: <pre><code>" . $p->getMessage() . "</code></pre></br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
 }
 
 ?>

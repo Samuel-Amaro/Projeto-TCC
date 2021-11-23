@@ -1,5 +1,8 @@
 <?php
+
 require_once("../model/ModelUsuario.php");
+require_once("../dao/DaoFornecedoresDoadores.php");
+
 if(session_start()) {
     if(!isset($_SESSION["usuario_logado"])) {
         header("Location: ../../index.php");
@@ -8,6 +11,7 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
+        $dao = new DaoFornecedoresDoadores(new DataBase());
     }
 }
 ?>
@@ -51,9 +55,47 @@ if(session_start()) {
                             </li>
                             <li class="breadcrumb-item active">Listagem</li>
                         </ol>
-                        <div class="card mb-4">
+                        <div class="card mb-2">
                             <div class="card-body">Listagem de fornecedores/doadores</div>
                         </div>
+                        <?php
+                        # lista a quantidade de fornecedores e doadores
+                        $resultado = $dao->selectCountFornDoad();
+                        if(is_array($resultado)) {
+                        ?>
+                        <div class="row mb-2 mt-2">
+                            <h4>(Quantidade) fornecedores/Doadores</h4>
+                        </div>
+                        <div class="row mb-2">
+                        <?php
+                            foreach($resultado as $chave => $valor) {
+                        ?>
+                            <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                                <div class="card">
+                                 <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="align-self-center col-3">
+                                                <i class="fas fa-user-alt fs-1"></i>
+                                            </div>
+                                            <div class="col-9 text-end">
+                                                <h3>
+                                                    <span class="text-dark"><?= $valor["qtd"];?></span>  
+                                                </h3>
+                                                <span><?= $valor["identificacao"];?></span>
+                                             </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                        <?php
+                            }    
+                        ?>
+                        </div>
+                        <?php
+                        }
+                        ?>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <h4 class="text-center font-weight-light my-4">Fornecedores e Doadores</h4>
@@ -82,7 +124,7 @@ if(session_start()) {
                 </main>
                 <?php
                  # rodape
-                 include("Rodape.php")
+                 include("Rodape.php");
                 ?>
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->

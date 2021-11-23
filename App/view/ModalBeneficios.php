@@ -60,6 +60,16 @@
                         <span class="identificacao-fornecedor-doador"></span>
                         <hr style="margin: 4px;">
                     </div>
+                    <div>
+                        <b>Tipo pessoa fornecedor/doador:</b>
+                        <span class="tipo-pessoa-fornecedor-doador"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>Email fornecedor/doador:</b>
+                        <span class="email-fornecedor-doador"></span>
+                        <hr style="margin: 4px;">
+                    </div>
                 </div>    
             </div><!--Modal body-->    
             <div class="modal-footer">

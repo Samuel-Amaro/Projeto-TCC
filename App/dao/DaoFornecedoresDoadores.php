@@ -237,6 +237,44 @@ class DaoFornecedoresDoadores{
        }
     }
 
+    public function selectCountFornDoad() {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $sql = "SELECT identificacao, COUNT(nome) as qtd FROM fornecedores_doadores GROUP BY identificacao;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                   $resultado = $stmt->fetchAll();
+                   if($stmt->rowCount() > 0) {
+                      if(is_array($resultado) && !empty($resultado)) {
+                        $stmt = null;
+                        unset($this->connection);         
+                        return $resultado;
+                      }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                      }  
+                   }else{
+                       $stmt = null;
+                       unset($this->connection);
+                       return false;  
+                   } 
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                echo "Error!: falha ao preparar consulta SELECT COUNT fornecedor_doador: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
+
 }
 
 ?>

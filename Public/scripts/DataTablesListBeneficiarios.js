@@ -35,13 +35,13 @@ window.addEventListener('load', function() {
             {"data" : "cpf"},
             {"data" : "primeiro_nome"},
             {"data" : "ultimo_nome"},
-            {"data" : "nis"},
+            //{"data" : "nis"},
             {"data" : "celular_required"},
            // {"data" : "celular_opcional"},
            // {"data" : "endereco"},
            // {"data" : "bairro"},
             {"data" : "cidade"},
-            {"data" : "uf"},
+            //{"data" : "uf"},
             {"data" : "qtd_pessoas_home"},
             {"data" : "renda"},
           //  {"data" : "obs"},
@@ -51,9 +51,9 @@ window.addEventListener('load', function() {
            // {"data" : "abrangencia_cras"}
         ],
         "columnDefs": [ {
-            "targets": 9,
+            "targets": 7,
             "data": null,
-            "defaultContent": "<button type=\"button\" class=\"btn btn-primary btn-alterar-benef\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-primary btn-excluir-beneficiario\"><i class=\"fas fa-user-times\"></i></button>"
+            "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-benef\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-modal-info\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-info-circle\"></i></button> <button type=\"button\" class=\"btn btn-excluir-beneficiario\"><i class=\"fas fa-user-times\"></i></button>"
         }]
     });    
     //ao clicar no btn de alterar retorna os dados da linha clicada
@@ -70,6 +70,12 @@ window.addEventListener('load', function() {
         modalExcluir(data.id);
         //console.log(data); //return um object 
         //alert(data.cpf +" seu nome e: "+ data.primeiro_nome + data.ultimo_nome);
+    });
+    //ao cliar no btn de info, vai mostrar modal de informação
+    $('#dataTablesBeneficiarios tbody').on('click', '.btn-modal-info', function(){
+        let data = tabela.row($(this).parents('tr')).data();
+        mostraModalInfoBeneficiario();
+        carregaDadosModalInfoBeneficiario(data);
     });
 });
 

@@ -36,5 +36,6 @@ let tabela = new DataTable('#dataTablesListBeneficios',{
 $('#dataTablesListBeneficios tbody').on('click', '.btn-info-modal', function(){
     let data = tabela.row($(this).parents('tr')).data();
     mostraModalInformation();
-    //carregaDadosModalInfo(data);
+    console.log(data);
+    carregaDadosModalInfo(data);
 });
