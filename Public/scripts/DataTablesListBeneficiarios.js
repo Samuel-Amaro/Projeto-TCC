@@ -53,7 +53,7 @@ window.addEventListener('load', function() {
         "columnDefs": [ {
             "targets": 7,
             "data": null,
-            "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-benef\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-modal-info\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-info-circle\"></i></button> <button type=\"button\" class=\"btn btn-excluir-beneficiario\"><i class=\"fas fa-user-times\"></i></button>"
+            "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-benef p-0\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-modal-info p-0\" data-toggle=\"modal\" data-target=\"#exampleModal\" data-whatever=\"@mdo\"><i class=\"fas fa-info-circle\"></i></button> <button type=\"button\" class=\"btn btn-excluir-beneficiario p-0\"><i class=\"fas fa-user-times\"></i></button>"
         }]
     });    
     //ao clicar no btn de alterar retorna os dados da linha clicada

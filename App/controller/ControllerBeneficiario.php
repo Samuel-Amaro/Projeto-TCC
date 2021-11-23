@@ -129,7 +129,8 @@ class ControllerBeneficiario{
                         "email" => ($valor["email_benef"] == null) ? "" : $valor["email_benef"], 
                         "cep" => ($valor["cep_benef"] == null) ? "" : $valor["cep_benef"], 
                         "complemento_ende" => ($valor["complemento_ende_benef"] == null) ? "" : $valor["complemento_ende_benef"], 
-                        "abrangencia_cras" => $valor["abrangencia_cras_benef"]];
+                        "abrangencia_cras" => $valor["abrangencia_cras_benef"], 
+                        "data_hora" => $valor["data_hora"]];
                         array_push($responseResultados["data"], $valorCorretoTratado);
                     }
                     echo json_encode($responseResultados);

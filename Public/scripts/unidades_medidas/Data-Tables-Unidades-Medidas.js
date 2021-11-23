@@ -26,7 +26,7 @@ let tabela = new DataTable('#dataTablesUnidadeMedida',{
     "columnDefs": [ {
         "targets": 2,
         "data": null,
-        "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-unidade-medida mr-2\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-excluir-unidade-medida\" target=\"self\" rel=\"next\"><i class=\"fas fa-user-times\"></i></button>"
+        "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-unidade-medida mr-2 p-0\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button> <button type=\"button\" class=\"btn btn-excluir-unidade-medida p-0\" target=\"self\" rel=\"next\"><i class=\"fas fa-user-times\"></i></button>"
     }]
 });
 //ao clicar no btn de alterar retorna os dados da linha clicada

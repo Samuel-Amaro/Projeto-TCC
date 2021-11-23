@@ -20,7 +20,8 @@ CREATE TABLE beneficiarios(
   email_benef VARCHAR(70),
   cep_benef VARCHAR(10),
   complemento_ende_benef TEXT,
-  abrangencia_cras_benef VARCHAR(30)
+  abrangencia_cras_benef VARCHAR(30),
+  data_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 --alterando tipo de dado da coluna para o tipo money
@@ -107,3 +108,8 @@ FOR EACH ROW EXECUTE PROCEDURE gera_logs_beneficiarios();
 --------------------------------------------------------------------------------------
 --- TESTES MANUAIS PARA GERAR LOG MANULAMENTE
 
+ALTER TABLE beneficiarios ADD COLUMN data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+UPDATE beneficiarios SET data_hora = NOW();
+
+ALTER TABLE beneficiarios ALTER COLUMN data_hora SET NOT NULL;

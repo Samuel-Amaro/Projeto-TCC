@@ -90,6 +90,11 @@
                         <span class="email-beneficiario"></span>
                         <hr style="margin: 4px;">
                     </div>
+                    <div>
+                        <b>Data Hora:</b>
+                        <span class="data-hora-beneficiario"></span>
+                        <hr style="margin: 4px;">
+                    </div>
                 </div>    
             </div><!--Modal body-->    
             <div class="modal-footer">

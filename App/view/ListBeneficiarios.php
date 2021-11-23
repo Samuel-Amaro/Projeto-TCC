@@ -1,6 +1,7 @@
 <?php 
 
 require_once("../model/ModelUsuario.php");
+require_once("../dao/DaoBeneficiario.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -14,6 +15,7 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
+        $dao = new DaoBeneficiario(new DataBase());
     }
 }
 ?>
@@ -50,15 +52,51 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 mb-2">
                         <h1 class="mt-4">Beneficiários</h1>
-                        <ol class="breadcrumb mb-4">
+                        <ol class="breadcrumb mb-2">
                             <li class="breadcrumb-item"><a href="PainelControle.php">Painel controle</a></li>
                             <li class="breadcrumb-item active">Beneficiários</li>
                         </ol>
-                        <div class="card mb-4">
+                        <div class="card mb-2">
                             <div class="card-body">Beneficiários que possuem cadastro no nosso sistema.</div>
                         </div>
+                    </div>    
+                    <?php 
+                      $resultado = $dao->selectCountBeneficiarios();
+                      if(is_array($resultado)) {
+                    ?>
+                    <div class="row m-lg-2">
+                        <h4>Quantidade de beneficiários</h4>
+                    </div>
+                    <div class="row m-lg-2">
+                    <?php 
+                        $valor = $resultado[0];
+                    ?>    
+                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="align-self-center col-3">
+                                                <i class="fas fa-users fs-1"></i>
+                                            </div>
+                                            <div class="col-9 text-end">
+                                                <h3>
+                                                    <span class="text-dark"><?=$valor["qtd"];?></span>        
+                                                </h3>
+                                                <span>Beneficíarios</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <?php
+                      }
+                    ?>
+                    <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>

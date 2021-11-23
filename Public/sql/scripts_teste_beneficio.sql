@@ -92,4 +92,11 @@ SELECT identificacao, COUNT(nome) as qtd FROM fornecedores_doadores GROUP BY ide
 -- seleciona a quantidade de beneficiarios cadastrados
 SELECT COUNT(nis_beneficiario) as qtd FROM beneficiarios;
 
+-- add coluna de data hora em beneficiarios
+ALTER TABLE beneficiarios ADD COLUMN data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
+UPDATE beneficiarios SET data_hora = NOW();
+
+ALTER TABLE beneficiarios ALTER COLUMN data_hora SET NOT NULL;
+
+SELECT * FROM beneficiarios;

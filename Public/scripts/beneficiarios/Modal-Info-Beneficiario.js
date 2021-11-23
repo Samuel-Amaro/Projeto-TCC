@@ -16,7 +16,7 @@ function carregaDadosModalInfoBeneficiario(data) {
     let endereco = document.querySelector(".endereco-beneficiario");
     let celular = document.querySelector(".celular-beneficiario");
     let telefone = document.querySelector(".telefone-beneficiario");
-    let dataHora = document.querySelector(".data-hora-insercao-beneficiario");
+    let dataHora = document.querySelector(".data-hora-beneficiario");
     let cpf = document.querySelector(".cpf-beneficiario");
     let cep = document.querySelector(".cep-beneficiario");
     let complementoEndereco = document.querySelector(".complemento-endereco-beneficiario");
@@ -37,4 +37,16 @@ function carregaDadosModalInfoBeneficiario(data) {
     qtdHome.textContent = data.qtd_pessoas_home;
     renda.textContent = data.renda;
     uf.textContent = data.uf;
+    dataHora.textContent = formataDataHora(data.data_hora);
 }
+
+function formataDataHora(dataHoraString) {
+    let d = new Date(dataHoraString);
+    let dia = d.getDate();
+    let mes = d.getMonth() + 1; //porque começa em 0 janeiro
+    let ano = d.getFullYear();
+    let hora = d.getHours();
+    let minuto = d.getMinutes();
+    let segundos = d.getSeconds();
+    return `${dia}/${mes}/${ano} ${hora}:${minuto}:${segundos}`;
+  }

@@ -1,8 +1,5 @@
 <?php
 
-//namespace DaoBeneficiario;
-//use ModelBeneficiario;
-
 require_once("../model/ModelBeneficiario.php");
 require_once("../utils/DataBase.php");
 
