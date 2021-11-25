@@ -207,6 +207,12 @@ SELECT
 AS SALDO_ATUAL; 
 
 
+-- add coluna de data hora em beneficiarios
+ALTER TABLE beneficio ADD COLUMN saldo INT;
+
+UPDATE beneficio SET saldo = 1;
+
+ALTER TABLE beneficio ALTER COLUMN saldo NOT NULL;
 
 
 

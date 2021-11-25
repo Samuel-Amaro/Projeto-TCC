@@ -17,6 +17,7 @@ function carregaDadosModalInfo(data) {
     let identificacaoFornecedorDoador = document.querySelector(".identificacao-fornecedor-doador");
     let tipoPessoaFornecedorDoador = document.querySelector(".tipo-pessoa-fornecedor-doador");
     let emailFornecedorDoador = document.querySelector(".email-fornecedor-doador");
+    let saldo = document.querySelector(".saldo-beneficio");
     nomeBeneficio.textContent = data.nome_beneficio;
     formaAquisicaoBenef.textContent = data.forma_aquisicao_beneficio;
     qtdMinimaBenef.textContent = data.quantidade_minima_beneficio;
@@ -33,6 +34,7 @@ function carregaDadosModalInfo(data) {
     identificacaoFornecedorDoador.textContent = data.identificacao_fornecedor_doador;
     tipoPessoaFornecedorDoador.textContent = data.tipo_pessoa_fornecedor_doador;
     emailFornecedorDoador.textContent = data.email_fornecedor_doador;
+    saldo.textContent = data.saldo;
 }
 
 function formataDataHora(dataHoraString) {
@@ -44,4 +46,79 @@ function formataDataHora(dataHoraString) {
     let minuto = d.getMinutes();
     let segundos = d.getSeconds();
     return `${dia}/${mes}/${ano} ${hora}:${minuto}:${segundos}`;
+}
+
+function mostraModalTimelineMovimentacoes() {
+    let elementoModal = document.querySelector("#modalTimelineMovimentacoes");
+    let objectBoostrap = new bootstrap.Modal(elementoModal);
+    objectBoostrap.show();
+}
+
+function makeRequestDadosTimeline(url, idBeneficio, operacao) {
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = alertsContents;
+    httpRequest.open("POST", url, true);
+    try {
+        httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        httpRequest.send("id_beneficio=" + encodeURIComponent(idBeneficio) + "&operacao=" + encodeURIComponent(operacao));   
+    } catch (error) {
+        console.error(error.name);
+        console.error(error.message);
+    }
+    function alertsContents() {
+        if(httpRequest.readyState === 4) {
+            if(httpRequest.status === 200) {
+                try {
+                    let httpResponse = JSON.parse(httpRequest.responseText);  
+                    console.log(httpResponse.dados);
+                    carregaDadosTimeline(httpResponse.dados);
+                } catch (error) {
+                    console.error(error.message);
+                    console.error(error.name);
+                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    return 0;
+                }
+            }
+        }
+    }
+}
+
+function carregaDadosTimeline(array) {
+    let ul = document.querySelector(".timeline");
+    //itera sobre cada item do array que e um objeto
+    array.forEach(object => {
+        console.log(object);
+        let li = document.createElement("li");
+        let a = document.querySelector("a");
+        a.textContent = formataDataHora(object.data_hora_ultima_mov);
+        a.href = "#";
+        a.setAttribute("class", "float-right");
+        let divPai = document.createElement("div");
+        //itera sobre as propriedades do objeto
+        for(const propriedade in object) {
+            let divFilha = document.createElement("div");
+            let b = document.createElement("b");
+            let span = document.createElement("span");
+            let hr = document.createElement("hr");
+            hr.style.margin = "4px";
+            if(propriedade === "quantidade_mov") {
+               b.textContent = "Quantidade movimentada: "; 
+               span.textContent =  object["quantidade_mov"];
+            }else if(propriedade === "sigla") {
+                b.textContent = "Unidade de medida: "; 
+                span.textContent =  object["sigla"];
+            }else if(propriedade === "") {
+
+            }
+            divFilha.appendChild(b);
+            divFilha.appendChild(span);
+            divFilha.appendChild(hr);
+            divPai.appendChild(divFilha);
+        }
+        li.appendChild(a);
+        li.appendChild(divPai);
+        ul.appendChild(li);
+    });
+    
+    
 }

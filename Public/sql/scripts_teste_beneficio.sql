@@ -100,3 +100,18 @@ UPDATE beneficiarios SET data_hora = NOW();
 ALTER TABLE beneficiarios ALTER COLUMN data_hora SET NOT NULL;
 
 SELECT * FROM beneficiarios;
+
+--consulta que traga todas as movimentações de um beneficio ordenada por data
+
+SELECT MV.quantidade_mov, MV.data_hora_ultima_mov, MV.tipo_mov,
+UM.sigla, MV.quantidade_por_medida
+FROM movimentacoes_estoque_beneficios AS MV
+INNER JOIN beneficio AS B 
+ON MV.id_beneficio = B.id_beneficio
+INNER JOIN unidades_medidas_beneficios AS UM
+ON MV.id_unidade_medida = UM.id_unidade
+WHERE MV.id_beneficio = 2 ORDER BY MV.data_hora_ultima_mov ASC;
+
+
+
+

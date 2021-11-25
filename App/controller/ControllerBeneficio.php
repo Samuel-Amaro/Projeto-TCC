@@ -32,6 +32,9 @@ class ControllerBeneficio{
             case "listar":
                 $this->listar($methodHttp);
                 break;
+            case "listarMovimentacoesBeneficio":
+                $this->listarMovimentacoesBeneficio($methodHttp);
+                break;
             default:
                 break;
         }    
@@ -50,6 +53,7 @@ class ControllerBeneficio{
                 $beneficio->setFormaAquisicao($valor->formaAquisicao); //forma aquisição
                 $beneficio->setQtdMaxima($valor->qtdMaxima); //qtd maxima
                 $beneficio->setQtdMinima($valor->qtdMinima); //qtd minima
+                $beneficio->setSaldo($valor->qtdTotal); //seta saldo inicial
                 $beneficio->setFkCategoria($valor->categoriaId); //categoria id
                 $beneficio->setFkFornecedorDoador($valor->idFornecedorOuDoador); //id fornecedor/Doador
                 $movEstoqueBeneficio = new ModelMovimentacoesEstoqueBeneficios();
@@ -118,6 +122,28 @@ class ControllerBeneficio{
         }else{
             $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo post, tente esta ação mais tarde por favor!");
             echo $this->getResponseJson();  
+        }
+    }
+
+    public function listarMovimentacoesBeneficio(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $id = filter_var($_POST["id_beneficio"], FILTER_VALIDATE_INT); // AND filter_var($_POST["id_beneficio"], FILTER_SANITIZE_NUMBER_INT);
+            $this->daoBeneficio = new DaoBeneficio(new DataBase());
+            $result = $this->daoBeneficio->selectMovimentacoesBeneficio($id);
+            if(is_array($result)) {
+                $lista = array();
+                foreach($result as $chave => $valor) {
+                    array_push($lista, $valor);
+                } 
+                $response = array("dados" => $lista);
+                echo json_encode($response); 
+            }else{
+                $this->setResponseJson("response", "Houve um erro ao buscar as movimentações dos beneficio. erro interno no servidor.");
+                echo $this->getResponseJson();
+            } 
+        }else{
+            $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo post, tente esta ação mais tarde por favor!");
+            echo $this->getResponseJson(); 
         }
     }
     

@@ -38,6 +38,8 @@ if(session_start()) {
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
         <!-- RESPONSIVO DO DATATABLES-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+        <!--timeline-->
+        <link rel="stylesheet" type="text/css" href="../../Public/css/timeline.css">
     </head>
     <body class="sb-nav-fixed">
         <!--MENU NAVEGAÇÃO DO TOPO-->
@@ -146,10 +148,11 @@ if(session_start()) {
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <th>Forma aquisição</th>
+                                        <!--<th>Forma aquisição</th>-->
                                         <th>Qtd Maxima</th>
                                         <th>Qtd Minima</th>
-                                        <th>Categoria</th>
+                                        <!--<th>Categoria</th>-->
+                                        <th>Saldo em estoque</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>

@@ -11,6 +11,7 @@ class ModelBeneficio{
     private string $dataHora;
     private int $qtdMinima;
     private int $qtdMaxima;
+    private int $saldo;
 
     public function __construct()
     {
@@ -70,6 +71,12 @@ class ModelBeneficio{
     }
     public function getQtdMaxima() : int{
         return $this->qtdMaxima;
+    }
+    public function setSaldo(int $saldo) {
+        $this->saldo = filter_var($saldo, FILTER_VALIDATE_INT);
+    }  
+    public function getSaldo() : int{
+        return $this->saldo;
     }
 }
 

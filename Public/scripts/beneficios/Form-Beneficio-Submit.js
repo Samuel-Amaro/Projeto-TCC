@@ -14,6 +14,8 @@ submitForm.addEventListener("submit", function(event) {
                 event.preventDefault(); 
             }else{
                 let dadosBeneficios = getDadosBeneficioCompleto(obterDadosBeneficio(), obterDadosFornecedorDoador());
+                console.log(obterDadosBeneficio());
+                console.log(obterDadosFornecedorDoador());
                 //add os dados de um beneficio como uma linha da tabela e redesenha
                 tabelaBeneficios.row.add(dadosBeneficios).draw();
                 //add os dados de um beneficio a um array, cada item do array e um object
