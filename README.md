@@ -58,6 +58,9 @@ Tabela de conteúdos
 - [x] Cadastrar varios beneficios de uma so vez.
 - [x] Cadastrar Doações.
 - [x] Visualizar benefícios em estoque.
+- [x] timeline de movimentações de estoque de um benefício.
+- [x] Visualizar movimentações de benefício separadas.
+- [x] Visualização de benefícios por categoria.    
 - [ ] Registrar entregas.
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
