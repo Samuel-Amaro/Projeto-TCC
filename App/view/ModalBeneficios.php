@@ -97,10 +97,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div>
+                <!--<div>-->
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
-                            <h4>Nome Beneficio</h4>
+                            <h5 class="titulo-beneficio"></h5>
                             <ul class="timeline">
                                 <!--<li class="timeline-item">
                                     <a href="#" class="float-right">2021-11-09 09:55:42.827895</a>
@@ -141,7 +141,7 @@
                             </ul>
                         </div>
 	                </div>
-                </div>    
+                <!--</div>-->    
             </div><!--Modal body-->    
             <div class="modal-footer">
                 <!--data-dismiss="modal"-->

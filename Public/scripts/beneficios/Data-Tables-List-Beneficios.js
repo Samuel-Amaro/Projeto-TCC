@@ -37,16 +37,13 @@ let tabela = new DataTable('#dataTablesListBeneficios',{
 $('#dataTablesListBeneficios tbody').on('click', '.btn-info-modal', function(){
     let data = tabela.row($(this).parents('tr')).data();
     mostraModalInformation();
-    console.log(data);
+    //console.log(data);
     carregaDadosModalInfo(data);
 });
 
 $('#dataTablesListBeneficios tbody').on('click', '.btn-timeline-mov', function(){
     let data = tabela.row($(this).parents('tr')).data();
     mostraModalTimelineMovimentacoes();
-    makeRequestDadosTimeline("../controller/ControllerBeneficio.php", data.id_beneficio, "listarMovimentacoesBeneficio");
-    //mostraModalInformation();
-    //console.log(data);
-    //carregaDadosModalInfo(data);
+    makeRequestDadosTimeline("../controller/ControllerBeneficio.php", data.id_beneficio, "listarMovimentacoesBeneficio", data.nome_beneficio);
 });
 

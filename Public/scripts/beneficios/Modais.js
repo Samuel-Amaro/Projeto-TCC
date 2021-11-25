@@ -54,7 +54,7 @@ function mostraModalTimelineMovimentacoes() {
     objectBoostrap.show();
 }
 
-function makeRequestDadosTimeline(url, idBeneficio, operacao) {
+function makeRequestDadosTimeline(url, idBeneficio, operacao, nomeBeneficio) {
     let httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = alertsContents;
     httpRequest.open("POST", url, true);
@@ -70,25 +70,54 @@ function makeRequestDadosTimeline(url, idBeneficio, operacao) {
             if(httpRequest.status === 200) {
                 try {
                     let httpResponse = JSON.parse(httpRequest.responseText);  
-                    console.log(httpResponse.dados);
-                    carregaDadosTimeline(httpResponse.dados);
+                    //console.log(httpResponse.dados);
+                    if(Array.isArray(httpResponse.dados)) {
+                        carregaDadosTimeline(httpResponse.dados, nomeBeneficio); 
+                    }else{
+                        //limpa movimentações antigas se o modal tiver aparecido antes
+                        let ul = document.querySelector(".timeline");
+                        //para não acumular movimentações de beneficios diferentes em um mesmo modal
+                        let liExistentes = document.querySelectorAll(".item-timeline");
+                        //console.log(liExistentes);
+                        if(liExistentes.length > 0) {
+                            liExistentes.forEach(element => {
+                                ul.removeChild(element);  
+                            }); 
+                        }
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: httpResponse.response
+                        });
+                    }
                 } catch (error) {
                     console.error(error.message);
                     console.error(error.name);
                     console.error("HTTP RESPONSE: " + httpRequest.responseText);
-                    return 0;
                 }
             }
         }
     }
 }
 
-function carregaDadosTimeline(array) {
+function carregaDadosTimeline(array, nomeBeneficio) {
     let ul = document.querySelector(".timeline");
+    //para não acumular movimentações de beneficios diferentes em um mesmo modal
+    let liExistentes = document.querySelectorAll(".item-timeline");
+    //console.log(liExistentes);
+    if(liExistentes.length > 0) {
+        liExistentes.forEach(element => {
+            ul.removeChild(element);  
+        }); 
+    }
+    let h5 = document.querySelector(".titulo-beneficio");
+    //let textH5 = document.createTextNode(nomeBeneficio);
+    h5.textContent = nomeBeneficio;
     //itera sobre cada item do array que e um objeto
     array.forEach(object => {
-        console.log(object);
+        //console.log(object);
         let li = document.createElement("li");
+        li.setAttribute("class", "item-timeline");
         let a = document.querySelector("a");
         a.textContent = formataDataHora(object.data_hora_ultima_mov);
         a.href = "#";
@@ -96,29 +125,40 @@ function carregaDadosTimeline(array) {
         let divPai = document.createElement("div");
         //itera sobre as propriedades do objeto
         for(const propriedade in object) {
-            let divFilha = document.createElement("div");
-            let b = document.createElement("b");
-            let span = document.createElement("span");
-            let hr = document.createElement("hr");
-            hr.style.margin = "4px";
-            if(propriedade === "quantidade_mov") {
-               b.textContent = "Quantidade movimentada: "; 
-               span.textContent =  object["quantidade_mov"];
-            }else if(propriedade === "sigla") {
-                b.textContent = "Unidade de medida: "; 
-                span.textContent =  object["sigla"];
-            }else if(propriedade === "") {
-
+            if((propriedade >= 0 && propriedade <= 4) || propriedade === "data_hora_ultima_mov") {
+                //faz nada propriedade de numero não interessa 
+            }else{
+                //propriedade de texto  
+                let divFilha = document.createElement("div");
+                let b = document.createElement("b");
+                let span = document.createElement("span");
+                let hr = document.createElement("hr");
+                hr.style.margin = "4px";
+                if(propriedade === "quantidade_mov") {
+                b.textContent = "Quantidade movimentada: "; 
+                span.textContent =  object["quantidade_mov"];
+                }else if(propriedade === "sigla") {
+                    b.textContent = "Unidade de medida: "; 
+                    span.textContent =  object["sigla"];
+                }else if(propriedade === "tipo_mov") {
+                    b.textContent = "Tipo movimentação: ";
+                    if(object[propriedade] === 0) {
+                    span.textContent = "Saida"; 
+                    }else{
+                    span.textContent = "Entrada";
+                    }
+                }else if(propriedade === "quantidade_por_medida") {
+                    b.textContent = "Quantidade por medida: ";
+                    span.textContent = object[propriedade];
+                }
+                divFilha.appendChild(b);
+                divFilha.appendChild(span);
+                divFilha.appendChild(hr);
+                divPai.appendChild(divFilha);  
             }
-            divFilha.appendChild(b);
-            divFilha.appendChild(span);
-            divFilha.appendChild(hr);
-            divPai.appendChild(divFilha);
         }
         li.appendChild(a);
         li.appendChild(divPai);
         ul.appendChild(li);
-    });
-    
-    
+    });   
 }
