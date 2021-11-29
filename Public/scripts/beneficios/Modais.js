@@ -4,6 +4,12 @@ function mostraModalInformation() {
     objectBoostrap.show();
 }
 
+function mostraModalAlterarBeneficio() {
+    let elementoModal = document.querySelector("#modalAlterarBeneficio");
+    let objectBoostrap = new bootstrap.Modal(elementoModal);
+    objectBoostrap.show();
+}
+
 function carregaDadosModalInfo(data) {
     let nomeBeneficio = document.querySelector(".nome-beneficio");
     let formaAquisicaoBenef = document.querySelector(".forma-aqu-beneficio");
@@ -36,6 +42,62 @@ function carregaDadosModalInfo(data) {
     emailFornecedorDoador.textContent = data.email_fornecedor_doador;
     saldo.textContent = data.saldo;
 }
+
+function carregaDadosModalAlterar(data) {
+    let qtdMinima = document.querySelector("#qtdMinima");
+    let qtdMaxima = document.querySelector("#qtdMaxima");
+    let qtd = document.querySelector("#quantidade");
+    let idBeneficio = document.querySelector("#id_beneficio");
+    let operacao = document.querySelector("#operacao");
+    qtdMinima.value = data.quantidade_minima_beneficio;
+    qtdMaxima.value = data.quantidade_maxima_beneficio;
+    idBeneficio.value = data.id_beneficio;
+    operacao.value = "ALTERAR";
+    qtdMinima.setAttribute("min", "0");
+    qtdMaxima.setAttribute("min", "0");
+    qtd.setAttribute("min", qtdMinima.value);
+    qtd.setAttribute("max", qtdMaxima.value);
+}
+
+function obterDadosModalAlterar() {
+    let qtdMinima = document.querySelector("#qtdMinima").value; //number
+    let qtdMaxima = document.querySelector("#qtdMaxima").value; //number
+    let qtd = document.querySelector("#quantidade").value; //number
+    let idBeneficio = document.querySelector("#id_beneficio").value; //number
+    let operacao = document.querySelector("#operacao").value; //text
+    let unidadeMedida = document.querySelector("#um").value; //number
+    let qtdMedida = document.querySelector("#qtdMedida").value; //number
+    let descricao = document.querySelector("#descricao").value; //text
+}
+
+function validaDadosQuantidadeMinMax(qtdMinima, qtdMaxima) {
+    //se o dado for numero
+    if(Number.isInteger(qtdMinima) && Number.isInteger(qtdMaxima)) {
+       if((qtdMinima > 0 && qtdMinima < qtdMaxima) && (qtdMaxima > 0 && qtdMaxima > qtdMinima)) {
+          return true;
+       }else{
+          return false;  
+       } 
+    }//se for texto
+    else{
+        return false;
+    }
+}
+
+function validaDadosModalQtd(qtd, qtdMinima, qtdMaxima) {
+    //se o dado for numero
+    if(Number.isInteger(qtd)) {
+        if(qtd >= qtdMinima && qtd <= qtdMaxima) {
+           return true;
+        }else{
+           return false;  
+        } 
+    }//se for texto
+    else{
+         return false;
+    }
+}
+
 
 function formataDataHora(dataHoraString) {
     let d = new Date(dataHoraString);

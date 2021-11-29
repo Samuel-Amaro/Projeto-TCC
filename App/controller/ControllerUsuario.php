@@ -50,6 +50,11 @@ class ControllerUsuario{
                 $usuario = ['cpf' => $cpfUsuario, 'senha' => $senhaUsuario, 'computedString' => 'Ola, ' . $this->mdUser->getNomeUsuario(), 'location' => 'App/view/PainelControle.php'];  
                 //pode logar usuario na sessão 
                 if(json_encode($usuario) != '') {
+                    /* define o limitador de cache para 'private' */
+                    session_cache_limiter('private');
+                    $cache_limiter = session_cache_limiter();
+                    //sessão durara 1 minuto
+                    session_cache_expire(1);
                     //abre a sessão
                     if(session_start()){
                         $date = new DateTime(null, new DateTimeZone('America/Sao_Paulo'));

@@ -2,6 +2,7 @@
 
 require_once("../model/ModelUsuario.php");
 require_once("../dao/DaoBeneficio.php");
+require_once("../dao/DaoUnidadesMedidas.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -16,6 +17,7 @@ if(session_start()) {
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
         $daoBeneficio = new DaoBeneficio(new DataBase());
+        $unidadesMedidas =  new DaoUnidadesMedidas(new DataBase());
     }
 }
 ?>
