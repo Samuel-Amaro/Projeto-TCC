@@ -132,12 +132,12 @@
                             <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                         </div>
                         <div class="card-body">
-                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="alterar-beneficio" class="alterar beneficio" title="Se achar necessário altere as informações contidas neste formulário, de acordo com sua necessidade.">
-                                <input type="hidden" name="operacao" value="" id="operacao">
-                                <input type="hidden" name="id_beneficio" value="" id="id_beneficio">
+                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="alterar-beneficio" class="form-alterar-beneficio" title="Se achar necessário altere as informações contidas neste formulário, de acordo com sua necessidade.">
+                                <input type="hidden" name="operacao_modal_alterar" value="" id="operacao_modal_alterar">
+                                <input type="hidden" name="id_beneficio_alterar" value="" id="id_beneficio_alterar">
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <div class="alert alert-info mb-0" role="alert">Se deseja modificar a capacidade do estoque para o benefício</div>
+                                        <div class="alert alert-info mb-0" role="alert">Se desejar modificar a capacidade do estoque para o benefício</div>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -156,6 +156,45 @@
                                         </div>
                                     </div> 
                                 </div>
+                                <div class="mt-4 mb-0">
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <input type="submit" value="Salvar Alteração" class="btn-update-beneficio btn btn-primary" title="Clique aqui para alterar o benefício">
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!-- card body -->
+                    </div><!-- card -->    
+                </div><!-- container fluid-->    
+            </div><!--Modal body-->    
+            <div class="modal-footer">
+                <!--data-dismiss="modal"-->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Clique aqui para fechar a modal de alteração de beneficiario">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal de add movimentacao sem associar a uma entrega beneficio -->
+<div class="modal fade" id="modalAddMovimentacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Alteração Benefício</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid px-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4 class="text-center font-weight-light my-4">Alteração dos dados</h4>
+                            <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                        </div>
+                        <div class="card-body">
+                            <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="alterar-beneficio" class="form-add-movimentacao" title="Este formulário e para adicionar uma nova movimentação no benefício">
+                                <input type="hidden" name="operacao" value="" id="operacao">
+                                <input type="hidden" name="id_beneficio" value="" id="id_beneficio">
                                 <div class="row mb-3">
                                     <div class="col-md-12">
                                         <div class="alert alert-info mb-0" role="alert">Se haver necessidade de realizar uma movimentação no estoque sem distribuição do benefício realize por aqui</div>
@@ -199,7 +238,7 @@
                                                 ?>
                                                     <option value="Nenhuma Unidade disponivel">Nenhuma unidade Cadastrada</option>
                                                 <?php 
-                                                    }  
+                                                    }
                                                 ?>
                                             </select>
                                             <div class="feedback-um-medida"></div>

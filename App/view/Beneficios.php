@@ -32,6 +32,8 @@ if(session_start()) {
         <title>Benefícios</title>
         <!--BOOSTRAP-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
+        <!-- campos obrigatorios opcionais -->
+        <link rel="stylesheet" href="../../Public/css/estilo_form_avisos_required_opcional.css">
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- icones -->
@@ -192,5 +194,9 @@ if(session_start()) {
         <script src="../../Public/scripts/beneficios/Modais.js" type="text/javascript" charset="utf8"></script>  
         <!-- script que manipula datatables-->
         <script src="../../Public/scripts/beneficios/Data-Tables-List-Beneficios.js" type="text/javascript" charset="utf8"></script>
+        <!--script que manipula alteração do beneficio-->
+        <script src="../../Public/scripts/beneficios/Alterar-Beneficio.js" type="text/javascript" charset="utf8"></script>
+        <!-- script que manipula a nova movimentaçaõ do beneficio -->
+        <script src="../../Public/scripts/beneficios/Movimentacao-Beneficio.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>

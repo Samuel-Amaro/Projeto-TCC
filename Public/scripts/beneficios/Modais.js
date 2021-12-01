@@ -10,6 +10,12 @@ function mostraModalAlterarBeneficio() {
     objectBoostrap.show();
 }
 
+function mostraModalAddMovimentacao() {
+    let elementoModal = document.querySelector("#modalAddMovimentacao");
+    let objectBoostrap = new bootstrap.Modal(elementoModal);
+    objectBoostrap.show();
+}
+
 function carregaDadosModalInfo(data) {
     let nomeBeneficio = document.querySelector(".nome-beneficio");
     let formaAquisicaoBenef = document.querySelector(".forma-aqu-beneficio");
@@ -46,7 +52,6 @@ function carregaDadosModalInfo(data) {
 function carregaDadosModalAlterar(data) {
     let qtdMinima = document.querySelector("#qtdMinima");
     let qtdMaxima = document.querySelector("#qtdMaxima");
-    let qtd = document.querySelector("#quantidade");
     let idBeneficio = document.querySelector("#id_beneficio");
     let operacao = document.querySelector("#operacao");
     qtdMinima.value = data.quantidade_minima_beneficio;
@@ -55,49 +60,143 @@ function carregaDadosModalAlterar(data) {
     operacao.value = "ALTERAR";
     qtdMinima.setAttribute("min", "0");
     qtdMaxima.setAttribute("min", "0");
-    qtd.setAttribute("min", qtdMinima.value);
-    qtd.setAttribute("max", qtdMaxima.value);
+}
+
+function carregaDadosModalAddMovimentacao(data) {
+    let qtd = document.querySelector("#quantidade");
+    let idBeneficio = document.querySelector("#id_beneficio");
+    let operacao = document.querySelector("#operacao");
+    idBeneficio.value = data.id_beneficio;
+    operacao.value = "ALTERAR";
+    qtd.setAttribute("min", data.quantidade_minima_beneficio);
+    qtd.setAttribute("max", data.quantidade_maxima_beneficio);
 }
 
 function obterDadosModalAlterar() {
     let qtdMinima = document.querySelector("#qtdMinima").value; //number
     let qtdMaxima = document.querySelector("#qtdMaxima").value; //number
-    let qtd = document.querySelector("#quantidade").value; //number
+    let idBeneficio = document.querySelector("#id_beneficio_alterar").value; //number
+    let operacao = document.querySelector("#operacao_modal_alterar").value; //text
+    let arraySelector = ["#qtdMinima", "#qtdMaxima"];
+    let beneficio = {
+        "qtdMinima" : new Number(qtdMinima).valueOf(),
+        "qtdMaxima" : new Number(qtdMaxima).valueOf(),
+        "idBeneficio" : idBeneficio,
+        "operacao" : operacao
+    };   
+    let resultadoValidacao = validaValoresModal(arraySelector, beneficio);
+    //nenhum campo invalido
+    if(resultadoValidacao.length === 0) {
+        console.log(beneficio);
+    }//ha campos invalidos
+    else{
+        console.log("campos invalidos = " + resultadoValidacao);
+    }
+}
+
+function obterDadosModalAddMovimentacao() {
     let idBeneficio = document.querySelector("#id_beneficio").value; //number
     let operacao = document.querySelector("#operacao").value; //text
-    let unidadeMedida = document.querySelector("#um").value; //number
+    let qtd = document.querySelector("#quantidade").value; //number
+    let unidadeMedida = document.querySelector("#um").value; //select
     let qtdMedida = document.querySelector("#qtdMedida").value; //number
-    let descricao = document.querySelector("#descricao").value; //text
-}
-
-function validaDadosQuantidadeMinMax(qtdMinima, qtdMaxima) {
-    //se o dado for numero
-    if(Number.isInteger(qtdMinima) && Number.isInteger(qtdMaxima)) {
-       if((qtdMinima > 0 && qtdMinima < qtdMaxima) && (qtdMaxima > 0 && qtdMaxima > qtdMinima)) {
-          return true;
-       }else{
-          return false;  
-       } 
-    }//se for texto
-    else{
-        return false;
+    let descricao = document.querySelector(".descricao").value; //text
+    let movimentacao = document.querySelector("#tipoMovimentacao").value; //select
+    let objMovimentacao = {};
+    try {
+        objMovimentacao = {
+            "idBeneficio" : idBeneficio,
+            "operacao" : operacao,
+            "qtd" : new Number(qtd).valueOf(),
+            "unidadeMedida" : unidadeMedida,
+            "qtdMedida" : new Number(qtdMedida).valueOf(),
+            "descricao" : descricao,
+            "movimentacao" : movimentacao
+        };
+    } catch (error) {
+        console.error(error.name);
+        console.error(error.message);    
+    }
+    let arraySelector = ["#quantidade", "#unidadeMedida", "#qtdMedida", ".descricao", "#tipoMovimentacao"];
+    let resultadoValidacao = validaValoresModal(arraySelector, objMovimentacao);
+    if(resultadoValidacao.length === 0) {
+        console.log(objMovimentacao);    
+    }else{
+        console.log("CAMPOS INVALIDOS = " + resultadoValidacao);
     }
 }
 
-function validaDadosModalQtd(qtd, qtdMinima, qtdMaxima) {
-    //se o dado for numero
-    if(Number.isInteger(qtd)) {
-        if(qtd >= qtdMinima && qtd <= qtdMaxima) {
-           return true;
-        }else{
-           return false;  
-        } 
-    }//se for texto
-    else{
-         return false;
-    }
+function limpaModalAlterar() {
+    document.querySelector("#qtdMinima").value = 0; //number
+    document.querySelector("#qtdMaxima").value = 0; //number
+    document.querySelector("#id_beneficio_alterar").value = 0;//hidden
+    document.querySelector("#operacao_modal_alterar").value = ''; //text
 }
 
+function limpaModalAddMov() {
+    document.querySelector("#quantidade").value = 0; //number
+    document.querySelector("#id_beneficio").value = 0;//hidden
+    document.querySelector("#operacao").value = ''; //text
+    document.querySelector("#um").options.item(0).selected = true;//select    
+    document.querySelector("#qtdMedida").value = 0; //number
+    document.querySelector(".descricao").value = ''; //text
+    document.querySelector("#tipoMovimentacao").options.item(0).selected = true; //select
+}
+
+function validaValoresModal(arraySelectorCSS, object) {
+    let camposValidos = [];
+    let camposInvalidos = [];
+    arraySelectorCSS.forEach(element => {
+        if(element === "#qtdMinima") {
+            if((Number.isInteger(object.qtdMinima)) && (object.qtdMinima > 0 && object.qtdMinima < object.qtdMaxima)) {
+                camposValidos.push("#qtdMinima");
+            }else{
+                camposInvalidos.push("#qtdMinima")
+            }
+        }else if(element === "#qtdMaxima") {
+            if((Number.isInteger(object.qtdMaxima)) && (object.qtdMaxima > 0 && object.qtdMaxima > object.qtdMinima)) {
+                camposValidos.push("#qtdMaxima");
+            }else{
+                camposInvalidos.push("#qtdMaxima")
+            }
+        }else if(element === "#qtd") {
+            if((Number.isInteger(object.qtd)) && (object.qtd > 0 && object.qtd >= object.qtdMinima) && (object.qtd <= object.qtdMaxima)) {
+                camposValidos.push("#qtd");
+            }else{
+                camposInvalidos.push("#qtd")
+            }
+        }else if(element === "#qtdMedida") {
+            if(Number.isInteger(object.qtdMedida)) {
+                camposValidos.push("#qtdMedida");
+            }else{
+                camposInvalidos.push("#qtdMedida")
+            }
+        }else if(element === ".descricao") {
+            if(object.descricao.length === 0) {
+               camposInvalidos.push(".descricao"); 
+            }else{
+                if(!object.descricao.trim() || object.descricao === '') {
+                   camposInvalidos.push("#descricao"); 
+                }else{
+                   camposValidos.push("#descricao"); 
+                }
+            }
+        }else if(element === "#tipoMovimentacao") {
+            if(object.movimentacao === "SELECIONE") {
+                camposInvalidos.push("#tipoMovimentacao");
+            }else{
+                camposValidos.push("#tipoMovimentacao");
+            }
+        }else if(element === "#unidadeMedida") {
+            if(object.unidadeMedida === "SELECIONE") {
+               camposInvalidos.push("#unidadeMedida"); 
+            }else{
+                camposValidos.push("#unidadeMedida");
+            }
+        }  
+    }); 
+    return camposInvalidos;
+}
 
 function formataDataHora(dataHoraString) {
     let d = new Date(dataHoraString);
