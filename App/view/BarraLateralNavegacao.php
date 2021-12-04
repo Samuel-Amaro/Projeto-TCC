@@ -41,6 +41,11 @@
                     Cadastrar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <a class="nav-link collapsed" href="FormaAquisicao.php" target="_self" rel="next">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
+                    Forma Aquisição
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
                 <a class="nav-link collapsed" href="Beneficios.php" target="_self" rel="next">
                     <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
                     Visualizar
