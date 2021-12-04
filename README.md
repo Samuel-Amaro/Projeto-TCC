@@ -61,7 +61,12 @@ Tabela de conteúdos
 - [x] timeline de movimentações de estoque de um benefício.
 - [x] Visualizar movimentações de benefício separadas.
 - [x] Visualização de benefícios por categoria.    
-- [ ] Registrar entregas.
+- [x] Cadastrar Forma de aquisição.
+- [x] Visualizar forma de aquisição.
+- [x] Alterar forma de aquisição.   
+- [x] Deletar forma de aquisição.
+- [x] Associar uma forma de aquisição a um beneficio. 
+- [ ]  Registrar entregas.
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
 #### Features de Fornecedores/Doadores
