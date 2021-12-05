@@ -58,7 +58,7 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 mb-2">
                         <h1 class="mt-4">Beneficios</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
@@ -66,15 +66,20 @@ if(session_start()) {
                             </li>
                             <li class="breadcrumb-item active">Cadastrar</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">Cadastrar novos Beneficios</div>
-                        </div>
                     </div>
+
                     <!-- autocomplete com ajax -->
-                    <div class="container-fluid px-4">
-                        <div class="card mb-4">
+                    <div class="container-fluid px-4 pb-0 mb-0">
+                        <div class="card mb-1 border-0 pb-0 mb-0">
+                            <div class="card-body mb-0">
+                                <div class="alert alert-info mb-0 pb-0" role="alert">
+                                    <p>Pesquise por um fornecedor ou doador cadastrado. Informando o CPF(caso de pessoa física) ou CNPJ(caso de pessoa jurídica, como empresas, comércios, etc.), ao escolher clique no opção que deseja, e vera o nome do fornecedor ou doador escolhido</p>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-1">
                             <div class="card-header">
-                                <div class="alert alert-info mb-0" role="alert">Pesquise por um fornecedor ou doador cadastrado. Informando o CPF(caso de pessoa física) ou CNPJ(caso de pessoa jurídica, como empresas, comércios, etc.), ao escolher clique no opção que deseja, e vera o nome do fornecedor ou doador escolhido</div>
+                                <h4 class="text-center font-weight-light my-4">Pesquisar por fornecedor/doador</h4>
                             </div>
                             <div class="card-body">
                                 <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
@@ -91,7 +96,7 @@ if(session_start()) {
                                                 <label for="fornecedorDoador" class="mb-1 required">Nª CPF/CNPJ de Fornecedores/Doadores</label>
                                                 <!--<div class="input-group mb-1">-->
                                                     <!-- type="search" -->
-                                                <input class="form-control" type="number" placeholder="Fornecedor/Doador" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador" maxlength="14" min="1" required/>
+                                                <input class="form-control" type="number" placeholder="Fornecedor/Doador somente numeros" title="Preencha este campo com o nome do fornecedor ou da pessoa que vai fazer uma doação." name="fornecedorDoador" id="autoCompleteFornecedorDoador" maxlength="14" min="1" required/>
                                                     <!--<button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></butt>-->
                                                 <!--</div>-->
                                                 <div class="feedback-autocomplete"></div>
@@ -104,14 +109,25 @@ if(session_start()) {
                     </div>
                     <!-- campos fixos -->
                     <div class="container-fluid px-4">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                    <div class="alert alert-warning mb-1">Campos com * são de preenchimento obrigatório!</div>
-                                    <div class="alert alert-info mb-0" role="alert">
+                        <div class="card mb-0 border-0 pb-0">
+                            <div class="card-body pb-0">
+                                <div class="alert alert-warning mb-0 pb-0">
+                                    <p>Campos com * são de preenchimento obrigatório!</p> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-0 border-0">
+                            <div class="card-body mb-0">
+                                    <div class="alert alert-info mb-0 pb-0" role="alert">
                                         <p>* Se desejar cadastrar mais de um benefício em uma ação só, preencha o formulário abaixo e clique em adicionar beneficio, logo em seguida repita a tarefa novamente, e quando estiver terminado de adicionar os benefícios a serem cadastrados, clique em cadastrar logo abaixo da tabela onde esta os benefícios.</p>
                                         <p>* Beneficios que possuem nomes diferentes possui controle de estoque diferentes.</p>
                                         <p>* Beneficios com mesmo nome, pertencem ao mesmo controle de estoque.</p>
                                     </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="text-center font-weight-light my-4">Inserir novo benefício</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-beneficio" class="form-beneficio">

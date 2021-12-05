@@ -66,6 +66,11 @@
                     Estoque benefícios
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <a class="nav-link collapsed" href="TipoBeneficio.php" target="_self" rel="next">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
+                    Tipo de benefício
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
                 <!--Fornecedores-->
                 <div class="sb-sidenav-menu-heading">Fornecedores/Doações</div>
                 <a class="nav-link collapsed" href="FormFornecedoresDoacoes.php" target="_self" rel="next">

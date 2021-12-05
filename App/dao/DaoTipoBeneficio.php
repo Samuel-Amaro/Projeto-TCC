@@ -57,15 +57,15 @@ class DaoTipoBeneficio{
                 //violação da constraint UNIQUE nome beneficio
                 if($p->getCode() === 23505) {
                     //nome de beneficio no registro informado ja, existe na tabela
-                    echo "Error!: falha ao preparar consulta INSERT TIPO_BENEFICIO: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
-                    return false;
+                    //echo "Error!: falha ao preparar consulta INSERT TIPO_BENEFICIO: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                    return "ja_existe";
                     //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
-                    die();
+                    //die();
                 }else{
-                    echo "Error!: falha ao preparar consulta INSERT TIPO_BENEFICIO: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                    //echo "Error!: falha ao preparar consulta INSERT TIPO_BENEFICIO: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
                     return false;
                     //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
-                    die();
+                    //die();
                 }
             }
         }    
