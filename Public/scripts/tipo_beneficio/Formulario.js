@@ -47,8 +47,8 @@ function limpaCamposForm() {
     nomeBeneficio.value = '';
     unidadeMedida.options.item(0).selected = true;
     categoriaBeneficio.options.item(0).selected = true;
-    setaEstiloValidacaoCampo("#tipoAqui", "remover");
-    setaEstiloValidacaoCampo(".feedback-tipo", "remover");
+    //setaEstiloValidacaoCampo("#tipoAqui", "remover");
+    //setaEstiloValidacaoCampo(".feedback-tipo", "remover");
 }
 
 function obterDadosForm() {

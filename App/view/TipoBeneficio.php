@@ -79,7 +79,7 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h4 class="text-center font-weight-light my-4">Criar tipo de benefício</h4>
+                                <h4 class="text-center font-weight-light my-2">Criar tipo de benefício</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-tipo-beneficio" class="form-tipo-beneficio">
@@ -142,16 +142,17 @@ if(session_start()) {
                                 </form>
                             </div>
                         </div>
-                        <!--
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Formas de aquisição cadastradas</h3>
+                                <h4 class="text-center font-weight-light my-2">Tipos de benefício cadastrados</h4>
                             </div>
                             <div class="card-body">
-                                <table id="dataTablesTipoAquisicao" class="row-border cell-border hover compact" style="width: 100%;">
+                                <table id="dataTablesTipoBeneficio" class="row-border cell-border hover compact" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>Tipo</th>
+                                            <th>Tipo benefício</th>
+                                            <th>Unidade medida</th>
+                                            <th>Categoria</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -160,7 +161,6 @@ if(session_start()) {
                                 </table>
                             </div>
                         </div>
-                        -->
                     </div> 
                 </main>
                 <?php
@@ -169,6 +169,10 @@ if(session_start()) {
                 ?>
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
+        <?php 
+            #modais
+            include("ModalTipoBeneficio.php");
+        ?>
         <script>
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
@@ -183,11 +187,15 @@ if(session_start()) {
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
         <!-- RESPONSIVO DATA TABLES -->
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
+        <!--data tables-->
+        <script src="../../Public/scripts/tipo_beneficio/Data-Tables.js" type="text/javascript" charset="utf8"></script>
         <!-- script formulario, aplica validações, e tratamento de dados-->
         <script src="../../Public/scripts/tipo_beneficio/Formulario.js" type="text/javascript" charset="utf8"></script>
         <!--ajax-->
         <script src="../../Public/scripts/tipo_beneficio/Ajax.js" type="text/javascript" charset="utf8"></script>
         <!-- script que manipula as operações de ajax -->
         <script src="../../Public/scripts/tipo_beneficio/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>
+        <!-- modais -->
+        <script src="../../Public/scripts/tipo_beneficio/Modais.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>

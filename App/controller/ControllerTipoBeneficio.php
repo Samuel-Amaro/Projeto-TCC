@@ -26,7 +26,7 @@ class ControllerTipoBeneficio{
                 $this->controllerCadastrar($this->methodHttp);
                 break;
             case "listar": 
-                //$this->listarFornecedoresDoadores($this->methodHttp);
+                $this->controllerListar($this->methodHttp);
                 break;
             case "alterar": 
                // $this->alterarFornecedorDoador($this->methodHttp);
@@ -51,25 +51,38 @@ class ControllerTipoBeneficio{
             $this->modelTipoBeneficio->setIdCategoria($_POST["id_categoria"]);
             $this->modelTipoBeneficio->setIdUnidadeMedida($_POST["id_unidade_medida"]);
             $this->daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
-            $resultado = $this->daoTipoBeneficio->insert($this->modelTipoBeneficio);
-            var_dump($resultado);
-            //echo $resultado;
-            //is_string($resultado) &&
-            if($resultado === "ja_existe") {
-                $this->setResponseJson("response", "Tipo benefício:{$this->modelTipoBeneficio->getNomeTipo()}. Ja existe e ja foi cadastrado. " . $resultado);
-                echo $this->getResponseJson();
-                //is_bool($resultado) &&
-            }else if($resultado === true) {
-                $this->setResponseJson("response", "Tipo benefício:{$this->modelTipoBeneficio->getNomeTipo()}. Foi cadastrado com sucesso. " . $resultado);
-                echo $this->getResponseJson();   
+            if($this->daoTipoBeneficio->insert($this->modelTipoBeneficio)) {
+                $this->setResponseJson("response", "Tipo benefício: {$this->modelTipoBeneficio->getNomeTipo()}. Foi cadastrado com sucesso. ");
+                echo $this->getResponseJson(); 
             }else{
-                $this->setResponseJson("response", "Tipo benefício: {$this->modelTipoBeneficio->getNomeTipo()}. Não foi cadastrado houve um erro em nosso servidor, tente novamente mais tarde. " . $resultado);
+                $this->setResponseJson("response", "Tipo benefício:  {$this->modelTipoBeneficio->getNomeTipo()}. Não foi cadastrado houve um erro em nosso servidor, tente novamente mais tarde. ");
                 echo $this->getResponseJson();
             }
         }else{
-            $this->setResponseJson("response", "Opss... Unidade de medida não foi deletada, por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            $this->setResponseJson("response", "Opss... Tipo de beneficio não foi cadastrado, por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
             echo $this->getResponseJson();
         }
+    }
+
+    public function controllerListar(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+            $resultado = $this->daoTipoBeneficio->selectAll();
+            if(is_array($resultado)) {
+                $lista = array();
+                foreach($resultado as $chave => $valor) {
+                    array_push($lista, $valor);
+                } 
+                $response = array("data" => $lista);
+                echo json_encode($response);    
+            }else{
+                $this->setResponseJson("response", "Sem tipos de benefícios cadastrados no momento. Por favor tente este ação novamente mais tarde.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Opss... Tipo de benefícios não foi listados. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
+        } 
     }
 
     

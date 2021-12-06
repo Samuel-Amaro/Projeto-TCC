@@ -23,12 +23,22 @@ function makeRequestTipoBeneficio(url, tipoBeneficio, operacao) {
                         'success'
                     );
                     limpaCamposForm();
-                    //tabela.ajax.reload();
+                    tabela.ajax.reload();
                     return 1;
                 } catch (error) {
-                    console.error(error.message);
-                    console.error(error.name);
-                    console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    if(error instanceof TypeError) {
+                        console.error("MENSAGEM DE ERRO: " + error.message); //Mensagem de erro
+                        console.error("NOME DO ERRO: " + error.name); //Nome do erro.
+                        console.error("NOME ARQUIVO: " + error.fileName); //nome arquivo
+                        console.log("NUMERO DA LINHA NO ARQUIVO: " + error.lineNumber); //Número da linha no arquivo que gerou este erro.            
+                        console.log("NUMERO DA COLUNA QUE GEROU ERRO: " + error.columnNumber); //Número da coluna na linha que gerou esse erro.          
+                        console.log("RASTREAMENTO DA PILHA: " + error.stack); //Rastreamento de pilha      
+                        console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    }else{
+                        console.error("MENSAGEM DE ERRO: " + error.message);
+                        console.error("NOME DO ERRO: " + error.name);
+                        console.error("HTTP RESPONSE: " + httpRequest.responseText);
+                    }
                     return 0;
                 }
             }

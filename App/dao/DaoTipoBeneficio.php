@@ -58,7 +58,7 @@ class DaoTipoBeneficio{
                 if($p->getCode() === 23505) {
                     //nome de beneficio no registro informado ja, existe na tabela
                     //echo "Error!: falha ao preparar consulta INSERT TIPO_BENEFICIO: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
-                    return "ja_existe";
+                    return false;
                     //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
                     //die();
                 }else{
@@ -69,6 +69,44 @@ class DaoTipoBeneficio{
                 }
             }
         }    
+    }
+
+    public function selectAll() {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $sql = "SELECT TB.id_tipo_beneficio, TB.nome_tipo, TB.data_hora, UM.id_unidade,
+                UM.sigla, C.id_categoria, C.nome 
+                FROM tipo_beneficio AS TB 
+                INNER JOIN unidades_medidas_beneficios AS UM
+                ON TB.id_unidade_medida = UM.id_unidade
+                INNER JOIN categoria_beneficios AS C
+                ON TB.id_categoria = C.id_categoria
+                ORDER BY TB.nome_tipo ASC;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $resultado = $stmt->fetchAll();
+                        $stmt = null;
+                        unset($this->connection);
+                        return is_array($resultado) ? $resultado : false;    
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        } 
     }
 
 }
