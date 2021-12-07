@@ -69,6 +69,7 @@ Tabela de conteúdos
 - [x] Cadastrar um tipo de benefício.
 - [x] Visualizar tipo de benefício.
 - [x] Alterar tipo de benefício.   
+- [x] Excluir tipo de benefício. 
 - [ ]  Registrar entregas.
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
