@@ -77,3 +77,33 @@ function limpaCamposModalAlterar() {
     document.querySelector("#categoria").options.item(0).selected = true;
     document.querySelector("#id_tipo_beneficio").value = '';
 }
+
+function modalExlcuir(idTipoBeneficio) {
+    Swal.fire({
+        title: 'Realmente deseja deletar este tipo de benefício?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Sim',
+        denyButtonText: 'Não',
+        customClass: {
+          actions: 'my-actions',
+          cancelButton: 'order-1 right-gap',
+          confirmButton: 'order-2',
+          denyButton: 'order-3',
+        }
+    }).then((result) => {
+        //sim deseja deletar
+        if(result.isConfirmed) {
+            if(makeRequestTipoBeneficio("../controller/ControllerTipoBeneficio.php", idTipoBeneficio, "excluir")) {
+                //faz alteração 
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Tipo benefício não foi deletado. tivemos um problema interno em nosso servidor, por favor tente novamente mais tarde.',
+                    footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
+                });
+            }
+        }
+    });
+}

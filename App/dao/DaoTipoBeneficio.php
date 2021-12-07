@@ -144,6 +144,37 @@ class DaoTipoBeneficio{
         } 
     }
 
+    public function delete(int $id) {
+        if(is_null($this->connection)) {
+            return false;    
+        }else{
+            try {
+                $sql = "DELETE FROM tipo_beneficio WHERE id_tipo_beneficio = ?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, $id, PDO::PARAM_INT);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $stmt = null;
+                        unset($this->connection);
+                        return true; 
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        } 
+    }
+
 }
 
 ?>

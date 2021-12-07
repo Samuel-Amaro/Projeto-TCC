@@ -40,7 +40,7 @@ $('#dataTablesTipoBeneficio tbody').on('click', '.btn-alterar', function(){
 //ao clicar no btn de excluir a linha
 $('#dataTablesTipoBeneficio tbody').on('click', '.btn-excluir', function(){
     let data = tabela.row($(this).parents('tr')).data();
-    //mostraModalExcluir(data.id_unidade);
+    modalExlcuir(data.id_tipo_beneficio);
 });
 //ao clicar no btn de trazer a informação da linha
 $('#dataTablesTipoBeneficio tbody').on('click', '.btn-info', function(){

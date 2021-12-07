@@ -32,7 +32,7 @@ class ControllerTipoBeneficio{
                 $this->controllerAtualizar($this->methodHttp);
                 break;
             case "deletar":
-                //$this->excluirFornecedorDoador($this->methodHttp);
+                $this->controllerExcluir($this->methodHttp);
                 break;
             case "busca":
                 //$this->buscarFornecedorDoador($this->methodHttp);
@@ -105,8 +105,25 @@ class ControllerTipoBeneficio{
             echo $this->getResponseJson();
         }
     }
-
     
+    public function controllerExcluir(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $valor = filter_var($_POST["id_tipo_beneficio"], FILTER_VALIDATE_INT);
+            $id = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
+            $this->daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+            if($this->daoTipoBeneficio->delete($id)) {
+                $this->setResponseJson("response", "Benefício: <b>Foi deletado com sucesso</b>.");
+                echo $this->getResponseJson(); 
+            }else{
+                $this->setResponseJson("response", "Benefício: <b>Não foi deletado</b> por favor tente este ação novamente mais tarde.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Opss... Tipo de benefício não foi deletado. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
+        }
+    }
+
     public function setOperacao(string $op) {
         $this->operacao = $op;
     } 

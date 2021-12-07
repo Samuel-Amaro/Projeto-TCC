@@ -7,11 +7,9 @@ function makeRequestTipoBeneficio(url, tipoBeneficio, operacao) {
        httpRequest.send('nome_tipo=' + encodeURIComponent(tipoBeneficio.nomeBeneficio) + '&id_unidade_medida=' + encodeURIComponent(tipoBeneficio.idUnidadeMedida) + '&id_categoria=' + encodeURIComponent(tipoBeneficio.idCategoriaBeneficio)  + '&operacao=' + encodeURIComponent(operacao));
     }else if(operacao == "atualizar") {
         httpRequest.send('nome_tipo=' + encodeURIComponent(tipoBeneficio.nomeBeneficio) + '&id_unidade_medida=' + encodeURIComponent(tipoBeneficio.idUnidadeMedida) + '&id_categoria=' + encodeURIComponent(tipoBeneficio.idCategoriaBeneficio) + '&id_tipo_beneficio=' + encodeURIComponent(tipoBeneficio.id) + '&operacao=' + encodeURIComponent("alterar"));  
-    }/*else if(operacao == "excluir"){
-        httpRequest.send('operacao=' + encodeURIComponent(operacao) + '&id=' + encodeURIComponent(tipoObject));
-    }else{
-        httpRequest.send('tipo=' + encodeURIComponent(tipoObject) + '&operacao=' + encodeURIComponent(operacao));
-    }*/
+    }else if(operacao == "excluir"){
+        httpRequest.send('id_tipo_beneficio=' + encodeURIComponent(tipoBeneficio) + '&operacao=' + encodeURIComponent("deletar")); 
+    }
     function alertsContents() {
         if(httpRequest.readyState === 4) {
             if(httpRequest.status === 200) {
