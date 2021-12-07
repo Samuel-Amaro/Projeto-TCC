@@ -29,7 +29,7 @@ class ControllerTipoBeneficio{
                 $this->controllerListar($this->methodHttp);
                 break;
             case "alterar": 
-               // $this->alterarFornecedorDoador($this->methodHttp);
+                $this->controllerAtualizar($this->methodHttp);
                 break;
             case "deletar":
                 //$this->excluirFornecedorDoador($this->methodHttp);
@@ -83,6 +83,27 @@ class ControllerTipoBeneficio{
             $this->setResponseJson("response", "Opss... Tipo de benefícios não foi listados. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
             echo $this->getResponseJson();
         } 
+    }
+
+    public function controllerAtualizar(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->modelTipoBeneficio = new ModelTipoBeneficio();
+            $this->modelTipoBeneficio->setIdTipoBeneficio($_POST["id_tipo_beneficio"]);
+            $this->modelTipoBeneficio->setIdUnidadeMedida($_POST["id_unidade_medida"]);
+            $this->modelTipoBeneficio->setIdCategoria($_POST["id_categoria"]);
+            $this->modelTipoBeneficio->setNomeTipo($_POST["nome_tipo"]);
+            $this->daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+            if($this->daoTipoBeneficio->update($this->modelTipoBeneficio)) {
+                $this->setResponseJson("response", "Benefício: {$this->modelTipoBeneficio->getNomeTipo()}. Foi atualizado com Sucesso");
+                echo $this->getResponseJson();
+            }else{
+                $this->setResponseJson("response", "Benefício: {$this->modelTipoBeneficio->getNomeTipo()}. Não foi atualizado por favor tente este ação novamente mais tarde.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Opss... Tipo de benefícios não foi atualizado. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
+        }
     }
 
     

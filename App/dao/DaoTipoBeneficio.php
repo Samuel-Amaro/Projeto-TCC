@@ -109,6 +109,41 @@ class DaoTipoBeneficio{
         } 
     }
 
+    public function update(ModelTipoBeneficio $model) {
+        if(is_null($this->connection)) {
+            return false;     
+        }else{
+            try {
+                $sql = "UPDATE tipo_beneficio
+                SET nome_tipo=?, id_unidade_medida=?, id_categoria=? WHERE id_tipo_beneficio=?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, $model->getNomeTipo(), PDO::PARAM_STR);
+                $stmt->bindValue(2, $model->getIdUnidadeMedida(), PDO::PARAM_INT);
+                $stmt->bindValue(3, $model->getIdCategoria(), PDO::PARAM_INT);
+                $stmt->bindValue(4, $model->getIdTipoBeneficio(), PDO::PARAM_INT);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $stmt = null;
+                        unset($this->connection);
+                        return true;
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    } 
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        } 
+    }
+
 }
 
 ?>

@@ -5,9 +5,9 @@ function makeRequestTipoBeneficio(url, tipoBeneficio, operacao) {
     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     if(operacao == "cadastrar") {
        httpRequest.send('nome_tipo=' + encodeURIComponent(tipoBeneficio.nomeBeneficio) + '&id_unidade_medida=' + encodeURIComponent(tipoBeneficio.idUnidadeMedida) + '&id_categoria=' + encodeURIComponent(tipoBeneficio.idCategoriaBeneficio)  + '&operacao=' + encodeURIComponent(operacao));
-    }/*else if(operacao == "atualizar") {
-        httpRequest.send('nome_tipo=' + encodeURIComponent(tipoBeneficio.nomeBeneficio) + '&id_unidade_medida=' + encodeURIComponent(tipoBeneficio.idUnidadeMedida) + '&id_categoria=' + encodeURIComponent(tipoBeneficio.idCategoriaBeneficio) + '&id_tipo_beneficio=' + encodeURIComponent(tipoBeneficio.id) + '&operacao=' + encodeURIComponent(operacao));  
-    }else if(operacao == "excluir"){
+    }else if(operacao == "atualizar") {
+        httpRequest.send('nome_tipo=' + encodeURIComponent(tipoBeneficio.nomeBeneficio) + '&id_unidade_medida=' + encodeURIComponent(tipoBeneficio.idUnidadeMedida) + '&id_categoria=' + encodeURIComponent(tipoBeneficio.idCategoriaBeneficio) + '&id_tipo_beneficio=' + encodeURIComponent(tipoBeneficio.id) + '&operacao=' + encodeURIComponent("alterar"));  
+    }/*else if(operacao == "excluir"){
         httpRequest.send('operacao=' + encodeURIComponent(operacao) + '&id=' + encodeURIComponent(tipoObject));
     }else{
         httpRequest.send('tipo=' + encodeURIComponent(tipoObject) + '&operacao=' + encodeURIComponent(operacao));

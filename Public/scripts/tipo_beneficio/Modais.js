@@ -52,5 +52,28 @@ function formataDataHora(dataHoraString) {
 }
 
 function obterDadosModalAlterar() {
+    let tipoBeneficio = document.querySelector("#tipoBeneficioModal").value;
+    let umModal = document.querySelector("#umModal").value;
+    let categoria = document.querySelector("#categoria").value;
+    let idTipoBeneficio = document.querySelector("#id_tipo_beneficio").value;
+    let tipoBeneficioObj = {"nomeBeneficio" : tipoBeneficio, "idUnidadeMedida" : umModal, "idCategoriaBeneficio" : categoria, "id" : idTipoBeneficio};
+    return tipoBeneficioObj;
+}
 
+function validaCamposModal() {
+    let tipoBeneficio = document.querySelector("#tipoBeneficioModal").value;
+    let umModal = document.querySelector("#umModal").value;
+    let categoria = document.querySelector("#categoria").value;
+    if((tipoBeneficio.length === 0 || !tipoBeneficio.trim()) || (umModal === "SELECIONE" || umModal === "selecione") || (categoria === "SELECIONE" || categoria === "selecione")) {
+        return false;
+    }else{
+        return true;
+    }   
+}
+
+function limpaCamposModalAlterar() {
+    document.querySelector("#tipoBeneficioModal").value = '';
+    document.querySelector("#umModal").options.item(0).selected = true;
+    document.querySelector("#categoria").options.item(0).selected = true;
+    document.querySelector("#id_tipo_beneficio").value = '';
 }
