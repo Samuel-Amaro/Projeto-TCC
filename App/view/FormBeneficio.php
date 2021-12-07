@@ -1,8 +1,8 @@
 <?php
 
 require_once("../model/ModelUsuario.php");
-require_once("../dao/DaoCategoriaBeneficios.php");
-require_once("../dao/DaoUnidadesMedidas.php");
+require_once("../dao/DaoTipoBeneficio.php");
+require_once("../dao/DaoTipoAquisicao.php");
 
 if(session_start()) {
     //se o objeto do usuario não existe na seção
@@ -16,8 +16,8 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
-        $categorias = new DaoCategoriaBeneficios(new DataBase());
-        $unidadesMedidas =  new DaoUnidadesMedidas(new DataBase());
+        $daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+        $daoTipoAquisicao = new DaoTipoAquisicao(new DataBase());
     }
 }
 
@@ -30,7 +30,7 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content="Pagina de cadastro de beneficios e doações"/>
         <meta name="author" content="Samuel Amaro"/>
-        <title>Cadastrar Beneficios</title>
+        <title>Cadastrar Benefícios</title>
         <!-- BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <!-- ESTILO FORM VALIDAÇÃO -->
@@ -79,7 +79,7 @@ if(session_start()) {
                         </div>
                         <div class="card mb-1">
                             <div class="card-header">
-                                <h4 class="text-center font-weight-light my-4">Pesquisar por fornecedor/doador</h4>
+                                <h4 class="text-center font-weight-light my-2">Pesquisar por fornecedor/doador</h4>
                             </div>
                             <div class="card-body">
                                 <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
@@ -108,7 +108,7 @@ if(session_start()) {
                         </div>
                     </div>
                     <!-- campos fixos -->
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 mb-1">
                         <div class="card mb-0 border-0 pb-0">
                             <div class="card-body pb-0">
                                 <div class="alert alert-warning mb-0 pb-0">
@@ -125,9 +125,9 @@ if(session_start()) {
                                     </div>
                             </div>
                         </div>
-                        <div class="card mb-4">
+                        <div class="card mb-1">
                             <div class="card-header">
-                                <h4 class="text-center font-weight-light my-4">Inserir novo benefício</h4>
+                                <h4 class="text-center font-weight-light my-2">Inserir novo benefício</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-beneficio" class="form-beneficio">
@@ -136,99 +136,61 @@ if(session_start()) {
                                         <div class="col-md-12">
                                             <div>
                                                 <div class="mb-3 mb-md-0">
-                                                    <label for="descricao-beneficio" class="mb-1 required">Descrição Beneficio</label>
-                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="70" minlength="3" required/>
+                                                    <label for="descricao-beneficio" class="mb-1 required">Descrição</label>
+                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="300" minlength="3" required/>
                                                     <div class="feedback-descricao"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label for="nomeBeneficio" class="mb-1 required">Nome</label>
-                                            <input class="form-control" id="nomeBeneficio" type="text" placeholder="Entre com o nome beneficio" title="Preencha esta campo com o nome do beneficio." name="nomeBeneficio" maxlength="70" minlength="3" required/>
-                                            <div class="feedback-nome"></div>
-                                        </div>    
-                                        <div class="col-md-2">
-                                            <label for="categoriaBeneficio" class="mb-1 required">Categoria</label>
-                                            <select id="categoriaBeneficio" class="form-select" title="Selecione a categoria em que o beneficio, se enquandra adequandamente." name="categoriaBeneficio" required>
+                                        <div class="col-md-5">
+                                            <label for="tipoBeneficio" class="mb-1 required">Tipo benefício</label>
+                                            <select name="tipoBeneficio" id="tipoBeneficio" title="Escolha um tipo de benefício" class="form-select" required>
                                                 <option value="SELECIONE" selected>Selecione</option>
                                                 <?php
-                                                $cat = $categorias->selectAll();
-                                                if(is_array($cat)) {
-                                                    foreach($cat as $chave => $valor) {
+                                                $modalResultTipo = $daoTipoBeneficio->selectAll();
+                                                if(is_array($modalResultTipo)) {
+                                                    foreach($modalResultTipo as $chave => $valor) {
                                                         ?>
-                                                        <option value="<?= $valor["id_categoria"];?>"><?= $valor["nome"];?></option>
+                                                        <option value="<?= $valor["id_tipo_beneficio"];?>"><?= $valor["nome_tipo"];?></option>
                                                         <?php    
                                                     }
                                                 }else{
                                                     ?>
-                                                    <option value="nenhuma categoria disponivel"><?= $cat;?></option>
+                                                    <option value="nenhum tipo benefício disponivel"><?= $modalResultTipo;?></option>
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
-                                            <div class="feedback-categoria"></div>
-                                        </div>   
-                                        <div class="col-md-4">
-                                            <label for="formaAquisicao" class="mb-1 required">Forma de Aquisição</label>
-                                            <select id="formaAquisicao" class="form-select" title="Informe como foi adquirido o beneficio" name="formaAquisicao" required>
+                                        </div> 
+                                        <div class="col-md-5">
+                                            <label for="formaAquisicao" class="mb-1 required">Tipo aquisição</label>
+                                            <select name="tipoAquisicao" id="tipoAquisicao" title="Escolha um tipo de aquisição" class="form-select" required>
                                                 <option value="SELECIONE" selected>Selecione</option>
-                                                <option value="licitacao">Licitação</option>
-                                                <option value="doacao">Doação</option>
-                                                <option value="compra">Compra</option>
-                                            </select>
-                                            <div class="feedback-aquisicao"></div>
+                                                <?php
+                                                $modalResultAquisicao = $daoTipoAquisicao->select();
+                                                if(is_array($modalResultAquisicao)) {
+                                                    foreach($modalResultAquisicao as $chave => $valor) {
+                                                        ?>
+                                                        <option value="<?= $valor["id_tipo_aquisicao"];?>"><?= $valor["tipo"];?></option>
+                                                        <?php    
+                                                    }
+                                                }else{
+                                                    ?>
+                                                    <option value="nenhum tipo de aquisição disponivel"><?= $modalResultTipo;?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>    
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <div class="mb-3 mb-md-0">
+                                                <label for="qtd" class="mb-1 required">Quantidade inicial</label>
+                                                <input class="form-control" id="qtd" type="number" title="Preencha este campo com o quantidade do beneficio" name="qtd" minlength="0" min="0" required/>
+                                                <div class="feedback-qtd"></div>
+                                            </div>
                                         </div>  
-                                    </div>
-                                    <div class="row mb-2">
-                                            <div class="col-md-2">
-                                                <div class="mb-3 mb-md-0">
-                                                    <label for="qtdTotal" class="mb-1 required">Quantidade Total</label>
-                                                    <input class="form-control" id="qtdTotal" type="number" title="Preencha este campo com o quantidade total do beneficio" name="qtdTotal" minlength="0" min="0" required/>
-                                                    <div class="feedback-qtd-total"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="mb-3 mb-md-0">
-                                                    <label for="unidadeMedida" class="mb-1 required">Unidade Medida</label>
-                                                    <select name="unidadeMedida" id="unidadeMedida" class="form-select" title="Escolha a melhor unidade de medida que seja adequanda para quantificar e contalizar o beneficio." required>
-                                                        <option value="SELECIONE" selected>Selecione</option>
-                                                        <?php 
-                                                           $uni = $unidadesMedidas->select();
-                                                           if(is_array($uni)) {
-                                                              foreach($uni as $chave => $valor) {
-                                                        ?>
-                                                                <option value="<?= $valor["id_unidade"];?>"><?= $valor["descricao"]?>-<?= $valor["sigla"];?></option> 
-                                                        <?php
-                                                              }  
-                                                           }else{
-                                                        ?>
-                                                            <option value="Nenhuma Unidade disponivel">Nenhuma unidade Cadastrada</option>
-                                                        <?php 
-                                                           }  
-                                                        ?>
-                                                    </select>
-                                                    <div class="feedback-unidade-medida"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="mb-3 mb-md-0">
-                                                    <label for="qtdPorMedida" class="mb-1 required">Quantidade por medida</label>
-                                                    <input name="qtdPorMedida" id="qtdPorMedida" class="form-control"  title="Informe a quantidade do beneficio de acordo com a medida escolhida." type="number" minlength="0" min="0" required>
-                                                    <div class="feedback-qtd-por-medida"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="qtdMaxima" class="mb-1 required">Quantidade máxima</label>
-                                                <input type="number" name="qtdMaxima" id="qtdMaxima" class="form-control" title="Informe a quantidade maxima do beneficio que pode ser armazenada no estoque" min="0" minlength="0" required>
-                                                <div class="feedback-qtd-max"></div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="qtdMinima" class="mb-1 required">Quantidade mínima</label> 
-                                                <input type="number" name="qtdMinima" id="qtdMinima" class="form-control" title="Informe a quantidade minima do beneficio que pode haver no estoque" min="0" minlength="0" required> 
-                                                <div class="feedback-qtd-min"></div>          
-                                            </div>
                                     </div>
                                     <div class="mt-3 mb-0">
                                         <div class="col-lg-12" style="text-align: right;">
@@ -241,25 +203,21 @@ if(session_start()) {
                     </div><!--container-fluid px-4-->
                     <!-- beneficios que vão ser cadastrados -->
                     <div class="container-fluid px-4">
+                        <div class="card mb-1 border-0">
+                            <div class="card-body">
+                                <div class="alert alert-dark mb-0 text-center" role="alert">Benefícios a serem cadastrados</div>
+                            </div>                    
+                        </div>
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <div class="alert alert-dark mb-0" role="alert">Benefícios a serem cadastrados no sistema!</div>
-                            </div><!-- card header-->
                             <div class="card-body">
                                 <table id="dataTablesBeneficio" class="row-border cell-border hover" >
                                     <thead>
                                         <tr>
                                             <th>Descrição</th>
-                                            <th>Nome</th>
-                                            <th>Categoria</th>
+                                            <th>Tipo benefício</th>
+                                            <th>Fornecedor/Doador</th>
                                             <th>Forma de Aquisição</th>
-                                            <th>Quantidade Total</th>
-                                            <th>Unidade de Medida</th>
-                                            <th>Quantidade por medida</th>
-                                            <th>Quantidade mínima</th>
-                                            <th>Quantidade máxima</th>
-                                            <th>Nome Fornecedor/Doador</th>
-                                            <th>CNPJ ou CPF fornecedor/doador</th>
+                                            <th>Quantidade</th>
                                         </tr>
                                     </thead>
                                     <tbody>

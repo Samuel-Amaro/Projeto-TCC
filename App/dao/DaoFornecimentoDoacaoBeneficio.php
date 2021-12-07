@@ -39,7 +39,8 @@ class DaoFornecimentoDoacaoBeneficio{
                     if($stmt->rowCount() > 0) {
                         $stmt = null;
                         unset($this->connection);
-                        return true;
+                        //retorna o id do ultimo registro inserido ou false
+                        return is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : false;
                     }else{
                         $stmt = null;
                         unset($this->connection);

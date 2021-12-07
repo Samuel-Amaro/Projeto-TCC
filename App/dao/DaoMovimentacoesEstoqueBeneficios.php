@@ -34,10 +34,13 @@ class DaoMovimentacoesEstoqueBeneficios{
             return false;
         }else{
             try {
-                $sql = "INSERT INTO movimentacoes_estoque_beneficios(id_beneficio, quantidade_mov, tipo_mov, id_unidade_medida, quantidade_por_medida) VALUES (?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO movimentacoes_estoque_beneficios(id_tipo_beneficio, tipo_movimentacao, quantidade_mov, descricao) VALUES (?, ?, ?, ?);";
                 $stmt = $this->connection->prepare($sql);
-                $valores = array($model->getFkBeneficio(), $model->getQtdMovimentada(), $model->getTipoMovimentacao(), $model->getFkUnidadeMedida(), $model->getQtdPorMedida());
-                if($stmt->execute($valores)) {
+                $stmt->bindValue(1, $model->getIdTipoBeneficio(), PDO::PARAM_INT);
+                $stmt->bindValue(2, $model->getTipoMovimentacao(), PDO::PARAM_INT);
+                $stmt->bindValue(3, $model->getQtdMovimentada(), PDO::PARAM_INT);
+                $stmt->bindValue(4, $model->getDescricao(), PDO::PARAM_STR);
+                if($stmt->execute()) {
                     if($stmt->rowCount() > 0) {
                         $stmt = null;
                         unset($this->connection);

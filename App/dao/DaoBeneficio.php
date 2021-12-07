@@ -2,6 +2,8 @@
 
 require_once("../model/ModelBeneficio.php");
 require_once("../utils/DataBase.php");
+require_once("../model/ModelFornecimentoDoacaoBeneficio.php");
+require_once("../model/ModelMovimentacoesEstoqueBeneficios.php");
 
 class DaoBeneficio{
 
@@ -28,44 +30,82 @@ class DaoBeneficio{
     /**
      * * Esta função inseri um registro na tabela beneficio no banco de dados
      */
-    public function insertBeneficio(ModelBeneficio $model) {
-        $this->modelBeneficio = $model;
+    public function insertBeneficio(ModelBeneficio $model, int $idFornecedorDoador, int $idTipoAquisicao) {
         if(is_null($this->connection)) {
             return false;
         }else{
             try {
-                $sql = "INSERT INTO beneficio(descricao, nome, id_categoria, id_fornecedor_doador, forma_aquisicao, quantidade_minima, quantidade_maxima, saldo) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+                $sql = "INSERT INTO beneficio(descricao, id_tipo_beneficio, id_fornecedor_doador, quantidade) VALUES (?, ?, ?, ?);";
                 $stmt = $this->connection->prepare($sql);
-                $valores = array($model->getDescricao(), $model->getNome(), $model->getFkCategoria(), $model->getFkFornecedorDoador(), $model->getFormaAquisicao(), $model->getQtdMinima(), $model->getQtdMaxima(), $model->getSaldo());
-                if($stmt->execute($valores)) {
-                    if($stmt->rowCount() > 0) {
-                       //$stmt = null;
-                       //unset($this->connection);
-                       //Retorna o ID da última linha inserida ou valor de sequência
-                       //id do registro que acabou de ser inserido na tabela
-                       return is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : "-1";
+                $modelFornecimentoDoacao = new ModelFornecimentoDoacaoBeneficio();
+                $modelFornecimentoDoacao->setIdFornecedorDoador($idFornecedorDoador);
+                $modelFornecimentoDoacao->setIdTipoAquisicao($idTipoAquisicao);
+                //inicia transação
+                $this->connection->beginTransaction();
+                //inseri registro primeiro em tbl fornecimento_doacao
+                $daoFornecimentoDoacao = new DaoFornecimentoDoacaoBeneficio(new DataBase());
+                $resultInsert = $daoFornecimentoDoacao->insert($modelFornecimentoDoacao);
+                //traz id do insert tbl fornecimento_doacao
+                if(is_string($resultInsert)) {
+                    //inserir registro em tbl beneficio
+                    $stmt->bindValue(1, $model->getDescricao(), PDO::PARAM_STR); 
+                    $stmt->bindValue(2, $model->getIdTipoBeneficio(), PDO::PARAM_STR);
+                    $stmt->bindValue(3, intval($resultInsert), PDO::PARAM_INT);
+                    $stmt->bindValue(4, $model->getQuantidade(), PDO::PARAM_INT);
+                    if($stmt->execute()) {
+                        if($stmt->rowCount() > 0) {
+                            //insert tbl beneficio deu certo
+                            //insert agora em tbl movimentacao_estoque_beneficio    
+                            $modelEstoque = new ModelMovimentacoesEstoqueBeneficios();
+                            $modelEstoque->setIdTipoBeneficio($model->getIdTipoBeneficio());
+                            $modelEstoque->setTipoMovimentacao(1);
+                            $modelEstoque->setQtdMovimentada($model->getQuantidade());
+                            $modelEstoque->setDescricao('');
+                            $daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+                            if($daoEstoque->insert($modelEstoque)) {
+                                //confirma o lote de transação, todos os inserts deram certo, inseriu em 3 tabelas em uma unica transação
+                                $this->connection->commit();
+                                $stmt = null;
+                                unset($this->connection);
+                                return true;
+                            }else{
+                                //cancela transação porque insert tbl_movimentacao_estoque_beneficio deu erro
+                                $this->connection->rollBack();
+                                $stmt = null;
+                                unset($this->connection);
+                                return false;
+                            }
+                        }else{
+                            //cancela transação, porque insert em tbl_beneficio deu erro
+                            $this->connection->rollBack();
+                            $stmt = null;
+                            unset($this->connection);
+                            return false;
+                        }
                     }else{
+                        //cancela transação, porque insert em tbl_beneficio deu erro
+                        $this->connection->rollBack();
                         $stmt = null;
                         unset($this->connection);
                         return false;
                     }
+                }else{
+                    //deu erro não trouxe id do insert tbl_fornecimento_doacao_beneficio
+                    //cancela transação
+                    $this->connection->rollBack();
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
                 }
             } catch (PDOException $p) {
+                //deu exception erro, cancela tudo
                 $stmt = null;
                 unset($this->connection);
-                //violação da constraint UNIQUE nome beneficio
-                if($p->getCode() === 23505) {
-                    //nome de beneficio no registro informado ja, existe na tabela
-                    echo "Error!: falha ao preparar consulta INSERT beneficio: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
-                    return false;
-                    //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
-                    die();
-                }else{
-                    echo "Error!: falha ao preparar consulta INSERT beneficio: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
-                    return false;
-                    //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
-                    die();
-                }
+                $this->connection->rollBack();
+                echo "Error!: falha ao preparar consulta INSERT beneficio: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
+                return false;
+                //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.
+                die();
             }
         }
     }

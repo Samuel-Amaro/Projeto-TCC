@@ -131,8 +131,10 @@ FOR EACH ROW EXECUTE PROCEDURE registra_logs_tipo_beneficio();
 
 -------------------------------------------------------------------------------------
 -- deletar tabela beneficio, porque vamos criar uma nova com novas colunas
+--executado
 DROP TABLE IF EXISTS beneficio CASCADE;
 
+-- executado
 -- cria nova tabela beneficio
 CREATE TABLE beneficio(
 	id_beneficio SERIAL PRIMARY KEY NOT NULL,
@@ -146,7 +148,7 @@ CREATE TABLE beneficio(
 	quantidade INT NOT NULL,
 	data_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
+--executado
 CREATE OR REPLACE FUNCTION registra_logs_beneficio() RETURNS TRIGGER
 LANGUAGE PLPGSQL
 AS
@@ -167,15 +169,17 @@ BEGIN
     END IF;
 END;
 $$
-
+-- EXECUTADO
 CREATE TRIGGER trigger_beneficio AFTER INSERT OR UPDATE OR DELETE ON  beneficio  
 FOR EACH ROW EXECUTE PROCEDURE registra_logs_beneficio();
 
 ---------------------------------------------------------------------------------
 
+--executado
 -- deleta a tabela movimentacoes_estoque_benefiios porque ha mudanças no model
 DROP TABLE IF EXISTS movimentacoes_estoque_beneficios CASCADE;
 
+-- executado
 -- cria a nova tabela movimentacoes_estoque_beneficios
 CREATE TABLE movimentacoes_estoque_beneficios(
 	id_movimentacoes_estoque_beneficio SERIAL PRIMARY KEY NOT NULL,
@@ -185,9 +189,9 @@ CREATE TABLE movimentacoes_estoque_beneficios(
 	tipo_movimentacao INT NOT NULL CHECK(tipo_movimentacao = 1 OR tipo_movimentacao = 0),
 	quantidade_mov INT NOT NULL,
 	data_hora_mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	descricao TEXT
+	descricao VARCHAR(300)
 );
-
+-- EXECUTADO
 CREATE OR REPLACE FUNCTION registra_logs_movimentacoes_estoque_beneficios() RETURNS TRIGGER
 LANGUAGE PLPGSQL
 AS
@@ -208,7 +212,7 @@ BEGIN
     END IF;
 END;
 $$
-
+-- EXECUTADO
 CREATE TRIGGER trigger_movimentacao_estoque_beneficios 
 AFTER INSERT OR UPDATE OR DELETE ON movimentacoes_estoque_beneficios  
 FOR EACH ROW EXECUTE PROCEDURE registra_logs_movimentacoes_estoque_beneficios();

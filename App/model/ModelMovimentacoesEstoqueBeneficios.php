@@ -3,12 +3,11 @@
 class ModelMovimentacoesEstoqueBeneficios{
     
     private int $idEstoque;
-    private int $fkBeneficio;
+    private int $idTipoBeneficio;
     private int $qtdMovimentada;
     private string $dataHoraUltimaMovimentacao;
     private int $tipoMovimentacao;
-    private int $fkUnidadeMedida;
-    private int $qtdPorMedida;
+    private string $descricao;
 
     public function __construct()
     {
@@ -21,13 +20,6 @@ class ModelMovimentacoesEstoqueBeneficios{
     }
     public function getIdEstoque() : int {
        return $this->idEstoque; 
-    }
-    public function setFkBeneficio(int $id) {
-        $valor = filter_var($id, FILTER_VALIDATE_INT);
-        $this->fkBeneficio = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
-    }
-    public function getFkBeneficio() : int{
-        return $this->fkBeneficio;
     }
     public function setQtdMovimentada(int $qtd) {
         $valor = filter_var($qtd, FILTER_VALIDATE_INT);
@@ -50,21 +42,19 @@ class ModelMovimentacoesEstoqueBeneficios{
     public function getTipoMovimentacao() : int{
        return $this->tipoMovimentacao; 
     }
-    public function setFkUnidadeMedida(int $id) {
+    public function setIdTipoBeneficio(int $id) {
         $valor = filter_var($id, FILTER_VALIDATE_INT);
-        $this->fkUnidadeMedida = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
+        $this->idTipoBeneficio = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
     }
-    public function getFkUnidadeMedida() : int{
-        return $this->fkUnidadeMedida;
+    public function getIdTipoBeneficio() : int{
+        return $this->idTipoBeneficio;
     }
-    public function setQtdPorMedida(int $qtd) {
-        $valor = filter_var($qtd, FILTER_VALIDATE_INT);
-        $this->qtdPorMedida = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
+    public function setDescricao(string $des) {
+        $this->descricao = filter_var($des, FILTER_SANITIZE_STRING);
     }
-    public function getQtdPorMedida() : int {
-        return $this->qtdPorMedida;
+    public function getDescricao() : string{
+        return $this->descricao;
     }
-
 }
 
 ?>

@@ -4,14 +4,10 @@ class ModelBeneficio{
     
     private int $idBeneficio;
     private string $descricao;
-    private string $nome;
-    private int $fkCategoria;
-    private string $formaAquisicao;
-    private int $fkFornecedorDoador;
+    private int $idTipoBeneficio;
+    private int $idFornecimentoDoacao;
+    private int $quantidade;
     private string $dataHora;
-    private int $qtdMinima;
-    private int $qtdMaxima;
-    private int $saldo;
 
     public function __construct()
     {
@@ -19,7 +15,8 @@ class ModelBeneficio{
     }
 
     public function setId(int $id) {
-       $this->idBeneficio = $id; 
+        $valor = filter_var($id, FILTER_VALIDATE_INT);
+        $this->idBeneficio = filter_var($valor, FILTER_SANITIZE_NUMBER_INT); 
     }
     public function getId() : int {
         return $this->idBeneficio;
@@ -30,53 +27,32 @@ class ModelBeneficio{
     public function getDescricao() : string{
        return $this->descricao;   
     }
-    public function setNome(string $nome) {
-        $this->nome = filter_var($nome, FILTER_SANITIZE_STRING);
+    public function setIdTipoBeneficio(int $id) {
+        $valor = filter_var($id, FILTER_VALIDATE_INT);
+        $this->idTipoBeneficio = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
     }
-    public function getNome() : string{
-        return $this->nome;
+    public function getIdTipoBeneficio() : int {
+        return $this->idTipoBeneficio;
     }
-    public function setFkCategoria(int $id) {
-        $this->fkCategoria = filter_var($id, FILTER_VALIDATE_INT);
+    public function setIdFornecedorDoador(int $id) {
+        $valor = filter_var($id, FILTER_VALIDATE_INT);
+        $this->idFornecimentoDoacao = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
     }
-    public function getFkCategoria() : int{
-        return $this->fkCategoria;
+    public function getIdFornecedorDoador() : int{
+        return $this->idFornecimentoDoacao;
     }
-    public function setFormaAquisicao(string $fa) {
-        $this->formaAquisicao = filter_var($fa, FILTER_SANITIZE_STRING);
+    public function setQuantidade(int $qtd) {
+        $valor = filter_var($qtd, FILTER_VALIDATE_INT);
+        $this->quantidade = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
     }
-    public function getFormaAquisicao() : string{
-        return $this->formaAquisicao;
-    }
-    public function setFkFornecedorDoador(int $id) {
-        $this->fkFornecedorDoador = filter_var($id, FILTER_VALIDATE_INT);
-    }
-    public function getFkFornecedorDoador() : int {
-        return $this->fkFornecedorDoador;
+    public function getQuantidade() : int{
+        return $this->quantidade;
     }
     public function setDataHora(string $dh) {
         $this->dataHora = filter_var($dh, FILTER_SANITIZE_STRING);
     }
     public function getDataHora() : string{
         return $this->dataHora;
-    }
-    public function setQtdMinima(int $qtd) {
-        $this->qtdMinima = filter_var($qtd, FILTER_VALIDATE_INT);
-    }
-    public function getQtdMinima() : int{
-        return $this->qtdMinima;
-    }
-    public function setQtdMaxima(int $qtd) {
-        $this->qtdMaxima = filter_var($qtd, FILTER_VALIDATE_INT);
-    }
-    public function getQtdMaxima() : int{
-        return $this->qtdMaxima;
-    }
-    public function setSaldo(int $saldo) {
-        $this->saldo = filter_var($saldo, FILTER_VALIDATE_INT);
-    }  
-    public function getSaldo() : int{
-        return $this->saldo;
     }
 }
 
