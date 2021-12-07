@@ -67,7 +67,8 @@ Tabela de conteúdos
 - [x] Deletar forma de aquisição.
 - [x] Associar uma forma de aquisição a um beneficio. 
 - [x] Cadastrar um tipo de benefício.
-- [x] Visualizar tipo de benefício.  
+- [x] Visualizar tipo de benefício.
+- [x] Alterar tipo de benefício.   
 - [ ]  Registrar entregas.
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
