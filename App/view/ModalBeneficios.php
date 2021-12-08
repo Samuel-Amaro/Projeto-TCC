@@ -11,67 +11,67 @@
             <div class="modal-body">
                 <div>
                     <div>
-                        <b>Nome:</b>
-                        <span class="nome-beneficio"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>Forma aquisição:</b>
-                        <span class="forma-aqu-beneficio"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>Quantidade mínima:</b>
-                        <span class="qtd-minima-beneficio"></span>
-                        <hr style="margin: 4px;">                
-                    </div>
-                    <div>
-                        <b>Quantidade máxima:</b>
-                        <span class="qtd-maxima-beneficio"></span>
-                        <hr style="margin: 4px;">                
-                    </div>
-                    <div>
-                        <b>Quantidade atual estoque:</b>
-                        <span class="saldo-beneficio"></span>
-                        <hr style="margin: 4px;">                
-                    </div>
-                    <div>
-                        <b>Data Hora inserção no sistema:</b>
-                        <span class="data-hora-beneficio"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>Descrição:</b>
+                        <b>Descrição benefício:</b>
                         <span class="descricao-beneficio"></span>
                         <hr style="margin: 4px;">
                     </div>
                     <div>
-                        <b>Categoria:</b>
+                        <b>Quantidade inicial benefício:</b>
+                        <span class="qtd-inicial-beneficio"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>Data hora cadastro:</b>
+                        <span class="data-hora-beneficio"></span>
+                        <hr style="margin: 4px;">                
+                    </div>
+                    <div>
+                        <b>Nome fornecedor/Doador</b>
+                        <span class="nome-fornecedor-doador-beneficio"></span>
+                        <hr style="margin: 4px;">                
+                    </div>
+                    <div>
+                        <b>Identificação  (fornecedor/doador):</b>
+                        <span class="identificacao-forn-doad-beneficio"></span>
+                        <hr style="margin: 4px;">                
+                    </div>
+                    <div>
+                        <b>Tipo pessoa(fornecedor/doador):</b>
+                        <span class="tipo-pessoa-forn-doador"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>CPF (fornecedor/doador):</b>
+                        <span class="cpf-forn-doador"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>CNPJ (fornecedor/doador):</b>
+                        <span class="cnpj-forn-doador"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>Tipo aquisição:</b>
+                        <span class="tipo-aquisica-beneficio"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>Tipo benefício:</b>
+                        <span class="tipo-beneficio"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>Unidade medida:</b>
+                        <span class="um-beneficio"></span>
+                        <hr style="margin: 4px;">
+                    </div>
+                    <div>
+                        <b>Categoria benefício:</b>
                         <span class="categoria-beneficio"></span>
                         <hr style="margin: 4px;">
                     </div>
                     <div>
-                        <b>Nome Fornecedor/Doador:</b>
-                        <span class="nome-fornecedor-doador-beneficio"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>CNPJ/CPF:</b>
-                        <span class="cpf-cnpj-fornecedor-doador-beneficio"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>Identificação fornecedor/Doador:</b>
-                        <span class="identificacao-fornecedor-doador"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>Tipo pessoa fornecedor/doador:</b>
-                        <span class="tipo-pessoa-fornecedor-doador"></span>
-                        <hr style="margin: 4px;">
-                    </div>
-                    <div>
-                        <b>Email fornecedor/doador:</b>
+                        <b>Email (fornecedor/doador):</b>
                         <span class="email-fornecedor-doador"></span>
                         <hr style="margin: 4px;">
                     </div>

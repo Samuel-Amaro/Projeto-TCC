@@ -82,12 +82,12 @@ if(session_start()) {
                                             <div class="col-9 text-end">
                                                 <h3>
                                                 <?php
-                                                # lista a quantidade de beneficios
+                                                    #lista a quantidade de beneficios
                                                     $resul = $daoBeneficio->selectCountBeneficios();
                                                     if(is_array($resul)) {
                                                         $valor = $resul[0];
                                                 ?>
-                                                        <span class="text-dark"><?= $valor["qtd_beneficios_cadastrados"]; ?></span>       
+                                                        <span class="text-dark"><?= $valor["qtd_beneficios"]; ?></span>       
                                                 <?php
                                                     }else{
                                                 ?>
@@ -129,7 +129,7 @@ if(session_start()) {
                                                 <h3>
                                                     <span class="text-dark"><?=$valorArray["qtd_beneficio_categoria"];?></span>         
                                                 </h3>
-                                                <span><?=$valorArray["nome"];?></span>
+                                                <span><?=$valorArray["nome_categoria"];?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -152,11 +152,9 @@ if(session_start()) {
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <!--<th>Forma aquisição</th>-->
-                                        <th>Qtd Maxima</th>
-                                        <th>Qtd Minima</th>
-                                        <!--<th>Categoria</th>-->
-                                        <th>Saldo em estoque</th>
+                                        <th>Forma aquisição</th>
+                                        <th>Categoria</th>
+                                        <th>Quantidade inicial</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>

@@ -117,9 +117,9 @@ class DaoBeneficio{
            return false;
         }else{
             try {
-                $sql = "SELECT B.id_beneficio, B.nome AS nome_beneficio, B.forma_aquisicao AS forma_aquisicao_beneficio, B.data_hora AS data_hora_beneficio, B.quantidade_minima AS quantidade_minima_beneficio, B.quantidade_maxima AS quantidade_maxima_beneficio, B.descricao AS descricao_beneficio, B.saldo AS saldo, CB.id_categoria, CB.nome AS nome_categoria_beneficio,
-                FD.id AS id_fornecedor_doador, FD.nome AS nome_fornecedor_doador, FD.cpf AS cpf_fornecedor_doador, FD.cnpj AS cnpj_fornecedor_doador, FD.identificacao AS identificacao_fornecedor_doador, FD.tipo_pessoa AS tipo_pessoa_fornecedor_doador,
-                FD.email AS email_fornecedor_doador FROM beneficio AS B INNER JOIN categoria_beneficios AS CB ON B.id_categoria = CB.id_categoria INNER JOIN fornecedores_doadores AS FD ON B.id_fornecedor_doador = FD.id;";
+                $sql = "SELECT B.id_beneficio AS id_beneficio, B.descricao AS descricao_beneficio, 
+                B.quantidade AS quantidade_inicial_beneficio, B.data_hora AS data_hora_insercao_beneficio, B.id_tipo_beneficio, B.id_fornecedor_doador, FD.nome AS nome_fornecedor_doador, FD.identificacao AS identificacao_fornecedor_doador, FD.tipo_pessoa AS tipo_pessoa_fornecedor_doador, FD.cpf AS cpf_fornecedor_doador, 
+                FD.cnpj AS cnpj_fornecedor_doador, FD.email AS email_fornecedor_doador, TA.id_tipo_aquisicao, TA.tipo AS tipo_aquisicao, TB.nome_tipo AS nome_tipo_beneficio, TB.id_tipo_beneficio, UMB.sigla AS unidade_medida_beneficio, UMB.id_unidade AS id_unidade_medida, C.nome AS nome_categoria, C.id_categoria AS id_categoria_beneficio FROM beneficio AS B INNER JOIN fornecimento_doacao_beneficio AS FDB ON B.id_fornecedor_doador = FDB.id_fornecimento_doacao_beneficio INNER JOIN fornecedores_doadores AS FD ON FDB.id_fornecedores_doadores = FD.id INNER JOIN tipo_aquisicao AS TA ON FDB.id_tipo_aquisicao = TA.id_tipo_aquisicao INNER JOIN tipo_beneficio AS TB ON B.id_tipo_beneficio = TB.id_tipo_beneficio INNER JOIN unidades_medidas_beneficios AS UMB ON TB.id_unidade_medida = UMB.id_unidade INNER JOIN categoria_beneficios AS C ON TB.id_categoria = C.id_categoria;";
                 $stmt = $this->connection->prepare($sql);
                 if($stmt->execute()) {
                     $resultado = $stmt->fetchAll();
@@ -158,7 +158,8 @@ class DaoBeneficio{
             return false;
         }else{
             try {
-                $sql = "SELECT COUNT(nome) AS qtd_beneficios_cadastrados FROM beneficio;";
+                $sql = "SELECT  COUNT(DISTINCT id_tipo_beneficio) AS qtd_beneficios 
+                FROM beneficio;";
                 $stmt = $this->connection->prepare($sql);
                 if($stmt->execute()) {
                     $resultado = $stmt->fetchAll();
@@ -198,11 +199,8 @@ class DaoBeneficio{
             return false;
         }else{
             try {
-                $sql = "SELECT CB.nome, COUNT(B.nome) AS QTD_BENEFICIO_CATEGORIA 
-                FROM beneficio AS B 
-                INNER JOIN categoria_beneficios AS CB
-                ON B.id_categoria = CB.id_categoria
-                GROUP BY CB.nome ORDER BY QTD_BENEFICIO_CATEGORIA;";
+                $sql = "SELECT CB.nome AS nome_categoria, COUNT(DISTINCT TB.nome_tipo) AS qtd_beneficio_categoria 
+                FROM tipo_beneficio AS TB INNER JOIN categoria_beneficios AS CB ON TB.id_categoria = CB.id_categoria GROUP BY CB.nome;";
                 $stmt = $this->connection->prepare($sql);
                 if($stmt->execute()) {
                     $resultado = $stmt->fetchAll();
@@ -244,14 +242,16 @@ class DaoBeneficio{
            return false; 
         }else{
             try {
-                $sql = "SELECT MV.quantidade_mov, MV.data_hora_ultima_mov, MV.tipo_mov,
-                UM.sigla, MV.quantidade_por_medida
-                FROM movimentacoes_estoque_beneficios AS MV
-                INNER JOIN beneficio AS B 
-                ON MV.id_beneficio = B.id_beneficio
-                INNER JOIN unidades_medidas_beneficios AS UM
-                ON MV.id_unidade_medida = UM.id_unidade
-                WHERE MV.id_beneficio = ? ORDER BY MV.data_hora_ultima_mov ASC;";
+                $sql = "SELECT MEB.quantidade_mov,  MEB.data_hora_mov, MEB.tipo_movimentacao,
+                MEB.descricao, TB.nome_tipo, UMB.sigla, CB.nome
+                FROM movimentacoes_estoque_beneficios MEB
+                INNER JOIN tipo_beneficio AS TB
+                ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
+                INNER JOIN unidades_medidas_beneficios AS UMB
+                ON TB.id_unidade_medida = UMB.id_unidade
+                INNER JOIN categoria_beneficios AS CB
+                ON TB.id_categoria = CB.id_categoria
+                WHERE MEB.id_tipo_beneficio = ? ORDER BY MEB.data_hora_mov ASC;";
                 $stmt = $this->connection->prepare($sql);
                 $stmt->bindValue(1, $id, PDO::PARAM_INT);
                 if($stmt->execute()) {

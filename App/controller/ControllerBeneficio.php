@@ -30,7 +30,7 @@ class ControllerBeneficio{
                 $this->controllerCadastrar($methodHttp);
                 break;
             case "listar":
-                $this->listar($methodHttp);
+                $this->controllerListar($methodHttp);
                 break;
             case "listarMovimentacoesBeneficio":
                 $this->listarMovimentacoesBeneficio($methodHttp);
@@ -91,7 +91,7 @@ class ControllerBeneficio{
         }
     }
 
-    public function listar(string $methodHttp) {
+    public function controllerListar(string $methodHttp) {
         if($methodHttp === "POST") {
             $beneficios = array();
             $this->daoBeneficio = new DaoBeneficio(new DataBase());

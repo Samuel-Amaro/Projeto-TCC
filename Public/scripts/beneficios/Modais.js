@@ -17,36 +17,19 @@ function mostraModalAddMovimentacao() {
 }
 
 function carregaDadosModalInfo(data) {
-    let nomeBeneficio = document.querySelector(".nome-beneficio");
-    let formaAquisicaoBenef = document.querySelector(".forma-aqu-beneficio");
-    let qtdMinimaBenef = document.querySelector(".qtd-minima-beneficio");
-    let qtdMaximaBenef = document.querySelector(".qtd-maxima-beneficio");
-    let dataHoraBeneficio = document.querySelector(".data-hora-beneficio");
-    let descricaoBeneficio = document.querySelector(".descricao-beneficio");
-    let categoriaBeneficio = document.querySelector(".categoria-beneficio");
-    let nomeFornecedorDoador = document.querySelector(".nome-fornecedor-doador-beneficio");
-    let cpfCpnjFornecedorDoador = document.querySelector(".cpf-cnpj-fornecedor-doador-beneficio");
-    let identificacaoFornecedorDoador = document.querySelector(".identificacao-fornecedor-doador");
-    let tipoPessoaFornecedorDoador = document.querySelector(".tipo-pessoa-fornecedor-doador");
-    let emailFornecedorDoador = document.querySelector(".email-fornecedor-doador");
-    let saldo = document.querySelector(".saldo-beneficio");
-    nomeBeneficio.textContent = data.nome_beneficio;
-    formaAquisicaoBenef.textContent = data.forma_aquisicao_beneficio;
-    qtdMinimaBenef.textContent = data.quantidade_minima_beneficio;
-    qtdMaximaBenef.textContent = data.quantidade_maxima_beneficio;
-    dataHoraBeneficio.textContent = formataDataHora(data.data_hora_beneficio);
-    descricaoBeneficio.textContent = data.descricao_beneficio;
-    categoriaBeneficio.textContent = data.nome_categoria_beneficio;
-    nomeFornecedorDoador.textContent = data.nome_fornecedor_doador;
-    if(data.cpf_fornecedor_doador === null || data.cpf_fornecedor_doador === '') {
-       cpfCpnjFornecedorDoador.textContent = data.cnpj_fornecedor_doador; 
-    }else{
-        cpfCpnjFornecedorDoador.textContent = data.cpf_fornecedor_doador; 
-    }
-    identificacaoFornecedorDoador.textContent = data.identificacao_fornecedor_doador;
-    tipoPessoaFornecedorDoador.textContent = data.tipo_pessoa_fornecedor_doador;
-    emailFornecedorDoador.textContent = data.email_fornecedor_doador;
-    saldo.textContent = data.saldo;
+    document.querySelector(".descricao-beneficio").textContent = data.descricao_beneficio;
+    document.querySelector(".qtd-inicial-beneficio").textContent = data.quantidade_inicial_beneficio;
+    document.querySelector(".data-hora-beneficio").textContent = formataDataHora(data.data_hora_insercao_beneficio);
+    document.querySelector(".nome-fornecedor-doador-beneficio").textContent = data.nome_fornecedor_doador;
+    document.querySelector(".identificacao-forn-doad-beneficio").textContent = data.identificacao_fornecedor_doador;
+    document.querySelector(".tipo-pessoa-forn-doador").textContent = data.tipo_pessoa_fornecedor_doador;
+    document.querySelector(".cpf-forn-doador").textContent = data.cpf_fornecedor_doador;
+    document.querySelector(".cnpj-forn-doador").textContent = data.cnpj_fornecedor_doador;
+    document.querySelector(".tipo-aquisica-beneficio").textContent = data.tipo_aquisicao;
+    document.querySelector(".tipo-beneficio").textContent = data.nome_tipo_beneficio;
+    document.querySelector(".um-beneficio").textContent = data.unidade_medida_beneficio;
+    document.querySelector(".categoria-beneficio").textContent = data.nome_categoria;
+    document.querySelector(".email-fornecedor-doador").textContent = data.email_fornecedor_doador;
 }
 
 function carregaDadosModalAlterar(data) {
@@ -280,13 +263,13 @@ function carregaDadosTimeline(array, nomeBeneficio) {
         let li = document.createElement("li");
         li.setAttribute("class", "item-timeline");
         let a = document.querySelector("a");
-        a.textContent = formataDataHora(object.data_hora_ultima_mov);
+        a.textContent = formataDataHora(object.data_hora_mov);
         a.href = "#";
         a.setAttribute("class", "float-right");
         let divPai = document.createElement("div");
         //itera sobre as propriedades do objeto
         for(const propriedade in object) {
-            if((propriedade >= 0 && propriedade <= 4) || propriedade === "data_hora_ultima_mov") {
+            if((propriedade >= 0 && propriedade <= 6) || propriedade === "data_hora_mov") {
                 //faz nada propriedade de numero não interessa 
             }else{
                 //propriedade de texto  
@@ -296,22 +279,28 @@ function carregaDadosTimeline(array, nomeBeneficio) {
                 let hr = document.createElement("hr");
                 hr.style.margin = "4px";
                 if(propriedade === "quantidade_mov") {
-                b.textContent = "Quantidade movimentada: "; 
-                span.textContent =  object["quantidade_mov"];
+                    b.textContent = "Quantidade movimentada: "; 
+                    span.textContent =  object["quantidade_mov"];
                 }else if(propriedade === "sigla") {
                     b.textContent = "Unidade de medida: "; 
                     span.textContent =  object["sigla"];
-                }else if(propriedade === "tipo_mov") {
+                }else if(propriedade === "tipo_movimentacao") {
                     b.textContent = "Tipo movimentação: ";
                     if(object[propriedade] === 0) {
-                    span.textContent = "Saida"; 
+                        span.textContent = "Saida"; 
                     }else{
-                    span.textContent = "Entrada";
+                        span.textContent = "Entrada";
                     }
-                }else if(propriedade === "quantidade_por_medida") {
-                    b.textContent = "Quantidade por medida: ";
+                }else if(propriedade === "nome") {
+                    b.textContent = "Nome categoria: ";
                     span.textContent = object[propriedade];
-                }
+                }else if(propriedade === "descricao") {
+                    b.textContent = "Descrição Movimentação: ";
+                    span.textContent = object[propriedade];
+                }else if(propriedade === "nome_tipo") {
+                    b.textContent = "Tipo benefício: ";
+                    span.textContent = object[propriedade];
+                }  
                 divFilha.appendChild(b);
                 divFilha.appendChild(span);
                 divFilha.appendChild(hr);

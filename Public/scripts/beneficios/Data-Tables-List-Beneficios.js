@@ -20,12 +20,11 @@ let tabela = new DataTable('#dataTablesListBeneficios',{
         fetch('../controller/ControllerBeneficio.php', minhaInicializacao).then(response => response.json()).then(data =>  callback(data));
     },//arrumar colunas que serão puxadas
     "columns": [
-        {data: 'nome_beneficio'},
-        //{data: 'forma_aquisicao_beneficio'},
-        {data: 'quantidade_maxima_beneficio'},
-        {data: 'quantidade_minima_beneficio'},
-        //{data: 'nome_categoria_beneficio'},
-        {data: 'saldo'}
+        {data: 'nome_tipo_beneficio'},
+        {data: 'tipo_aquisicao'},
+        {data: 'nome_categoria'},
+        {data: 'quantidade_inicial_beneficio'}
+        //{data: 'saldo'}
     ], 
     "columnDefs": [ {
         "targets": 4,
@@ -45,7 +44,7 @@ $('#dataTablesListBeneficios tbody').on('click', '.btn-info-modal', function(){
 $('#dataTablesListBeneficios tbody').on('click', '.btn-timeline-mov', function(){
     let data = tabela.row($(this).parents('tr')).data();
     mostraModalTimelineMovimentacoes();
-    makeRequestDadosTimeline("../controller/ControllerBeneficio.php", data.id_beneficio, "listarMovimentacoesBeneficio", data.nome_beneficio);
+    makeRequestDadosTimeline("../controller/ControllerBeneficio.php", data.id_tipo_beneficio, "listarMovimentacoesBeneficio", data.nome_tipo_beneficio);
 });
 
 //ao clicar no btn de alterar vai poder modificar um beneficio
