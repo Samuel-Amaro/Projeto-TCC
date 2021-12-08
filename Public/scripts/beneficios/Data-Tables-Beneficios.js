@@ -11,17 +11,11 @@ let tabelaBeneficios = new DataTable('#dataTablesBeneficio', {
     },
     "data": arrayBeneficios, //array com beneficios
     "columns": [
-        {data: 'descricao'}, //descricaoBeneficio
-        {data: 'nome'}, //nomeBeneficio
-        {data: 'categoriaId'}, //categoriaBeneficio
-        {data: 'formaAquisicao'}, //formaAquisicao
-        {data: 'qtdTotal'}, //quantidadeTotal
-        {data: 'unidadeMedidaId'}, //unidadeMedida 
-        {data: 'qtdMedida'}, //quantidadePorMedida
-        {data: 'qtdMinima'}, //quantidadeMinima
-        {data: 'qtdMaxima'}, //quantidadeMaxima
-        {data: 'nomeFornecedorOuDoador'},
-        {data: 'cnpjOuCpfFornecedorDoador'}
+        {data: 'idTipoBeneficio'}, //idTipoBeneficio
+        {data: 'nomeFornecedorOuDoador'}, //nome fornecedor doador
+        {data: 'idTipoAquisicao'}, //idTipoAquisicao
+        {data: 'quantidade'}, //quantidade
+        {data: 'cnpjOuCpfFornecedorDoador'} //cnpj ou cpf fornecedor/doador
     ]
 });
 

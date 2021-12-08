@@ -20,7 +20,6 @@ if(session_start()) {
         $daoTipoAquisicao = new DaoTipoAquisicao(new DataBase());
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -187,7 +186,7 @@ if(session_start()) {
                                         <div class="col-md-2">
                                             <div class="mb-3 mb-md-0">
                                                 <label for="qtd" class="mb-1 required">Quantidade inicial</label>
-                                                <input class="form-control" id="qtd" type="number" title="Preencha este campo com o quantidade do beneficio" name="qtd" minlength="0" min="0" required/>
+                                                <input class="form-control" id="qtd" type="number" title="Preencha este campo com o quantidade do beneficio" name="qtd" minlength="1" min="1" required/>
                                                 <div class="feedback-qtd"></div>
                                             </div>
                                         </div>  
@@ -213,11 +212,11 @@ if(session_start()) {
                                 <table id="dataTablesBeneficio" class="row-border cell-border hover" >
                                     <thead>
                                         <tr>
-                                            <th>Descrição</th>
                                             <th>Tipo benefício</th>
                                             <th>Fornecedor/Doador</th>
                                             <th>Forma de Aquisição</th>
                                             <th>Quantidade</th>
+                                            <th>CNPJ ou CPF fornecedor/Doador</th>
                                         </tr>
                                     </thead>
                                     <tbody>

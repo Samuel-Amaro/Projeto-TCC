@@ -1,35 +1,33 @@
 //quando o formulario e submetido para cadastrar beneficio, os dados são inseridos na tabela do datatables
 let submitForm = document.querySelector(".form-beneficio");
-let seletoresCssCamposForm = ["#descricao-beneficio", "#nomeBeneficio", "#categoriaBeneficio", "#formaAquisicao", "#qtdTotal", "#unidadeMedida", "#qtdPorMedida", "#qtdMaxima", "#qtdMinima"];
 //quando formulario de beneficio submetido
 submitForm.addEventListener("submit", function(event) {
     try {
-        let camposInvalidos = validaCamposForm(seletoresCssCamposForm);
-        //não possui campos invalidos no form de beneficio
-        if(camposInvalidos.length === 0) {
+        if(validaCamposForm()) {
             //verifica se a um fornecedor ou doador associado
             let fornDoad = obterDadosFornecedorDoador();
             if(fornDoad === false) {
                 limpaCamposForm();
                 event.preventDefault(); 
             }else{
-                let dadosBeneficios = getDadosBeneficioCompleto(obterDadosBeneficio(), obterDadosFornecedorDoador());
-                console.log(obterDadosBeneficio());
-                console.log(obterDadosFornecedorDoador());
+                let beneficioCompleto = getDadosBeneficioCompleto(obterDadosBeneficio(), obterDadosFornecedorDoador());
+                //console.log(obterDadosBeneficio());
+                //console.log(obterDadosFornecedorDoador());
                 //add os dados de um beneficio como uma linha da tabela e redesenha
-                tabelaBeneficios.row.add(dadosBeneficios).draw();
+                tabelaBeneficios.row.add(beneficioCompleto).draw();
                 //add os dados de um beneficio a um array, cada item do array e um object
-                arrayBeneficios.push(dadosBeneficios);
+                arrayBeneficios.push(beneficioCompleto);
                 //limpa form
                 limpaCamposForm();
                 event.preventDefault();
             }
-        }//possui campos invalidos no form de beneficio
-        else{
-           for(let index = 0; index < camposInvalidos.length; index++) {
-               setaEstiloValidacaoCampo(camposInvalidos[index], ".is-invalid"); 
-           }
-           event.preventDefault(); 
+        }else{
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, preencha corretamente os campos do formulário inserir beneficio, para poder concluir a operação de cadastro do novo benefício.'
+            }); 
         }     
     } catch (error) {
         event.preventDefault();
@@ -52,17 +50,12 @@ submitForm.addEventListener("submit", function(event) {
  */
 function getDadosBeneficioCompleto(beneficio = {}, fornecedorDoador = {}) {
     let beneficioCompleto = {
-        descricao : beneficio.descricaoBeneficio, 
-        nome: beneficio.nomeBeneficio, 
-        categoriaId : beneficio.categoriaBeneficio, 
-        formaAquisicao : beneficio.formaAquisicao, 
-        qtdTotal : beneficio.quantidadeTotal, 
-        unidadeMedidaId : beneficio.unidadeMedida, 
-        qtdMedida : beneficio.quantidadePorMedida, 
-        qtdMinima : beneficio.quantidadeMinima, 
-        qtdMaxima: beneficio.quantidadeMaxima, 
-        idFornecedorOuDoador : fornecedorDoador.id, 
-        nomeFornecedorOuDoador : fornecedorDoador.nome, 
-        cnpjOuCpfFornecedorDoador : fornecedorDoador.cnpjOuCpf};    
+        "descricao" : beneficio.descricaoBeneficio, 
+        "idTipoBeneficio" : beneficio.idTipoBeneficio, 
+        "idTipoAquisicao" : beneficio.idTipoAquisicao, 
+        "quantidade" : beneficio.quantidade,  
+        "idFornecedorDoador" : fornecedorDoador.id, 
+        "nomeFornecedorOuDoador" : fornecedorDoador.nome, 
+        "cnpjOuCpfFornecedorDoador" : fornecedorDoador.cnpjOuCpf};    
     return beneficioCompleto;
 }

@@ -1,18 +1,9 @@
 window.addEventListener("load", function(event) {
-    //descrição so pode 70 caracteres
-    limitaCaracteresCampo("#descricao-beneficio", ".feedback-descricao", 70);
-    //nome so pode 70 caracteres
-    limitaCaracteresCampo("#nomeBeneficio", ".feedback-nome", 70);
+    //descrição so pode 300 caracteres
+    limitaCaracteresCampo("#descricao-beneficio", ".feedback-descricao", 300);
 });
 
-
-/**
- * Esta função aplica um evento e um manipulador de evento para contar a quantidade de caracteres digitdas em um input, mostrando o feedback de quantos foram digitados
- * @param {*} htmlElementCampo 
- * @param {*} htmlElementFeedback 
- * @param {*} qtdMaximaCaracteres 
- */
- function limitaCaracteresCampo(htmlElementCampo, htmlElementFeedback, qtdMaximaCaracteres) {
+function limitaCaracteresCampo(htmlElementCampo, htmlElementFeedback, qtdMaximaCaracteres) {
     let input = document.querySelector(htmlElementCampo);
     let feedback = document.querySelector(htmlElementFeedback);
     input.addEventListener("keypress", function(e) {
@@ -41,12 +32,7 @@ window.addEventListener("load", function(event) {
     });
 }
 
-/**
- * Esta função seta uma class de validação de css, em um campo do formulario de beneficio
- * @param {*} htmlElement 
- * @param {*} classValidacao 
- */
- function setaEstiloValidacaoCampo(htmlElement, classValidacao) {
+function setaEstiloValidacaoCampo(htmlElement, classValidacao) {
     let elemento = document.querySelector(htmlElement);
     if(classValidacao == ".is-invalid"){
        elemento.classList.remove("is-valid");
@@ -78,110 +64,33 @@ function obterDadosFornecedorDoador() {
         campoCnpjOuCpf.classList.add("is-invalid");
         return false;
     }else{
-        //feedbackAutocomplete.classList.remove("invalid-feedback");
-        //feedbackAutocomplete.classList.add("valid-feedback");
-        //campoCnpjOuCpf.classList.remove("is-invalid");
-        //campoCnpjOuCpf.classList.add("is-valid");
         return {id : campoId, nome : campoNome, cnpjOuCpf: valorCnpjOuCpf};
     }
 }
 
-/**
- * * Esta função valida os campos do formulario de cadastrar beneficio
- * 
- * retorna os campos invalidos para serem tratados antes de ser submetidos
- * 
- * @param {*} seletoresCssCampos 
- * @returns array
- */
-function validaCamposForm(seletoresCssCampos = []) {
-    let camposInvalidos = [];
-    let camposValidos = [];
-    if(seletoresCssCampos.length === 0) {
-       //array vazio sem campos a validar
-       return false; 
+function validaCamposForm() {
+    let descricaoBeneficio = document.querySelector("#descricao-beneficio").value;
+    let tipoBeneficio = document.querySelector("#tipoBeneficio").value;
+    let tipoAquisicao = document.querySelector("#tipoAquisicao").value;
+    let qtd = document.querySelector("#qtd").value;
+    if((descricaoBeneficio.length === 0 || !descricaoBeneficio.trim() || descricaoBeneficio === '') || (tipoBeneficio === "SELECIONE" || tipoBeneficio === "selecione") || (tipoAquisicao === "SELECIONE" || tipoAquisicao === "selecione") || (qtd < 0 || qtd === 0)) {
+        return false;
     }else{
-        seletoresCssCampos.forEach(element => {
-            //valida selects
-            if(element === "#categoriaBeneficio" || element === "#formaAquisicao" || element === "#unidadeMedida") {
-                let valor = document.querySelector(element).value;
-                if(valor === "SELECIONE" || valor === "selecione" || valor === "Nenhuma Unidade disponivel") {
-                    camposInvalidos.push(element);
-                }else{
-                    camposValidos.push(element);
-                }
-            }//valida input type="text"
-            else if(element === "#descricao-beneficio" || element === "#nomeBeneficio") {
-                let valor = document.querySelector(element).value;
-                if((valor.length === 0 || !valor.trim()) || valor === '') {
-                    camposInvalidos.push(element);
-                }else{
-                    camposValidos.push(element);
-                }
-            }//valida os input type="number"
-            else if(element === "#qtdTotal" || element === "#qtdPorMedida" || element === "#qtdMaxima" || element === "#qtdMinima"){
-                let valor = document.querySelector(element).value;
-                if(valor >= 1) {
-                   camposValidos.push(element); 
-                }else{
-                    camposInvalidos.push(element);
-                }
-            }
-        });
-        return camposInvalidos;
+        return true;
     }
-    /*let campoDescricao = document.querySelector("#descricao-beneficio"); //type="text"
-    let campoNome = document.querySelector("#nomeBeneficio"); //type="text"
-    let campoCategoria = document.querySelector("#categoriaBeneficio"); //select
-    let campoFormaAquisicao = document.querySelector("#formaAquisicao"); //select 
-    let campoQtdTotal = document.querySelector("#qtdTotal"); //type = "number"
-    let campoUnidadeMedida = document.querySelector("#unidadeMedida"); //select
-    let campoQtdPorMedida = document.querySelector("#qtdPorMedida"); //type="number"
-    let campoQtdMaxima = document.querySelector("#qtdMaxima"); //type="number"
-    let campoQtdMinima = document.querySelector("#qtdMinima"); //type="number"
-    */
 }
 
-
-/**
- * Esta função obtem os dados submitidos do formulario do beneficio
- * @returns json
- */
- function obterDadosBeneficio() {
-    let beneficio = {
-        "descricaoBeneficio" : document.querySelector(".descricao-beneficio").value,
-        "nomeBeneficio" : document.querySelector("#nomeBeneficio").value,  
-        "categoriaBeneficio" : document.querySelector("#categoriaBeneficio").value, 
-        "formaAquisicao" : document.querySelector("#formaAquisicao").value,
-        "quantidadeTotal" : document.querySelector("#qtdTotal").value,
-        "unidadeMedida" : document.querySelector("#unidadeMedida").value,
-        "quantidadePorMedida" : document.querySelector("#qtdPorMedida").value,
-        "quantidadeMinima" : document.querySelector("#qtdMinima").value,
-        "quantidadeMaxima" : document.querySelector("#qtdMaxima").value
-    };
+function obterDadosBeneficio() {
+    let beneficio = {"descricaoBeneficio" : document.querySelector("#descricao-beneficio").value, "idTipoBeneficio" : document.querySelector("#tipoBeneficio").value, "idTipoAquisicao" : document.querySelector("#tipoAquisicao").value, "quantidade" : document.querySelector("#qtd").value};
     return beneficio;
 }
 
-/**
- * Esta função limpa campos do formulario
- */
 function limpaCamposForm() {
     document.querySelector(".descricao-beneficio").value = '';
-    document.querySelector("#nomeBeneficio").value = '';
-    document.querySelector("#categoriaBeneficio").options.item(0).selected = true;
-    document.querySelector("#formaAquisicao").options.item(0).selected = true;
-    document.querySelector("#qtdTotal").value = '';
-    document.querySelector("#unidadeMedida").options.item(0).selected = true;
-    document.querySelector("#qtdPorMedida").value = '';
-    document.querySelector("#qtdMinima").value = '';
-    document.querySelector("#qtdMaxima").value = '';
+    document.querySelector("#tipoAquisicao").options.item(0).selected = true;
+    document.querySelector("#tipoBeneficio").options.item(0).selected = true;
+    document.querySelector("#qtd").value = '';
     document.querySelector("#autoCompleteFornecedorDoador").value = '';
     document.querySelector("#idFornDoador").value = '';
     document.querySelector("#nomeFornDoador").value = '';
 }
-
-/*
-let btcCadastrarBeneficios = document.querySelector(".btn-cadastrar-beneficio");
-btcCadastrarBeneficios.addEventListener("click", function(envet) {
-    obterBeneficiosACadastrar();
-});*/

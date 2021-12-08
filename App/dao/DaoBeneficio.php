@@ -46,7 +46,7 @@ class DaoBeneficio{
                 $daoFornecimentoDoacao = new DaoFornecimentoDoacaoBeneficio(new DataBase());
                 $resultInsert = $daoFornecimentoDoacao->insert($modelFornecimentoDoacao);
                 //traz id do insert tbl fornecimento_doacao
-                if(is_string($resultInsert)) {
+                if(is_string($resultInsert) && intval($resultInsert) > 0) {
                     //inserir registro em tbl beneficio
                     $stmt->bindValue(1, $model->getDescricao(), PDO::PARAM_STR); 
                     $stmt->bindValue(2, $model->getIdTipoBeneficio(), PDO::PARAM_STR);
@@ -63,7 +63,7 @@ class DaoBeneficio{
                             $modelEstoque->setDescricao('');
                             $daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
                             if($daoEstoque->insert($modelEstoque)) {
-                                //confirma o lote de transação, todos os inserts deram certo, inseriu em 3 tabelas em uma unica transação
+                                //confirma o lote de transação, todos os inserts deram certo, inseriu em 3 tabelas em uma unica transação, fica visivel para todos os usuarios essa operações no banco
                                 $this->connection->commit();
                                 $stmt = null;
                                 unset($this->connection);
