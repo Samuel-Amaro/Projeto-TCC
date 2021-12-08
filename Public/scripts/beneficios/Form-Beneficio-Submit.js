@@ -51,7 +51,7 @@ submitForm.addEventListener("submit", function(event) {
 function getDadosBeneficioCompleto(beneficio = {}, fornecedorDoador = {}) {
     let beneficioCompleto = {
         "descricao" : beneficio.descricaoBeneficio, 
-        "idTipoBeneficio" : beneficio.idTipoBeneficio, 
+        "idTipeBeneficio" : beneficio.idTipoBeneficio, 
         "idTipoAquisicao" : beneficio.idTipoAquisicao, 
         "quantidade" : beneficio.quantidade,  
         "idFornecedorDoador" : fornecedorDoador.id, 

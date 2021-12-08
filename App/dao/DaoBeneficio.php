@@ -4,6 +4,8 @@ require_once("../model/ModelBeneficio.php");
 require_once("../utils/DataBase.php");
 require_once("../model/ModelFornecimentoDoacaoBeneficio.php");
 require_once("../model/ModelMovimentacoesEstoqueBeneficios.php");
+require_once("DaoFornecimentoDoacaoBeneficio.php");
+require_once("DaoMovimentacoesEstoqueBeneficios.php");
 
 class DaoBeneficio{
 
@@ -46,7 +48,7 @@ class DaoBeneficio{
                 $daoFornecimentoDoacao = new DaoFornecimentoDoacaoBeneficio(new DataBase());
                 $resultInsert = $daoFornecimentoDoacao->insert($modelFornecimentoDoacao);
                 //traz id do insert tbl fornecimento_doacao
-                if(is_string($resultInsert) && intval($resultInsert) > 0) {
+                if(is_string($resultInsert)) {
                     //inserir registro em tbl beneficio
                     $stmt->bindValue(1, $model->getDescricao(), PDO::PARAM_STR); 
                     $stmt->bindValue(2, $model->getIdTipoBeneficio(), PDO::PARAM_STR);
@@ -99,9 +101,9 @@ class DaoBeneficio{
                 }
             } catch (PDOException $p) {
                 //deu exception erro, cancela tudo
+                $this->connection->rollBack();
                 $stmt = null;
                 unset($this->connection);
-                $this->connection->rollBack();
                 echo "Error!: falha ao preparar consulta INSERT beneficio: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
                 return false;
                 //A função exit() termina a execução do script. Ela mostra o parâmetro status justamente antes de sair.

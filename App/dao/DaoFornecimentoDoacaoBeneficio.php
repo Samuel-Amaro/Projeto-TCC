@@ -37,10 +37,10 @@ class DaoFornecimentoDoacaoBeneficio{
                 $stmt->bindValue(2, $model->getIdTipoAquisicao(), PDO::PARAM_INT);
                 if($stmt->execute()) {
                     if($stmt->rowCount() > 0) {
-                        $stmt = null;
-                        unset($this->connection);
+                        //TODO LISTAR TODAS AS SEQUENCIAS: SELECT * FROM information_schema.sequences;
                         //retorna o id do ultimo registro inserido ou false
-                        return is_string($this->connection->lastInsertId()) ? $this->connection->lastInsertId() : false;
+                        //informar o nome da sequencia da tabela para obter o ultimo id
+                        return is_string($this->connection->lastInsertId("fornecimento_doacao_beneficio_id_fornecimento_doacao_benefi_seq")) ? $this->connection->lastInsertId("fornecimento_doacao_beneficio_id_fornecimento_doacao_benefi_seq") : false;
                     }else{
                         $stmt = null;
                         unset($this->connection);

@@ -14,7 +14,7 @@ btnCadastrarBeneficios.addEventListener("click", function(event) {
         let jsonDados = JSON.stringify(dados);
         //console.log(jsonDados);
         if(makeRequestBeneficio("../controller/ControllerBeneficio.php", jsonDados, "cadastrar") === 1) {
-             
+            //se der certo faz nada 
         }else{
             Swal.fire({
                 icon: 'error',

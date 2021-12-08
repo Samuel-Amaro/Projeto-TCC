@@ -11,7 +11,7 @@ let tabelaBeneficios = new DataTable('#dataTablesBeneficio', {
     },
     "data": arrayBeneficios, //array com beneficios
     "columns": [
-        {data: 'idTipoBeneficio'}, //idTipoBeneficio
+        {data: 'idTipeBeneficio'}, //idTipoBeneficio
         {data: 'nomeFornecedorOuDoador'}, //nome fornecedor doador
         {data: 'idTipoAquisicao'}, //idTipoAquisicao
         {data: 'quantidade'}, //quantidade

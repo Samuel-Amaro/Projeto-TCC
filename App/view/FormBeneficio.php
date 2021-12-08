@@ -136,7 +136,7 @@ if(session_start()) {
                                             <div>
                                                 <div class="mb-3 mb-md-0">
                                                     <label for="descricao-beneficio" class="mb-1 required">Descrição</label>
-                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="300" minlength="3" required/>
+                                                    <input type="text" class="form-control descricao-beneficio" placeholder="Informe aqui, uma descrição sobre este novo beneficio." title="Entre com uma descrição que ajude a indentificar e descrever este beneficio da melhor forma" id="descricao-beneficio" name="descricao-beneficio" maxlength="300" minlength="3"/>
                                                     <div class="feedback-descricao"></div>
                                                 </div>
                                             </div>

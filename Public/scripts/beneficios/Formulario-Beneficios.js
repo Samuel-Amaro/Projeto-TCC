@@ -73,7 +73,7 @@ function validaCamposForm() {
     let tipoBeneficio = document.querySelector("#tipoBeneficio").value;
     let tipoAquisicao = document.querySelector("#tipoAquisicao").value;
     let qtd = document.querySelector("#qtd").value;
-    if((descricaoBeneficio.length === 0 || !descricaoBeneficio.trim() || descricaoBeneficio === '') || (tipoBeneficio === "SELECIONE" || tipoBeneficio === "selecione") || (tipoAquisicao === "SELECIONE" || tipoAquisicao === "selecione") || (qtd < 0 || qtd === 0)) {
+    if((tipoBeneficio === "SELECIONE" || tipoBeneficio === "selecione") || (tipoAquisicao === "SELECIONE" || tipoAquisicao === "selecione") || (qtd < 0 || qtd === 0)) {
         return false;
     }else{
         return true;

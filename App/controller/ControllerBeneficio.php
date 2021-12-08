@@ -27,7 +27,7 @@ class ControllerBeneficio{
         $this->methodHttp = $methodHttp;
         switch($this->operacao) {
             case "cadastrar":
-                $this->cadastrarBeneficio($methodHttp);
+                $this->controllerCadastrar($methodHttp);
                 break;
             case "listar":
                 $this->listar($methodHttp);
@@ -40,61 +40,49 @@ class ControllerBeneficio{
         }    
     }
 
-    public function cadastrarBeneficio(string $methodHttp) {
-        $response = '';
+    public function controllerCadastrar(string $methodHttp) {
+        $idsTipoBeneficioCadastrados = array();
+        $idsTipoBeneficioNaoCadastrados = array();
         if($methodHttp === "POST") {
             $beneficios = array();
             $dados = json_decode($_POST["data"]);
             foreach($dados as $chave => $valor) {
                 if(is_object($valor)) {
-                $beneficio = new ModelBeneficio();
-                $beneficio->setNome($valor->nome); //nome
-                $beneficio->setDescricao($valor->descricao); //descricao
-                $beneficio->setFormaAquisicao($valor->formaAquisicao); //forma aquisição
-                $beneficio->setQtdMaxima($valor->qtdMaxima); //qtd maxima
-                $beneficio->setQtdMinima($valor->qtdMinima); //qtd minima
-                $beneficio->setSaldo($valor->qtdTotal); //seta saldo inicial
-                $beneficio->setFkCategoria($valor->categoriaId); //categoria id
-                $beneficio->setFkFornecedorDoador($valor->idFornecedorOuDoador); //id fornecedor/Doador
-                $movEstoqueBeneficio = new ModelMovimentacoesEstoqueBeneficios();
-                $movEstoqueBeneficio->setQtdMovimentada($valor->qtdTotal); //qtd total
-                $movEstoqueBeneficio->setTipoMovimentacao(1); //1 == entrada estoque
-                $movEstoqueBeneficio->setFkUnidadeMedida($valor->unidadeMedidaId); //id da unidade de medida
-                $movEstoqueBeneficio->setQtdPorMedida($valor->qtdMedida); //qtd por medida
-                $arrayBeneficio = array($beneficio, $movEstoqueBeneficio);
-                array_push($beneficios, $arrayBeneficio); 
+                    $this->daoBeneficio = new DaoBeneficio(new DataBase());
+                    $beneficio = new ModelBeneficio();
+                    $beneficio->setIdTipoBeneficio(intval($valor->idTipeBeneficio));
+                    $beneficio->setDescricao($valor->descricao); //descricao
+                    $beneficio->setQuantidade(intval($valor->quantidade)); //quantidade
+                    $beneficio->setIdFornecedorDoador(intval($valor->idFornecedorDoador)); //id fornecedor/Doador
+                    if($this->daoBeneficio->insertBeneficio($beneficio,intval($valor->idFornecedorDoador),  intval($valor->idTipoAquisicao))) {
+                        //se a transacao de insert der certo armazena id do tipo para mandar mensagem de sucesso
+                        array_push($idsTipoBeneficioCadastrados, $beneficio->getIdTipoBeneficio()); 
+                    }else{
+                        //se a transação de insert der erro ou gerar erro armazena id do tipo para mandar mensagem de sucesso 
+                        array_push($idsTipoBeneficioNaoCadastrados, $beneficio->getIdTipoBeneficio());
+                    } 
                 }
             }
-            $this->daoBeneficio = new DaoBeneficio(new DataBase());
-            foreach($beneficios as $chave => $valor) {
-                    $resultadoInsertBeneficio = $this->daoBeneficio->insertBeneficio($valor[0]);
-                    if(is_string($resultadoInsertBeneficio)) {
-                        $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
-                        $valor[1]->setFkBeneficio(intval($resultadoInsertBeneficio));
-                        $resultadoInsertEstoque = $this->daoEstoque->insert($valor[1]);
-                        if($resultadoInsertEstoque) {
-                            /*$descricaoCortada = $valor[0]->getDescricao();
-                            $descricaoCortada = substr($descricaoCortada, 0, 10);
-                            $response = $response . "Beneficio com nome: {$valor[0]->getNome()} e com descrição: $descricaoCortada... foi cadastrado com sucesso. ";
-                            */
-                        }else{
-                            $descricaoCortada = $valor[0]->getDescricao();
-                            $descricaoCortada = substr($descricaoCortada, 0, 10);
-                            $response = $response . "Beneficio com nome: {$valor[0]->getNome()} e com descrição: $descricaoCortada... foi cadastrado com sucesso. Porem sua movimentação de estoque não foi efetuada. houve um erro. ";
-                        }
-                    }else{
-                        $descricaoCortada = $valor[0]->getDescricao();
-                        $descricaoCortada = substr($descricaoCortada, 0, 10);
-                        $response = $response . "Beneficio com nome: {$valor[0]->getNome()} e com descrição: $descricaoCortada... não foi cadastrado houve um erro interno no servidor.";
-                    }
-            }
             //nenhuma mensagem de erro gerada
-            if(empty($response)) {
-               $this->setResponseJson("response", "Beneficios foi cadastrados com sucesso.");
-               echo $this->getResponseJson(); 
+            //retorna false se existir e não estiver vazia(mas !muda resultado)
+            if(!empty($idsTipoBeneficioCadastrados)) {
+                $ids = '<b>';
+                foreach($idsTipoBeneficioCadastrados as $chave => $valor) {
+                    $ids = $ids . " e " . $valor;
+                }
+                $ids = $ids . "</b>";
+                $this->setResponseJson("response", "Benefícios com o tipo de benefícios $ids foi cadastrados com sucesso.");
+                echo $this->getResponseJson(); 
+            }else if(!empty($idsTipoBeneficioNaoCadastrados)){
+                $ids = '<b>';
+                foreach($idsTipoBeneficioNaoCadastrados as $chave => $valor) {
+                    $ids = $ids . " e " . $valor;
+                }
+                $ids = $ids . "</b>";
+                $this->setResponseJson("response", "Benefícios com o tipo de benefícios $ids. Não foi cadastrados houve erros internos em nosso servidor e não foi possivel realizar a operação, por favor tente novamente mais tarde esta operação.");
+                echo $this->getResponseJson();
             }else{
-                //mensagens de erro geradas
-                $this->setResponseJson("response", $response);
+                $this->setResponseJson("response", "Operação de cadastrar os benefícios, não foi realizada, tivemos um erro interno. Por favor tente esta ação novamente mais tarde.");
                 echo $this->getResponseJson();
             }
         }else{
