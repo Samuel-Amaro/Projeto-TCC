@@ -73,9 +73,22 @@ ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
 WHERE TB.id_tipo_beneficio = 1 AND MEB.tipo_movimentacao = 1 
 GROUP BY MEB.tipo_movimentacao;
 
+--traz o saldo geral de quantos beneficios ha no estoque
+SELECT 
+ 	(SELECT SUM(MEB.quantidade_mov) AS qtd_total_entrada_estoque 
+	 FROM movimentacoes_estoque_beneficios AS MEB
+	 WHERE MEB.tipo_movimentacao = 1
+	) - 
+	(SELECT SUM(MEB.quantidade_mov) AS qtd_total_saida_estoque 
+	 FROM movimentacoes_estoque_beneficios AS MEB
+	 WHERE MEB.tipo_movimentacao = 0) AS saldo_geral_estoque;
+
 -- TRAZ A QTD_ATUAL DE UM BENEFICIO INFORMANDO SEU ID
 SELECT
-	MEB_EXTERNO.id_tipo_beneficio,
+	DISTINCT MEB_EXTERNO.id_tipo_beneficio,
+	TB.nome_tipo,
+	UMB.sigla,
+	C.nome,
 	--SUBSELEC(SUBQUERY)
 	(SELECT 
 	--MEB.id_movimentacoes_estoque_beneficio, 
@@ -101,9 +114,15 @@ SELECT
 	ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
 	WHERE TB.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 0
 	--GROUP BY MEB.tipo_movimentacao
-	) AS QTD_TOTAL_BENEFICIO 
+	) AS QTD_ATUAL 
 	FROM movimentacoes_estoque_beneficios AS MEB_EXTERNO 
-	GROUP BY MEB_EXTERNO.id_tipo_beneficio;
+	INNER JOIN tipo_beneficio as TB
+	ON MEB_EXTERNO.id_tipo_beneficio = TB.id_tipo_beneficio
+	INNER JOIN unidades_medidas_beneficios AS UMB
+	ON TB.id_unidade_medida = UMB.id_unidade
+	INNER JOIN categoria_beneficios AS C
+	ON TB.id_categoria = C.id_categoria;
+
 
 
 -- qtd de beneficios cadastrados

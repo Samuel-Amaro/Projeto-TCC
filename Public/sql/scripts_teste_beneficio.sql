@@ -110,7 +110,7 @@ INNER JOIN beneficio AS B
 ON MV.id_beneficio = B.id_beneficio
 INNER JOIN unidades_medidas_beneficios AS UM
 ON MV.id_unidade_medida = UM.id_unidade
-WHERE MV.id_beneficio = 2 ORDER BY MV.data_hora_ultima_mov ASC;
+WHERE MV.id_beneficio = 29 ORDER BY MV.data_hora_ultima_mov ASC;
 
 
 

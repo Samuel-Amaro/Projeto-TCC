@@ -4,18 +4,6 @@ function mostraModalInformation() {
     objectBoostrap.show();
 }
 
-function mostraModalAlterarBeneficio() {
-    let elementoModal = document.querySelector("#modalAlterarBeneficio");
-    let objectBoostrap = new bootstrap.Modal(elementoModal);
-    objectBoostrap.show();
-}
-
-function mostraModalAddMovimentacao() {
-    let elementoModal = document.querySelector("#modalAddMovimentacao");
-    let objectBoostrap = new bootstrap.Modal(elementoModal);
-    objectBoostrap.show();
-}
-
 function carregaDadosModalInfo(data) {
     document.querySelector(".descricao-beneficio").textContent = data.descricao_beneficio;
     document.querySelector(".qtd-inicial-beneficio").textContent = data.quantidade_inicial_beneficio;
@@ -30,51 +18,6 @@ function carregaDadosModalInfo(data) {
     document.querySelector(".um-beneficio").textContent = data.unidade_medida_beneficio;
     document.querySelector(".categoria-beneficio").textContent = data.nome_categoria;
     document.querySelector(".email-fornecedor-doador").textContent = data.email_fornecedor_doador;
-}
-
-function carregaDadosModalAlterar(data) {
-    let qtdMinima = document.querySelector("#qtdMinima");
-    let qtdMaxima = document.querySelector("#qtdMaxima");
-    let idBeneficio = document.querySelector("#id_beneficio");
-    let operacao = document.querySelector("#operacao");
-    qtdMinima.value = data.quantidade_minima_beneficio;
-    qtdMaxima.value = data.quantidade_maxima_beneficio;
-    idBeneficio.value = data.id_beneficio;
-    operacao.value = "ALTERAR";
-    qtdMinima.setAttribute("min", "0");
-    qtdMaxima.setAttribute("min", "0");
-}
-
-function carregaDadosModalAddMovimentacao(data) {
-    let qtd = document.querySelector("#quantidade");
-    let idBeneficio = document.querySelector("#id_beneficio");
-    let operacao = document.querySelector("#operacao");
-    idBeneficio.value = data.id_beneficio;
-    operacao.value = "ALTERAR";
-    qtd.setAttribute("min", data.quantidade_minima_beneficio);
-    qtd.setAttribute("max", data.quantidade_maxima_beneficio);
-}
-
-function obterDadosModalAlterar() {
-    let qtdMinima = document.querySelector("#qtdMinima").value; //number
-    let qtdMaxima = document.querySelector("#qtdMaxima").value; //number
-    let idBeneficio = document.querySelector("#id_beneficio_alterar").value; //number
-    let operacao = document.querySelector("#operacao_modal_alterar").value; //text
-    let arraySelector = ["#qtdMinima", "#qtdMaxima"];
-    let beneficio = {
-        "qtdMinima" : new Number(qtdMinima).valueOf(),
-        "qtdMaxima" : new Number(qtdMaxima).valueOf(),
-        "idBeneficio" : idBeneficio,
-        "operacao" : operacao
-    };   
-    let resultadoValidacao = validaValoresModal(arraySelector, beneficio);
-    //nenhum campo invalido
-    if(resultadoValidacao.length === 0) {
-        console.log(beneficio);
-    }//ha campos invalidos
-    else{
-        console.log("campos invalidos = " + resultadoValidacao);
-    }
 }
 
 function obterDadosModalAddMovimentacao() {
@@ -107,13 +50,6 @@ function obterDadosModalAddMovimentacao() {
     }else{
         console.log("CAMPOS INVALIDOS = " + resultadoValidacao);
     }
-}
-
-function limpaModalAlterar() {
-    document.querySelector("#qtdMinima").value = 0; //number
-    document.querySelector("#qtdMaxima").value = 0; //number
-    document.querySelector("#id_beneficio_alterar").value = 0;//hidden
-    document.querySelector("#operacao_modal_alterar").value = ''; //text
 }
 
 function limpaModalAddMov() {

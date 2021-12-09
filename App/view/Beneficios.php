@@ -148,7 +148,7 @@ if(session_start()) {
                     </div>
                     <div class="row mt-2 m-lg-3 p-1">
                         <div class="tabela bg-light rounded-1 p-3" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-                            <table id="dataTablesListBeneficios" class="row-border cell-border hover" style="width: 100%;">
+                            <table id="dataTablesListBeneficios" class="row-border cell-border hover compact" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>Nome</th>

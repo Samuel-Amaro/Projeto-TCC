@@ -25,7 +25,7 @@ let tabela = new DataTable('#dataTablesCategoria',{
     "columnDefs": [ {
         "targets": 1,
         "data": null,
-        "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-categoria mr-2 p-0\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button>  <button type=\"button\" class=\"btn btn-mostrar-categoria p-0\"><i class=\"fas fa-info\"></i></button>  <button type=\"button\" class=\"btn btn-excluir-categoria\" target=\"self\" rel=\"next\"><i class=\"fas fa-user-times\"></i></button>"
+        "defaultContent": "<button type=\"button\" class=\"btn btn-alterar-categoria mr-2 p-0\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"fas fa-user-edit\"></i></button>  <button type=\"button\" class=\"btn btn-mostrar-categoria p-0\"><i class=\"fas fa-info\"></i></button>  <button type=\"button\" class=\"btn btn-excluir-categoria p-0\" target=\"self\" rel=\"next\"><i class=\"fas fa-user-times\"></i></button>"
     }]
 });
 //ao clicar no btn de alterar retorna os dados da linha clicada

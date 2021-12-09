@@ -5,22 +5,10 @@ function mostraModalInformation() {
 }
 
 function carregaDadosModalInfo(data) {
-  let nome = document.querySelector(".nome-beneficio");
-  let tipoMov = document.querySelector(".tipo-mov-estoque");
-  let qtdMinima = document.querySelector(".qtd-minima-estoque");
-  let qtdMaxima = document.querySelector(".qtd-maxima-estoque");
-  let dataHora = document.querySelector(".data-hora-estoque");
-  let uM = document.querySelector(".um-estoque"); 
-  let qtdMedida = document.querySelector(".qtd-medida");
-  let qtdMovimentada = document.querySelector(".qtd-mov");
-  nome.textContent = data.nome;
-  tipoMov.textContent = data.tipo_mov;
-  qtdMinima.textContent = data.quantidade_minima;
-  qtdMaxima.textContent = data.quantidade_maxima;
-  dataHora.textContent = formataDataHora(data.data_hora_ultima_mov);
-  uM.textContent = data.sigla;
-  qtdMedida.textContent = data.quantidade_por_medida;
-  qtdMovimentada.textContent = data.quantidade_mov;
+  document.querySelector(".nome-tipo-beneficio").textContent = data.nome_tipo;
+  document.querySelector(".um").textContent = data.sigla; 
+  document.querySelector(".categoria").textContent = data.nome;
+  document.querySelector(".saldo-atual").textContent = data.saldo_atual;
 }
 
 function formataDataHora(dataHoraString) {
@@ -32,4 +20,60 @@ function formataDataHora(dataHoraString) {
   let minuto = d.getMinutes();
   let segundos = d.getSeconds();
   return `${dia}/${mes}/${ano} ${hora}:${minuto}:${segundos}`;
+}
+
+function mostraModalAddMovimentacao() {
+  let elementoModal = document.querySelector("#modalAddMovimentacao");
+  let objectBoostrap = new bootstrap.Modal(elementoModal);
+  objectBoostrap.show();
+}
+
+function carregaDadosModalAddMovimentacao(data) {
+  let qtd = document.querySelector("#quantidade");
+  let idBeneficio = document.querySelector("#id_tipo_beneficio");
+  let operacao = document.querySelector("#operacao");
+  idBeneficio.value = data.id_tipo_beneficio;
+  operacao.value = "ALTERAR";
+  qtd.setAttribute("min", 0);
+}
+
+function obterDadosModalAddMovimentacao() {
+  let idBeneficio = document.querySelector("#id_tipo_beneficio").value; //number
+  let operacao = document.querySelector("#operacao").value; //text
+  let qtd = document.querySelector("#quantidade").value; //number
+  let descricao = document.querySelector(".descricao").value; //text
+  let movimentacao = document.querySelector("#tipoMovimentacao").value; //select
+  let objMovimentacao = {};
+  try {
+      objMovimentacao = {
+          "idBeneficio" : idBeneficio,
+          "operacao" : operacao,
+          "qtd" : new Number(qtd).valueOf(),
+          "descricao" : descricao,
+          "movimentacao" : movimentacao
+      };
+      return objMovimentacao;
+  } catch (error) {
+      console.error(error.name);
+      console.error(error.message);
+      return undefined;    
+  }
+}
+
+function validaValoresModal() {
+  let qtd = document.querySelector("#quantidade").value; //number
+  let movimentacao = document.querySelector("#tipoMovimentacao").value; //select
+  if(qtd > 0 && (movimentacao != "SELECIONE" || movimentacao != "selecione")) {
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function limpaModalAddMov() {
+  document.querySelector("#quantidade").value = ''; //number
+  document.querySelector("#id_beneficio").value = 0;//hidden
+  document.querySelector("#operacao").value = ''; //text
+  document.querySelector(".descricao").value = ''; //text
+  document.querySelector("#tipoMovimentacao").options.item(0).selected = true; //select
 }

@@ -15,7 +15,6 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
-        $daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
     }
 }
 ?>
@@ -62,7 +61,7 @@ if(session_start()) {
                         </ol>
                     </div> 
                     <div class="row m-lg-2">
-                        <h4>Estatística estoque de benefícios</h4>
+                        <h4 class="font-weight-light my-2">Estatística estoque geral de benefícios</h4>
                     </div>
                     <div class="row m-lg-2">
                         <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
@@ -76,7 +75,8 @@ if(session_start()) {
                                             <div class="col-9 text-end">
                                                 <h3>
                                                     <?php
-                                                        $resul1 = $daoEstoque->selectTotalBeneficios(1);
+                                                        $daoEstoqueEntrada = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+                                                        $resul1 = $daoEstoqueEntrada->selectTotalBeneficios(1);
                                                         if(is_array($resul1)) {
                                                             $valor1 = $resul1[0];
                                                     ?>
@@ -90,7 +90,7 @@ if(session_start()) {
                                                     ?>
                                                     <span class="text-dark"></span>
                                                 </h3>
-                                                <span>Total de Entradas</span>
+                                                <span>Total de entradas</span>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +108,8 @@ if(session_start()) {
                                             <div class="col-9 text-end">
                                                 <h3>
                                                     <?php
-                                                        $resul = $daoEstoque->selectTotalBeneficios(0);
+                                                        $daoEstoqueSaida = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+                                                        $resul = $daoEstoqueSaida->selectTotalBeneficios(0);
                                                         if(is_array($resul)) {
                                                             $valor = $resul[0];
                                                     ?>
@@ -121,7 +122,7 @@ if(session_start()) {
                                                         }
                                                     ?>
                                                 </h3>
-                                                <span>Total de Saídas</span>
+                                                <span>Total de saídas</span>
                                             </div>
                                         </div>
                                     </div>
@@ -139,11 +140,12 @@ if(session_start()) {
                                             <div class="col-9 text-end">
                                                 <h3>
                                                     <?php
-                                                        $resul2 = $daoEstoque->selectTotalBeneficios(2);
+                                                        $daoEstoqueSaldoGeral = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+                                                        $resul2 = $daoEstoqueSaldoGeral->selectTotalBeneficios(2);
                                                         if(is_array($resul2)) {
                                                             $valor2 = $resul2[0];
                                                     ?>
-                                                            <span class="text-dark"><?=$valor2["saldo_atual"];?></span>        
+                                                            <span class="text-dark"><?=$valor2["saldo_geral_estoque"];?></span>        
                                                     <?php
                                                         }else{
                                                     ?>
@@ -161,18 +163,49 @@ if(session_start()) {
                         </div>
                     </div>
                     <div class="row m-lg-2">
-                        <h4>Benefícios que possui movimentações</h4>
+                        <h4 class="font-weight-light my-2">Saldo dos benefícios em estoque</h4>
+                        <?php 
+                            $daoEstoqueBeneficios = new DaoMovimentacoesEstoqueBeneficios(new DataBase());        
+                            $resultadoEstoqueBeneficios = $daoEstoqueBeneficios->selectAll();
+                            if(is_array($resultadoEstoqueBeneficios)) {
+                                foreach($resultadoEstoqueBeneficios as $chave => $valor) {
+                        ?>
+                                    <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="align-self-center col-3">
+                                                            <i class="fas fa-boxes fs-1"></i>
+                                                        </div>
+                                                        <div class="col-9 text-end">
+                                                            <h3> 
+                                                                <span class="text-dark"><?=$valor["saldo_atual"];?></span>
+                                                            </h3>
+                                                            <span><?=$valor["nome_tipo"];?></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        <?php
+                                }
+                            }
+                        ?>
+                    </div>
+                    <div class="row m-lg-2">
+                        <h4 class="font-weight-light my-2">Benefícios em estoque com movimentações</h4>
                     </div>
                     <div class="row mt-2 m-lg-3 p-1">
                         <div class="tabela bg-light rounded-1 p-3" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-                            <table id="dataTablesEstoque" class="row-border cell-border hover" style="width: 100%;">
+                            <table id="dataTablesEstoque" class="row-border cell-border hover compact" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
-                                        <th>Qtd Movimentada</th>
-                                        <th>Qtd Maxima</th>
-                                        <th>Qtd Minima</th>
-                                        <th>Tipo Movimentação</th>
+                                        <th>Nome tipo</th>
+                                        <th>Unidade medida</th>
+                                        <th>Categoria</th>
+                                        <th>Saldo atual em estoque</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -210,6 +243,10 @@ if(session_start()) {
         <!-- modais -->
         <script src="../../Public/scripts/estoque_beneficios/Modais.js" type="text/javascript" charset="utf8"></script>  
         <!-- data tables estoque -->
-        <script src="../../Public/scripts/estoque_beneficios/DataTablesEstoque.js" type="text/javascript" charset="utf8"></script>     
+        <script src="../../Public/scripts/estoque_beneficios/DataTablesEstoque.js" type="text/javascript" charset="utf8"></script>  
+        <!--ajax-->
+        <script src="../../Public/scripts/estoque_beneficios/Ajax.js" type="text/javascript" charset="utf8"></script>
+        <!--operações ajax -->
+        <script src="../../Public/scripts/estoque_beneficios/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>   
     </body>
 </html>

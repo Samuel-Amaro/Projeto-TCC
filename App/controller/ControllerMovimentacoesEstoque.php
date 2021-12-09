@@ -24,8 +24,31 @@ class ControllerMovimentacoesEstoque{
             case "listar":
                 $this->listarBeneficios($this->methodHttp);
                 break;
+            case "INSERIR":
+                $this->controllerInsert($this->methodHttp);
+                break;
             default:
-                echo "Operação solicitada na controller não existe";
+                $this->setResponseJson("response", "Operação solicitada na controller movimentações estoque benefícios, não existe.");
+                echo $this->getResponseJson();
+        }
+    }
+
+    public function controllerInsert(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->modelEstoque = new ModelMovimentacoesEstoqueBeneficios();
+            $this->modelEstoque->setIdTipoBeneficio($_POST["id_tipo_beneficio"]);
+            $this->modelEstoque->setTipoMovimentacao($_POST["tipo_movimentacao"]);
+            $this->modelEstoque->setQtdMovimentada($_POST["quantidade"]); 
+            $this->modelEstoque->setDescricao($_POST["descricao"]);
+            $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+            if($this->daoEstoque->insert($this->modelEstoque)) {
+                $this->setResponseJson("response", "Movimentação foi adicionada com sucesso no estoque de benefícios."); 
+            }else{
+                $this->setResponseJson("response", "Movimentação não foi registrada no estoque de benefícios, obtemos um erro interno. Por favor tente novamente mais tarde essa operação.");
+            }                     
+        }else{
+            $this->setResponseJson("response", "Method HTTP não e do tipo POST, erro interno no servidor.");
+            echo $this->getResponseJson();
         }
     }
 
@@ -34,19 +57,14 @@ class ControllerMovimentacoesEstoque{
             $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
             $resul = $this->daoEstoque->selectAll();
             if(is_array($resul)) {
-               $lista = array();
-               foreach($resul as $chave => $valor) {  
-                    if($valor["tipo_mov"] === 1) {
-                       $valor["tipo_mov"] = "ENTRADA";
-                    }else{
-                        $valor["tipo_mov"] = "SAIDA";
-                    }
+                $lista = array();
+                foreach($resul as $chave => $valor) {  
                     array_push($lista, $valor);
-               }
-               $response = array("data" => $lista);
-               echo json_encode($response);      
+                }
+                $response = array("data" => $lista);
+                echo json_encode($response);      
             }else{
-                $this->setResponseJson("response", "Houve um erro ao buscar os beneficios cadastrados. erro interno no servidor.");
+                $this->setResponseJson("response", "Houve um erro ao buscar os benefÍcios cadastrados. erro interno no servidor.");
                 echo $this->getResponseJson(); 
             }
         }else{

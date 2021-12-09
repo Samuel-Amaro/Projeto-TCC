@@ -29,7 +29,7 @@ let tabela = new DataTable('#dataTablesListBeneficios',{
     "columnDefs": [ {
         "targets": 4,
         "data": null,
-        "defaultContent": "<button type=\"button\" class=\"btn btn-info-modal mr-2 p-0\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"fas fa-info-circle\"></i></button> <button type=\"button\" class=\"btn btn-modal-alterar p-0\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"far fa-edit\"></i></button> <button type=\"button\" class=\"btn add-movimentacao p-0\" target=\"self\" rel=\"next\"><i class=\"fas fa-plus\"></i></button> <button type=\"button\" class=\"btn p-0\" target=\"self\" rel=\"next\"><i class=\"fas fa-trash-alt\"></i></button> <button type=\"button\" class=\"btn p-0 btn-timeline-mov\" data-toggle=\"modal\" data-target=\"#modalMovimentacoes\" data-whatever=\"@mdo\"><i class=\"fas fa-stream\"></i></button>"
+        "defaultContent": "<button type=\"button\" class=\"btn btn-info-modal mr-2 p-0\" data-toggle=\"modal\" data-target=\"#modalCategoria\" data-whatever=\"@mdo\"><i class=\"fas fa-info-circle\"></i></button> <button type=\"button\" class=\"btn p-0\" target=\"self\" rel=\"next\"><i class=\"fas fa-trash-alt\"></i></button> <button type=\"button\" class=\"btn p-0 btn-timeline-mov\" data-toggle=\"modal\" data-target=\"#modalMovimentacoes\" data-whatever=\"@mdo\"><i class=\"fas fa-stream\"></i></button>"
     }]
 });
 //ao clicar no btn de info retorna os dados da linha clicada
@@ -45,14 +45,6 @@ $('#dataTablesListBeneficios tbody').on('click', '.btn-timeline-mov', function()
     let data = tabela.row($(this).parents('tr')).data();
     mostraModalTimelineMovimentacoes();
     makeRequestDadosTimeline("../controller/ControllerBeneficio.php", data.id_tipo_beneficio, "listarMovimentacoesBeneficio", data.nome_tipo_beneficio);
-});
-
-//ao clicar no btn de alterar vai poder modificar um beneficio
-$('#dataTablesListBeneficios tbody').on('click', '.btn-modal-alterar', function(){
-    let data = tabela.row($(this).parents('tr')).data();
-    mostraModalAlterarBeneficio();
-    console.log(data);
-    carregaDadosModalAlterar(data);
 });
 
 //ao clicar no btn de + ira abrir modal de criar uma movimentação no beneficio, sem associalo a uma entrega
