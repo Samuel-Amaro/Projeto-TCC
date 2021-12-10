@@ -72,8 +72,9 @@ function validaValoresModal() {
 
 function limpaModalAddMov() {
   document.querySelector("#quantidade").value = ''; //number
-  document.querySelector("#id_beneficio").value = 0;//hidden
+  document.querySelector("#id_tipo_beneficio").value = 0;//hidden
   document.querySelector("#operacao").value = ''; //text
-  document.querySelector(".descricao").value = ''; //text
+  let obs = document.querySelector("#descricao");
+  obs.value = ""; //text
   document.querySelector("#tipoMovimentacao").options.item(0).selected = true; //select
 }

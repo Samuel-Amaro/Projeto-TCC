@@ -84,13 +84,13 @@ if(session_start()) {
                                 <form action="#" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="fornecedor-doador-autocomplete" class="form-forn-doad-autocomplete">
                                     <input type="hidden" name="idFornDoador" id="idFornDoador" value="">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                            <div class="mb-md-0">
                                                 <label for="nomeFornecedorDoador" class="mb-1">Nome Fornecedor/Doador</label>
                                                 <input type="text" title="Aqui vai o nome do fornecedor ou doador escolhido de acordo com o campo do autocomplete" name="nomeFornDoado" id="nomeFornDoador" class="form-control" readonly/>
                                            </div> 
                                         </div>    
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="mb-md-0">
                                                 <label for="fornecedorDoador" class="mb-1 required">Nª CPF/CNPJ de Fornecedores/Doadores</label>
                                                 <!--<div class="input-group mb-1">-->
@@ -100,6 +100,26 @@ if(session_start()) {
                                                 <!--</div>-->
                                                 <div class="feedback-autocomplete"></div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="formaAquisicao" class="mb-1 required">Tipo aquisição</label>
+                                            <select name="tipoAquisicao" id="tipoAquisicao" title="Escolha um tipo de aquisição" class="form-select" required>
+                                                <option value="SELECIONE" selected>Selecione</option>
+                                                <?php
+                                                $modalResultAquisicao = $daoTipoAquisicao->select();
+                                                if(is_array($modalResultAquisicao)) {
+                                                    foreach($modalResultAquisicao as $chave => $valor) {
+                                                        ?>
+                                                        <option value="<?= $valor["id_tipo_aquisicao"];?>"><?= $valor["tipo"];?></option>
+                                                        <?php    
+                                                    }
+                                                }else{
+                                                    ?>
+                                                    <option value="nenhum tipo de aquisição disponivel"><?= $modalResultTipo;?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>    
                                         </div>
                                     </div>
                                 </form>
@@ -143,7 +163,7 @@ if(session_start()) {
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <label for="tipoBeneficio" class="mb-1 required">Tipo benefício</label>
                                             <select name="tipoBeneficio" id="tipoBeneficio" title="Escolha um tipo de benefício" class="form-select" required>
                                                 <option value="SELECIONE" selected>Selecione</option>
@@ -162,28 +182,8 @@ if(session_start()) {
                                                 }
                                                 ?>
                                             </select>
-                                        </div> 
-                                        <div class="col-md-5">
-                                            <label for="formaAquisicao" class="mb-1 required">Tipo aquisição</label>
-                                            <select name="tipoAquisicao" id="tipoAquisicao" title="Escolha um tipo de aquisição" class="form-select" required>
-                                                <option value="SELECIONE" selected>Selecione</option>
-                                                <?php
-                                                $modalResultAquisicao = $daoTipoAquisicao->select();
-                                                if(is_array($modalResultAquisicao)) {
-                                                    foreach($modalResultAquisicao as $chave => $valor) {
-                                                        ?>
-                                                        <option value="<?= $valor["id_tipo_aquisicao"];?>"><?= $valor["tipo"];?></option>
-                                                        <?php    
-                                                    }
-                                                }else{
-                                                    ?>
-                                                    <option value="nenhum tipo de aquisição disponivel"><?= $modalResultTipo;?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>    
-                                        </div> 
-                                        <div class="col-md-2">
+                                        </div>  
+                                        <div class="col-md-6">
                                             <div class="mb-3 mb-md-0">
                                                 <label for="qtd" class="mb-1 required">Quantidade inicial</label>
                                                 <input class="form-control" id="qtd" type="number" title="Preencha este campo com o quantidade do beneficio" name="qtd" minlength="1" min="1" required/>

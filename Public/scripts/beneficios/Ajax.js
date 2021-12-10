@@ -31,6 +31,7 @@ function makeRequestBeneficio(url, beneficios, operacao) {
                         'success'
                     );
                     limpaDataTables();
+                    limpaCamposFixos();
                     return 1;
                 } catch (error) {
                     console.error(error.message);

@@ -46,7 +46,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Alteração Benefício</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Movimentar estoque benefício</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -55,8 +55,7 @@
                 <div class="container-fluid px-4">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4 class="text-center font-weight-light my-4">Alteração dos dados</h4>
-                            <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
+                            <h4 class="text-center font-weight-light my-2">Adicionar movimentação</h4>
                         </div>
                         <div class="card-body">
                             <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="alterar-beneficio" class="form-add-movimentacao" title="Este formulário e para adicionar uma nova movimentação no benefício">
@@ -64,6 +63,7 @@
                                 <input type="hidden" name="id_tipo_beneficio" value="" id="id_tipo_beneficio">
                                 <div class="row mb-3">
                                     <div class="col-md-12">
+                                        <div class="alert alert-warning mb-1" role="alert">Campos com * são de preenchimento obrigatório!</div>
                                         <div class="alert alert-info mb-0" role="alert">Se haver necessidade de realizar uma movimentação no estoque sem distribuição do benefício realize por aqui</div>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3 mb-md-0">
                                             <label for="tipoMovimentacao" class="mb-1 required">Movimentação</label>
-                                            <select name="tipoMovimentacao" id="tipoMovimentacao" title="Escolha o tipo da movimentação a ser efetuada" class="form-select">
+                                            <select name="tipoMovimentacao" id="tipoMovimentacao" title="Escolha o tipo da movimentação a ser efetuada" class="form-select" required>
                                                 <option value="SELECIONE">Selecione</option>
                                                 <option value="0">Saida</option>
                                                 <option value="1">Entrada</option>
@@ -82,7 +82,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3 mb-md-0">
                                             <label for="quantidade" class="required mb-1">Quantidade</label>
-                                            <input type="number" name="quantidade" id="quantidade" title="Informe a quantidade para ser movimentada" class="form-control">
+                                            <input type="number" name="quantidade" id="quantidade" title="Informe a quantidade para ser movimentada" class="form-control" required>
                                             <div class="feedback-quantidade"></div>
                                         </div>   
                                     </div>
@@ -91,7 +91,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3 mb-md-0">
                                             <label for="descricao" class="mb-1 required">Descrição</label>
-                                            <textarea class="form-control descricao" placeholder="Informe aqui uma descrição objetiva, descrevendo o motivo pela qual a movimentação sera efetuada" title="Informe aqui uma descrição, que seja bem objetiva e suscinta e importante relacionada ao motivo da movimentação do beneficio" id="floatingTextarea" name="descricao" id="descricao"></textarea>
+                                            <textarea class="form-control descricao" placeholder="Informe aqui uma descrição objetiva, descrevendo o motivo pela qual a movimentação sera efetuada" title="Informe aqui uma descrição, que seja bem objetiva e suscinta e importante relacionada ao motivo da movimentação do beneficio" name="descricao" id="descricao" maxlength="300"></textarea>
                                             <div class="feedback-descricao"></div>
                                         </div>   
                                     </div>

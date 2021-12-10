@@ -43,8 +43,10 @@ class ControllerMovimentacoesEstoque{
             $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
             if($this->daoEstoque->insert($this->modelEstoque)) {
                 $this->setResponseJson("response", "Movimentação foi adicionada com sucesso no estoque de benefícios."); 
+                echo $this->getResponseJson();
             }else{
                 $this->setResponseJson("response", "Movimentação não foi registrada no estoque de benefícios, obtemos um erro interno. Por favor tente novamente mais tarde essa operação.");
+                echo $this->getResponseJson();
             }                     
         }else{
             $this->setResponseJson("response", "Method HTTP não e do tipo POST, erro interno no servidor.");

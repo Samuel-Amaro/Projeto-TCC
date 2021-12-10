@@ -1,6 +1,16 @@
 window.addEventListener("load", function(event) {
     //descrição so pode 300 caracteres
     limitaCaracteresCampo("#descricao-beneficio", ".feedback-descricao", 300);
+    let tipoAquisicao = document.querySelector("#tipoAquisicao");
+    tipoAquisicao.addEventListener("change", function(event) {
+        let option = event.target.value;
+        //add atributo de leitura porque ja fez uma escolha no select
+        if(option != "SELECIONE" || option != "selecione") {
+            tipoAquisicao.setAttribute("disabled", "true"); 
+        }else{
+            tipoAquisicao.removeAttribute("disabled", "false");
+        }
+    });
 });
 
 function limitaCaracteresCampo(htmlElementCampo, htmlElementFeedback, qtdMaximaCaracteres) {
@@ -87,9 +97,14 @@ function obterDadosBeneficio() {
 
 function limpaCamposForm() {
     document.querySelector(".descricao-beneficio").value = '';
-    document.querySelector("#tipoAquisicao").options.item(0).selected = true;
     document.querySelector("#tipoBeneficio").options.item(0).selected = true;
     document.querySelector("#qtd").value = '';
+}
+
+function limpaCamposFixos() {
+    document.querySelector("#tipoAquisicao").removeAttribute("disabled", "false");
+    document.querySelector("#autoCompleteFornecedorDoador").removeAttribute("readonly", "readonly");
+    document.querySelector("#tipoAquisicao").options.item(0).selected = true;
     document.querySelector("#autoCompleteFornecedorDoador").value = '';
     document.querySelector("#idFornDoador").value = '';
     document.querySelector("#nomeFornDoador").value = '';

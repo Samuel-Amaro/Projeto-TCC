@@ -4,6 +4,9 @@
 //    alert("Você clicou no autocomplete!");
 //});
 
+//ao iniciar script retira o atributo de leitura do elemento para permitir escolhas
+document.querySelector("#autoCompleteFornecedorDoador").removeAttribute("readonly", "readonly");
+
 //Um request objeto, com uma única term propriedade, que se refere ao valor atualmente na entrada de texto.
 //Um responseretorno de chamada, que espera um único argumento: os dados a serem sugeridos ao usuário.
 
@@ -36,6 +39,8 @@ $("#autoCompleteFornecedorDoador").autocomplete({
     },//ao selecionar um item do autocomplete, preenche o form com os dados necessarios, passsando um array para função
     select : function(event, ui) {
         setaNomeFornecedorDoador(ui.item.value);
+        //apos selecionar um item do autocomplete ele fica somente como leitura
+        document.querySelector("#autoCompleteFornecedorDoador").setAttribute("readonly", "readonly");
     }
 });
 

@@ -37,6 +37,8 @@ if(session_start()) {
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
         <!-- RESPONSIVO DO DATATABLES-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+        <!--estilo validações do forms-->
+        <link rel="stylesheet" href="../../Public/css/estilo_form_avisos_required_opcional.css">
     </head>
     <body class="sb-nav-fixed">
         <!--MENU NAVEGAÇÃO DO TOPO-->
