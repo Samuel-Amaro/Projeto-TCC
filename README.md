@@ -70,6 +70,7 @@ Tabela de conteúdos
 - [x] Visualizar tipo de benefício.
 - [x] Alterar tipo de benefício.   
 - [x] Excluir tipo de benefício. 
+- [x] Movimentar estoque de benefício sem associar a um entrega. 
 - [ ]  Registrar entregas.
 - [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
