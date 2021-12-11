@@ -40,14 +40,9 @@ $("#autoCompleteFornecedorDoador").autocomplete({
     select : function(event, ui) {
         setaNomeFornecedorDoador(ui.item.value);
         //apos selecionar um item do autocomplete ele fica somente como leitura
-        
+        document.querySelector("#autoCompleteFornecedorDoador").setAttribute("readonly", "readonly");
     }
 });
-
-/*
-$('#autoCompleteFornecedorDoador').on('click', function(event, ui) {
-    
-});*/
 
 let listaFornecedoresDoadores = [];
 
