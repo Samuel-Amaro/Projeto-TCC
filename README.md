@@ -70,9 +70,12 @@ Tabela de conteúdos
 - [x] Visualizar tipo de benefício.
 - [x] Alterar tipo de benefício.   
 - [x] Excluir tipo de benefício. 
-- [x] Movimentar estoque de benefício sem associar a um entrega. 
+- [x] Movimentar estoque de benefício sem associar a um entrega.
+- [x] Controlar estoque simples. 
+#### Features de entrega de benefícios
+- [x] Preenchimento automático de beneficiário.
+- [x] Preenchimento automático de tipo beneficio. 
 - [ ]  Registrar entregas.
-- [ ] Controlar estoque.
 - [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
 #### Features de Fornecedores/Doadores
 - [x] Cadastrar um fornecedor/Doador.
