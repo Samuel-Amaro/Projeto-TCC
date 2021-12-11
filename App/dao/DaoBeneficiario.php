@@ -257,6 +257,46 @@ class DaoBeneficiario{
             }
         }
     }
+
+    public function search(string $nome) {
+        if(is_null($this->connection)) {
+           return false;
+        }else{
+            try {
+                $sql = "SELECT * FROM beneficiarios WHERE primeiro_nome_beneficiario LIKE ? OR ultimo_nome_beneficiario LIKE ?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, "%" . $nome . "%", PDO::PARAM_STR);
+                $stmt->bindValue(2, "%" . $nome . "%", PDO::PARAM_STR);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetchAll();
+                    if($stmt->rowCount() > 0) {
+                        if(is_array($resultado) && !empty($resultado)) {
+                            $stmt = null;
+                            unset($this->connection);         
+                            return $resultado;
+                        }else{
+                            $stmt = null;
+                            unset($this->connection);         
+                            return false;     
+                        }  
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);         
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);         
+                    return false;
+                }
+            } catch (PDOException $p) {
+                echo "Error!: falha ao executar consulta SELECT SEARCH beneficiarios: <pre><code>" . $p->getMessage() . "</code></pre></br>";
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
 }
 
 ?>

@@ -34,8 +34,8 @@ class ControllerTipoBeneficio{
             case "deletar":
                 $this->controllerExcluir($this->methodHttp);
                 break;
-            case "busca":
-                //$this->buscarFornecedorDoador($this->methodHttp);
+            case "busca-tipo":
+                $this->controllerSearch($this->methodHttp);
                 break;
             default:
                 $this->setResponseJson("response", "Operação solicitada para o servidor não esta implementada!");
@@ -120,6 +120,29 @@ class ControllerTipoBeneficio{
             }
         }else{
             $this->setResponseJson("response", "Opss... Tipo de benefício não foi deletado. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function controllerSearch(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $termo = $_POST["termo"];
+            $valor = filter_var($termo, FILTER_SANITIZE_STRING);
+            $this->daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+            $resultado = $this->daoTipoBeneficio->search($valor);
+            if(is_array($resultado)) {
+                $lista = array();
+                foreach($resultado as $chave => $valor) {
+                    $item = array("value" => $valor["nome_tipo"], "label" => $valor["nome_tipo"], "desc" => "<b>Unidade medida:</b> " . $valor["unidade_medida"] . " <b>Categoria:</b> " . $valor["nome_categoria"] . " <b>Saldo estoque:</b> " . $valor["qtd_atual"], "id" => $valor["id_tipo_beneficio"]);
+                    array_push($lista, $item);        
+                }
+                echo json_encode($lista);
+            }else{
+                $this->setResponseJson("response", "Nenhum tipo benefício encontrado.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Opss... Tipo de benefício não pode ser buscado. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
             echo $this->getResponseJson();
         }
     }

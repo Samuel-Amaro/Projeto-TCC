@@ -175,6 +175,40 @@ class DaoTipoBeneficio{
         } 
     }
 
+    public function search(string $nomeTipo) {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $sql = "SELECT DISTINCT MEB_EXTERNO.id_tipo_beneficio, TB.nome_tipo, UMB.sigla AS unidade_medida, C.nome AS nome_categoria, (SELECT SUM(MEB.quantidade_mov) AS QTD_ENTRADA FROM movimentacoes_estoque_beneficios AS MEB INNER JOIN tipo_beneficio AS TB_INTERNO ON MEB.id_tipo_beneficio = TB_INTERNO.id_tipo_beneficio WHERE TB_INTERNO.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 1) - 
+                (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB
+                INNER JOIN tipo_beneficio AS TB ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio WHERE TB.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 0) AS qtd_atual FROM movimentacoes_estoque_beneficios AS MEB_EXTERNO INNER JOIN tipo_beneficio as TB ON MEB_EXTERNO.id_tipo_beneficio = TB.id_tipo_beneficio INNER JOIN unidades_medidas_beneficios AS UMB ON TB.id_unidade_medida = UMB.id_unidade INNER JOIN categoria_beneficios AS C ON TB.id_categoria = C.id_categoria WHERE TB.nome_tipo LIKE ?;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, "%" . $nomeTipo . "%", PDO::PARAM_STR);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $resultado = $stmt->fetchAll();
+                        $stmt = null;
+                        unset($this->connection);
+                        return is_array($resultado) ? $resultado : false;
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
+
 }
 
 ?>

@@ -2,6 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
+                <!--painel controle -->
                 <div class="sb-sidenav-menu-heading">Core</div>
                 <a class="nav-link" href="PainelControle.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -83,6 +84,18 @@
                     Visualizar
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <!--entregas beneficios -->
+                <div class="sb-sidenav-menu-heading">Entrega benefícios</div>
+                <a class="nav-link collapsed" href="FormEntrega.php" target="_self" rel="next">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
+                    Registrar
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <a class="nav-link collapsed" href="ListFornecedoresDoadores.php" target="_self" rel="next">
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
+                    Visualizar
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
                 <!--
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></i></div>
@@ -101,18 +114,18 @@
                 <?php
                 if($modelUser->getTipoUsuario() === "adm") {
                 ?>
-                <!--Usuarios(Coolaboradores)-->
-                <div class="sb-sidenav-menu-heading">Usuários</div>
-                <a class="nav-link collapsed btn-cadastrar-user" href="FormUsuario.php" target="_self" rel="next">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                    Cadastrar
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <a class="nav-link collapsed" href="ListUsuarios.php" target="_self" rel="next">
-                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                    Visualizar
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
+                    <!--Usuarios(Coolaboradores)-->
+                    <div class="sb-sidenav-menu-heading">Usuários</div>
+                    <a class="nav-link collapsed btn-cadastrar-user" href="FormUsuario.php" target="_self" rel="next">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                        Cadastrar
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <a class="nav-link collapsed" href="ListUsuarios.php" target="_self" rel="next">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                        Visualizar
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
                 <?php
                 }else{
                     //se for usuario do tipo comun, não mostra nada
