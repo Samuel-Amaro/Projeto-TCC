@@ -133,7 +133,7 @@ class ControllerTipoBeneficio{
             if(is_array($resultado)) {
                 $lista = array();
                 foreach($resultado as $chave => $valor) {
-                    $item = array("value" => $valor["nome_tipo"], "label" => $valor["nome_tipo"], "desc" => "<b>Unidade medida:</b> " . $valor["unidade_medida"] . " <b>Categoria:</b> " . $valor["nome_categoria"] . " <b>Saldo estoque:</b> " . $valor["qtd_atual"], "id" => $valor["id_tipo_beneficio"]);
+                    $item = array("value" => $valor["nome_tipo"], "label" => $valor["nome_tipo"], "desc" => "<b>Unidade medida:</b> " . $valor["unidade_medida"] . " <b>Categoria:</b> " . $valor["nome_categoria"] . " <b>Saldo estoque:</b> " . $valor["qtd_atual"], "id" => $valor["id_tipo_beneficio"], "quantidade" => $valor["qtd_atual"]);
                     array_push($lista, $item);        
                 }
                 echo json_encode($lista);

@@ -24,7 +24,7 @@ if(session_start()) {
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content="Pagina de cadastro de beneficios e doações"/>
+        <meta name="description" content="Pagina de registro de entrega de benefícios"/>
         <meta name="author" content="Samuel Amaro"/>
         <title>Registrar entregas</title>
         <!-- BOOSTRAP -->
@@ -96,12 +96,14 @@ if(session_start()) {
                                             <div class="mb-md-0">
                                                 <label for="beneficiario" class="mb-1 required">Nome beneficiário</label>
                                                 <input type="text" name="beneficiario" id="beneficiario" title="Informe um nome para o beneficiario que ira receber o benefício" placeholder="Informe um nome de beneficíario" class="form-control  autocomplete-beneficiario" maxlength="70" required/>
+                                                <div class="feedback-autocomplete-nome-beneficiario"></div>
                                             </div>    
                                         </div>
                                         <div class="col-md-2">
                                             <div class="mb-md-0">
                                                 <label for="qtd" class="mb-1 required">Quantidade</label>
-                                                <input type="number" name="qtd" id="qtd" title="Informe a quantidade de benefício a ser entregue" placeholder="Informe a quantidade a ser entregue" class="form-control" minlength="1">
+                                                <input type="number" name="qtd" id="qtd" title="Informe a quantidade de benefício a ser entregue" placeholder="Informe a quantidade a ser entregue" class="form-control" min="1" required/>
+                                                <div class="feedback-quantidade"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -122,14 +124,12 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <table id="dataTablesBeneficio" class="row-border cell-border hover" >
+                                <table id="dataTablesRegistroEntregas" class="row-border cell-border hover" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Tipo benefício</th>
-                                            <th>Fornecedor/Doador</th>
-                                            <th>Forma de Aquisição</th>
+                                            <th>Beneficiario</th>
                                             <th>Quantidade</th>
-                                            <th>CNPJ ou CPF fornecedor/Doador</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -163,7 +163,17 @@ if(session_start()) {
         crossorigin="anonymous"></script> 
         <!-- JQUERY UI AUTOCOMPLETE -->
         <script src="../../Public/scripts/jquery-ui/jquery-ui.js" type="text/javascript" charset="utf8"></script>
+        <!-- DATA TABLES-->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>    
+        <!-- RESPONSIVO DATA TABLES -->
+        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript" charset="utf8"></script>
+        <!--data tables registros entregas a cadastrar-->
+        <script src="../../Public/scripts/entregas-beneficios/Data-Tables.js" type="text/javascript" charset="utf8"></script>
         <!-- script autocomplete-->
         <script src="../../Public/scripts/entregas-beneficios/Autocomplete.js" type="text/javascript" charset="utf8"></script>
+        <!--validações de formulario -->
+        <script src="../../Public/scripts/entregas-beneficios/Formulario.js" type="text/javascript" charset="utf8"></script>
+        <!--operações ajax-->
+        <script src="../../Public/scripts/entregas-beneficios/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>

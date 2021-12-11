@@ -77,7 +77,7 @@ $(".autocomplete-tipo-beneficio").autocomplete({
             dataType : "json",
         }).done(function(json) {
             try {    
-                let tipoBeneficios = trataResponse(json);
+                let tipoBeneficios = trataResponseTipoBeneficio(json);
                 response(tipoBeneficios);
             } catch (error) {
                 console.error(error.message);
@@ -90,7 +90,7 @@ $(".autocomplete-tipo-beneficio").autocomplete({
         });
     },//ao selecionar um item do autocomplete, preenche o form com os dados necessarios, passsando um array para função
     select : function(event, ui) {
-        setaIdTipoBeneficio(ui.item.id);
+        setaIdTipoBeneficio(ui.item.id, ui.item.quantidade);
     }
    //add o desc no item do autocomplete 
 }).autocomplete("instance")._renderItem = function(ul, item) {
@@ -114,6 +114,9 @@ function trataResponseTipoBeneficio(json) {
     }
 }
 
-function setaIdTipoBeneficio(id) {
+function setaIdTipoBeneficio(id, quantidadeBeneficio) {
     document.querySelector("#idTipoBeneficio").value = id;
+    //seta o atributo de valor maximo que se pode movimentar no campo de quantidade
+    document.querySelector("#qtd").setAttribute("max", quantidadeBeneficio);
 }
+
