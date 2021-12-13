@@ -181,4 +181,19 @@ SELECT
 	ON TB.id_categoria = C.id_categoria 
 	WHERE TB.nome_tipo LIKE '%C%';
 
-
+-- 
+SELECT
+	(SELECT 
+	SUM(MEB.quantidade_mov) AS QTD_ENTRADA
+	FROM movimentacoes_estoque_beneficios AS MEB
+	INNER JOIN tipo_beneficio AS TB
+	ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
+	WHERE TB.id_tipo_beneficio = 1 AND MEB.tipo_movimentacao = 1 
+	) - 
+	(SELECT  
+	SUM(MEB.quantidade_mov) AS QTD_SAIDA
+	FROM movimentacoes_estoque_beneficios AS MEB
+	INNER JOIN tipo_beneficio AS TB
+	ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
+	WHERE TB.id_tipo_beneficio = 1 AND MEB.tipo_movimentacao = 0
+	) AS QTD_ATUAL;

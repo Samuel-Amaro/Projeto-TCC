@@ -4,6 +4,9 @@ require_once("../model/ModelEntregaBeneficios.php");
 require_once("../dao/DaoEntregaBeneficios.php");
 require_once("../utils/DataBase.php");
 require_once("../dao/DaoBeneficiario.php");
+require_once("../dao/DaoTipoBeneficio.php");
+require_once("../dao/DaoMovimentacoesEstoqueBeneficios.php");
+require_once("../model/ModelMovimentacoesEstoqueBeneficios.php");
 
 //verifica qual o tipo de metodo e operação a se fazer
 if($_SERVER["REQUEST_METHOD"] == "POST") { //Postagem de recursos no server
@@ -27,8 +30,8 @@ class ControllerEntregaBeneficios{
             case "busca-beneficiario":
             $this->controllerListBeneficiarios($this->methodHttp);
                 break;
-            case "listar": 
-                //$this->listarFornecedoresDoadores($this->methodHttp);
+            case "cadastrar": 
+                $this->controllerCadastrar($this->methodHttp);
                 break;
             case "alterar": 
                 //$this->alterarFornecedorDoador($this->methodHttp);
@@ -62,6 +65,84 @@ class ControllerEntregaBeneficios{
                 echo json_encode($lista);
             }else{
                 $this->setResponseJson("response", "Nenhum beneficiário encontrado.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Method de solicitação HTTP não e do tipo post. Erro interno no servidor");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function controllerCadastrar(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $nomesEntregasRealizadas = array();
+            $nomesEntregasNaoRealizadas = array();
+            //obtem array com objects entregas
+            $entregas = json_decode($_POST["data"]);
+            //percorre cada object
+            foreach($entregas as $chave => $valor) {
+                if(is_object($valor)) {
+                    //object, model e dao entrega
+                    $this->modelEntrega = new ModelEntregaBeneficios(); 
+                    $this->daoEntrega = new DaoEntregaBeneficios(new DataBase());
+                    $this->modelEntrega->setIdBeneficiario(intval($valor->idBeneficiario));
+                    $this->modelEntrega->setIdTipoBeneficio(intval($valor->idTipoBeneficio));
+                    $this->modelEntrega->setQuantidadeEntregue(intval($valor->quantidade));
+                    $this->modelEntrega->setIdUsuarioResponsavelEntrega(intval($valor->idUsuarioLogado));
+                    //verifica o estoque do beneficio
+                    $daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+                    $resultadoEstoque = $daoTipoBeneficio->selectQuantidade(intval($valor->idTipoBeneficio));
+                    if(is_array($resultadoEstoque)) {
+                        $valorEstoque = $resultadoEstoque[0];
+                        $qtdEstoque = intval($valorEstoque["qtd_atual"]);
+                        //quantidade de retirada e permitida no estoque
+                        if(intval($valor->quantidade) <= $qtdEstoque) {
+                            //registra movimentação do estoque como saida
+                            $modelMovimentacao = new ModelMovimentacoesEstoqueBeneficios();
+                            $modelMovimentacao->setIdTipoBeneficio(intval($valor->idTipoBeneficio));
+                            $modelMovimentacao->setTipoMovimentacao(0); //saida
+                            $modelMovimentacao->setQtdMovimentada(intval($valor->quantidade));//quantidade
+                            $modelMovimentacao->setDescricao("Entrega de benefício efetuada para:  {$valor->nomeBeneficiario}"); //descricao
+                            if($this->daoEntrega->insert($this->modelEntrega, $modelMovimentacao)) {
+                                //armazena nomes de pessoas que receberam a entrega
+                                array_push($nomesEntregasRealizadas, $valor->nomeBeneficiario);
+                            }else{
+                                //armazena nomes de pessoas que não receberam
+                                array_push($nomesEntregasNaoRealizadas, $valor->nomeBeneficiario);        
+                            }    
+                        }else{
+                            $this->setResponseJson("response", "Não foi possivel registrar as entregas. A quantidade de saida : {$valor->quantidade} para o tipo de beneficio: {$valor->nomeTipoBeneficio} e maior do que ha no estoque que são:  $qtdEstoque. Por favor informe uma quantidade menor para que se possa efetuar a operação.");
+                            echo $this->getResponseJson();   
+                        }
+                    }else{
+                        $this->setResponseJson("response", "Não foi possivel registrar as entregas. Tivemos um erro interno ao consultar o estoque dos benefícios. Tente registrar as entregas novamente mais tarde.");
+                        echo $this->getResponseJson();
+                    }
+                }else{
+                    $this->setResponseJson("response", "Não foi possivel registrar as entregas. Tivemos um erro interno em nosso servidor, por favor tente esta operação novamente mais tarde.");
+                    echo $this->getResponseJson();
+                }
+            }
+            //nenhuma mensagem de erro gerada
+            //retorna false se existir e não estiver vazia(mas !muda resultado)
+            if(!empty($nomesEntregasRealizadas)) {
+                $nomes = '<b>';
+                foreach($nomesEntregasRealizadas as $chave => $valor) {
+                    $nomes = $nomes . " </br> " . $valor;
+                }
+                $nomes = $nomes . "</b>";
+                $this->setResponseJson("response", "As entregas foram registradas para os seguintes beneficiários: $nomes");
+                echo $this->getResponseJson(); 
+            }else if(!empty($idsTipoBeneficioNaoCadastrados)){
+                $nomes = '<b>';
+                foreach($idsTipoBeneficioNaoCadastrados as $chave => $valor) {
+                    $nomes = $nomes . " </br>" . $valor;
+                }
+                $nomes = $nomes . "</b>";
+                $this->setResponseJson("response", "As entregas destinadas para os seguintes beneficiários: $nomes não foram registradas devido a problema interno no servidor, por favor tente efetuar essa entrega novamente por favor.");
+                echo $this->getResponseJson();
+            }else{
+                $this->setResponseJson("response", "Operação de registrar entrega, não foi realizada, tivemos um erro interno. Por favor tente esta ação novamente mais tarde.");
                 echo $this->getResponseJson();
             }
         }else{

@@ -54,7 +54,7 @@ class ControllerBeneficio{
                     $beneficio->setDescricao($valor->descricao); //descricao
                     $beneficio->setQuantidade(intval($valor->quantidade)); //quantidade
                     $beneficio->setIdFornecedorDoador(intval($valor->idFornecedorDoador)); //id fornecedor/Doador
-                    if($this->daoBeneficio->insertBeneficio($beneficio,intval($valor->idFornecedorDoador),  intval($valor->idTipoAquisicao))) {
+                    if($this->daoBeneficio->insertBeneficio($beneficio, intval($valor->idFornecedorDoador), intval($valor->idTipoAquisicao))) {
                         //se a transacao de insert der certo armazena id do tipo para mandar mensagem de sucesso
                         array_push($idsTipoBeneficioCadastrados, $beneficio->getIdTipoBeneficio()); 
                     }else{

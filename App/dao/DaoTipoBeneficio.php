@@ -209,6 +209,41 @@ class DaoTipoBeneficio{
         }
     }
 
+    public function selectQuantidade(int $idTipo) {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $sql = "SELECT (SELECT SUM(MEB.quantidade_mov) AS QTD_ENTRADA FROM movimentacoes_estoque_beneficios AS MEB INNER JOIN tipo_beneficio AS TB
+                ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio WHERE TB.id_tipo_beneficio = ? AND MEB.tipo_movimentacao = 1) - (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB INNER JOIN tipo_beneficio AS TB
+                ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio WHERE TB.id_tipo_beneficio = ? AND MEB.tipo_movimentacao = 0) AS qtd_atual;";
+                $stmt = $this->connection->prepare($sql);
+                $stmt->bindValue(1, $idTipo, PDO::PARAM_INT);
+                $stmt->bindValue(2, $idTipo, PDO::PARAM_INT);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $resultado = $stmt->fetchAll();
+                        $stmt = null;
+                        unset($this->connection);
+                        return is_array($resultado) ? $resultado : false;    
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
+
 }
 
 ?>

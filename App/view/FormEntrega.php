@@ -84,6 +84,7 @@ if(session_start()) {
                                 <form action="" method="POST" ccept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" target="_self" rel="next" name="form-registro-entrega" class="form-registro-entrega">
                                     <input type="hidden" name="idTipoBeneficio" id="idTipoBeneficio" value="">
                                     <input type="hidden" name="idBeneficiario" id="idBeneficiario" value="">
+                                    <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
                                     <div class="row">   
                                         <div class="col-md-5">
                                             <div class="mb-md-0">
@@ -138,7 +139,7 @@ if(session_start()) {
                             </div><!--card body-->
                             <div class="card-footer">
                                 <div class="col-lg-12" style="text-align: right;">
-                                    <button type="submit" class="btn-cadastrar-beneficio btn btn-primary" title="Clique aqui para cadastrar os beneficios, add a tabela acima."><i class="fas fa-plus"></i> Registrar</button>
+                                    <button type="submit" class="btn-registrar btn btn-primary" title="Clique aqui para registrar as entregas"><i class="fas fa-plus"></i> Registrar</button>
                                 </div>
                             </div> <!-- card footer-->
                         </div><!-- card -->
@@ -173,6 +174,8 @@ if(session_start()) {
         <script src="../../Public/scripts/entregas-beneficios/Autocomplete.js" type="text/javascript" charset="utf8"></script>
         <!--validações de formulario -->
         <script src="../../Public/scripts/entregas-beneficios/Formulario.js" type="text/javascript" charset="utf8"></script>
+        <!--ajax-->
+        <script src="../../Public/scripts/entregas-beneficios/Ajax.js" type="text/javascript" charset="utf8"></script>
         <!--operações ajax-->
         <script src="../../Public/scripts/entregas-beneficios/Operacoes-Ajax.js" type="text/javascript" charset="utf8"></script>
     </body>

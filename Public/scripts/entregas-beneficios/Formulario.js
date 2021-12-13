@@ -28,7 +28,7 @@ function limitaCaracteresCampo(htmlElementCampo, htmlElementFeedback, qtdMaximaC
 }
 
 function obterDadosForm() {
-    let registroEntrega = {"idTipoBeneficio" : document.querySelector("#idTipoBeneficio").value, "idBeneficiario" : document.querySelector("#idBeneficiario").value, "quantidade" : document.querySelector("#qtd").value, "nomeTipoBeneficio" : document.querySelector("#tipoBeneficio").value, "nomeBeneficiario" : document.querySelector("#beneficiario").value};
+    let registroEntrega = {"idTipoBeneficio" : document.querySelector("#idTipoBeneficio").value, "idBeneficiario" : document.querySelector("#idBeneficiario").value, "quantidade" : document.querySelector("#qtd").value, "nomeTipoBeneficio" : document.querySelector("#tipoBeneficio").value, "nomeBeneficiario" : document.querySelector("#beneficiario").value, "idUsuarioLogado" : document.querySelector("#idBeneficiario").value};
     return registroEntrega;
 }
 
