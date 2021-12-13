@@ -75,8 +75,8 @@ Tabela de conteúdos
 #### Features de entrega de benefícios
 - [x] Preenchimento automático de beneficiário.
 - [x] Preenchimento automático de tipo beneficio. 
-- [ ]  Registrar entregas.
-- [ ] Permitir um fornecedor/Doador ser vinculado a um beneficio.
+- [x] Registrar entregas.
+- [x] Atualizar estoque apos registro da entrega.
 #### Features de Fornecedores/Doadores
 - [x] Cadastrar um fornecedor/Doador.
 - [x] Listar fornecedores e doadores.
