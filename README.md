@@ -140,3 +140,4 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
  * [Plugin JS datatables](https://datatables.net/)
  * [Plugin JS sweetalert2](https://github.com/sweetalert2/sweetalert2)
  * [Plugin JS inputMask](https://github.com/RobinHerbots/Inputmask)
+ * [Plugin JS Charts](https://www.chartjs.org/docs/latest/getting-started/)
