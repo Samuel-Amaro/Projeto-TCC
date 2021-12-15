@@ -45,17 +45,15 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main style="overflow: hidden;">
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Usuários</h1>
+                        <h2 class="mt-4">Usuários</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
                             </li>
+                            <li class="breadcrumb-item active">Usuário</li>
                             <li class="breadcrumb-item active">Cadastrar</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">Cadastrar novos usuários no sistema</div>
-                        </div>
-                        <div class="card mb-4">
+                        <div class="card mb-2 border-0">
                             <div class="card-body">
                                 <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                             </div>

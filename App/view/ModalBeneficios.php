@@ -1,4 +1,4 @@
-<!--modal info beneficios-->
+<!--modal info entrega-->
 <div class="modal fade" id="modalInfoBeneficios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-</div><!--Info estoque-->
+</div><!--info entrega-->
 
 <!-- modal de timeline que mostra as movimentações de um beneficio -->
 <!--modal info timeline-->

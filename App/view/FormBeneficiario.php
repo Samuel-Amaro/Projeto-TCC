@@ -52,24 +52,27 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Beneficiários</h1>
+                        <h2 class="mt-4">Beneficiários</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
                             </li>
+                            <li class="breadcrumb-item active">Beneficiário</li>
                             <li class="breadcrumb-item active">Cadastrar</li>
                         </ol>
+                        <!--
                         <div class="card mb-4">
                             <div class="card-body">Cadastrar novos Beneficiários no sistema</div>
                         </div>
-                        <div class="card mb-4">
+                        -->
+                        <div class="card mb-1 border-0">
                             <div class="card-body">
                                 <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Cadastrar Beneficiário</h3>
+                                <h4 class="text-center font-weight-light my-2">Cadastrar Beneficiário</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-beneficiario" class="form-beneficiario">
@@ -115,7 +118,7 @@ if(session_start()) {
                                         <div class="col-md-6">
                                             <div class="">
                                                 <label for="inputCep" class="mb-1 opcional">Cep</label>
-                                                <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu Cep" maxlength="9" size="10" name="cep" title="Informe um CEP valido para ser realizada a busca"/>
+                                                <input class="form-control" id="inputCep" type="text" placeholder="Entre com seu Cep" maxlength="9" size="10" name="cep" title="Informe um CEP valido para ser realizada a busca"/>
                                                 <div class="invalid-feedback-cep"></div>
                                             </div>
                                         </div>

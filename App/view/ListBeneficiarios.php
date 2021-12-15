@@ -27,7 +27,7 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content="Pagina de listagem de beneficiarios"/>
         <meta name="author" content="Samuel Amaro"/>
-        <title>Painel de controle</title>
+        <title>Beneficiários</title>
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
@@ -53,22 +53,27 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4 mb-2">
-                        <h1 class="mt-4">Beneficiários</h1>
+                        <h2 class="mt-4">Beneficiários</h2>
                         <ol class="breadcrumb mb-2">
                             <li class="breadcrumb-item"><a href="PainelControle.php">Painel controle</a></li>
                             <li class="breadcrumb-item active">Beneficiários</li>
+                            <li class="breadcrumb-item active">Listagem</li>
                         </ol>
+                        <!--
                         <div class="card mb-2">
                             <div class="card-body">Beneficiários que possuem cadastro no nosso sistema.</div>
                         </div>
+                        -->
                     </div>    
                     <?php 
                       $resultado = $dao->selectCountBeneficiarios();
                       if(is_array($resultado)) {
                     ?>
-                    <div class="row m-lg-2">
+                    <!--
+                    <div class="row m-lg-2 mt-2">
                         <h4>Quantidade de beneficiários</h4>
                     </div>
+                    -->
                     <div class="row m-lg-2">
                     <?php 
                         $valor = $resultado[0];

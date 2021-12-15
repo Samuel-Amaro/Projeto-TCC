@@ -23,7 +23,7 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content="Pagina de listagem de fornecedores e doadores de beneficios"/>
         <meta name="author" content="Samuel Amaro"/>
-        <title>Listar Fornecedores/Doações</title>
+        <title>Listar Fornecedores e Doações</title>
         <!-- BOOSTRAP -->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <!-- ESTILO DA TABELA DO PLUGIN DATATABLES -->
@@ -48,24 +48,24 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Fornecedores/Doadores</h1>
+                        <h2 class="mt-4">Fornecedores e Doadores</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
                             </li>
+                            <li class="breadcrumb-item active">Fornecedores e Doadores</li>
                             <li class="breadcrumb-item active">Listagem</li>
                         </ol>
-                        <div class="card mb-2">
-                            <div class="card-body">Listagem de fornecedores/doadores</div>
-                        </div>
                         <?php
                         # lista a quantidade de fornecedores e doadores
                         $resultado = $dao->selectCountFornDoad();
                         if(is_array($resultado)) {
                         ?>
+                        <!--
                         <div class="row mb-2 mt-2">
                             <h4>(Quantidade) fornecedores/Doadores</h4>
                         </div>
+                        -->
                         <div class="row mb-2">
                         <?php
                             foreach($resultado as $chave => $valor) {
@@ -98,7 +98,7 @@ if(session_start()) {
                         ?>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h4 class="text-center font-weight-light my-4">Fornecedores e Doadores</h4>
+                                <h4 class="text-center font-weight-light my-2">Fornecedores e Doadores</h4>
                             </div>
                             <div class="card-body">
                                 <table id="dataTablesFornecedoresDoadores" class="row-border cell-border hover compact" style="width: 100%;">

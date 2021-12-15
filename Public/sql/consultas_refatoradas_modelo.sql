@@ -181,7 +181,7 @@ SELECT
 	ON TB.id_categoria = C.id_categoria 
 	WHERE TB.nome_tipo LIKE '%C%';
 
--- 
+-- quantidade atual de um beneficio por seu id
 SELECT
 	(SELECT 
 	SUM(MEB.quantidade_mov) AS QTD_ENTRADA
@@ -197,3 +197,40 @@ SELECT
 	ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
 	WHERE TB.id_tipo_beneficio = 1 AND MEB.tipo_movimentacao = 0
 	) AS QTD_ATUAL;
+	
+	
+-- mostra as entregas realizadas
+SELECT TO_CHAR(EN.data_entrega, 'DD/MM/YYYY HH24:MI:SS') AS data_entrega, 
+EN.quantidade_entregue AS quantidade_entregue_beneficio,
+B.cpf_beneficiario, B.primeiro_nome_beneficiario || B.ultimo_nome_beneficiario AS nome_completo,
+B.nis_beneficiario, B.celular_beneficiario_required, B.celular_beneficiario_opcional,
+B.endereco_beneficiario, B.bairro_beneficiario, B.cidade_beneficiario, B.uf_beneficiario,
+B.qtd_pessoas_resid_beneficiario, B.renda_per_capita_beneficiario, B.email_benef, B.cep_benef, 
+B.complemento_ende_benef, B.abrangencia_cras_benef, U.nome_usuario, U.cpf_usuario, 
+U.email_usuario, U.cargo_usuario, U.celular_usuario, U.id_usuario,
+TB.nome_tipo AS nome_tipo_beneficio, TB.id_tipo_beneficio, UM.sigla AS unidade_medida_beneficio,
+CB.nome AS categoria_beneficio
+FROM entregas_beneficios AS EN
+INNER JOIN beneficiarios AS B
+ON EN.id_beneficiario = B.id_beneficiario
+INNER JOIN usuario AS U
+ON EN.id_usuario_responsavel_entrega = U.id_usuario
+INNER JOIN tipo_beneficio AS TB
+ON EN.id_tipo_beneficio = TB.id_tipo_beneficio
+INNER JOIN unidades_medidas_beneficios AS UM
+ON TB.id_unidade_medida = UM.id_unidade
+INNER JOIN categoria_beneficios AS CB
+ON TB.id_categoria = CB.id_categoria;
+
+
+
+
+
+
+
+
+
+
+
+
+

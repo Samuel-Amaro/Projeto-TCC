@@ -42,24 +42,22 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Fornecedores/Doadores</h1>
+                        <h2 class="mt-4">Fornecedores e Doadores</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
                             </li>
+                            <li class="breadcrumb-item active">Fornecedores e Doadores</li>
                             <li class="breadcrumb-item active">Cadastrar</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">Cadastrar Fornecedores ou Doadores</div>
-                        </div>
-                        <div class="card mb-4">
+                        <div class="card mb-1 border-0">
                             <div class="card-body">
                                 <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h4 class="text-center font-weight-light my-4">Cadastrar Fornecedores ou Doadores</h4>
+                                <h4 class="text-center font-weight-light my-2">Cadastrar Fornecedores ou Doadores</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-fornecedores" class="form-fornecedor">

@@ -53,11 +53,21 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                <div class="container">
+                    <div class="container-fluid px-4 mb-0">
+                        <h2 class="mt-4">Usuário</h2>
+                        <ol class="breadcrumb mb-1">
+                            <li class="breadcrumb-item">
+                                <a href="PainelControle.php">Painel controle</a>
+                            </li>
+                            <li class="breadcrumb-item">Usuário</li>
+                            <li class="breadcrumb-item active">Alterar</li>
+                        </ol>
+                    </div>
+                    <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-11">
-                                <div class="card border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Sua conta de usuário</h3></div>
+                                <div class="card border-1 rounded-lg mt-4">
+                                    <div class="card-header"><h4 class="text-center font-weight-light my-2">Sua conta de usuário</h4></div>
                                     <div class="card-body">
                                         <div class="card mb-4">
                                             <div class="card-body">
@@ -121,7 +131,7 @@ if(session_start()) {
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Entre com sua senha" maxlength="12" minlength="6" title="Prencha este campo com sua senha de no minimo 6 caracteres e de no maximo 12 caracteres"/>
+                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Entre com uma nova senha" maxlength="12" minlength="6" title="Prencha este campo com sua senha de no minimo 6 caracteres e de no maximo 12 caracteres"/>
                                                         <label for="inputPassword">Senha</label>
                                                     </div>
                                                 </div>
@@ -143,9 +153,6 @@ if(session_start()) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row content-dinamico">
-
                     </div>
                 </main>
             </div><!--layoutSidenav_nav-->

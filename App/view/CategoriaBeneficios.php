@@ -25,7 +25,7 @@ if(session_start()) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content="Pagina de categorias de beneficios"/>
         <meta name="author" content="Samuel Amaro"/>
-        <title>Categorias de Beneficios</title>
+        <title>Categorias de Benefícios</title>
         <!--BOOSTRAP-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -51,16 +51,14 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Benefícios</h1>
+                        <h2 class="mt-4">Benefícios</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
                             </li>
+                            <li class="breadcrumb-item active">Benefícios</li>
                             <li class="breadcrumb-item active">Categoria de benefícios</li>
                         </ol>
-                        <div class="card mb-1">
-                            <div class="card-body">Adicionar, modificar, ou excluir novas categorias de benefícios</div>
-                        </div>
                         <div class="card border-0 mb-0">
                             <div class="card-body">
                                 <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
@@ -68,7 +66,7 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Cadastrar categoria de benefícios</h3>
+                                <h4 class="text-center font-weight-light my-2">Cadastrar categoria de benefícios</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-cadastro-categoria" class="form-categoria">
@@ -95,7 +93,7 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Categoria de Beneficios cadastrados</h3>
+                                <h4 class="text-center font-weight-light my-2">Categoria de Beneficios cadastrados</h4>
                             </div>
                             <div class="card-body">
                                 <table id="dataTablesCategoria" class="row-border cell-border hover compact" style="width: 100%;">

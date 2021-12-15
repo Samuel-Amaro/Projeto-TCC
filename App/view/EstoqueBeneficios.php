@@ -53,7 +53,7 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4 mb-0">
-                        <h1 class="mt-4">Benefícios</h1>
+                        <h2 class="mt-4">Benefícios</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
@@ -62,9 +62,6 @@ if(session_start()) {
                             <li class="breadcrumb-item active">Movimentações</li>
                         </ol>
                     </div> 
-                    <div class="row m-lg-2">
-                        <h4 class="font-weight-light my-2">Estatística estoque geral de benefícios</h4>
-                    </div>
                     <div class="row m-lg-2">
                         <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
                             <div class="card">
@@ -163,38 +160,6 @@ if(session_start()) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row m-lg-2">
-                        <h4 class="font-weight-light my-2">Saldo dos benefícios em estoque</h4>
-                        <?php 
-                            $daoEstoqueBeneficios = new DaoMovimentacoesEstoqueBeneficios(new DataBase());        
-                            $resultadoEstoqueBeneficios = $daoEstoqueBeneficios->selectAll();
-                            if(is_array($resultadoEstoqueBeneficios)) {
-                                foreach($resultadoEstoqueBeneficios as $chave => $valor) {
-                        ?>
-                                    <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="align-self-center col-3">
-                                                            <i class="fas fa-boxes fs-1"></i>
-                                                        </div>
-                                                        <div class="col-9 text-end">
-                                                            <h3> 
-                                                                <span class="text-dark"><?=$valor["saldo_atual"];?></span>
-                                                            </h3>
-                                                            <span><?=$valor["nome_tipo"];?></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                        <?php
-                                }
-                            }
-                        ?>
                     </div>
                     <div class="row m-lg-2">
                         <h4 class="font-weight-light my-2">Benefícios em estoque com movimentações</h4>

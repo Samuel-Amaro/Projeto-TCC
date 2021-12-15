@@ -28,13 +28,13 @@ class ControllerEntregaBeneficios{
         $this->methodHttp = $methodHttp;
         switch($this->operacao) {
             case "busca-beneficiario":
-            $this->controllerListBeneficiarios($this->methodHttp);
+                $this->controllerListBeneficiarios($this->methodHttp);
                 break;
             case "cadastrar": 
                 $this->controllerCadastrar($this->methodHttp);
                 break;
-            case "alterar": 
-                //$this->alterarFornecedorDoador($this->methodHttp);
+            case "listar": 
+                $this->controllerListarEntregas($this->methodHttp);
                 break;
             case "deletar":
                 //$this->excluirFornecedorDoador($this->methodHttp);
@@ -143,6 +143,27 @@ class ControllerEntregaBeneficios{
                 echo $this->getResponseJson();
             }else{
                 $this->setResponseJson("response", "Operação de registrar entrega, não foi realizada, tivemos um erro interno. Por favor tente esta ação novamente mais tarde.");
+                echo $this->getResponseJson();
+            }
+        }else{
+            $this->setResponseJson("response", "Method de solicitação HTTP não e do tipo post. Erro interno no servidor");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function controllerListarEntregas(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $entregas = array();
+            $this->daoEntrega = new DaoEntregaBeneficios(new DataBase());
+            $resultado = $this->daoEntrega->selectAll();
+            if(is_array($resultado)) {
+                foreach($resultado as $chave => $valor) {
+                    array_push($entregas, $valor);
+                }
+                $response = array("data" => $entregas);
+                echo json_encode($response);
+            }else{
+                $this->setResponseJson("response", "Houve um erro ao buscar as entregas realizadas, por favor tente novamente esta operação. Erro interno no servidor.");
                 echo $this->getResponseJson();
             }
         }else{

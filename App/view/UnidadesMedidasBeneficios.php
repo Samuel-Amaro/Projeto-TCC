@@ -51,7 +51,7 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Benefícios</h1>
+                        <h2 class="mt-4">Benefícios</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
                                 <a href="PainelControle.php">Painel controle</a>
@@ -59,9 +59,6 @@ if(session_start()) {
                             <li class="breadcrumb-item active">Benefícios</li>
                             <li class="breadcrumb-item active">Unidades de medidas</li>
                         </ol>
-                        <div class="card mb-1">
-                            <div class="card-body">Adicionar, modificar, ou excluir novas unidades de medidas de benefícios</div>
-                        </div>
                         <div class="card border-0 mb-0">
                             <div class="card-body">
                                 <div class="alert alert-warning mb-0" role="alert">Campos com * são de preenchimento obrigatório!</div>
@@ -69,7 +66,7 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Cadastrar unidades de medidas</h3>
+                                <h4 class="text-center font-weight-light my-2">Cadastrar unidades de medidas</h4>
                             </div>
                             <div class="card-body">
                                 <form action="" accept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" method="POST" target="_self" rel="next" name="formulario-unidades-medidas" class="form-unidades-medidas">
@@ -96,7 +93,7 @@ if(session_start()) {
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <h3 class="text-center font-weight-light my-4">Unidades de medidas cadastradas</h3>
+                                <h4 class="text-center font-weight-light my-2">Unidades de medidas cadastradas</h4>
                             </div>
                             <div class="card-body">
                                 <table id="dataTablesUnidadeMedida" class="row-border cell-border hover compact" style="width: 100%;">

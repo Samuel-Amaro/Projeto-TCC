@@ -84,7 +84,7 @@ if(session_start()) {
                                 <form action="" method="POST" ccept-charset="utf8" enctype="application/x-www-form-urlencoded" autocomplete="on" target="_self" rel="next" name="form-registro-entrega" class="form-registro-entrega">
                                     <input type="hidden" name="idTipoBeneficio" id="idTipoBeneficio" value="">
                                     <input type="hidden" name="idBeneficiario" id="idBeneficiario" value="">
-                                    <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario() ?>" id="id_usuario">
+                                    <input type="hidden" name="id_usuario" value="<?= $arrayUserDesserializado->getIdUsuario(); ?>" id="id_usuario">
                                     <div class="row">   
                                         <div class="col-md-5">
                                             <div class="mb-md-0">
