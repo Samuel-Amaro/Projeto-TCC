@@ -77,6 +77,7 @@ Tabela de conteúdos
 - [x] Preenchimento automático de tipo beneficio. 
 - [x] Registrar entregas.
 - [x] Atualizar estoque apos registro da entrega.
+- [x] Visualizar entregas efetuadas. 
 #### Features de Fornecedores/Doadores
 - [x] Cadastrar um fornecedor/Doador.
 - [x] Listar fornecedores e doadores.
