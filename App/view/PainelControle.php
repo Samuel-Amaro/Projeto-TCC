@@ -27,17 +27,11 @@ if(session_start()) {
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>Painel de controle</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+        <!--style boostrap-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
-        <!-- estilo do form usuario -->
-        <!--<link rel="stylesheet" href="../../Public/css/estilo_form_usuario.css">-->
         <!-- estilo do painel de controle-->
         <link rel="stylesheet" href="../../Public/css/estilo_painel_controle.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <!-- formata campos de CPF -->
-        <!--<script type="text/javascript" src="../../Public/scripts/jquery-1.2.6.pack.js"></script>
-        <script type="text/javascript" src="../../Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
-        -->
     </head>
     <body class="sb-nav-fixed">
         <!--MENU NAVEGAÇÃO DO TOPO-->
@@ -52,9 +46,9 @@ if(session_start()) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Registros</h1>
+                        <h1 class="mt-4">Painel de controle</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Painel controle</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -94,61 +88,29 @@ if(session_start()) {
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>
-                    
-                    <div class="row content-dinamico">
-
+                        <div class="container"> 
+                            <canvas id="myChart"></canvas>
+                        </div>
                     </div>
                 </main>
                 <?php
                     include("Rodape.php");
                 ?>
-                <!--
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-                -->
             </div><!--layoutSidenav_nav-->
         </div><!--layoutSidenav-->
-
-        <!--modal excluir-->
-        <!--<div class="conteiner-modal">
-            <div class="conteiner-header-modal alert-success alert-warning">
-                <h3 class="titulo-modal"></h3>
-            </div>
-            <div class="modal-content alert-success alert-warning">
-                <span class="close">&times;</span>
-                <p class="msg-content"></p>
-            </div>
-            <div class="conteiner-footer-modal alert-success alert-warning">
-                <a href="#" id="button-1-modal" target="_self" rel="next"></a>
-                <a href="#" target="_self" rel="next" id="button-2-modal"></a>
-            </div>
-        </div>--><!--modal excluir-->
         <script>
             sessionStorage.setItem("id_usuario_logado", "<?php echo $arrayUserDesserializado->getIdUsuario(); ?>");
         </script>
+        <!-- boostrap script -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../../Public/scripts/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="../../Public/demo/chart-area-demo.js"></script>
-        <script src="../../Public/demo/chart-area-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="../../Public/scripts/datatables-simple-demo.js"></script>
+        <!--graficos plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js" integrity="sha512-7Fh4YXugCSzbfLXgGvD/4mUJQty68IFFwB65VQwdAf1vnJSG02RjjSCslDPK0TnGRthFI8/bSecJl6vlUHklaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- plugin de alertas bonitos -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- script de deletar usuario -->
-        <script src="../../Public/scripts/deletar-usuario.js"></script>        
-        <!--<script src="../../Public/scripts/painel_controle.js"></script>-->
+        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>        
+        <!--script que manipula os graficos-->
+        <script src="../../Public/scripts/painel_controle/charts-teste.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>
