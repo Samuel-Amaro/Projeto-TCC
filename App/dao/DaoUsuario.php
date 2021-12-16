@@ -187,6 +187,42 @@ class DaoUsuario{
         }
     }
 
+    public function select(string $query) {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $stmt = $this->connection->prepare($query);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetchAll();
+                    if($stmt->rowCount() > 0) {
+                        if(is_array($resultado) && !empty($resultado)) {
+                            $stmt = null;
+                            unset($this->connection);         
+                            return $resultado;
+                        }else{
+                            $stmt = null;
+                            unset($this->connection);
+                            return false;
+                        } 
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }  
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
+
 }
 
 ?>

@@ -223,6 +223,16 @@ INNER JOIN categoria_beneficios AS CB
 ON TB.id_categoria = CB.id_categoria;
 
 
+SELECT COUNT(id_entrega_beneficio) AS total_entregas 
+FROM entregas_beneficios;
+
+SELECT SUM(quantidade_entregue) AS qtd_total_entregue
+FROM entregas_beneficios;
+
+SELECT COUNT(id_usuario) AS total_usuarios 
+FROM usuario;
+
+SELECT COUNT(id_usuario), tipo_usuario FROM usuario GROUP BY tipo_usuario;
 
 
 

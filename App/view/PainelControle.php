@@ -84,8 +84,18 @@ if(session_start()) {
                                             include("TabFornecedoresDoadores.php");
                                         ?>
                                     </div>
-                                    <div class="tab-pane fade" id="entregas" role="tabpanel" aria-labelledby="entrega-tab">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae possimus quam rerum corporis distinctio mollitia nostrum error, natus minus autem nulla eveniet, nihil commodi exercitationem facilis? Repellendus recusandae esse id.</div>
-                                    <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus laboriosam rerum officiis sed incidunt doloremque, iure harum tempora ex, nemo, repellat inventore nam? Quis modi, corporis dolore tempore id eveniet.</div>
+                                    <div class="tab-pane fade" id="entregas" role="tabpanel" aria-labelledby="entrega-tab">
+                                        <?php 
+                                            # entregas de beneficios
+                                            include("TabEntregas.php");        
+                                        ?>
+                                    </div>
+                                    <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
+                                        <?php
+                                           # usuarios
+                                           include("TabUsuarios.php");
+                                        ?>
+                                    </div>
                                 </div>
                         </div>
                         <div class="container"> 
