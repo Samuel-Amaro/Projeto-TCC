@@ -35,6 +35,9 @@ class ControllerBeneficio{
             case "listarMovimentacoesBeneficio":
                 $this->listarMovimentacoesBeneficio($methodHttp);
                 break;
+            case "dataChart":
+                $this->controllerChartsBarra($methodHttp);
+                break;
             default:
                 break;
         }    
@@ -132,6 +135,27 @@ class ControllerBeneficio{
         }else{
             $this->setResponseJson("response", "Erro interno no servidor, method HTTP não e do tipo post, tente esta ação mais tarde por favor!");
             echo $this->getResponseJson(); 
+        }
+    }
+
+    public function controllerChartsBarra(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $lista = array();
+            $this->daoBeneficio = new DaoBeneficio(new DataBase());
+            $resultado = $this->daoBeneficio->selectCountBeneficiosCategoria();
+            if(is_array($resultado)) {
+                foreach($resultado as $chave => $valor) {
+                    array_push($lista, $valor);
+                }
+                $res = array("dados" => $lista);
+                echo json_encode($res);
+            }else{
+                $res = array("dados" => "resultado não e array");
+                echo json_encode($res);
+            }
+        }else{
+            $res = array("dados" => "methodo não e do tipo post");
+            echo json_encode($res);
         }
     }
     

@@ -17,7 +17,6 @@ if(session_start()) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -29,8 +28,6 @@ if(session_start()) {
         <title>Painel de controle</title>
         <!--style boostrap-->
         <link href="../../Public/css/styles.css" rel="stylesheet"/>
-        <!-- estilo do painel de controle-->
-        <link rel="stylesheet" href="../../Public/css/estilo_painel_controle.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -50,43 +47,46 @@ if(session_start()) {
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Painel controle</li>
                         </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Beneficiários</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        <div class="row mb-4">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="beneficiario-tab" data-toggle="tab" href="#beneficiario"  role="tab" aria-controls="beneficiario" aria-selected="false">Beneficiários</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="beneficio-tab" data-toggle="tab" role="tab" href="#beneficio" aria-controls="beneficio" aria-selected="false">Benefícios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="forne-doad-tab" data-toggle="tab" role="tab" href="#fornecedores-doadores" aria-controls="fornecedores-doadores" aria-selected="false">Fornecedores e doadores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="entrega-tab" data-toggle="tab" role="tab" href="#entregas" aria-controls="entregas" aria-selected="false">Entrega benefícios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="usuarios-tab" data-toggle="tab" role="tab" href="#usuarios" aria-controls="usuarios" aria-selected="false">Usuários</a>
+                                </li>
+                            </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="beneficiario" role="tabpanel" aria-labelledby="beneficiario-tab">
+                                        <?php
+                                            #beneficiarios dados
+                                            include("TabBeneficiario.php"); 
+                                        ?>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Benefícios</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    <div class="tab-pane fade" id="beneficio" role="tabpanel" aria-labelledby="beneficio-tab">
+                                        <?php 
+                                            #beneficios e categorias
+                                            include("TabBeneficios.php");    
+                                        ?>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Usuários</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    <div class="tab-pane fade" id="fornecedores-doadores" role="tabpanel" aria-labelledby="forne-doad-tab">
+                                        <?php 
+                                            #fornecedores e doadores
+                                            include("TabFornecedoresDoadores.php");
+                                        ?>
                                     </div>
+                                    <div class="tab-pane fade" id="entregas" role="tabpanel" aria-labelledby="entrega-tab">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae possimus quam rerum corporis distinctio mollitia nostrum error, natus minus autem nulla eveniet, nihil commodi exercitationem facilis? Repellendus recusandae esse id.</div>
+                                    <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus laboriosam rerum officiis sed incidunt doloremque, iure harum tempora ex, nemo, repellat inventore nam? Quis modi, corporis dolore tempore id eveniet.</div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Coordenador</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="container"> 
                             <canvas id="myChart"></canvas>
@@ -108,9 +108,15 @@ if(session_start()) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js" integrity="sha512-7Fh4YXugCSzbfLXgGvD/4mUJQty68IFFwB65VQwdAf1vnJSG02RjjSCslDPK0TnGRthFI8/bSecJl6vlUHklaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- plugin de alertas bonitos -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- script de deletar usuario -->
-        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>        
+        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>
+        <!-- script de ajax para solicitar dados para compor graficos -->
+        <script src="../../Public/scripts/painel_controle/Ajax.js" type="text/javascript" charset="utf8"></script>        
         <!--script que manipula os graficos-->
         <script src="../../Public/scripts/painel_controle/charts-teste.js" type="text/javascript" charset="utf8"></script>
+        <!--script que manipula o JS do painel de controle-->
+        <script src="../../Public/scripts/painel_controle/painel-controle.js" type="text/javascript" charset="utf8"></script>
     </body>
 </html>
