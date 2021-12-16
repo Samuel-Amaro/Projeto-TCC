@@ -83,6 +83,8 @@ Tabela de conteúdos
 - [x] Listar fornecedores e doadores.
 - [x] Alterar um fornecedor/Doador. 
 - [x] Excluir um fornecedor/doador. 
+#### Features de painel de controle
+- [x] Visualização de cards por abas
 
 ## Capturas de tela
 
