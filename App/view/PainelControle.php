@@ -98,8 +98,33 @@ if(session_start()) {
                                     </div>
                                 </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>Comparativo entrada e saída no estoque de benefícios</div>
+                                    <div class="card-body">
+                                        <canvas id="myChart" style="width: 100%;"></canvas>
+                                    </div>
+                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="col-lg-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-pie me-1"></i>
+                                    </div>
+                                    <div class="card-body">
+                                       
+                                    </div>
+                                    <div class="card-footer small text-muted"></div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
                         <div class="container"> 
-                            <canvas id="myChart"></canvas>
+                            
                         </div>
                     </div>
                 </main>
@@ -121,11 +146,11 @@ if(session_start()) {
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <!-- script de deletar usuario -->
-        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>
+        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script> 
         <!-- script de ajax para solicitar dados para compor graficos -->
-        <script src="../../Public/scripts/painel_controle/Ajax.js" type="text/javascript" charset="utf8"></script>        
+        <script src="../../Public/scripts/painel_controle/Ajax.js" type="text/javascript" charset="utf8"></script>  
         <!--script que manipula os graficos-->
-        <script src="../../Public/scripts/painel_controle/charts-teste.js" type="text/javascript" charset="utf8"></script>
+        <script src="../../Public/scripts/painel_controle/charts-teste.js" type="text/javascript" charset="utf8"></script>      
         <!--script que manipula o JS do painel de controle-->
         <script src="../../Public/scripts/painel_controle/painel-controle.js" type="text/javascript" charset="utf8"></script>
     </body>

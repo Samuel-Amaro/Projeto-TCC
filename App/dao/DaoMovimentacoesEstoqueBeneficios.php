@@ -103,13 +103,46 @@ class DaoMovimentacoesEstoqueBeneficios{
         }
     }
 
-    public function select(string $param) {
-        switch($param) {
-            case 'qtd_total_entrada':
-                
-                break;
-            default : 
+    public function selectEstoqueGeral() {
+        if(is_null($this->connection)) {
+            return false; 
+        }else{
+            try {
+                $sql = "SELECT (SELECT  
+                SUM(MEB.quantidade_mov) AS QTD_ENTRADA FROM movimentacoes_estoque_beneficios AS MEB
+                WHERE MEB.tipo_movimentacao = 1) AS qtd_total_entrada, (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB WHERE MEB.tipo_movimentacao = 0
+                ) AS qtd_total_saida, (SELECT SUM(MEB.quantidade_mov) AS QTD_ENTRADA
+                FROM movimentacoes_estoque_beneficios AS MEB WHERE MEB.tipo_movimentacao = 1)  
+                - (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB WHERE MEB.tipo_movimentacao = 0) AS saldo_atual_estoque ;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetchAll();
+                    if($stmt->rowCount() > 0) {
+                        if(is_array($resultado) && !empty($resultado)) {
+                            $stmt = null;
+                            unset($this->connection);         
+                            return $resultado;
+                        }else{
+                            $stmt = null;
+                            unset($this->connection);
+                            return false;
+                        } 
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }  
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                //echo "Error!: falha ao preparar consulta SELECT TOTAL ENTRADAS movimentacoes_estoque_beneficios: <pre><code>" . $p->getMessage() . "</code></pre> </br>";
                 return false;
+            }
         }
     }
 

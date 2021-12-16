@@ -1,6 +1,6 @@
-makeRequestCharts("../controller/ControllerBeneficio.php", "dataChart");
-let resposta = getDados();
-console.log(dados);
+let d = makeRequestCharts("../controller/ControllerMovimentacoesEstoque.php", "requestDataSearch");
+//let d = JSON.stringify(dados)
+console.log("CHARTS DATA: " + valores.toString());
 
 //renderizar grafico
 //Para criar um gráfico, precisamos instanciar a Chart classe.
@@ -8,10 +8,10 @@ const ctx = document.getElementById('myChart');
 const myChart = new Chart(ctx, {
     type: 'bar', //grafico tipo barra vertical
     data: {
-        labels: ['Alimenticia', 'Entreterimento', 'Nova Categoria', 'Saude', 'Vestimenta'], //cada label representa uma barra
+        labels: ['Entrada', 'Saida', 'Saldo'], //cada label representa uma barra
         datasets: [{
             label: 'Categoria de benefícios',
-            data: [5, 2, 2, 2, 5], //cada valor e o valor de cada barra
+            data: [5, 2, 7], //cada valor e o valor de cada barra
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

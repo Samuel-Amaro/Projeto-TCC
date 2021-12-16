@@ -27,6 +27,9 @@ class ControllerMovimentacoesEstoque{
             case "INSERIR":
                 $this->controllerInsert($this->methodHttp);
                 break;
+            case "requestDataSearch":
+                $this->controllerSelectChart($this->methodHttp);
+                break;
             default:
                 $this->setResponseJson("response", "Operação solicitada na controller movimentações estoque benefícios, não existe.");
                 echo $this->getResponseJson();
@@ -67,6 +70,27 @@ class ControllerMovimentacoesEstoque{
                 echo json_encode($response);      
             }else{
                 $this->setResponseJson("response", "Houve um erro ao buscar os benefÍcios cadastrados. erro interno no servidor.");
+                echo $this->getResponseJson(); 
+            }
+        }else{
+            $this->setResponseJson("response", "Method HTTP não e do tipo POST, erro interno no servidor.");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function controllerSelectChart(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->daoEstoque = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
+            $resultado = $this->daoEstoque->selectEstoqueGeral();
+            if(is_array($resultado)) {
+                $lista = array();
+                foreach($resultado as $chave => $valor) {  
+                    array_push($lista, $valor);
+                }
+                $response = array("data" => $lista);
+                echo json_encode($response);
+            }else{
+                $this->setResponseJson("response", "Houve um erro ao buscar os dados sobre o estoque geral de beneficios. Erro interno no servidor.");
                 echo $this->getResponseJson(); 
             }
         }else{

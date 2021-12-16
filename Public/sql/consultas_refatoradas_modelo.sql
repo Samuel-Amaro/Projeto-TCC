@@ -235,8 +235,37 @@ FROM usuario;
 SELECT COUNT(id_usuario), tipo_usuario FROM usuario GROUP BY tipo_usuario;
 
 
+-- consulta traz a quantidade total de saida, entrada e saldo do estoque geral
+SELECT
+	(SELECT  
+	SUM(MEB.quantidade_mov) AS QTD_ENTRADA
+	FROM movimentacoes_estoque_beneficios AS MEB
+	WHERE MEB.tipo_movimentacao = 1 
+	) AS qtd_total_entrada, (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB
+	WHERE MEB.tipo_movimentacao = 0
+	) AS qtd_total_saida, (SELECT  
+	SUM(MEB.quantidade_mov) AS QTD_ENTRADA
+	FROM movimentacoes_estoque_beneficios AS MEB
+	WHERE MEB.tipo_movimentacao = 1)  
+	- (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB
+	WHERE MEB.tipo_movimentacao = 0
+	) AS saldo_atual_estoque ;
 
-
+-- consulta que traz o total entrada e saida e saldo de cada beneficio
+SELECT DISTINCT MEB_EXTERNO.id_tipo_beneficio,
+                TB.nome_tipo, (SELECT  SUM(MEB.quantidade_mov) AS QTD_ENTRADA FROM movimentacoes_estoque_beneficios AS MEB INNER JOIN tipo_beneficio AS TB
+                ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio WHERE TB.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 1) AS qtd_total_entrada, (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB
+                INNER JOIN tipo_beneficio AS TB ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
+                WHERE TB.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 0
+                ) AS qtd_total_saida, (SELECT SUM(MEB.quantidade_mov) AS QTD_ENTRADA
+                FROM movimentacoes_estoque_beneficios AS MEB INNER JOIN tipo_beneficio AS TB
+                ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio WHERE TB.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 1)  
+                - (SELECT SUM(MEB.quantidade_mov) AS QTD_SAIDA FROM movimentacoes_estoque_beneficios AS MEB INNER JOIN tipo_beneficio AS TB ON MEB.id_tipo_beneficio = TB.id_tipo_beneficio
+                WHERE TB.id_tipo_beneficio = MEB_EXTERNO.id_tipo_beneficio AND MEB.tipo_movimentacao = 0
+                ) AS saldo_atual_estoque FROM movimentacoes_estoque_beneficios AS MEB_EXTERNO 
+                INNER JOIN tipo_beneficio as TB ON MEB_EXTERNO.id_tipo_beneficio = TB.id_tipo_beneficio
+                INNER JOIN unidades_medidas_beneficios AS UMB ON TB.id_unidade_medida = UMB.id_unidade
+                INNER JOIN categoria_beneficios AS C ON TB.id_categoria = C.id_categoria;
 
 
 
