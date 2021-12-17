@@ -138,19 +138,19 @@ if(session_start()) {
         </script>
         <!-- boostrap script -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="../../Public/scripts/scripts.js"></script>
-        <!--graficos plugin -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js" integrity="sha512-7Fh4YXugCSzbfLXgGvD/4mUJQty68IFFwB65VQwdAf1vnJSG02RjjSCslDPK0TnGRthFI8/bSecJl6vlUHklaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="../../Public/scripts/scripts.js" type="text/javascript" charset="utf8"></script>
         <!-- plugin de alertas bonitos -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
         <!-- JQUERY -->
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <!-- script de deletar usuario -->
-        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script> 
+        <!--graficos plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js" integrity="sha512-7Fh4YXugCSzbfLXgGvD/4mUJQty68IFFwB65VQwdAf1vnJSG02RjjSCslDPK0TnGRthFI8/bSecJl6vlUHklaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- script de ajax para solicitar dados para compor graficos -->
         <script src="../../Public/scripts/painel_controle/Ajax.js" type="text/javascript" charset="utf8"></script>  
-        <!--script que manipula os graficos-->
-        <script src="../../Public/scripts/painel_controle/charts-teste.js" type="text/javascript" charset="utf8"></script>      
+        <!-- script de deletar usuario -->
+        <script src="../../Public/scripts/deletar-usuario.js" type="text/javascript" charset="utf8"></script>  
+        <!--scrip que manipula o grafico-->
+        <script src="../../Public/scripts/painel_controle/charts-teste.js" type="text/javascript" charset="utf8"></script></script>    
         <!--script que manipula o JS do painel de controle-->
         <script src="../../Public/scripts/painel_controle/painel-controle.js" type="text/javascript" charset="utf8"></script>
     </body>
