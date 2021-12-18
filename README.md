@@ -85,6 +85,8 @@ Tabela de conteúdos
 - [x] Excluir um fornecedor/doador. 
 #### Features de painel de controle
 - [x] Visualização de cards por abas
+- [x] Grafico de barra vertical.
+- [x] Grafico de pizza.  
 
 ## Capturas de tela
 
