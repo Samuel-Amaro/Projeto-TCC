@@ -89,19 +89,11 @@ Tabela de conteúdos
 - [x] Grafico de pizza.  
 
 ## Capturas de tela
+ 
+ * Pagina de painel de controle
+ 
+ <img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/PAINEL-CONTROLE-VIDEO-TCC.gif" alt="Gif animado para painel de controle" width="100%"/>
 
- * Pagina de autenticação(Login)
-
- ![Pagina de Login](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/pagina-login.png)
- 
- * Pagina Principal(Painel de controle)
- 
- ![Painel de controle](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/painel-controle.png)
- 
- * Pagina de alteração de conta de usuário
- 
- ![Pagina de alterar usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/pagina-alterar.png)
- 
  * Pagina de criação de conta de usuário
 
  ![Pagina de criar conta de usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/criar-conta-usuario.png)
