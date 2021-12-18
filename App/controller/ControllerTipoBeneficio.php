@@ -37,6 +37,9 @@ class ControllerTipoBeneficio{
             case "busca-tipo":
                 $this->controllerSearch($this->methodHttp);
                 break;
+            case "requestDataChartPie":
+                $this->controllerSelectDataChartPie($this->methodHttp);
+                break;
             default:
                 $this->setResponseJson("response", "Operação solicitada para o servidor não esta implementada!");
                 echo $this->getResponseJson();                
@@ -143,6 +146,27 @@ class ControllerTipoBeneficio{
             }
         }else{
             $this->setResponseJson("response", "Opss... Tipo de benefício não pode ser buscado. Por favor tente novamente mais tarde, tivemos um problema interno em nosso servidor.");
+            echo $this->getResponseJson();
+        }
+    }
+
+    public function controllerSelectDataChartPie(string $methodHttp) {
+        if($methodHttp === "POST") {
+            $this->daoTipoBeneficio = new DaoTipoBeneficio(new DataBase());
+            $resultado = $this->daoTipoBeneficio->selectDataChart();
+            if(is_array($resultado)) {
+                $lista = array();
+                foreach($resultado as $chave => $valor) {  
+                    array_push($lista, $valor);
+                }
+                $response = array("data" => $lista);
+                echo json_encode($response);
+            }else{
+                $this->setResponseJson("response", "Houve um erro ao buscar os dados sobre as categorias de beneficios. Erro interno no servidor.");
+                echo $this->getResponseJson(); 
+            }
+        }else{
+            $this->setResponseJson("response", "Method HTTP não e do tipo POST, erro interno no servidor.");
             echo $this->getResponseJson();
         }
     }

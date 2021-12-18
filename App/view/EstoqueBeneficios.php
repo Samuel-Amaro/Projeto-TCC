@@ -52,7 +52,7 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4 mb-0">
+                    <div class="container-fluid px-4 mb-4">
                         <h2 class="mt-4">Benefícios</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
@@ -62,108 +62,6 @@ if(session_start()) {
                             <li class="breadcrumb-item active">Movimentações</li>
                         </ol>
                     </div> 
-                    <div class="row m-lg-2">
-                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="align-self-center col-3">
-                                                <i class="fas fa-boxes fs-1"></i>
-                                            </div>
-                                            <div class="col-9 text-end">
-                                                <h3>
-                                                    <?php
-                                                        $daoEstoqueEntrada = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
-                                                        $resul1 = $daoEstoqueEntrada->selectTotalBeneficios(1);
-                                                        if(is_array($resul1)) {
-                                                            $valor1 = $resul1[0];
-                                                    ?>
-                                                            <span class="text-dark"><?=$valor1["qtd_total_entrada"];?></span>        
-                                                    <?php
-                                                        }else{
-                                                    ?>
-                                                            <span class="text-dark">0</span>
-                                                    <?php   
-                                                        }
-                                                    ?>
-                                                    <span class="text-dark"></span>
-                                                </h3>
-                                                <span>Total de entradas</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="align-self-center col-3">
-                                                <i class="fas fa-boxes fs-1"></i>
-                                            </div>
-                                            <div class="col-9 text-end">
-                                                <h3>
-                                                    <?php
-                                                        $daoEstoqueSaida = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
-                                                        $resul = $daoEstoqueSaida->selectTotalBeneficios(0);
-                                                        if(is_array($resul)) {
-                                                            $valor = $resul[0];
-                                                    ?>
-                                                            <span class="text-dark"><?=$valor["qtd_total_saida"];?></span>        
-                                                    <?php
-                                                        }else{
-                                                    ?>
-                                                            <span class="text-dark">0</span>
-                                                    <?php   
-                                                        }
-                                                    ?>
-                                                </h3>
-                                                <span>Total de saídas</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="align-self-center col-3">
-                                                <i class="fas fa-boxes fs-1"></i>
-                                            </div>
-                                            <div class="col-9 text-end">
-                                                <h3>
-                                                    <?php
-                                                        $daoEstoqueSaldoGeral = new DaoMovimentacoesEstoqueBeneficios(new DataBase());
-                                                        $resul2 = $daoEstoqueSaldoGeral->selectTotalBeneficios(2);
-                                                        if(is_array($resul2)) {
-                                                            $valor2 = $resul2[0];
-                                                    ?>
-                                                            <span class="text-dark"><?=$valor2["saldo_geral_estoque"];?></span>        
-                                                    <?php
-                                                        }else{
-                                                    ?>
-                                                            <span class="text-dark">0</span>
-                                                    <?php   
-                                                        }
-                                                    ?>
-                                                </h3>
-                                                <span>Saldo em estoque</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row m-lg-2">
-                        <h4 class="font-weight-light my-2">Benefícios em estoque com movimentações</h4>
-                    </div>
                     <div class="row mt-2 m-lg-3 p-1">
                         <div class="tabela bg-light rounded-1 p-3" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                             <table id="dataTablesEstoque" class="row-border cell-border hover compact" style="width: 100%;">

@@ -99,32 +99,30 @@ if(session_start()) {
                                 </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>Comparativo entrada e saída no estoque de benefícios</div>
                                     <div class="card-body">
                                         <canvas id="myChart" style="width: 100%;"></canvas>
                                     </div>
-                                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                                    <?php
+                                        $date = new DateTime(null, new DateTimeZone('America/Sao_Paulo'));
+                                    ?>
+                                    <div class="card-footer small text-muted">Atualizado em <?php echo $date->format("d/m/Y");?> as <?php echo $date->format("G:i:s");?></div>
                                 </div>
                             </div>
-                            <!--
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="card mb-4">
                                     <div class="card-header">
-                                        <i class="fas fa-chart-pie me-1"></i>
+                                        <i class="fas fa-chart-pie me-1"></i> Benefícios por categoria
                                     </div>
                                     <div class="card-body">
-                                       
+                                        <canvas id="chartPizza" style="width: 100%;"></canvas>
                                     </div>
-                                    <div class="card-footer small text-muted"></div>
+                                    <div class="card-footer small text-muted">Atualizado em <?php echo $date->format("d/m/Y");?> as <?php echo $date->format("G:i:s");?></div>
                                 </div>
                             </div>
-                            -->
-                        </div>
-                        <div class="container"> 
-                            
                         </div>
                     </div>
                 </main>

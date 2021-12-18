@@ -15,7 +15,6 @@ if(session_start()) {
         $arrayUserDesserializado = unserialize($_SESSION["usuario_logado"]);
         $modelUser = new ModelUsuario($arrayUserDesserializado->getIdUsuario(), $arrayUserDesserializado->getCpfUsuario(), $arrayUserDesserializado-> getCelularUsuario(), $arrayUserDesserializado->getEmailUsuario(), $arrayUserDesserializado->getCargoUsuario(), $arrayUserDesserializado->getTipoUsuario(), $arrayUserDesserializado->getSenhaUsuario(), $arrayUserDesserializado->getNomeUsuario());
         $modelUser->setDataCadastroUsuario($arrayUserDesserializado->getDataCadastroUsuario());
-        $dao = new DaoBeneficiario(new DataBase());
     }
 }
 ?>
@@ -52,55 +51,14 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4 mb-2">
+                    <div class="container-fluid px-4 mb-4">
                         <h2 class="mt-4">Beneficiários</h2>
                         <ol class="breadcrumb mb-2">
                             <li class="breadcrumb-item"><a href="PainelControle.php">Painel controle</a></li>
                             <li class="breadcrumb-item active">Beneficiários</li>
                             <li class="breadcrumb-item active">Listagem</li>
                         </ol>
-                        <!--
-                        <div class="card mb-2">
-                            <div class="card-body">Beneficiários que possuem cadastro no nosso sistema.</div>
-                        </div>
-                        -->
                     </div>    
-                    <?php 
-                      $resultado = $dao->selectCountBeneficiarios();
-                      if(is_array($resultado)) {
-                    ?>
-                    <!--
-                    <div class="row m-lg-2 mt-2">
-                        <h4>Quantidade de beneficiários</h4>
-                    </div>
-                    -->
-                    <div class="row m-lg-2">
-                    <?php 
-                        $valor = $resultado[0];
-                    ?>    
-                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="align-self-center col-3">
-                                                <i class="fas fa-users fs-1"></i>
-                                            </div>
-                                            <div class="col-9 text-end">
-                                                <h3>
-                                                    <span class="text-dark"><?=$valor["qtd"];?></span>        
-                                                </h3>
-                                                <span>Beneficíarios</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>    
-                    </div>
-                    <?php
-                      }
-                    ?>
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
                             <div class="card-header">
@@ -111,24 +69,13 @@ if(session_start()) {
                                 <table id="dataTablesBeneficiarios" class="row-border cell-border hover compact" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <!--<th>Id</th>-->
                                             <th>CPF</th>
                                             <th>Primeiro Nome</th>
                                             <th>Ultimo Nome</th>
-                                            <!--<th>Nis</th>-->
                                             <th>Celular</th>
-                                            <!--<th>Celular</th>-->
-                                            <!--<th>Endereço</th>-->
-                                            <!--<th>Bairro</th>-->
                                             <th>Cidade</th>
-                                            <!--<th>UF</th>-->
                                             <th>Nª Pessoas Residencia</th>
                                             <th>Renda Per Capita</th>
-                                            <!--<th>Observação</th>-->
-                                            <!--<th>Email</th>-->
-                                            <!--<th>CEP</th>-->
-                                            <!--<th>Complemento</th>-->
-                                            <!--<th>Abrangencia Cras</th>-->
                                             <th>Editar Beneficiário</th>
                                         </tr>
                                     </thead>

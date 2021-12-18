@@ -244,6 +244,38 @@ class DaoTipoBeneficio{
         }
     }
 
+    public function selectDataChart() {
+        if(is_null($this->connection)) {
+            return false;
+        }else{
+            try {
+                $sql = "SELECT CB.nome AS nome_categoria, COUNT(DISTINCT TB.nome_tipo) AS qtd_beneficio_categoria FROM tipo_beneficio AS TB INNER JOIN categoria_beneficios AS CB
+                ON TB.id_categoria = CB.id_categoria GROUP BY CB.nome;";
+                $stmt = $this->connection->prepare($sql);
+                if($stmt->execute()) {
+                    if($stmt->rowCount() > 0) {
+                        $resultado = $stmt->fetchAll();
+                        $stmt = null;
+                        unset($this->connection);
+                        return is_array($resultado) ? $resultado : false;    
+                    }else{
+                        $stmt = null;
+                        unset($this->connection);
+                        return false;
+                    }
+                }else{
+                    $stmt = null;
+                    unset($this->connection);
+                    return false;
+                }
+            } catch (PDOException $p) {
+                $stmt = null;
+                unset($this->connection);
+                return false;
+            }
+        }
+    }
+
 }
 
 ?>

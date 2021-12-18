@@ -57,7 +57,7 @@ if(session_start()) {
             ?>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4 mb-0">
+                    <div class="container-fluid px-4 mb-4">
                         <h2 class="mt-4">Benefícios</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item">
@@ -66,89 +66,6 @@ if(session_start()) {
                             <li class="breadcrumb-item">Benefícios</li>
                             <li class="breadcrumb-item active">Visualizar</li>
                         </ol>
-                    </div>
-                    <!-- 
-                    <div class="row m-lg-2">
-                        <h4>Estatísticas de benefícios</h4>
-                    </div>
-                    -->
-                    <div class="row m-lg-2">
-                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="align-self-center col-3">
-                                                <i class="fas fa-boxes fs-1"></i>
-                                            </div>
-                                            <div class="col-9 text-end">
-                                                <h3>
-                                                <?php
-                                                    #lista a quantidade de beneficios
-                                                    $resul = $daoBeneficio->selectCountBeneficios();
-                                                    if(is_array($resul)) {
-                                                        $valor = $resul[0];
-                                                ?>
-                                                        <span class="text-dark"><?= $valor["qtd_beneficios"]; ?></span>       
-                                                <?php
-                                                    }else{
-                                                ?>
-                                                        <span class="text-dark">0</span>
-                                                <?php
-                                                    }
-                                                ?>  
-                                                </h3>
-                                                <span>Benefícios</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php 
-                    # lista a quantidade de beneficios por categoria    
-                    $daoBeneficio = new DaoBeneficio(new DataBase());
-                    $result2 = $daoBeneficio->selectCountBeneficiosCategoria();
-                    if(is_array($result2)) {
-                    ?>
-                    <!--
-                    <div class="row m-lg-2">
-                        <h4>Benefícios por categoria</h4>
-                    </div>
-                    -->    
-                    <div class="row m-lg-2">
-                    <?php
-                        foreach($result2 as $chave => $valorArray) {
-                    ?>
-                        <div class="col-xl-3 col-sm-6 col-12 linkcard mb-2">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="align-self-center col-3">
-                                                <i class="fas fa-boxes fs-1"></i>
-                                            </div>
-                                            <div class="col-9 text-end">
-                                                <h3>
-                                                    <span class="text-dark"><?=$valorArray["qtd_beneficio_categoria"];?></span>         
-                                                </h3>
-                                                <span>Categoria <?=$valorArray["nome_categoria"];?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    <?php
-                        }
-                    ?>
-                    </div>                  
-                    <?php
-                    }
-                    ?>
-                    <div class="row m-lg-2">
-                        <h4>Benefícios cadastrados no sistema</h4>
                     </div>
                     <div class="row mt-2 m-lg-3 p-1">
                         <div class="tabela bg-light rounded-1 p-3" style="border: 1px solid rgba(0, 0, 0, 0.125);">
