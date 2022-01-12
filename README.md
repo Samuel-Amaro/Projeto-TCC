@@ -90,29 +90,33 @@ Tabela de conteúdos
 
 ## Capturas de tela
  
- * Pagina de painel de controle
+ * Painel de controle
  
  <img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/PAINEL-CONTROLE-VIDEO-TCC.gif" alt="Gif animado para painel de controle" width="100%"/>
 
- * Pagina de criação de conta de usuário
+ * Usuários
 
- ![Pagina de criar conta de usuario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/criar-conta-usuario.png)
+<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/USUARIOS-GIF.gif" alt="Gif usuarios" width="100%"/>
  
- * Pagina de visualização de usuários no sistema
+ * Beneficiários
 
-![Pagina de visualização de usuarios no sistema](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/visualizar-usuarios-parte-1.png)
+<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/BENEFICIARIOS-GIF.gif" alt="Gif beneficiarios" width="100%"/>
 
-* Continuação do print(da visualização de usuários)
+* Benefícios Parte 01
 
-![Pagina de visualização de usuarios](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/usuarios-ativos.png)
+<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/BENEFICIOS-GIF-PARTE-1.gif" alt="Gif beneficios" width="100%"/>
 
-* Pagina de visualizar beneficiários, editalos e excluilos.
+* Benefícios Parte 02
 
-![Pagina de visualizar beneficiario](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/GifPaginaVisualizarBeneficiarios.gif)
+<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/BENEFICIOS-GIF-PARTE-2.gif" alt="Gif beneficios" width="100%"/>
 
-* Pagina de cadastrar beneficiários.
+* Fornecedores/Doadores
 
-![Pagina de cadastrar beneficiarios](https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/prints/GifPaginaCadastrarBeneficiarios.gif)
+<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/FORNECEDORES-DOADORES-GIF.gif" alt="Gif fornecedores doadores" width="100%"/>
+
+* Entregas Benefícios
+
+<img src="https://github.com/Samuel-Amaro/Projeto-TCC/blob/main/assets_git_hub/multimidia/gifs/ENTREGAS-GIF.gif" alt="Gif fornecedores doadores" width="100%"/>
 
 ### Pré-requisitos 
 
