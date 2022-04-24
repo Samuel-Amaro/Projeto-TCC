@@ -8,13 +8,11 @@
     <meta name="keywords" content="Login, Pagina de Login, Central de cestas, beneficio social, autenticação">
     <meta name="author" content="Samuel Amaro">
     <title>Login</title>
+    <!--<link href="../../Public/css/styles.css" rel="stylesheet"/>-->
     <link rel="stylesheet" href="Public/css/estilo_login.css">
     <script src="https://kit.fontawesome.com/4cfa17c069.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="Public/scripts/jquery-1.2.6.pack.js"></script>
-    <script type="text/javascript" src="Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
 </head>
 <body>
-
     <main class="conteiner-geral">
         <section class="conteiner-login">
             <div class="conteiner-titulo">
@@ -30,9 +28,9 @@
                 <form action="#" enctype="multipart/form-data" method="POST" accept-charset="utf8" autocomplete="on" name="formulario_login" class="form_login">
                     <input type="hidden" name="operacao" value="login">
                     <!--<label for="cpf" class="labels">CPF</label>-->
-                    <input type="text" name="cpf" id="cpf" title="Preencha este campo com seu cpf, somente numeros" placeholder="cpf" required>
+                    <input type="text" name="cpf" id="cpf" title="Preencha este campo com seu cpf, somente numeros" placeholder="cpf" required data-toggle="tooltip" data-placement="right">
                     <!--<label for="senha" class="labels">Senha</label>-->
-                    <input type="password" name="senha" id="senha" title="Preencha este campo com sua senha, de no minimo 6 caracteres ou no máximo 12" min="6" max="12" required placeholder="senha">
+                    <input type="password" name="senha" id="senha" title="Preencha este campo com sua senha, de no minimo 6 caracteres ou no máximo 12" min="6" max="12" required placeholder="senha" data-toggle="tooltip" data-placement="right">
                     <div class="conteiner-esquece-senha">
                         <a href="#" class="link-esquece-senha">esqueci minha senha</a>
                     </div>
@@ -59,8 +57,16 @@
             </div>
         </div>
     </main>
+    <!-- boostrap script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../Public/scripts/scripts.js" type="text/javascript" charset="utf8"></script>
     <!-- plugin de alertas bonitos -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" type="text/javascript" charset="utf8"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="Public/scripts/jquery.maskedinput-1.1.4.pack.js"></script>
+    -->
+    <script type="text/javascript" src="Public/scripts/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="Public/scripts/login.js"></script>
 </body>
 </html>

@@ -1,3 +1,8 @@
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+//$('#cpf').tooltip({ boundary: 'window' });
 
 function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     if(tipo == "sucesso") {
@@ -35,25 +40,6 @@ function mostraModal(mensagemModal, tituloModal, textBtn1, textBtn2, tipo) {
     btn2Modal.textContent = textBtn2;
 }
 
-
-/*
-function mostraModal(mensagem) {
-    let modal = document.querySelector(".conteiner-modal");
-    let span = document.querySelector(".close");
-    modal.style.display = "block";
-    span.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-    window.addEventListener("click", function(event) {
-        if(event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-    let p = document.querySelector(".content");
-    p.textContent = mensagem;
-}
-*/
-
 $(document).ready(function(){  
     $("#cpf").mask("999.999.999-99");   
 });
@@ -79,7 +65,7 @@ $(".form_login").submit(
                 Swal.fire({
                     icon: 'error',
                     title: 'Falha ao Fazer Login!',
-                    text: 'Problemas interno em nossa Sistema, agurde uns instantes.',
+                    text: 'CPF ou Senha incorretos, tente novamente.',
                     footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
                 });
                 //não submete o form
@@ -111,7 +97,7 @@ function makeRequest(url, cpf, senha) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Erro ao realizar login',
-                            text: 'Problemas interno em nossa Sistema, agurde uns instantes.',
+                            text: 'CPF ou Senha incorretos, tente novamente.',
                             footer: '<a href="#">Clique aqui se precisa de ajuda!</a>'
                         });
                         //mostraModal(httpResponse.erro, "Erro ao realizar login", "Tentar Novamente", "Cancelar", "error");
